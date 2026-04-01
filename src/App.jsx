@@ -762,26 +762,55 @@ const App = () => {
 
               <CreatorCard />
 
-              {/* Бегающий блик (Лицевая сторона) */}
+              {/* === ЭФФЕКТЫ СВЕЧЕНИЯ И БЛИКОВ === */}
+
+              {/* Лицевая сторона: Мягкий, обволакивающий свет */}
               <div 
                 className="absolute inset-0 w-full h-full rounded-[2.5rem] pointer-events-none transition-opacity duration-300 card-backface-hidden"
                 style={{
-                  background: `radial-gradient(circle at ${glare.x}% ${glare.y}%, rgba(255, 255, 255, 0.15) 0%, transparent 60%)`,
+                  background: `radial-gradient(circle at ${glare.x}% ${glare.y}%, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.05) 40%, transparent 60%)`,
+                  mixBlendMode: 'overlay',
                   opacity: glare.opacity,
                   zIndex: 50,
                 }}
               />
 
-              {/* Бегающий блик (Обратная сторона) */}
+              {/* Обратная сторона: ВАУ-эффект (Цветной свет + стеклянный отсвет) */}
               <div 
-                className="absolute inset-0 w-full h-full rounded-[2.5rem] pointer-events-none transition-opacity duration-300 card-backface-hidden"
+                className="absolute inset-0 w-full h-full rounded-[2.5rem] pointer-events-none transition-opacity duration-300 card-backface-hidden overflow-hidden"
                 style={{
                   transform: 'rotateY(180deg) translateZ(0)',
-                  background: `radial-gradient(circle at ${100 - glare.x}% ${glare.y}%, rgba(255, 255, 255, 0.15) 0%, transparent 60%)`,
                   opacity: glare.opacity,
                   zIndex: 50,
                 }}
-              />
+              >
+                {/* 1. Глубокое винное свечение под курсором */}
+                <div 
+                  className="absolute inset-0 w-full h-full"
+                  style={{
+                    background: `radial-gradient(circle at ${100 - glare.x}% ${glare.y}%, rgba(225, 29, 72, 0.6) 0%, rgba(159, 18, 57, 0.2) 40%, transparent 70%)`,
+                    mixBlendMode: 'color-dodge',
+                  }}
+                />
+                
+                {/* 2. Яркий белый центр для глубины */}
+                <div 
+                  className="absolute inset-0 w-full h-full"
+                  style={{
+                    background: `radial-gradient(circle at ${100 - glare.x}% ${glare.y}%, rgba(255, 255, 255, 0.4) 0%, transparent 35%)`,
+                    mixBlendMode: 'overlay',
+                  }}
+                />
+                
+                {/* 3. Диагональный стеклянный перелив (отражение скользит по карточке) */}
+                <div 
+                  className="absolute inset-0 w-full h-full opacity-70"
+                  style={{
+                    background: `linear-gradient(115deg, transparent ${glare.x - 30}%, rgba(255, 255, 255, 0.1) ${glare.x - 10}%, rgba(255, 255, 255, 0.5) ${glare.x}%, rgba(255, 255, 255, 0.1) ${glare.x + 10}%, transparent ${glare.x + 30}%)`,
+                    mixBlendMode: 'overlay',
+                  }}
+                />
+              </div>
             </div>
           </div>
         </div>
