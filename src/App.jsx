@@ -242,6 +242,9 @@ const CreatorCard = () => {
         
         <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-rose-900/20 via-transparent to-transparent"></div>
 
+        {/* ТЕМНЫЙ ПОЛУПРОЗРАЧНЫЙ ФОН ПОВЕРХ ФОТО (Снизу темнее, сверху прозрачный) */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-zinc-950/80 to-transparent pointer-events-none z-0 rounded-[2.5rem]"></div>
+
         {/* ЗАМЕНА СТАТИЧНОГО ФОНА НА СГОРАЮЩИЙ (Винный огонь) */}
         <BurnRevealImage src={CONTENT.creator.bgImage} className="opacity-50 mix-blend-luminosity grayscale-[0.2]" burnColor="wine" />
 
@@ -332,7 +335,7 @@ const CreatorCard = () => {
               <p className="font-serif text-[11px] text-rose-100/80 leading-relaxed bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-rose-900/50 shadow-inner">
                 Я создаю не просто сайты, а премиальные digital-миры. Ваша цифровая визитка — это статус, который продает ваши услуги еще до того, как вы заговорите. Уникальные анимации, PWA-приложения и 100% WOW-эффект.
               </p>
-              <a href={CONTENT.creator.websiteLink} target="_blank" rel="noreferrer" className="mt-3 bg-gradient-to-r from-rose-950 to-black border border-rose-800/50 hover:border-rose-600/50 text-rose-200 text-[10px] uppercase tracking-[0.2em] py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 transition-all shadow-[0_0_15px_rgba(0,0,0,0.5)] w-fit mx-auto group">
+              <a href={CONTENT.creator.websiteLink} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()} className="no-tilt mt-3 bg-gradient-to-r from-rose-950 to-black border border-rose-800/50 hover:border-rose-600/50 text-rose-200 text-[10px] uppercase tracking-[0.2em] py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 transition-all shadow-[0_0_15px_rgba(0,0,0,0.5)] w-fit mx-auto group">
                  <Globe className="w-3.5 h-3.5 text-rose-400 group-hover:animate-pulse" />
                  {CONTENT.creator.websiteText}
               </a>
@@ -768,49 +771,24 @@ const App = () => {
               <div 
                 className="absolute inset-0 w-full h-full rounded-[2.5rem] pointer-events-none transition-opacity duration-300 card-backface-hidden"
                 style={{
-                  background: `radial-gradient(circle at ${glare.x}% ${glare.y}%, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.05) 40%, transparent 60%)`,
+                  background: `radial-gradient(farthest-corner circle at ${glare.x}% ${glare.y}%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 80%)`,
                   mixBlendMode: 'overlay',
                   opacity: glare.opacity,
                   zIndex: 50,
                 }}
               />
 
-              {/* Обратная сторона: ВАУ-эффект (Цветной свет + стеклянный отсвет) */}
+              {/* Бегающий блик (Обратная сторона) */}
               <div 
-                className="absolute inset-0 w-full h-full rounded-[2.5rem] pointer-events-none transition-opacity duration-300 card-backface-hidden overflow-hidden"
+                className="absolute inset-0 w-full h-full rounded-[2.5rem] pointer-events-none transition-opacity duration-300 card-backface-hidden"
                 style={{
                   transform: 'rotateY(180deg) translateZ(0)',
+                  background: `radial-gradient(farthest-corner circle at ${100 - glare.x}% ${glare.y}%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 80%)`,
                   opacity: glare.opacity,
+                  mixBlendMode: 'overlay',
                   zIndex: 50,
                 }}
-              >
-                {/* 1. Глубокое винное свечение под курсором */}
-                <div 
-                  className="absolute inset-0 w-full h-full"
-                  style={{
-                    background: `radial-gradient(circle at ${100 - glare.x}% ${glare.y}%, rgba(225, 29, 72, 0.6) 0%, rgba(159, 18, 57, 0.2) 40%, transparent 70%)`,
-                    mixBlendMode: 'color-dodge',
-                  }}
-                />
-                
-                {/* 2. Яркий белый центр для глубины */}
-                <div 
-                  className="absolute inset-0 w-full h-full"
-                  style={{
-                    background: `radial-gradient(circle at ${100 - glare.x}% ${glare.y}%, rgba(255, 255, 255, 0.4) 0%, transparent 35%)`,
-                    mixBlendMode: 'overlay',
-                  }}
-                />
-                
-                {/* 3. Диагональный стеклянный перелив (отражение скользит по карточке) */}
-                <div 
-                  className="absolute inset-0 w-full h-full opacity-70"
-                  style={{
-                    background: `linear-gradient(115deg, transparent ${glare.x - 30}%, rgba(255, 255, 255, 0.1) ${glare.x - 10}%, rgba(255, 255, 255, 0.5) ${glare.x}%, rgba(255, 255, 255, 0.1) ${glare.x + 10}%, transparent ${glare.x + 30}%)`,
-                    mixBlendMode: 'overlay',
-                  }}
-                />
-              </div>
+              />
             </div>
           </div>
         </div>
