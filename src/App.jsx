@@ -243,7 +243,7 @@ const CreatorCard = () => {
         <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-rose-900/20 via-transparent to-transparent"></div>
 
         {/* ТЕМНЫЙ ПОЛУПРОЗРАЧНЫЙ ФОН ПОВЕРХ ФОТО (Снизу темнее, сверху прозрачный) */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-zinc-950/80 to-transparent pointer-events-none z-0 rounded-[2.5rem]"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black from-0% via-black/80 via-[15%] to-transparent to-[30%] pointer-events-none z-0 rounded-[2.5rem]"></div>
 
         {/* ЗАМЕНА СТАТИЧНОГО ФОНА НА СГОРАЮЩИЙ (Винный огонь) */}
         <BurnRevealImage src={CONTENT.creator.bgImage} className="opacity-50 mix-blend-luminosity grayscale-[0.2]" burnColor="wine" />
