@@ -1,21 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { 
-  Sparkles, Moon, Brain, Heart, PlaneTakeoff, Map, 
-  Camera, Play, Phone, Mail, MessageCircle, 
-  MapPin, Globe, Award, Star, Compass, UserCircle2,
-  Flame, Activity, Building2, Key, TrendingUp, Diamond, Wallet, Crown,
-  QrCode, Share2, Copy, X, Check, MousePointerClick, RefreshCw, Droplets,
+  Globe, Star, UserCircle2, Diamond, Crown,
+  QrCode, Share2, Copy, X, Check,
   Rocket, Code2
 } from 'lucide-react';
-
-// Кастомная иконка Instagram (т.к. из lucide-react бренды удалили)
-const InstagramIcon = ({ className }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
-    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
-  </svg>
-);
 
 // ==========================================
 // ⚙️ НАСТРОЙКИ КОНТЕНТА (МЕНЯТЬ ТЕКСТ, ФОТО И ССЫЛКИ ТОЛЬКО ЗДЕСЬ!)
@@ -167,7 +155,7 @@ const globalStyles = `
     will-change: background-position, opacity;
   }
   
-  /* === АНИМАЦИИ ЭЗОТЕРИКА (Медленное, однонаправленное движение) === */
+  /* === АНИМАЦИИ ФОНА === */
   @keyframes esoteric-slow-drift-1 {
     0%   { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
@@ -175,47 +163,6 @@ const globalStyles = `
   @keyframes esoteric-slow-drift-2 {
     0%   { transform: rotate(360deg); }
     100% { transform: rotate(0deg); }
-  }
-  @keyframes esoteric-slow-expand {
-    0%   { transform: scale(1); opacity: 0.8; }
-    50%  { transform: scale(2.2); opacity: 0; }
-    100% { transform: scale(1); opacity: 0.8; }
-  }
-  
-  /* === АНИМАЦИИ ТРЕНЕРА (Спокойная пульсация прогресс-баров) === */
-  @keyframes fitness-bar-1 {
-    0%, 100% { width: 85%; }
-    50% { width: 95%; }
-  }
-  @keyframes fitness-bar-2 {
-    0%, 100% { width: 75%; }
-    50% { width: 90%; }
-  }
-  
-  /* === АНИМАЦИИ ДЛЯ МАНИКЮРА (Жемчужный перелив и Блик) === */
-  @keyframes pearl-shimmer {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-  .animate-pearl {
-    background-size: 200% 200%;
-    animation: pearl-shimmer 8s ease infinite;
-  }
-  @keyframes shine {
-    100% { left: 200%; }
-  }
-  
-  /* === АНИМАЦИИ ДЛЯ АЛЬФА ПАРТНЕРА (Красный Монолит) === */
-  @keyframes alfa-chart-draw {
-    0% { stroke-dashoffset: 1000; opacity: 0; }
-    20% { opacity: 0.3; }
-    100% { stroke-dashoffset: 0; opacity: 0.3; }
-  }
-  .animate-alfa-chart {
-    stroke-dasharray: 1000;
-    stroke-dashoffset: 1000;
-    animation: alfa-chart-draw 4s ease-out forwards infinite;
   }
   
   /* === АНИМАЦИИ ДЛЯ СВЕТОВОГО ШАРА (DOCK ПАНЕЛИ) === */
@@ -248,22 +195,14 @@ const globalStyles = `
 // ==========================================
 // 🪄 КОМПОНЕНТ ЭФФЕКТА СГОРАНИЯ (УМНАЯ ЦВЕТОВАЯ ПОДСТРОЙКА)
 // ==========================================
-const BurnRevealImage = ({ src, className, style, imgClassName = "", burnColor = "default" }) => {
+const BurnRevealImage = ({ src, className, style, imgClassName = "", burnColor = "wine" }) => {
   // Цветовые темы огня (c1 - пепел/край, c2 - основной огонь, c3 - яркая вспышка)
   const themes = {
     default: { c1: 'rgba(220, 38, 38, 0.9)', c2: 'rgba(250, 150, 0, 1)', c3: 'rgba(255, 220, 50, 0.8)' },
-    wine: { c1: 'rgba(88, 11, 37, 0.9)', c2: 'rgba(159, 18, 57, 1)', c3: 'rgba(225, 29, 72, 0.8)' }, // Босс (Елена)
-    teal: { c1: 'rgba(13, 148, 136, 0.9)', c2: 'rgba(45, 212, 191, 1)', c3: 'rgba(153, 246, 228, 0.8)' }, // Психолог
-    rose: { c1: 'rgba(159, 18, 57, 0.9)', c2: 'rgba(244, 63, 94, 1)', c3: 'rgba(253, 164, 175, 0.8)' }, // Маникюр
-    orange: { c1: 'rgba(194, 65, 12, 0.9)', c2: 'rgba(249, 115, 22, 1)', c3: 'rgba(253, 186, 116, 0.8)' }, // Турагент
-    purple: { c1: 'rgba(88, 28, 135, 0.9)', c2: 'rgba(168, 85, 247, 1)', c3: 'rgba(216, 180, 254, 0.8)' }, // Эзотерик
-    emerald: { c1: 'rgba(6, 78, 59, 0.9)', c2: 'rgba(16, 185, 129, 1)', c3: 'rgba(110, 231, 183, 0.8)' }, // Деньги
-    gold: { c1: 'rgba(146, 64, 14, 0.9)', c2: 'rgba(217, 119, 6, 1)', c3: 'rgba(252, 211, 77, 0.8)' }, // Старт / Брокер
-    pink: { c1: 'rgba(190, 24, 93, 0.9)', c2: 'rgba(236, 72, 153, 1)', c3: 'rgba(249, 168, 212, 0.8)' }, // Блогер
-    red: { c1: 'rgba(153, 27, 27, 0.9)', c2: 'rgba(220, 38, 38, 1)', c3: 'rgba(248, 113, 113, 0.8)' }, // Тренер / Альфа
+    wine: { c1: 'rgba(88, 11, 37, 0.9)', c2: 'rgba(159, 18, 57, 1)', c3: 'rgba(225, 29, 72, 0.8)' } // Босс (Елена)
   };
   
-  const t = themes[burnColor] || themes.default;
+  const t = themes[burnColor] || themes.wine;
 
   return (
     <div className={`absolute inset-0 pointer-events-none rounded-[2.5rem] ${className}`} style={{ ...style, clipPath: 'inset(0 round 2.5rem)', WebkitClipPath: 'inset(0 round 2.5rem)' }}>
@@ -305,9 +244,6 @@ const CreatorCard = () => {
 
         {/* ЗАМЕНА СТАТИЧНОГО ФОНА НА СГОРАЮЩИЙ (Винный огонь) */}
         <BurnRevealImage src={CONTENT.creator.bgImage} className="opacity-50 mix-blend-luminosity grayscale-[0.2]" burnColor="wine" />
-        
-        {/* Космические звезды на фоне */}
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iNDAwIj4KICA8ZyBmaWxsPSIjZmZmIiBvcGFjaXR5PSIwLjE1Ij4KICAgIDxjaXJjbGUgY3g9IjUwIiBjeT0iNTAiIHI9IjEiLz4KICAgIDxjaXJjbGUgY3g9IjE1MCIgY3k9IjIzMCIgcj0iMS41Ii8+CiAgICA8Y2lyY2xlIGN4PSIyNTAiIGN5PSI4MCIgcj0iMSIvPgogICAgPGNpcmNsZSBjeD0iMzIwIiBjeT0iMzIwIiByPSIyIiBvcGFjaXR5PSIwLjMiLz4KICAgIDxjaXJjbGUgY3g9IjgwIiBjeT0iMzUwIiByPSIxIi8+CiAgICA8Y2lyY2xlIGN4PSIzNzAiIGN5PSIxNTAiIHI9IjEiLz4KICA8L2c+Cjwvc3ZnPg==')] opacity-60 mix-blend-screen pointer-events-none"></div>
 
         <div className="relative z-10 flex flex-col h-full justify-between">
           <div className="flex justify-between items-start">
