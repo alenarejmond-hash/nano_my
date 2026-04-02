@@ -554,32 +554,18 @@ const App = () => {
   const [isAudioPlaying, setIsAudioPlaying] = useState(false); // Состояние аудио
   const cardRef = useRef(null);
   const audioCtxRef = useRef(null); // Реф для аудио контекста (чтобы звук не пропадал)
-  const greetingAudioRef = useRef(null); // Реф для файла приветствия
+  const audioRef = useRef(null); // ПРЯМОЙ РЕФ НА ТЕГ <audio> (Бронебойно для iPhone)
   const isFlippingRef = useRef(false); // Реф для блокировки наклона во время переворота
 
-  // Инициализация аудио приветствия (без авто-создания для обхода блокировок iOS)
-  useEffect(() => {
-    return () => {
-      if (greetingAudioRef.current) {
-        greetingAudioRef.current.pause();
-        greetingAudioRef.current = null;
-      }
-    };
-  }, []);
-
   const toggleGreetingAudio = () => {
-    // Создаем Audio только при первом клике пользователя (строгое требование iPhone)
-    if (!greetingAudioRef.current) {
-      greetingAudioRef.current = new Audio(CONTENT.creator.audioGreeting);
-      greetingAudioRef.current.onended = () => setIsAudioPlaying(false);
-    }
+    if (!audioRef.current) return;
     
     if (isAudioPlaying) {
-      greetingAudioRef.current.pause();
+      audioRef.current.pause();
       setIsAudioPlaying(false);
     } else {
-      // Запуск звука напрямую через Promise (еще одно требование iOS Safari)
-      const playPromise = greetingAudioRef.current.play();
+      // Запуск звука напрямую через Promise (требование iOS Safari)
+      const playPromise = audioRef.current.play();
       if (playPromise !== undefined) {
         playPromise.then(() => {
           setIsAudioPlaying(true);
@@ -883,21 +869,30 @@ const App = () => {
       {/* === ПАНЕЛЬ С КНОПКАМИ (Центрированная внизу, на десктопе опущена ниже) === */}
       <div className="fixed bottom-10 sm:bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-6">
         
+        {/* Невидимый аудиоплеер (Бронебойный вариант для iPhone) */}
+        <audio 
+          ref={audioRef} 
+          src={CONTENT.creator.audioGreeting} 
+          onEnded={() => setIsAudioPlaying(false)} 
+          preload="auto"
+          playsInline
+        />
+
         {/* КНОПКА ГОЛОСОВОГО ПРИВЕТСТВИЯ */}
         <button
           onClick={toggleGreetingAudio}
-          className={`p-2.5 sm:p-3.5 rounded-full backdrop-blur-md border transition-all duration-300 group touch-manipulation flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 ${isAudioPlaying ? 'bg-rose-900/40 border-rose-500/50 shadow-[0_0_20px_rgba(225,29,72,0.3)]' : 'bg-white/5 border-white/10 text-white/40 hover:text-white/90 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]'}`}
+          className={`rounded-full backdrop-blur-md border transition-all duration-300 group touch-manipulation flex items-center justify-center w-10 h-10 ${isAudioPlaying ? 'bg-rose-900/40 border-rose-500/50 shadow-[0_0_20px_rgba(225,29,72,0.3)]' : 'bg-white/5 border-white/10 text-white/40 hover:text-white/90 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]'}`}
           aria-label="Голосовое приветствие"
         >
           {isAudioPlaying ? (
-            <div className="flex items-end justify-center gap-[3px] w-full h-4 sm:h-5">
+            <div className="flex items-end justify-center gap-[3px] w-full h-4">
               <div className="audio-bar" style={{ animationDelay: '0.0s' }}></div>
               <div className="audio-bar" style={{ animationDelay: '0.3s', height: '12px' }}></div>
               <div className="audio-bar" style={{ animationDelay: '0.6s', height: '16px' }}></div>
               <div className="audio-bar" style={{ animationDelay: '0.2s', height: '10px' }}></div>
             </div>
           ) : (
-            <Play className="w-4 h-4 sm:w-5 sm:h-5 sm:group-hover:scale-110 transition-transform ml-0.5" />
+            <Play className="w-4 h-4 group-hover:scale-110 transition-transform ml-0.5" />
           )}
         </button>
 
@@ -907,10 +902,10 @@ const App = () => {
             if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(15);
             setShowShare(true);
           }}
-          className="p-2.5 sm:p-3.5 rounded-full bg-white/5 backdrop-blur-md border border-white/10 text-white/40 hover:text-white/90 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-all duration-300 group touch-manipulation flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12"
+          className="rounded-full bg-white/5 backdrop-blur-md border border-white/10 text-white/40 hover:text-white/90 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-all duration-300 group touch-manipulation flex items-center justify-center w-10 h-10"
           aria-label="Поделиться"
         >
-          <QrCode className="w-4 h-4 sm:w-5 sm:h-5 sm:group-hover:scale-110 transition-transform" />
+          <QrCode className="w-4 h-4 group-hover:scale-110 transition-transform" />
         </button>
 
       </div>
