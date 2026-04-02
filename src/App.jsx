@@ -564,15 +564,10 @@ const App = () => {
     if (!audio) return;
     
     if (audio.paused) {
-      // Принудительно включаем звук и снимаем мут (на случай внутренних багов Safari)
-      audio.volume = 1.0;
       audio.muted = false;
       
-      // Принудительная загрузка для iOS (решает проблему кэша и энергосбережения)
-      if (audio.readyState === 0) {
-        audio.load();
-      }
-      
+      // УБРАНА КОМАНДА audio.load()!
+      // Именно она сбрасывала аудио-буфер на iOS, из-за чего плеер играл "тишину"
       const playPromise = audio.play();
       if (playPromise !== undefined) {
         playPromise.catch(err => {
@@ -878,7 +873,7 @@ const App = () => {
         <audio
           ref={audioRef}
           src={CONTENT.creator.audioGreeting}
-          preload="auto"
+          preload="metadata"
           playsInline
           onPlay={() => setIsAudioPlaying(true)}
           onPause={() => setIsAudioPlaying(false)}
