@@ -207,6 +207,23 @@ const globalStyles = `
     border-radius: 2px;
     animation: equalize 1s infinite ease-in-out;
   }
+
+  /* === ИНТЕРАКТИВНЫЙ ШЛЕЙФ ЗА КУРСОРОМ === */
+  @keyframes trail-fade {
+    0% { opacity: 0.8; transform: scale(1) translate(-50%, -50%); }
+    100% { opacity: 0; transform: scale(0.1) translate(-50%, -50%); }
+  }
+  .trail-particle {
+    position: fixed;
+    pointer-events: none;
+    background: rgba(225, 29, 72, 0.8);
+    box-shadow: 0 0 10px rgba(225, 29, 72, 0.6), 0 0 20px rgba(159, 18, 57, 0.4);
+    border-radius: 50%;
+    width: 8px;
+    height: 8px;
+    animation: trail-fade 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    z-index: 9999;
+  }
 `;
 
 // ==========================================
@@ -553,6 +570,7 @@ const App = () => {
   const [showPwaPrompt, setShowPwaPrompt] = useState(false); // Состояние для iOS плашки PWA
   const [copied, setCopied] = useState(false);       // Состояние для копирования ссылки
   const [isAudioPlaying, setIsAudioPlaying] = useState(false); // Состояние аудио
+  const [trail, setTrail] = useState([]); // Состояние для искристого шлейфа
   const cardRef = useRef(null);
   const audioCtxRef = useRef(null); // Реф для аудио контекста (чтобы звук не пропадал)
   const audioRef = useRef(null); // Надежный реф для HTML5 аудио
@@ -605,6 +623,34 @@ const App = () => {
     return () => {
       window.removeEventListener('mousemove', handleGlobalMove);
       window.removeEventListener('touchmove', handleGlobalMove);
+    };
+  }, []);
+
+  // Эффект светящегося шлейфа (Magic Trail)
+  useEffect(() => {
+    let timeoutIds = [];
+    const handleTrailMove = (e) => {
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      
+      const newParticle = { id: Date.now() + Math.random(), x: clientX, y: clientY };
+      
+      setTrail(prev => [...prev.slice(-15), newParticle]); 
+      
+      const timeoutId = setTimeout(() => {
+        setTrail(prev => prev.filter(p => p.id !== newParticle.id));
+      }, 500); 
+      
+      timeoutIds.push(timeoutId);
+    };
+
+    window.addEventListener('mousemove', handleTrailMove, { passive: true });
+    window.addEventListener('touchmove', handleTrailMove, { passive: true });
+
+    return () => {
+      window.removeEventListener('mousemove', handleTrailMove);
+      window.removeEventListener('touchmove', handleTrailMove);
+      timeoutIds.forEach(clearTimeout);
     };
   }, []);
 
@@ -800,6 +846,15 @@ const App = () => {
     <div className="fixed inset-0 w-full h-full bg-neutral-950 flex flex-col font-sans select-none transition-all duration-500 overflow-hidden justify-center items-center p-4 sm:p-8">
       {/* Вставляем глобальные стили */}
       <style>{globalStyles}</style>
+
+      {/* Интерактивный шлейф из пыльцы */}
+      {trail.map(p => (
+        <div
+          key={p.id}
+          className="trail-particle"
+          style={{ left: p.x, top: p.y }}
+        />
+      ))}
 
       {/* Фоновое свечение приложения (Живые сферы) */}
       <div 
