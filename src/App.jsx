@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { 
   Globe, Star, UserCircle2, Diamond, Crown,
   QrCode, Share2, Copy, X, Check,
-  Rocket, Code2, Play
+  Rocket, Code2, Play, PlusSquare
 } from 'lucide-react';
 
 // ==========================================
@@ -550,6 +550,7 @@ const App = () => {
   const [sparks, setSparks] = useState([]);
   const [bgOffset, setBgOffset] = useState({ x: 0, y: 0 });
   const [showShare, setShowShare] = useState(false); // Состояние для модального окна
+  const [showPwaPrompt, setShowPwaPrompt] = useState(false); // Состояние для iOS плашки PWA
   const [copied, setCopied] = useState(false);       // Состояние для копирования ссылки
   const [isAudioPlaying, setIsAudioPlaying] = useState(false); // Состояние аудио
   const cardRef = useRef(null);
@@ -605,6 +606,35 @@ const App = () => {
       window.removeEventListener('mousemove', handleGlobalMove);
       window.removeEventListener('touchmove', handleGlobalMove);
     };
+  }, []);
+
+  // Динамическая генерация PWA manifest.json (чтобы работала установка на экран)
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const manifest = {
+        name: `${CONTENT.creator.name1} ${CONTENT.creator.name2} | ${CONTENT.creator.role}`,
+        short_name: "Визитка",
+        start_url: window.location.pathname,
+        display: "standalone",
+        background_color: "#0a0a0a",
+        theme_color: "#9f1239",
+        icons: [{
+          src: CONTENT.creator.avatar || "https://api.qrserver.com/v1/create-qr-code/?size=192x192&data=PWA",
+          sizes: "192x192",
+          type: "image/png"
+        }]
+      };
+      const stringManifest = JSON.stringify(manifest);
+      const blob = new Blob([stringManifest], { type: 'application/json' });
+      const manifestURL = URL.createObjectURL(blob);
+      let link = document.querySelector('link[rel="manifest"]');
+      if (!link) {
+        link = document.createElement('link');
+        link.rel = 'manifest';
+        document.head.appendChild(link);
+      }
+      link.href = manifestURL;
+    }
   }, []);
 
   // Магнитный 3D наклон за курсором/пальцем
@@ -939,9 +969,17 @@ const App = () => {
               <X className="w-5 h-5" />
             </button>
             
-            <div className={`w-12 h-12 rounded-full bg-black/20 flex items-center justify-center mb-4 border ${getModalTheme().icon.replace('text', 'border').replace('400', '500/30')}`}>
-              <QrCode className={`w-6 h-6 ${getModalTheme().icon}`} />
-            </div>
+            {/* Кнопка вызова плашки PWA (заменили старый div на интерактивный button) */}
+            <button 
+              onClick={() => {
+                setShowShare(false);
+                setShowPwaPrompt(true);
+              }}
+              className={`w-12 h-12 rounded-full bg-black/20 hover:bg-black/40 flex items-center justify-center mb-4 border transition-colors group cursor-pointer active:scale-95 ${getModalTheme().icon.replace('text', 'border').replace('400', '500/30')}`}
+              title="Установить как приложение"
+            >
+              <QrCode className={`w-6 h-6 group-hover:scale-110 transition-transform ${getModalTheme().icon}`} />
+            </button>
             
             <h3 className="text-xl font-bold text-white mb-2 tracking-wide">Поделиться визиткой</h3>
             <p className="text-sm text-white/60 text-center mb-6 leading-relaxed">Дайте отсканировать QR-код или отправьте ссылку напрямую.</p>
@@ -974,6 +1012,68 @@ const App = () => {
           </div>
         </div>
       )}
+
+      {/* МОДАЛЬНОЕ ОКНО PWA (Установка на экран 'Домой' в стиле iOS) */}
+      {showPwaPrompt && (
+        <div 
+          className="fixed inset-0 z-[110] flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/60 backdrop-blur-sm transition-opacity animate-in fade-in duration-300"
+          onClick={() => setShowPwaPrompt(false)}
+        >
+          <div 
+            className="w-full max-w-sm bg-[#0a0205] sm:rounded-3xl rounded-t-3xl p-6 pb-10 sm:pb-6 flex flex-col items-center relative animate-in slide-in-from-bottom-full sm:zoom-in-95 duration-300 border-t sm:border border-rose-900/30 shadow-[0_-10px_40px_rgba(159,18,57,0.2)]"
+            onClick={e => e.stopPropagation()}
+          >
+            {/* iOS стиль: полоска-ручка сверху */}
+            <div className="w-12 h-1.5 bg-white/20 rounded-full mb-6 sm:hidden"></div>
+            
+            <button 
+              onClick={() => setShowPwaPrompt(false)} 
+              className="absolute top-5 right-5 text-white/40 hover:text-white bg-black/20 hover:bg-black/40 rounded-full p-2 transition-colors border border-white/5 hidden sm:block"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <div className="w-16 h-16 bg-gradient-to-br from-rose-900 to-black p-0.5 rounded-2xl shadow-[0_0_20px_rgba(159,18,57,0.4)] mb-5">
+               <div className="w-full h-full bg-black/80 backdrop-blur-md rounded-[14px] flex items-center justify-center border border-rose-500/20">
+                 <Crown className="w-8 h-8 text-rose-400" />
+               </div>
+            </div>
+
+            <h3 className="text-xl font-bold text-white mb-2 text-center tracking-wide">Установить приложение</h3>
+            <p className="text-sm text-white/60 text-center mb-8 leading-relaxed">
+              Добавьте визитку на экран «Домой», чтобы открывать её в один клик без браузера.
+            </p>
+
+            <div className="w-full bg-white/5 border border-white/10 rounded-2xl p-5 flex flex-col gap-5 mb-8 shadow-inner">
+               <div className="flex items-center gap-4">
+                 <div className="w-8 h-8 rounded-full bg-rose-900/40 border border-rose-500/30 flex items-center justify-center shrink-0">
+                   <Share2 className="w-4 h-4 text-rose-300" />
+                 </div>
+                 <p className="text-sm text-white/80 leading-snug">
+                   Нажмите кнопку <b>«Поделиться»</b><br/>в меню браузера (обычно внизу).
+                 </p>
+               </div>
+               <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+               <div className="flex items-center gap-4">
+                 <div className="w-8 h-8 rounded-full bg-rose-900/40 border border-rose-500/30 flex items-center justify-center shrink-0">
+                   <PlusSquare className="w-4 h-4 text-rose-300" />
+                 </div>
+                 <p className="text-sm text-white/80 leading-snug">
+                   Выберите <b className="text-white">«На экран "Домой"»</b><br/>в появившемся списке.
+                 </p>
+               </div>
+            </div>
+
+            <button 
+              onClick={() => setShowPwaPrompt(false)}
+              className="w-full bg-gradient-to-r from-[#380e1b] to-black hover:from-[#4a1223] border border-rose-800/50 text-rose-100 font-bold py-4 px-4 rounded-2xl transition-colors shadow-[0_0_20px_rgba(159,18,57,0.3)] active:scale-95"
+            >
+              Готово
+            </button>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 };
