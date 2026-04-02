@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { 
   Globe, Star, UserCircle2, Diamond, Crown,
   QrCode, Share2, Copy, X, Check,
-  Rocket, Code2
+  Rocket, Code2, Play
 } from 'lucide-react';
 
 // ==========================================
@@ -12,6 +12,7 @@ const CONTENT = {
   creator: {
     bgImage: '/bg-creator.jpg',
     avatar: '/avatar-creator.jpg', 
+    audioGreeting: '/greeting.mp3', // 🔊 Ссылка на ваш аудиофайл
     badge: 'DESIGN & CODE',
     name1: 'ELENA',
     name2: 'SOTNIKOVA',
@@ -189,6 +190,18 @@ const globalStyles = `
   .mask-image-bottom {
     -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
     mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+  }
+
+  /* === АНИМАЦИЯ ЭКВАЛАЙЗЕРА ДЛЯ АУДИО === */
+  @keyframes equalize {
+    0%, 100% { height: 4px; }
+    50% { height: 16px; }
+  }
+  .audio-bar {
+    width: 3px;
+    background-color: #fb7185; /* text-rose-400 */
+    border-radius: 2px;
+    animation: equalize 1s infinite ease-in-out;
   }
 `;
 
@@ -534,9 +547,36 @@ const App = () => {
   const [bgOffset, setBgOffset] = useState({ x: 0, y: 0 });
   const [showShare, setShowShare] = useState(false); // Состояние для модального окна
   const [copied, setCopied] = useState(false);       // Состояние для копирования ссылки
+  const [isAudioPlaying, setIsAudioPlaying] = useState(false); // Состояние аудио
   const cardRef = useRef(null);
   const audioCtxRef = useRef(null); // Реф для аудио контекста (чтобы звук не пропадал)
+  const greetingAudioRef = useRef(null); // Реф для файла приветствия
   const isFlippingRef = useRef(false); // Реф для блокировки наклона во время переворота
+
+  // Инициализация аудио приветствия
+  useEffect(() => {
+    greetingAudioRef.current = new Audio(CONTENT.creator.audioGreeting);
+    greetingAudioRef.current.onended = () => setIsAudioPlaying(false);
+    
+    return () => {
+      if (greetingAudioRef.current) {
+        greetingAudioRef.current.pause();
+        greetingAudioRef.current = null;
+      }
+    };
+  }, []);
+
+  const toggleGreetingAudio = () => {
+    if (!greetingAudioRef.current) return;
+    
+    if (isAudioPlaying) {
+      greetingAudioRef.current.pause();
+      setIsAudioPlaying(false);
+    } else {
+      greetingAudioRef.current.play().catch(e => console.log("Audio play blocked by browser:", e));
+      setIsAudioPlaying(true);
+    }
+  };
 
   // Глобальный параллакс фона (Живые сферы)
   useEffect(() => {
@@ -835,6 +875,24 @@ const App = () => {
         aria-label="Поделиться"
       >
         <QrCode className="w-4 h-4 sm:w-5 sm:h-5 sm:group-hover:scale-110 transition-transform" />
+      </button>
+
+      {/* КНОПКА ГОЛОСОВОГО ПРИВЕТСТВИЯ */}
+      <button
+        onClick={toggleGreetingAudio}
+        className={`fixed bottom-10 left-6 sm:bottom-12 sm:left-12 z-50 p-2.5 sm:p-3.5 rounded-full backdrop-blur-md border transition-all duration-300 group touch-manipulation flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 ${isAudioPlaying ? 'bg-rose-900/40 border-rose-500/50 shadow-[0_0_20px_rgba(225,29,72,0.3)]' : 'bg-white/5 border-white/10 text-white/40 hover:text-white/90 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]'}`}
+        aria-label="Голосовое приветствие"
+      >
+        {isAudioPlaying ? (
+          <div className="flex items-end justify-center gap-[3px] w-full h-4 sm:h-5">
+            <div className="audio-bar" style={{ animationDelay: '0.0s' }}></div>
+            <div className="audio-bar" style={{ animationDelay: '0.3s', height: '12px' }}></div>
+            <div className="audio-bar" style={{ animationDelay: '0.6s', height: '16px' }}></div>
+            <div className="audio-bar" style={{ animationDelay: '0.2s', height: '10px' }}></div>
+          </div>
+        ) : (
+          <Play className="w-4 h-4 sm:w-5 sm:h-5 sm:group-hover:scale-110 transition-transform ml-0.5" />
+        )}
       </button>
 
       {/* МОДАЛЬНОЕ ОКНО ПОДЕЛИТЬСЯ (Индивидуальное, Воздушное) */}
