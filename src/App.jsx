@@ -11,6 +11,7 @@ import {
 const CONTENT = {
   creator: {
     bgImage: '/bg-creator.jpg',
+    depthMask: '/depth-mask.png', // Прозрачный PNG-силуэт для живого 3D-фото
     avatar: '/avatar-creator.jpg', 
     badge: 'DESIGN & CODE',
     name1: 'ELENA',
@@ -19,7 +20,7 @@ const CONTENT = {
     status: 'Digital Creator',
     quote1: 'Не просто визитка,',
     quote2: 'а ваш главный цифровой актив...',
-    websiteText: 'Смотреть Портфолио',
+    websiteText: 'Подробнее...',
     websiteLink: 'https://nice-app.ru',
     actionText: 'ЗАКАЗАТЬ СВОЙ DIGITAL-МИР',
     actionLink: 'https://t.me/elenlime'
@@ -245,8 +246,24 @@ const CreatorCard = () => {
         {/* ТЕМНЫЙ ПОЛУПРОЗРАЧНЫЙ ГРАДИЕНТ (Лежит под фото, как ты и просила) */}
         <div className="absolute inset-0 bg-gradient-to-t from-black from-0% via-black/80 via-[15%] to-transparent to-[30%] pointer-events-none z-0 rounded-[2.5rem]"></div>
 
-        {/* ЗАМЕНА СТАТИЧНОГО ФОНА НА СГОРАЮЩИЙ (Винный огонь) ПОВЕРХ ВСЕХ СЛОЕВ */}
-        <BurnRevealImage src={CONTENT.creator.bgImage} className="grayscale-[0.2]" burnColor="wine" />
+        {/* ЖИВОЕ 3D ФОТО (DEPTH MAP PARALLAX) */}
+        <div className="absolute inset-0 card-preserve-3d pointer-events-none z-0">
+          {/* ЗАДНИЙ ФОН (ОТДАЛЕН) */}
+          <BurnRevealImage 
+            src={CONTENT.creator.bgImage} 
+            className="grayscale-[0.2]" 
+            style={{ transform: 'translateZ(-30px) scale(1.1)' }} 
+            burnColor="wine" 
+          />
+          
+          {/* ПЕРЕДНИЙ ПЛАН (ПРИБЛИЖЕН - ПРОЗРАЧНАЯ ВЫРЕЗКА ЛИЦА/СИЛУЭТА) */}
+          <BurnRevealImage 
+            src={CONTENT.creator.depthMask} 
+            className="grayscale-[0.2] drop-shadow-[0_20px_40px_rgba(0,0,0,0.6)]" 
+            style={{ transform: 'translateZ(50px) scale(1.05)' }} 
+            burnColor="wine" 
+          />
+        </div>
 
         <div className="relative z-10 flex flex-col h-full justify-between">
           <div className="flex justify-between items-start">
@@ -347,8 +364,7 @@ const CreatorCard = () => {
                 <Diamond className="w-5 h-5 text-rose-300" />
               </div>
               <div className="flex items-end gap-2 mb-2">
-                <h3 className="text-xl font-serif font-light text-rose-100 tracking-wider">Тариф Nano</h3>
-                <span className="text-rose-400 font-serif text-sm font-bold bg-rose-950/50 px-2 py-0.5 rounded-md border border-rose-900/50 mb-0.5">1 990 ₽</span>
+                <h3 className="text-xl font-serif font-light text-rose-100 tracking-wider">Nano визитка</h3>
               </div>
               <p className="font-serif text-[11px] text-rose-100/80 leading-relaxed bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-rose-900/50 shadow-inner">
                 Элегантный старт для вашего бренда. Идеально выверенная база, стильные анимации, адаптивность и мгновенная загрузка. Один платеж — и она ваша навсегда.
@@ -362,10 +378,6 @@ const CreatorCard = () => {
               </div>
               <div className="flex flex-col mb-2">
                 <h3 className="text-xl font-serif font-light text-rose-100 tracking-wider">Архитектура Pro</h3>
-                <div className="flex items-center gap-2 mt-1">
-                  <span className="text-rose-400 font-serif text-sm font-bold bg-rose-950/50 px-2 py-0.5 rounded-md border border-rose-900/50">7 000 ₽</span>
-                  <span className="text-rose-500/50 text-[10px] line-through">10 000 ₽</span>
-                </div>
               </div>
               <p className="font-serif text-[11px] text-rose-100/80 leading-relaxed bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-rose-900/50 shadow-inner">
                 Premium-шаблон из моей базы с полной адаптацией под вас. Мини-апп в TG/VK + веб-версия (PWA). Поддомен в подарок и запуск «под ключ» всего за 3-5 дней.
@@ -379,10 +391,6 @@ const CreatorCard = () => {
               </div>
               <div className="flex flex-col mb-2">
                 <h3 className="text-[1.15rem] whitespace-nowrap font-serif font-light text-rose-100 tracking-wider">Эксклюзив Ultra</h3>
-                <div className="flex items-center gap-2 mt-1">
-                  <span className="text-rose-400 font-serif text-sm font-bold bg-rose-950/50 px-2 py-0.5 rounded-md border border-rose-900/50">от 8 000 ₽</span>
-                  <span className="text-rose-500/50 text-[10px] line-through">15 000 ₽</span>
-                </div>
               </div>
               <p className="font-serif text-[11px] text-rose-100/80 leading-relaxed bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-rose-900/50 shadow-inner">
                 Уникальный цифровой код вашего бизнеса. Разработка индивидуальной структуры, сложнейшие 3D-сцены, эффекты стекла и частиц. Решение для тех, кто не терпит компромиссов.
