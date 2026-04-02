@@ -861,17 +861,6 @@ const App = () => {
 
       {/* === ПАНЕЛЬ С КНОПКАМИ (Центрированная внизу, на десктопе опущена ниже) === */}
       <div className="fixed bottom-10 sm:bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-6">
-        
-        {/* Невидимый аудиоплеер (Бронебойный вариант для iPhone) */}
-        <audio 
-          ref={audioRef} 
-          src={CONTENT.creator.audioGreeting} 
-          onPlay={() => setIsAudioPlaying(true)}
-          onPause={() => setIsAudioPlaying(false)}
-          onEnded={() => setIsAudioPlaying(false)} 
-          preload="auto"
-          playsInline
-        />
 
         {/* КНОПКА ГОЛОСОВОГО ПРИВЕТСТВИЯ */}
         <button
