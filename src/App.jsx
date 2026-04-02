@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { 
   Globe, Star, UserCircle2, Diamond, Crown,
   QrCode, Share2, Copy, X, Check,
-  Rocket, Code2, Play
+  Rocket, Code2, Play, Terminal
 } from 'lucide-react';
 
 // ==========================================
@@ -203,6 +203,35 @@ const globalStyles = `
     border-radius: 2px;
     animation: equalize 1s infinite ease-in-out;
   }
+
+  /* === АНИМАЦИИ ДЛЯ РЕАЛИСТИЧНОГО РАЗРУШЕНИЯ КАРТОЧКИ === */
+  @keyframes shard-fall {
+    0% { 
+      transform: translate3d(0, 0, 0) rotate3d(0, 0, 0, 0deg); 
+      opacity: 1; 
+    }
+    15% { 
+      opacity: 1; 
+    }
+    100% { 
+      transform: translate3d(var(--tx), var(--ty), var(--tz)) rotate3d(var(--rx), var(--ry), var(--rz), var(--tr)); 
+      opacity: 0; 
+    }
+  }
+
+  @keyframes shard-assemble {
+    0% { 
+      transform: translate3d(var(--tx), var(--ty), var(--tz)) rotate3d(var(--rx), var(--ry), var(--rz), var(--tr)); 
+      opacity: 0; 
+    }
+    85% { 
+      opacity: 1; 
+    }
+    100% { 
+      transform: translate3d(0, 0, 0) rotate3d(0, 0, 0, 0deg); 
+      opacity: 1; 
+    }
+  }
 `;
 
 // ==========================================
@@ -246,13 +275,17 @@ const BurnRevealImage = ({ src, className, style, imgClassName = "", burnColor =
 // ==========================================
 
 // 0. БОСС / СОЗДАТЕЛЬ (Елена Сотникова)
-const CreatorCard = () => {
+const CreatorCard = ({ isClone = false }) => {
   const [view, setView] = useState('profile');
-  const [isNameRevealed, setIsNameRevealed] = useState(false);
-  const [hackerName1, setHackerName1] = useState(() => CONTENT.creator.name1.replace(/./g, () => HACKER_CHARS[Math.floor(Math.random() * HACKER_CHARS.length)]));
-  const [hackerName2, setHackerName2] = useState(() => CONTENT.creator.name2.replace(/./g, () => HACKER_CHARS[Math.floor(Math.random() * HACKER_CHARS.length)]));
+  
+  // Если это клон (осколок), мы не запускаем анимацию хакера заново, а сразу показываем имя
+  const [isNameRevealed, setIsNameRevealed] = useState(isClone);
+  const [hackerName1, setHackerName1] = useState(() => isClone ? CONTENT.creator.name1 : CONTENT.creator.name1.replace(/./g, () => HACKER_CHARS[Math.floor(Math.random() * HACKER_CHARS.length)]));
+  const [hackerName2, setHackerName2] = useState(() => isClone ? CONTENT.creator.name2 : CONTENT.creator.name2.replace(/./g, () => HACKER_CHARS[Math.floor(Math.random() * HACKER_CHARS.length)]));
 
   useEffect(() => {
+    if (isClone) return; // Клоны не анимируют текст
+    
     let iteration = 0;
     const target1 = CONTENT.creator.name1;
     const target2 = CONTENT.creator.name2;
@@ -287,7 +320,7 @@ const CreatorCard = () => {
   return (
     <>
       {/* ЛИЦЕВАЯ СТОРОНА */}
-      <div className="absolute inset-0 w-full h-full card-backface-hidden rounded-[2.5rem] shadow-[0_20px_50px_rgba(159,18,57,0.4)] overflow-hidden bg-[#0a0103] text-white flex flex-col p-6 group-hover:shadow-[0_20px_80px_rgba(159,18,57,0.6)] transition-shadow duration-700">
+      <div className={`absolute inset-0 w-full h-full ${isClone ? '' : 'card-backface-hidden'} rounded-[2.5rem] shadow-[0_20px_50px_rgba(159,18,57,0.4)] overflow-hidden bg-[#0a0103] text-white flex flex-col p-6 group-hover:shadow-[0_20px_80px_rgba(159,18,57,0.6)] transition-shadow duration-700`}>
         
         {/* === КРАСИВЫЙ ПРЕМИАЛЬНЫЙ ГРАДИЕНТ (Виден 1 секунду до проявления фото) === */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#380e1b] via-[#0f0206] to-[#1f030e]"></div>
@@ -330,10 +363,10 @@ const CreatorCard = () => {
       </div>
 
       {/* ОБРАТНАЯ СТОРОНА (GlassOS / Vertical Left Dock) */}
-      <div className="absolute inset-0 w-full h-full card-backface-hidden rounded-[2.5rem] shadow-[0_20px_50px_rgba(159,18,57,0.4)] overflow-hidden bg-[#0a0205] flex flex-row p-4 gap-4 text-white border border-rose-900/40" style={{ transform: 'rotateY(180deg)' }}>
-        
-        {/* ФОН (Медленные орбиты и Аура) */}
-        <div className="absolute -top-[20%] -left-[20%] w-[160%] aspect-square rounded-full border border-rose-500/10 border-dashed pointer-events-none" style={{ animation: 'esoteric-slow-drift-1 90s linear infinite', transformOrigin: '45% 55%' }}></div>
+      {!isClone && (
+        <div className="absolute inset-0 w-full h-full card-backface-hidden rounded-[2.5rem] shadow-[0_20px_50px_rgba(159,18,57,0.4)] overflow-hidden bg-[#0a0205] flex flex-row p-4 gap-4 text-white border border-rose-900/40" style={{ transform: 'rotateY(180deg)' }}>
+          
+          {/* ФОН (Медленные орбиты и Аура) */}
         <div className="absolute -bottom-[30%] -right-[30%] w-[140%] aspect-square rounded-full border-[1.5px] border-rose-900/20 pointer-events-none" style={{ animation: 'esoteric-slow-drift-2 100s linear infinite', transformOrigin: '55% 45%' }}></div>
         
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] aspect-square rounded-full bg-rose-900/20 blur-[50px] pointer-events-none"></div>
@@ -531,6 +564,7 @@ const CreatorCard = () => {
           </div>
         </div>
       </div>
+      )}
     </>
   );
 };
@@ -545,13 +579,74 @@ const App = () => {
   const [glare, setGlare] = useState({ x: 50, y: 50, opacity: 0 });
   const [sparks, setSparks] = useState([]);
   const [bgOffset, setBgOffset] = useState({ x: 0, y: 0 });
-  const [showShare, setShowShare] = useState(false); // Состояние для модального окна
-  const [copied, setCopied] = useState(false);       // Состояние для копирования ссылки
-  const [isAudioPlaying, setIsAudioPlaying] = useState(false); // Состояние аудио
+  const [showShare, setShowShare] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const [isAudioPlaying, setIsAudioPlaying] = useState(false);
+  
+  // Состояние для разрушения Матрицы: 'idle', 'falling', 'reassembling'
+  const [shatterState, setShatterState] = useState('idle'); 
+
   const cardRef = useRef(null);
-  const audioCtxRef = useRef(null); // Реф для аудио контекста (чтобы звук не пропадал)
-  const greetingAudioRef = useRef(null); // Реф для файла приветствия
-  const isFlippingRef = useRef(false); // Реф для блокировки наклона во время переворота
+  const audioCtxRef = useRef(null); 
+  const greetingAudioRef = useRef(null);
+  const isFlippingRef = useRef(false);
+
+  // Генерация осколков карточки (Сложная триангуляция для реалистичности)
+  const cardShards = useMemo(() => {
+    const cols = 3; // Сетка 3x4
+    const rows = 4;
+    const nodes = [];
+    
+    // Создаем сетку точек с рандомным смещением (для рваных краев)
+    for (let y = 0; y <= rows; y++) {
+      const rowNodes = [];
+      for (let x = 0; x <= cols; x++) {
+        let px = (x / cols) * 100;
+        let py = (y / rows) * 100;
+        // Смещаем внутренние точки
+        if (x > 0 && x < cols && y > 0 && y < rows) {
+          px += (Math.random() - 0.5) * 15;
+          py += (Math.random() - 0.5) * 15;
+        }
+        rowNodes.push({ x: px, y: py });
+      }
+      nodes.push(rowNodes);
+    }
+
+    // Функция для случайной физики осколка
+    const randomPhysics = () => ({
+      tx: (Math.random() - 0.5) * 1000,     // Разлет по ширине
+      ty: 800 + Math.random() * 800,        // Падение глубоко вниз за экран
+      tz: (Math.random() - 0.5) * 800,      // Полет вглубь и на нас (3D)
+      rx: Math.random() * 2 - 1,            // Ось вращения X
+      ry: Math.random() * 2 - 1,            // Ось вращения Y
+      rz: Math.random() * 2 - 1,            // Ось вращения Z
+      tr: (Math.random() - 0.5) * 1000,     // Сила вращения
+      delay: Math.random() * 0.1            // Микро-задержка для каскада
+    });
+
+    const shards = [];
+    let id = 0;
+    
+    // Разбиваем каждый квадрат сетки на 2 треугольника
+    for (let y = 0; y < rows; y++) {
+      for (let x = 0; x < cols; x++) {
+        const tl = nodes[y][x];
+        const tr = nodes[y][x+1];
+        const bl = nodes[y+1][x];
+        const br = nodes[y+1][x+1];
+
+        if (Math.random() > 0.5) {
+          shards.push({ id: id++, clipPath: `polygon(${tl.x}% ${tl.y}%, ${tr.x}% ${tr.y}%, ${br.x}% ${br.y}%)`, ...randomPhysics() });
+          shards.push({ id: id++, clipPath: `polygon(${tl.x}% ${tl.y}%, ${br.x}% ${br.y}%, ${bl.x}% ${bl.y}%)`, ...randomPhysics() });
+        } else {
+          shards.push({ id: id++, clipPath: `polygon(${tl.x}% ${tl.y}%, ${tr.x}% ${tr.y}%, ${bl.x}% ${bl.y}%)`, ...randomPhysics() });
+          shards.push({ id: id++, clipPath: `polygon(${tr.x}% ${tr.y}%, ${br.x}% ${br.y}%, ${bl.x}% ${bl.y}%)`, ...randomPhysics() });
+        }
+      }
+    }
+    return shards;
+  }, []);
 
   // Инициализация аудио приветствия
   useEffect(() => {
@@ -603,8 +698,8 @@ const App = () => {
 
   // Магнитный 3D наклон за курсором/пальцем
   const handlePointerMove = (e) => {
-    // Блокируем наклон, если карточка прямо сейчас переворачивается
-    if (isFlippingRef.current || !cardRef.current) return;
+    // Блокируем наклон, если карточка переворачивается ИЛИ сломана
+    if (isFlippingRef.current || !cardRef.current || shatterState !== 'idle') return;
     
     // Исключение для интерактивных зон (чтобы удобно было читать и нажимать)
     if (e.target.closest('.no-tilt')) {
@@ -639,7 +734,7 @@ const App = () => {
 
   // Сброс наклона, когда курсор уходит
   const handlePointerLeave = () => {
-    if (isFlippingRef.current) return;
+    if (isFlippingRef.current || shatterState !== 'idle') return;
     setRotate({ x: 0, y: 0 });
     setGlare(prev => ({ ...prev, opacity: 0 }));
   };
@@ -682,6 +777,8 @@ const App = () => {
   };
 
   const handleFlip = () => {
+    if (shatterState !== 'idle') return; // Нельзя перевернуть сломанную карточку
+    
     // Звук переворота (саунд-дизайн)
     playFlipSound();
     
@@ -760,6 +857,56 @@ const App = () => {
     }
   };
 
+  // ФУНКЦИЯ "СЛОМАТЬ КАРТОЧКУ"
+  const handleBreakCard = () => {
+    if (shatterState !== 'idle') return; // Защита от двойного клика
+
+    // Выравниваем карточку и принудительно возвращаем на лицевую сторону
+    setRotate({ x: 0, y: 0 });
+    setGlare(prev => ({ ...prev, opacity: 0 }));
+    setIsFlipped(false); // Чтобы красиво разбивалась именно главная сторона
+    
+    // Запускаем эффект падения
+    setShatterState('falling');
+
+    // Звук поломки (Синтез разбитого стекла через белый шум)
+    try {
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const bufferSize = ctx.sampleRate * 0.6; // 0.6 сек шума
+      const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+      const data = buffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) {
+        // Белый шум с экспоненциальным затуханием (имитация удара и звона)
+        data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (ctx.sampleRate * 0.15));
+      }
+      const noise = ctx.createBufferSource();
+      noise.buffer = buffer;
+      
+      // Фильтр высоких частот (чтобы звучало звонко, как стекло)
+      const filter = ctx.createBiquadFilter();
+      filter.type = 'highpass';
+      filter.frequency.value = 4000;
+      
+      noise.connect(filter);
+      filter.connect(ctx.destination);
+      noise.start();
+    } catch(e){}
+    if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate([100, 50, 100]);
+
+    // Через 3 секунды начинаем сборку обратно
+    setTimeout(() => {
+      setShatterState('reassembling');
+      
+      // Звук сборки убран, магия требует тишины 🔇
+      if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate([30, 30, 50]);
+    }, 3000);
+
+    // Полное восстановление (когда сборка закончилась)
+    setTimeout(() => {
+      setShatterState('idle');
+    }, 4200); // 3s + 1.2s анимации
+  };
+
   return (
     <div className="min-h-[100dvh] bg-neutral-950 flex flex-col font-sans select-none transition-all duration-500 relative overflow-hidden justify-center items-center p-4 sm:p-8">
       {/* Вставляем глобальные стили */}
@@ -789,6 +936,39 @@ const App = () => {
           onTouchMove={handlePointerMove}
           onTouchEnd={handlePointerLeave}
         >
+          {/* === ОСКОЛКИ КАРТОЧКИ (Отображаются только при поломке) === */}
+          <div className="absolute inset-0 z-[100] pointer-events-none" style={{ display: shatterState === 'idle' ? 'none' : 'block' }}>
+            {cardShards.map(shard => (
+              <div
+                key={shard.id}
+                className="absolute inset-0 w-full h-full card-preserve-3d"
+                style={{
+                  clipPath: shard.clipPath,
+                  WebkitClipPath: shard.clipPath,
+                  '--tx': `${shard.tx}px`,
+                  '--ty': `${shard.ty}px`,
+                  '--tz': `${shard.tz}px`,
+                  '--rx': shard.rx,
+                  '--ry': shard.ry,
+                  '--rz': shard.rz,
+                  '--tr': `${shard.tr}deg`,
+                  animation: shatterState === 'falling' 
+                    ? `shard-fall 3s cubic-bezier(0.25, 1, 0.5, 1) both`
+                    : shatterState === 'reassembling'
+                      ? `shard-assemble 1.2s cubic-bezier(0.5, 0, 0.2, 1) both`
+                      : 'none',
+                  animationDelay: shatterState === 'falling' ? `${shard.delay}s` : '0s'
+                }}
+              >
+                {/* Осколок - это полная копия карточки, но обрезанная по clip-path! */}
+                <CreatorCard isClone={true} />
+                
+                {/* Эффект преломления света на гранях стекла */}
+                <div className="absolute inset-0 bg-white/5 border border-white/20 mix-blend-overlay rounded-[2.5rem]"></div>
+              </div>
+            ))}
+          </div>
+
           {/* Искры (Magic Dust) */}
           {sparks.map(spark => (
             <div
@@ -819,9 +999,9 @@ const App = () => {
             className="w-full h-full card-preserve-3d transition-transform duration-100 ease-out z-10 relative"
             style={{ transform: `rotateX(${rotate.x}deg) rotateY(${rotate.y}deg)` }}
           >
-            {/* Сама визитка с анимацией вращения (переворот на 180) */}
+            {/* Сама визитка с анимацией вращения (переворот на 180). Скрывается, когда сломана. */}
             <div 
-              className="relative w-full h-full transition-transform duration-700 ease-[cubic-bezier(0.4,0.2,0.2,1)] card-preserve-3d"
+              className={`relative w-full h-full card-preserve-3d transition-all ease-[cubic-bezier(0.4,0.2,0.2,1)] ${shatterState !== 'idle' ? 'opacity-0 scale-90 duration-75 pointer-events-none' : 'opacity-100 scale-100 duration-700'}`}
               style={{ transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)' }}
             >
               {/* Дополнительное мощное свечение для мобилок */}
@@ -865,35 +1045,49 @@ const App = () => {
         </div>
       </div>
 
-      {/* КНОПКА ПОДЕЛИТЬСЯ (Уменьшена на мобилках, чтобы не залезать на визитку) */}
-      <button
-        onClick={() => {
-          if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(15);
-          setShowShare(true);
-        }}
-        className="fixed bottom-10 right-6 sm:bottom-12 sm:right-12 z-50 p-2.5 sm:p-3.5 rounded-full bg-white/5 backdrop-blur-md border border-white/10 text-white/40 hover:text-white/90 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-all duration-300 group touch-manipulation"
-        aria-label="Поделиться"
-      >
-        <QrCode className="w-4 h-4 sm:w-5 sm:h-5 sm:group-hover:scale-110 transition-transform" />
-      </button>
+      {/* === НИЖНЯЯ ПАНЕЛЬ С КНОПКАМИ (Центрированная под карточкой) === */}
+      <div className="mt-8 sm:mt-10 flex items-center justify-center gap-6 sm:gap-8 relative z-50">
+        
+        {/* 1. Кнопка ГОЛОСОВОГО ПРИВЕТСТВИЯ */}
+        <button
+          onClick={toggleGreetingAudio}
+          className={`w-12 h-12 sm:w-14 sm:h-14 rounded-full backdrop-blur-md border transition-all duration-300 group touch-manipulation flex items-center justify-center ${isAudioPlaying ? 'bg-rose-900/40 border-rose-500/50 shadow-[0_0_20px_rgba(225,29,72,0.3)]' : 'bg-white/5 border-white/10 text-white/40 hover:text-white/90 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]'}`}
+          aria-label="Голосовое приветствие"
+        >
+          {isAudioPlaying ? (
+            <div className="flex items-end justify-center gap-[3px] w-full h-4 sm:h-5">
+              <div className="audio-bar" style={{ animationDelay: '0.0s' }}></div>
+              <div className="audio-bar" style={{ animationDelay: '0.3s', height: '12px' }}></div>
+              <div className="audio-bar" style={{ animationDelay: '0.6s', height: '16px' }}></div>
+              <div className="audio-bar" style={{ animationDelay: '0.2s', height: '10px' }}></div>
+            </div>
+          ) : (
+            <Play className="w-5 h-5 sm:w-6 sm:h-6 sm:group-hover:scale-110 transition-transform ml-0.5" />
+          )}
+        </button>
 
-      {/* КНОПКА ГОЛОСОВОГО ПРИВЕТСТВИЯ */}
-      <button
-        onClick={toggleGreetingAudio}
-        className={`fixed bottom-10 left-6 sm:bottom-12 sm:left-12 z-50 p-2.5 sm:p-3.5 rounded-full backdrop-blur-md border transition-all duration-300 group touch-manipulation flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 ${isAudioPlaying ? 'bg-rose-900/40 border-rose-500/50 shadow-[0_0_20px_rgba(225,29,72,0.3)]' : 'bg-white/5 border-white/10 text-white/40 hover:text-white/90 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]'}`}
-        aria-label="Голосовое приветствие"
-      >
-        {isAudioPlaying ? (
-          <div className="flex items-end justify-center gap-[3px] w-full h-4 sm:h-5">
-            <div className="audio-bar" style={{ animationDelay: '0.0s' }}></div>
-            <div className="audio-bar" style={{ animationDelay: '0.3s', height: '12px' }}></div>
-            <div className="audio-bar" style={{ animationDelay: '0.6s', height: '16px' }}></div>
-            <div className="audio-bar" style={{ animationDelay: '0.2s', height: '10px' }}></div>
-          </div>
-        ) : (
-          <Play className="w-4 h-4 sm:w-5 sm:h-5 sm:group-hover:scale-110 transition-transform ml-0.5" />
-        )}
-      </button>
+        {/* 2. Кнопка СЛОМАТЬ КАРТОЧКУ */}
+        <button
+          onClick={handleBreakCard}
+          className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white/5 backdrop-blur-md border border-white/10 text-white/40 hover:text-rose-400 hover:border-rose-500/30 hover:bg-rose-900/20 hover:shadow-[0_0_20px_rgba(225,29,72,0.2)] transition-all duration-300 flex items-center justify-center group touch-manipulation"
+          aria-label="Сломать карточку"
+        >
+          <Terminal className="w-5 h-5 sm:w-6 sm:h-6 group-hover:scale-110 transition-transform" />
+        </button>
+
+        {/* 3. Кнопка ПОДЕЛИТЬСЯ */}
+        <button
+          onClick={() => {
+            if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(15);
+            setShowShare(true);
+          }}
+          className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white/5 backdrop-blur-md border border-white/10 text-white/40 hover:text-white/90 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-all duration-300 flex items-center justify-center group touch-manipulation"
+          aria-label="Поделиться"
+        >
+          <QrCode className="w-5 h-5 sm:w-6 sm:h-6 sm:group-hover:scale-110 transition-transform" />
+        </button>
+        
+      </div>
 
       {/* МОДАЛЬНОЕ ОКНО ПОДЕЛИТЬСЯ (Индивидуальное, Воздушное) */}
       {showShare && (
