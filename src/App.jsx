@@ -37,10 +37,13 @@ const globalStyles = `
       --card-h: calc(min(22rem, 50vh) * 1.5);
     }
   }
-  body {
+  html, body {
     background-color: #0a0a0a;
     overscroll-behavior: none;
-    overflow-x: hidden;
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
   }
   .hide-scrollbar::-webkit-scrollbar {
     display: none;
@@ -48,6 +51,7 @@ const globalStyles = `
   .hide-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
+    overscroll-behavior: contain;
   }
   @keyframes float {
     0% { transform: translateY(0px) rotateX(0deg) rotateY(0deg); }
@@ -761,7 +765,7 @@ const App = () => {
   };
 
   return (
-    <div className="min-h-[100dvh] bg-neutral-950 flex flex-col font-sans select-none transition-all duration-500 relative overflow-hidden justify-center items-center p-4 sm:p-8">
+    <div className="fixed inset-0 w-full h-full bg-neutral-950 flex flex-col font-sans select-none transition-all duration-500 overflow-hidden justify-center items-center p-4 sm:p-8">
       {/* Вставляем глобальные стили */}
       <style>{globalStyles}</style>
 
