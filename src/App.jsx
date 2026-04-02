@@ -245,9 +245,9 @@ const CreatorCard = () => {
     const target2 = CONTENT.creator.name2;
     const maxLen = Math.max(target1.length, target2.length);
 
-    // Рассчитываем шаги так, чтобы эффект длился ровно 1.5 секунды (1500 мс)
+    // Рассчитываем шаги так, чтобы эффект длился ровно 1 секунду (1000 мс)
     const intervalMs = 40;
-    const totalSteps = 1500 / intervalMs; 
+    const totalSteps = 1000 / intervalMs; 
     const step = maxLen / totalSteps;
 
     const interval = setInterval(() => {
@@ -265,7 +265,7 @@ const CreatorCard = () => {
         clearInterval(interval);
         setIsNameRevealed(true);
       }
-      iteration += step; // Идеально выверенная скорость для 1.5 секунд
+      iteration += step; // Идеально выверенная скорость для 1 секунды
     }, intervalMs);
 
     return () => clearInterval(interval);
