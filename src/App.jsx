@@ -557,30 +557,26 @@ const App = () => {
   const audioRef = useRef(null); // ПРЯМОЙ РЕФ НА ТЕГ <audio> (Бронебойно для iPhone)
   const isFlippingRef = useRef(false); // Реф для блокировки наклона во время переворота
 
-  const toggleGreetingAudio = (e) => {
-    // Блокируем любые конфликты тапов на мобильных
-    if (e) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-    
+  const toggleGreetingAudio = () => {
     if (!audioRef.current) return;
     
     if (isAudioPlaying) {
       audioRef.current.pause();
       setIsAudioPlaying(false);
     } else {
-      // ВАЖНО: Мгновенно включаем эквалайзер, не дожидаясь пока айфон подгрузит аудио из сети!
-      setIsAudioPlaying(true);
-      
-      // Запуск звука
+      // СТРОГО чистый запуск: без preventDefault, чтобы iOS увидел реальный клик пользователя
       const playPromise = audioRef.current.play();
+      
       if (playPromise !== undefined) {
-        playPromise.catch(err => {
+        playPromise.then(() => {
+          // Эквалайзер включится ТОЛЬКО если Айфон реально разрешил проигрывание звука
+          setIsAudioPlaying(true);
+        }).catch(err => {
           console.log("Audio play blocked or failed:", err);
-          // Если iOS реально заблокировала звук (например, включен беззвучный режим), отключаем анимацию
           setIsAudioPlaying(false);
         });
+      } else {
+        setIsAudioPlaying(true);
       }
     }
   };
