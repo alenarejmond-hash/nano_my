@@ -706,7 +706,7 @@ const App = () => {
 
       {/* КОНТЕЙНЕР ВИЗИТКИ (3D Сцена с ограничением высоты для мобилок) */}
       <div 
-        className="w-full flex justify-center relative z-40 items-center mt-12 sm:mt-16"
+        className="w-full flex justify-center relative z-40 items-center"
       >
         <div 
           ref={cardRef}
