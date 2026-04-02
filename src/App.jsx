@@ -19,10 +19,10 @@ const CONTENT = {
     status: 'Digital Creator',
     quote1: 'Не просто визитка,',
     quote2: 'а ваш главный цифровой актив...',
-    websiteText: 'Смотреть Портфолио',
+    websiteText: 'Подробнее...',
     websiteLink: 'https://nice-app.ru',
     actionText: 'ЗАКАЗАТЬ СВОЙ DIGITAL-МИР',
-    actionLink: 'https://t.me/elenlime'
+    actionLink: 'https://t.me/elenlime',
   }
 };
 
@@ -195,7 +195,9 @@ const globalStyles = `
 // ==========================================
 // 🪄 КОМПОНЕНТ ЭФФЕКТА СГОРАНИЯ (УМНАЯ ЦВЕТОВАЯ ПОДСТРОЙКА)
 // ==========================================
-const BurnRevealImage = ({ src, className, style, imgClassName = "", burnColor = "wine" }) => {
+const HACKER_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+const BurnRevealImage = ({ src, className, style, imgClassName = "", burnColor = "wine", startBurn = true }) => {
   // Цветовые темы огня (c1 - пепел/край, c2 - основной огонь, c3 - яркая вспышка)
   const themes = {
     default: { c1: 'rgba(220, 38, 38, 0.9)', c2: 'rgba(250, 150, 0, 1)', c3: 'rgba(255, 220, 50, 0.8)' },
@@ -208,22 +210,23 @@ const BurnRevealImage = ({ src, className, style, imgClassName = "", burnColor =
     <div className={`absolute inset-0 pointer-events-none rounded-[2.5rem] ${className}`} style={{ ...style, clipPath: 'inset(0 round 2.5rem)', WebkitClipPath: 'inset(0 round 2.5rem)' }}>
       {/* 1. Слой самого фото (плавное проявление) */}
       <div 
-        className={`absolute inset-0 bg-cover bg-center smooth-mask-wipe rounded-[2.5rem] ${imgClassName}`}
+        className={`absolute inset-0 bg-cover bg-center rounded-[2.5rem] ${imgClassName} ${startBurn ? 'smooth-mask-wipe' : 'opacity-0'}`}
         style={{ backgroundImage: `url(${src})` }}
       />
       {/* 2. Эффект линии огня и тлеющего края с кастомными цветами */}
-      <div 
-        className="absolute inset-0 burn-fire-edge rounded-[2.5rem]" 
-        style={{
-          '--burn-c1': t.c1,
-          '--burn-c2': t.c2,
-          '--burn-c3': t.c3,
-        }}
-      />
+      {startBurn && (
+        <div 
+          className="absolute inset-0 burn-fire-edge rounded-[2.5rem]" 
+          style={{
+            '--burn-c1': t.c1,
+            '--burn-c2': t.c2,
+            '--burn-c3': t.c3,
+          }}
+        />
+      )}
     </div>
   );
 };
-
 
 // ==========================================
 // ШАБЛОНЫ ВИЗИТОК (4 направления)
@@ -232,6 +235,36 @@ const BurnRevealImage = ({ src, className, style, imgClassName = "", burnColor =
 // 0. БОСС / СОЗДАТЕЛЬ (Елена Сотникова)
 const CreatorCard = () => {
   const [view, setView] = useState('profile');
+  const [isNameRevealed, setIsNameRevealed] = useState(false);
+  const [hackerName1, setHackerName1] = useState(() => CONTENT.creator.name1.replace(/./g, () => HACKER_CHARS[Math.floor(Math.random() * HACKER_CHARS.length)]));
+  const [hackerName2, setHackerName2] = useState(() => CONTENT.creator.name2.replace(/./g, () => HACKER_CHARS[Math.floor(Math.random() * HACKER_CHARS.length)]));
+
+  useEffect(() => {
+    let iteration = 0;
+    const target1 = CONTENT.creator.name1;
+    const target2 = CONTENT.creator.name2;
+    const maxLen = Math.max(target1.length, target2.length);
+
+    const interval = setInterval(() => {
+      setHackerName1(target1.split("").map((letter, index) => {
+        if (index < iteration) return target1[index];
+        return HACKER_CHARS[Math.floor(Math.random() * HACKER_CHARS.length)];
+      }).join(""));
+
+      setHackerName2(target2.split("").map((letter, index) => {
+        if (index < iteration) return target2[index];
+        return HACKER_CHARS[Math.floor(Math.random() * HACKER_CHARS.length)];
+      }).join(""));
+
+      if (iteration >= maxLen) {
+        clearInterval(interval);
+        setIsNameRevealed(true);
+      }
+      iteration += 1 / 8; // Скорость расшифровки (сделала значительно медленнее)
+    }, 50); // Увеличила интервал для более плавной смены букв
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <>
@@ -246,7 +279,7 @@ const CreatorCard = () => {
         <div className="absolute inset-0 bg-gradient-to-t from-black from-0% via-black/80 via-[15%] to-transparent to-[30%] pointer-events-none z-0 rounded-[2.5rem]"></div>
 
         {/* ЗАМЕНА СТАТИЧНОГО ФОНА НА СГОРАЮЩИЙ (Винный огонь) ПОВЕРХ ВСЕХ СЛОЕВ */}
-        <BurnRevealImage src={CONTENT.creator.bgImage} className="grayscale-[0.2]" burnColor="wine" />
+        <BurnRevealImage src={CONTENT.creator.bgImage} className="grayscale-[0.2]" burnColor="wine" startBurn={isNameRevealed} />
 
         <div className="relative z-10 flex flex-col h-full justify-between">
           <div className="flex justify-between items-start">
@@ -259,9 +292,9 @@ const CreatorCard = () => {
 
           <div className="text-center pb-2">
             <h2 className="text-3xl sm:text-4xl leading-tight font-serif font-light mb-2 uppercase tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-rose-100 via-white to-rose-200 drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
-              {CONTENT.creator.name1}
+              {hackerName1}
               <br />
-              {CONTENT.creator.name2}
+              {hackerName2}
             </h2>
             <div className="flex flex-col items-center gap-3 mt-3">
               <p className="font-serif text-[11px] text-rose-100/70 italic tracking-wider max-w-[80%] mx-auto">
@@ -347,8 +380,7 @@ const CreatorCard = () => {
                 <Diamond className="w-5 h-5 text-rose-300" />
               </div>
               <div className="flex items-end gap-2 mb-2">
-                <h3 className="text-xl font-serif font-light text-rose-100 tracking-wider">Тариф Nano</h3>
-                <span className="text-rose-400 font-serif text-sm font-bold bg-rose-950/50 px-2 py-0.5 rounded-md border border-rose-900/50 mb-0.5">1 990 ₽</span>
+                <h3 className="text-xl font-serif font-light text-rose-100 tracking-wider">Nano визитка</h3>
               </div>
               <p className="font-serif text-[11px] text-rose-100/80 leading-relaxed bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-rose-900/50 shadow-inner">
                 Элегантный старт для вашего бренда. Идеально выверенная база, стильные анимации, адаптивность и мгновенная загрузка. Один платеж — и она ваша навсегда.
@@ -362,10 +394,6 @@ const CreatorCard = () => {
               </div>
               <div className="flex flex-col mb-2">
                 <h3 className="text-xl font-serif font-light text-rose-100 tracking-wider">Архитектура Pro</h3>
-                <div className="flex items-center gap-2 mt-1">
-                  <span className="text-rose-400 font-serif text-sm font-bold bg-rose-950/50 px-2 py-0.5 rounded-md border border-rose-900/50">7 000 ₽</span>
-                  <span className="text-rose-500/50 text-[10px] line-through">10 000 ₽</span>
-                </div>
               </div>
               <p className="font-serif text-[11px] text-rose-100/80 leading-relaxed bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-rose-900/50 shadow-inner">
                 Premium-шаблон из моей базы с полной адаптацией под вас. Мини-апп в TG/VK + веб-версия (PWA). Поддомен в подарок и запуск «под ключ» всего за 3-5 дней.
@@ -379,10 +407,6 @@ const CreatorCard = () => {
               </div>
               <div className="flex flex-col mb-2">
                 <h3 className="text-[1.15rem] whitespace-nowrap font-serif font-light text-rose-100 tracking-wider">Эксклюзив Ultra</h3>
-                <div className="flex items-center gap-2 mt-1">
-                  <span className="text-rose-400 font-serif text-sm font-bold bg-rose-950/50 px-2 py-0.5 rounded-md border border-rose-900/50">от 8 000 ₽</span>
-                  <span className="text-rose-500/50 text-[10px] line-through">15 000 ₽</span>
-                </div>
               </div>
               <p className="font-serif text-[11px] text-rose-100/80 leading-relaxed bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-rose-900/50 shadow-inner">
                 Уникальный цифровой код вашего бизнеса. Разработка индивидуальной структуры, сложнейшие 3D-сцены, эффекты стекла и частиц. Решение для тех, кто не терпит компромиссов.
@@ -477,7 +501,7 @@ const CreatorCard = () => {
 
           {/* Кнопка записи (Главная кнопка) */}
           <div 
-            className="mt-3 w-full no-tilt cursor-default relative z-20"
+            className="mt-3 w-full no-tilt cursor-default relative z-20 flex flex-col gap-2"
             onClick={(e) => e.stopPropagation()}
           >
             <a href={CONTENT.creator.actionLink} className="w-full bg-gradient-to-r from-[#380e1b] to-black backdrop-blur-md text-rose-100 font-serif text-[10px] uppercase tracking-[0.15em] py-4 rounded-2xl flex items-center justify-center gap-2 hover:from-[#4a1223] transition-all shadow-[0_0_25px_rgba(159,18,57,0.3)] border border-rose-800/50 group active:scale-95">
