@@ -557,11 +557,8 @@ const App = () => {
   const greetingAudioRef = useRef(null); // Реф для файла приветствия
   const isFlippingRef = useRef(false); // Реф для блокировки наклона во время переворота
 
-  // Инициализация аудио приветствия
+  // Инициализация аудио приветствия (без авто-создания для обхода блокировок iOS)
   useEffect(() => {
-    greetingAudioRef.current = new Audio(CONTENT.creator.audioGreeting);
-    greetingAudioRef.current.onended = () => setIsAudioPlaying(false);
-    
     return () => {
       if (greetingAudioRef.current) {
         greetingAudioRef.current.pause();
@@ -571,14 +568,28 @@ const App = () => {
   }, []);
 
   const toggleGreetingAudio = () => {
-    if (!greetingAudioRef.current) return;
+    // Создаем Audio только при первом клике пользователя (строгое требование iPhone)
+    if (!greetingAudioRef.current) {
+      greetingAudioRef.current = new Audio(CONTENT.creator.audioGreeting);
+      greetingAudioRef.current.onended = () => setIsAudioPlaying(false);
+    }
     
     if (isAudioPlaying) {
       greetingAudioRef.current.pause();
       setIsAudioPlaying(false);
     } else {
-      greetingAudioRef.current.play().catch(e => console.log("Audio play blocked by browser:", e));
-      setIsAudioPlaying(true);
+      // Запуск звука напрямую через Promise (еще одно требование iOS Safari)
+      const playPromise = greetingAudioRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          setIsAudioPlaying(true);
+        }).catch(e => {
+          console.log("Audio play blocked by browser:", e);
+          setIsAudioPlaying(false);
+        });
+      } else {
+        setIsAudioPlaying(true);
+      }
     }
   };
 
@@ -869,8 +880,8 @@ const App = () => {
         </div>
       </div>
 
-      {/* === ПАНЕЛЬ С КНОПКАМИ (Центрированная внизу) === */}
-      <div className="fixed bottom-10 sm:bottom-12 left-1/2 -translate-x-1/2 z-50 flex items-center gap-6">
+      {/* === ПАНЕЛЬ С КНОПКАМИ (Центрированная внизу, на десктопе опущена ниже) === */}
+      <div className="fixed bottom-10 sm:bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-6">
         
         {/* КНОПКА ГОЛОСОВОГО ПРИВЕТСТВИЯ */}
         <button
