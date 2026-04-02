@@ -564,6 +564,10 @@ const App = () => {
     if (!audio) return;
     
     if (audio.paused) {
+      // Принудительно включаем звук и снимаем мут (на случай внутренних багов Safari)
+      audio.volume = 1.0;
+      audio.muted = false;
+      
       // Принудительная загрузка для iOS (решает проблему кэша и энергосбережения)
       if (audio.readyState === 0) {
         audio.load();
@@ -879,7 +883,7 @@ const App = () => {
           onPlay={() => setIsAudioPlaying(true)}
           onPause={() => setIsAudioPlaying(false)}
           onEnded={() => setIsAudioPlaying(false)}
-          style={{ display: 'none' }}
+          className="absolute w-0 h-0 opacity-0 pointer-events-none -z-10"
         />
 
         {/* КНОПКА ГОЛОСОВОГО ПРИВЕТСТВИЯ */}
