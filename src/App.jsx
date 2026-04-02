@@ -564,14 +564,19 @@ const App = () => {
     if (!audio) return;
     
     if (audio.paused) {
+      audio.volume = 1.0;
       audio.muted = false;
       
-      // УБРАНА КОМАНДА audio.load()!
-      // Именно она сбрасывала аудио-буфер на iOS, из-за чего плеер играл "тишину"
+      // Пробуем штатно запустить звук
       const playPromise = audio.play();
       if (playPromise !== undefined) {
         playPromise.catch(err => {
-          console.log("Play block:", err);
+          console.warn("Safari blocked play, applying fallback:", err);
+          // СПАСИТЕЛЬНЫЙ ФОЛБЭК ДЛЯ iOS: 
+          // Если Safari заартачился (из-за чего не было ни звука, ни эквалайзера),
+          // мы жестко пинаем плеер и заставляем его играть.
+          audio.load();
+          audio.play().catch(e => console.error("Fatal audio error:", e));
         });
       }
     } else {
@@ -873,12 +878,12 @@ const App = () => {
         <audio
           ref={audioRef}
           src={CONTENT.creator.audioGreeting}
-          preload="metadata"
+          preload="auto"
           playsInline
           onPlay={() => setIsAudioPlaying(true)}
           onPause={() => setIsAudioPlaying(false)}
           onEnded={() => setIsAudioPlaying(false)}
-          className="absolute w-0 h-0 opacity-0 pointer-events-none -z-10"
+          style={{ display: 'none' }}
         />
 
         {/* КНОПКА ГОЛОСОВОГО ПРИВЕТСТВИЯ */}
