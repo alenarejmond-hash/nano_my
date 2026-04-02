@@ -245,6 +245,11 @@ const CreatorCard = () => {
     const target2 = CONTENT.creator.name2;
     const maxLen = Math.max(target1.length, target2.length);
 
+    // Рассчитываем шаги так, чтобы эффект длился ровно 1.5 секунды (1500 мс)
+    const intervalMs = 40;
+    const totalSteps = 1500 / intervalMs; 
+    const step = maxLen / totalSteps;
+
     const interval = setInterval(() => {
       setHackerName1(target1.split("").map((letter, index) => {
         if (index < iteration) return target1[index];
@@ -260,8 +265,8 @@ const CreatorCard = () => {
         clearInterval(interval);
         setIsNameRevealed(true);
       }
-      iteration += 1 / 8; // Скорость расшифровки (сделала значительно медленнее)
-    }, 50); // Увеличила интервал для более плавной смены букв
+      iteration += step; // Идеально выверенная скорость для 1.5 секунд
+    }, intervalMs);
 
     return () => clearInterval(interval);
   }, []);
