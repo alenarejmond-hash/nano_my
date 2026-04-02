@@ -554,7 +554,7 @@ const App = () => {
   const [isAudioPlaying, setIsAudioPlaying] = useState(false); // Состояние аудио
   const cardRef = useRef(null);
   const audioCtxRef = useRef(null); // Реф для аудио контекста (чтобы звук не пропадал)
-  const audioRef = useRef(null); // ПРЯМОЙ РЕФ НА ТЕГ <audio> (Бронебойно для iPhone)
+  const audioRef = useRef(null); // Надежный реф для HTML5 аудио
   const isFlippingRef = useRef(false); // Реф для блокировки наклона во время переворота
 
   const toggleGreetingAudio = (e) => {
@@ -563,10 +563,18 @@ const App = () => {
     const audio = audioRef.current;
     if (!audio) return;
     
-    // ИСПОЛЬЗУЕМ НАТИВНОЕ СВОЙСТВО paused КАК ЕДИНСТВЕННЫЙ ИСТОЧНИК ИСТИНЫ
-    // Никаких стейтов до вызова play() — для iOS это критично!
     if (audio.paused) {
-      audio.play().catch(err => console.log("iOS Play Error:", err));
+      // Принудительная загрузка для iOS (решает проблему кэша и энергосбережения)
+      if (audio.readyState === 0) {
+        audio.load();
+      }
+      
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(err => {
+          console.log("Play block:", err);
+        });
+      }
     } else {
       audio.pause();
     }
@@ -861,6 +869,18 @@ const App = () => {
 
       {/* === ПАНЕЛЬ С КНОПКАМИ (Центрированная внизу, на десктопе опущена ниже) === */}
       <div className="fixed bottom-10 sm:bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-6">
+
+        {/* СКРЫТЫЙ HTML5 АУДИО ПЛЕЕР (Самый надежный метод для всех устройств) */}
+        <audio
+          ref={audioRef}
+          src={CONTENT.creator.audioGreeting}
+          preload="auto"
+          playsInline
+          onPlay={() => setIsAudioPlaying(true)}
+          onPause={() => setIsAudioPlaying(false)}
+          onEnded={() => setIsAudioPlaying(false)}
+          style={{ display: 'none' }}
+        />
 
         {/* КНОПКА ГОЛОСОВОГО ПРИВЕТСТВИЯ */}
         <button
