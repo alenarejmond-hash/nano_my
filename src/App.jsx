@@ -865,35 +865,40 @@ const App = () => {
         </div>
       </div>
 
-      {/* КНОПКА ПОДЕЛИТЬСЯ (Уменьшена на мобилках, чтобы не залезать на визитку) */}
-      <button
-        onClick={() => {
-          if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(15);
-          setShowShare(true);
-        }}
-        className="fixed bottom-10 right-6 sm:bottom-12 sm:right-12 z-50 p-2.5 sm:p-3.5 rounded-full bg-white/5 backdrop-blur-md border border-white/10 text-white/40 hover:text-white/90 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-all duration-300 group touch-manipulation"
-        aria-label="Поделиться"
-      >
-        <QrCode className="w-4 h-4 sm:w-5 sm:h-5 sm:group-hover:scale-110 transition-transform" />
-      </button>
+      {/* === ПАНЕЛЬ С КНОПКАМИ (Центрированная внизу) === */}
+      <div className="fixed bottom-10 sm:bottom-12 left-1/2 -translate-x-1/2 z-50 flex items-center gap-6">
+        
+        {/* КНОПКА ГОЛОСОВОГО ПРИВЕТСТВИЯ */}
+        <button
+          onClick={toggleGreetingAudio}
+          className={`p-2.5 sm:p-3.5 rounded-full backdrop-blur-md border transition-all duration-300 group touch-manipulation flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 ${isAudioPlaying ? 'bg-rose-900/40 border-rose-500/50 shadow-[0_0_20px_rgba(225,29,72,0.3)]' : 'bg-white/5 border-white/10 text-white/40 hover:text-white/90 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]'}`}
+          aria-label="Голосовое приветствие"
+        >
+          {isAudioPlaying ? (
+            <div className="flex items-end justify-center gap-[3px] w-full h-4 sm:h-5">
+              <div className="audio-bar" style={{ animationDelay: '0.0s' }}></div>
+              <div className="audio-bar" style={{ animationDelay: '0.3s', height: '12px' }}></div>
+              <div className="audio-bar" style={{ animationDelay: '0.6s', height: '16px' }}></div>
+              <div className="audio-bar" style={{ animationDelay: '0.2s', height: '10px' }}></div>
+            </div>
+          ) : (
+            <Play className="w-4 h-4 sm:w-5 sm:h-5 sm:group-hover:scale-110 transition-transform ml-0.5" />
+          )}
+        </button>
 
-      {/* КНОПКА ГОЛОСОВОГО ПРИВЕТСТВИЯ */}
-      <button
-        onClick={toggleGreetingAudio}
-        className={`fixed bottom-10 left-6 sm:bottom-12 sm:left-12 z-50 p-2.5 sm:p-3.5 rounded-full backdrop-blur-md border transition-all duration-300 group touch-manipulation flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 ${isAudioPlaying ? 'bg-rose-900/40 border-rose-500/50 shadow-[0_0_20px_rgba(225,29,72,0.3)]' : 'bg-white/5 border-white/10 text-white/40 hover:text-white/90 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]'}`}
-        aria-label="Голосовое приветствие"
-      >
-        {isAudioPlaying ? (
-          <div className="flex items-end justify-center gap-[3px] w-full h-4 sm:h-5">
-            <div className="audio-bar" style={{ animationDelay: '0.0s' }}></div>
-            <div className="audio-bar" style={{ animationDelay: '0.3s', height: '12px' }}></div>
-            <div className="audio-bar" style={{ animationDelay: '0.6s', height: '16px' }}></div>
-            <div className="audio-bar" style={{ animationDelay: '0.2s', height: '10px' }}></div>
-          </div>
-        ) : (
-          <Play className="w-4 h-4 sm:w-5 sm:h-5 sm:group-hover:scale-110 transition-transform ml-0.5" />
-        )}
-      </button>
+        {/* КНОПКА ПОДЕЛИТЬСЯ */}
+        <button
+          onClick={() => {
+            if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(15);
+            setShowShare(true);
+          }}
+          className="p-2.5 sm:p-3.5 rounded-full bg-white/5 backdrop-blur-md border border-white/10 text-white/40 hover:text-white/90 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-all duration-300 group touch-manipulation flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12"
+          aria-label="Поделиться"
+        >
+          <QrCode className="w-4 h-4 sm:w-5 sm:h-5 sm:group-hover:scale-110 transition-transform" />
+        </button>
+
+      </div>
 
       {/* МОДАЛЬНОЕ ОКНО ПОДЕЛИТЬСЯ (Индивидуальное, Воздушное) */}
       {showShare && (
