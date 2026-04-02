@@ -557,24 +557,30 @@ const App = () => {
   const audioRef = useRef(null); // ПРЯМОЙ РЕФ НА ТЕГ <audio> (Бронебойно для iPhone)
   const isFlippingRef = useRef(false); // Реф для блокировки наклона во время переворота
 
-  const toggleGreetingAudio = () => {
+  const toggleGreetingAudio = (e) => {
+    // Блокируем любые конфликты тапов на мобильных
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    
     if (!audioRef.current) return;
     
     if (isAudioPlaying) {
       audioRef.current.pause();
       setIsAudioPlaying(false);
     } else {
-      // Запуск звука напрямую через Promise (требование iOS Safari)
+      // ВАЖНО: Мгновенно включаем эквалайзер, не дожидаясь пока айфон подгрузит аудио из сети!
+      setIsAudioPlaying(true);
+      
+      // Запуск звука
       const playPromise = audioRef.current.play();
       if (playPromise !== undefined) {
-        playPromise.then(() => {
-          setIsAudioPlaying(true);
-        }).catch(e => {
-          console.log("Audio play blocked by browser:", e);
+        playPromise.catch(err => {
+          console.log("Audio play blocked or failed:", err);
+          // Если iOS реально заблокировала звук (например, включен беззвучный режим), отключаем анимацию
           setIsAudioPlaying(false);
         });
-      } else {
-        setIsAudioPlaying(true);
       }
     }
   };
@@ -874,6 +880,7 @@ const App = () => {
           ref={audioRef} 
           src={CONTENT.creator.audioGreeting} 
           onEnded={() => setIsAudioPlaying(false)} 
+          onPause={() => setIsAudioPlaying(false)}
           preload="auto"
           playsInline
         />
@@ -881,7 +888,7 @@ const App = () => {
         {/* КНОПКА ГОЛОСОВОГО ПРИВЕТСТВИЯ */}
         <button
           onClick={toggleGreetingAudio}
-          className={`rounded-full backdrop-blur-md border transition-all duration-300 group touch-manipulation flex items-center justify-center w-10 h-10 ${isAudioPlaying ? 'bg-rose-900/40 border-rose-500/50 shadow-[0_0_20px_rgba(225,29,72,0.3)]' : 'bg-white/5 border-white/10 text-white/40 hover:text-white/90 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]'}`}
+          className={`active:scale-90 rounded-full backdrop-blur-md border transition-all duration-300 group touch-manipulation flex items-center justify-center w-10 h-10 ${isAudioPlaying ? 'bg-rose-900/40 border-rose-500/50 shadow-[0_0_20px_rgba(225,29,72,0.3)]' : 'bg-white/5 border-white/10 text-white/40 hover:text-white/90 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]'}`}
           aria-label="Голосовое приветствие"
         >
           {isAudioPlaying ? (
@@ -898,11 +905,13 @@ const App = () => {
 
         {/* КНОПКА ПОДЕЛИТЬСЯ */}
         <button
-          onClick={() => {
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
             if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(15);
             setShowShare(true);
           }}
-          className="rounded-full bg-white/5 backdrop-blur-md border border-white/10 text-white/40 hover:text-white/90 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-all duration-300 group touch-manipulation flex items-center justify-center w-10 h-10"
+          className="active:scale-90 rounded-full bg-white/5 backdrop-blur-md border border-white/10 text-white/40 hover:text-white/90 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-all duration-300 group touch-manipulation flex items-center justify-center w-10 h-10"
           aria-label="Поделиться"
         >
           <QrCode className="w-4 h-4 group-hover:scale-110 transition-transform" />
