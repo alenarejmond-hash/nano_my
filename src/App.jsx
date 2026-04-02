@@ -558,31 +558,17 @@ const App = () => {
   const isFlippingRef = useRef(false); // Реф для блокировки наклона во время переворота
 
   const toggleGreetingAudio = (e) => {
-    // Убрали e.preventDefault()! Safari блокирует звук, если прервать стандартное поведение жеста
-    e.stopPropagation(); // Оставляем только защиту, чтобы карточка не переворачивалась при клике
+    e.stopPropagation(); 
     
     const audio = audioRef.current;
     if (!audio) return;
     
-    if (isAudioPlaying) {
-      audio.pause();
-      setIsAudioPlaying(false);
+    // ИСПОЛЬЗУЕМ НАТИВНОЕ СВОЙСТВО paused КАК ЕДИНСТВЕННЫЙ ИСТОЧНИК ИСТИНЫ
+    // Никаких стейтов до вызова play() — для iOS это критично!
+    if (audio.paused) {
+      audio.play().catch(err => console.log("iOS Play Error:", err));
     } else {
-      // Чистый вызов play(), который iOS считает доверенным
-      const playPromise = audio.play();
-      
-      if (playPromise !== undefined) {
-        playPromise.then(() => {
-          setIsAudioPlaying(true);
-        }).catch(err => {
-          console.log("Audio play blocked by iOS:", err);
-          // Фоллбек, если Safari всё же капризничает
-          audio.load();
-          audio.play().then(() => setIsAudioPlaying(true)).catch(() => setIsAudioPlaying(false));
-        });
-      } else {
-        setIsAudioPlaying(true);
-      }
+      audio.pause();
     }
   };
 
@@ -880,14 +866,16 @@ const App = () => {
         <audio 
           ref={audioRef} 
           src={CONTENT.creator.audioGreeting} 
-          onEnded={() => setIsAudioPlaying(false)} 
+          onPlay={() => setIsAudioPlaying(true)}
           onPause={() => setIsAudioPlaying(false)}
+          onEnded={() => setIsAudioPlaying(false)} 
           preload="auto"
           playsInline
         />
 
         {/* КНОПКА ГОЛОСОВОГО ПРИВЕТСТВИЯ */}
         <button
+          type="button"
           onClick={toggleGreetingAudio}
           className={`active:scale-90 rounded-full backdrop-blur-md border transition-all duration-300 group touch-manipulation flex items-center justify-center w-10 h-10 ${isAudioPlaying ? 'bg-rose-900/40 border-rose-500/50 shadow-[0_0_20px_rgba(225,29,72,0.3)]' : 'bg-white/5 border-white/10 text-white/40 hover:text-white/90 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]'}`}
           aria-label="Голосовое приветствие"
