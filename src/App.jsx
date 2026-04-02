@@ -558,37 +558,27 @@ const App = () => {
   const isFlippingRef = useRef(false); // Реф для блокировки наклона во время переворота
 
   const toggleGreetingAudio = (e) => {
-    // Блокируем стандартное поведение, чтобы события click и touch не дублировались
-    if (e) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
+    // Убрали e.preventDefault()! Safari блокирует звук, если прервать стандартное поведение жеста
+    e.stopPropagation(); // Оставляем только защиту, чтобы карточка не переворачивалась при клике
     
-    if (!audioRef.current) return;
+    const audio = audioRef.current;
+    if (!audio) return;
     
     if (isAudioPlaying) {
-      audioRef.current.pause();
+      audio.pause();
       setIsAudioPlaying(false);
     } else {
-      // ИСПРАВЛЕНИЕ ДЛЯ iOS: принудительная загрузка, если Safari заблокировал автопредзагрузку
-      if (audioRef.current.readyState === 0) {
-        audioRef.current.load();
-      }
-      
-      const playPromise = audioRef.current.play();
+      // Чистый вызов play(), который iOS считает доверенным
+      const playPromise = audio.play();
       
       if (playPromise !== undefined) {
         playPromise.then(() => {
-          // Эквалайзер включится ТОЛЬКО если звук пошел
           setIsAudioPlaying(true);
         }).catch(err => {
-          console.log("Audio play blocked or failed:", err);
-          // Резервный хак для строгих политик Safari
-          audioRef.current.load();
-          const retryPromise = audioRef.current.play();
-          if (retryPromise !== undefined) {
-            retryPromise.then(() => setIsAudioPlaying(true)).catch(() => setIsAudioPlaying(false));
-          }
+          console.log("Audio play blocked by iOS:", err);
+          // Фоллбек, если Safari всё же капризничает
+          audio.load();
+          audio.play().then(() => setIsAudioPlaying(true)).catch(() => setIsAudioPlaying(false));
         });
       } else {
         setIsAudioPlaying(true);
@@ -898,8 +888,7 @@ const App = () => {
 
         {/* КНОПКА ГОЛОСОВОГО ПРИВЕТСТВИЯ */}
         <button
-          onClick={(e) => toggleGreetingAudio(e)}
-          onTouchEnd={(e) => toggleGreetingAudio(e)}
+          onClick={toggleGreetingAudio}
           className={`active:scale-90 rounded-full backdrop-blur-md border transition-all duration-300 group touch-manipulation flex items-center justify-center w-10 h-10 ${isAudioPlaying ? 'bg-rose-900/40 border-rose-500/50 shadow-[0_0_20px_rgba(225,29,72,0.3)]' : 'bg-white/5 border-white/10 text-white/40 hover:text-white/90 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]'}`}
           aria-label="Голосовое приветствие"
         >
