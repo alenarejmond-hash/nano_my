@@ -246,7 +246,7 @@ const CreatorCard = () => {
         <div className="absolute inset-0 bg-gradient-to-t from-black from-0% via-black/80 via-[15%] to-transparent to-[30%] pointer-events-none z-0 rounded-[2.5rem]"></div>
 
         {/* ЗАМЕНА СТАТИЧНОГО ФОНА НА СГОРАЮЩИЙ (Винный огонь) */}
-        <BurnRevealImage src={CONTENT.creator.bgImage} className="opacity-50 mix-blend-luminosity grayscale-[0.2]" burnColor="wine" />
+        <BurnRevealImage src={CONTENT.creator.bgImage} className="opacity-50 mix-blend-overlay grayscale-[0.2]" burnColor="wine" />
 
         <div className="relative z-10 flex flex-col h-full justify-between">
           <div className="flex justify-between items-start">
@@ -748,31 +748,6 @@ const App = () => {
             className="w-full h-full card-preserve-3d transition-transform duration-100 ease-out z-10 relative"
             style={{ transform: `rotateX(${rotate.x}deg) rotateY(${rotate.y}deg)` }}
           >
-            {/* === ЭФФЕКТ 3D ЛЕВИТАЦИИ В ВОЗДУХЕ === */}
-            
-            {/* 1. Глубокая проекция тени на "пол" в 3D пространстве */}
-            <div 
-              className="absolute left-1/2 bottom-0 w-[85%] h-32 bg-black blur-[40px] rounded-[100%] pointer-events-none"
-              style={{ 
-                transform: 'translateX(-50%) translateY(100px) translateZ(-250px) rotateX(60deg)',
-              }}
-            />
-
-            {/* 2. Объемная цветная аура в пространстве далеко за визиткой */}
-            <div 
-              className="absolute inset-0 rounded-[2.5rem] blur-[60px] pointer-events-none opacity-50 transition-colors duration-500"
-              style={{ 
-                transform: 'translateZ(-80px) translateY(20px) scale(0.9)',
-                backgroundColor: getGlowColor() 
-              }}
-            />
-
-            {/* 3. Плотная 3D-тень, создающая толщину и физический вес самого объекта */}
-            <div 
-              className="absolute inset-0 rounded-[2.5rem] bg-black/90 blur-[25px] pointer-events-none"
-              style={{ transform: 'translateZ(-30px) translateY(10px) scale(0.95)' }}
-            />
-
             {/* Сама визитка с анимацией вращения (переворот на 180) */}
             <div 
               className="relative w-full h-full transition-transform duration-700 ease-[cubic-bezier(0.4,0.2,0.2,1)] card-preserve-3d"
