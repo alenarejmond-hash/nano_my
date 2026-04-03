@@ -207,6 +207,23 @@ const globalStyles = `
     border-radius: 2px;
     animation: equalize 1s infinite ease-in-out;
   }
+
+  /* === ИНТЕРАКТИВНЫЙ ШЛЕЙФ ЗА КУРСОРОМ === */
+  @keyframes trail-fade {
+    0% { opacity: 0.8; transform: scale(1) translate(-50%, -50%); }
+    100% { opacity: 0; transform: scale(0.1) translate(-50%, -50%); }
+  }
+  .trail-particle {
+    position: fixed;
+    pointer-events: none;
+    background: rgba(225, 29, 72, 0.8);
+    box-shadow: 0 0 10px rgba(225, 29, 72, 0.6), 0 0 20px rgba(159, 18, 57, 0.4);
+    border-radius: 50%;
+    width: 8px;
+    height: 8px;
+    animation: trail-fade 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    z-index: 9999;
+  }
 `;
 
 // ==========================================
@@ -553,6 +570,7 @@ const App = () => {
   const [showPwaPrompt, setShowPwaPrompt] = useState(false); // Состояние для iOS плашки PWA
   const [copied, setCopied] = useState(false);       // Состояние для копирования ссылки
   const [isAudioPlaying, setIsAudioPlaying] = useState(false); // Состояние аудио
+  const [trail, setTrail] = useState([]); // Состояние для искристого шлейфа
   const cardRef = useRef(null);
   const audioCtxRef = useRef(null); // Реф для аудио контекста (чтобы звук не пропадал)
   const audioRef = useRef(null); // Надежный реф для HTML5 аудио
@@ -801,6 +819,15 @@ const App = () => {
       {/* Вставляем глобальные стили */}
       <style>{globalStyles}</style>
 
+      {/* Интерактивный шлейф из пыльцы */}
+      {trail.map(p => (
+        <div
+          key={p.id}
+          className="trail-particle"
+          style={{ left: p.x, top: p.y }}
+        />
+      ))}
+
       {/* Фоновое свечение приложения (Живые сферы) */}
       <div 
         className="fixed top-1/4 left-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-[120px] pointer-events-none transition-transform duration-1000 ease-out"
@@ -872,26 +899,40 @@ const App = () => {
 
               <CreatorCard />
 
-              {/* === ЭФФЕКТЫ СВЕЧЕНИЯ И БЛИКОВ === */}
+              {/* === ЭФФЕКТЫ СВЕЧЕНИЯ И БЛИКОВ (ЖИДКОЕ СТЕКЛО) === */}
 
-              {/* Лицевая сторона: Мягкий, обволакивающий свет */}
+              {/* Лицевая сторона: Жидкое стекло (Liquid Glass) */}
               <div 
                 className="absolute inset-0 w-full h-full rounded-[2.5rem] pointer-events-none transition-opacity duration-300 card-backface-hidden"
                 style={{
-                  background: `radial-gradient(farthest-corner circle at ${glare.x}% ${glare.y}%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 80%)`,
+                  background: `
+                    radial-gradient(farthest-corner circle at ${glare.x}% ${glare.y}%, rgba(255, 255, 255, 0.8) 10%, rgba(255, 255, 255, 0) 60%),
+                    linear-gradient(${glare.x + glare.y}deg, rgba(255,255,255,0) 30%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 70%)
+                  `,
+                  boxShadow: `
+                    inset ${rotate.y}px ${-rotate.x}px 20px rgba(255, 255, 255, 0.4),
+                    inset ${-rotate.y * 1.5}px ${rotate.x * 1.5}px 40px rgba(255, 255, 255, 0.15)
+                  `,
                   mixBlendMode: 'overlay',
-                  opacity: glare.opacity,
+                  opacity: glare.opacity ? Math.max(0.4, glare.opacity) : 0,
                   zIndex: 50,
                 }}
               />
 
-              {/* Бегающий блик (Обратная сторона) */}
+              {/* Обратная сторона: Жидкое стекло (Liquid Glass) */}
               <div 
                 className="absolute inset-0 w-full h-full rounded-[2.5rem] pointer-events-none transition-opacity duration-300 card-backface-hidden"
                 style={{
                   transform: 'rotateY(180deg) translateZ(0)',
-                  background: `radial-gradient(farthest-corner circle at ${100 - glare.x}% ${glare.y}%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 80%)`,
-                  opacity: glare.opacity,
+                  background: `
+                    radial-gradient(farthest-corner circle at ${100 - glare.x}% ${glare.y}%, rgba(255, 255, 255, 0.8) 10%, rgba(255, 255, 255, 0) 60%),
+                    linear-gradient(${100 - glare.x + glare.y}deg, rgba(255,255,255,0) 30%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 70%)
+                  `,
+                  boxShadow: `
+                    inset ${-rotate.y}px ${-rotate.x}px 20px rgba(255, 255, 255, 0.4),
+                    inset ${rotate.y * 1.5}px ${rotate.x * 1.5}px 40px rgba(255, 255, 255, 0.15)
+                  `,
+                  opacity: glare.opacity ? Math.max(0.4, glare.opacity) : 0,
                   mixBlendMode: 'overlay',
                   zIndex: 50,
                 }}
