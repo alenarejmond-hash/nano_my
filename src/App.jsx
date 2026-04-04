@@ -25,6 +25,10 @@ const CONTENT = {
     actionText: 'ЗАКАЗАТЬ СВОЙ DIGITAL-МИР',
     actionLink: 'https://t.me/elenlime',
   },
+  // 📊 АНАЛИТИКА (Яндекс.Метрика)
+  analytics: {
+    yandexMetricaId: '', // Впиши сюда номер счетчика (только цифры, например: 98765432). Оставь пустым, если не нужно.
+  },
   // 📇 ДАННЫЕ ДЛЯ СОХРАНЕНИЯ В ТЕЛЕФОН (vCard)
   // Внимание: Эти данные скрыты на визитке, но при нажатии "Сохранить контакт" они попадут в адресную книгу клиента!
   contact: {
@@ -584,6 +588,25 @@ const App = () => {
   const audioRef = useRef(null); // Надежный реф для HTML5 аудио
   const isFlippingRef = useRef(false); // Реф для блокировки наклона во время переворота
 
+  // Инициализация Яндекс.Метрики
+  useEffect(() => {
+    const ymId = CONTENT.analytics.yandexMetricaId;
+    if (!ymId) return;
+
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();
+    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+    window.ym(ymId, "init", {
+         clickmap:true,
+         trackLinks:true,
+         accurateTrackBounce:true,
+         webvisor:true
+    });
+  }, []);
+
   const toggleGreetingAudio = (e) => {
     e.stopPropagation(); 
     
@@ -822,8 +845,30 @@ const App = () => {
     }
   };
 
+  // Функция для конвертации картинки в Base64 для vCard
+  const getBase64Image = async (imgUrl) => {
+    try {
+      const response = await fetch(imgUrl);
+      const blob = await response.blob();
+      return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result.split(',')[1]); 
+        reader.readAsDataURL(blob);
+      });
+    } catch (e) {
+      console.error("Ошибка загрузки фото для vCard", e);
+      return null;
+    }
+  };
+
   // Функция скачивания vCard (контакта)
-  const handleDownloadVCard = () => {
+  const handleDownloadVCard = async () => {
+    // Конвертируем аватарку в Base64
+    let photoBase64 = null;
+    if (CONTENT.creator.avatar) {
+      photoBase64 = await getBase64Image(CONTENT.creator.avatar);
+    }
+
     // Формируем vCard стандарта 3.0
     const vcard = [
       "BEGIN:VCARD",
@@ -835,9 +880,10 @@ const App = () => {
       `TEL;TYPE=CELL:${CONTENT.contact.phone}`,
       `EMAIL;TYPE=WORK:${CONTENT.contact.email}`,
       `URL:${CONTENT.creator.websiteLink}`,
+      photoBase64 ? `PHOTO;ENCODING=b;TYPE=JPEG:${photoBase64}` : "",
       "NOTE:Сохранено с цифровой визитки",
       "END:VCARD"
-    ].join("\n");
+    ].filter(Boolean).join("\n"); // filter(Boolean) уберет пустые строки, если фото нет
 
     // Создаем Blob и скачиваем
     const blob = new Blob([vcard], { type: 'text/vcard;charset=utf-8' });
