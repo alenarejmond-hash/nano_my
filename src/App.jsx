@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { 
   Globe, Star, UserCircle2, Diamond, Crown,
   QrCode, Share2, Copy, X, Check,
-  Rocket, Code2, Play, PlusSquare
+  Rocket, Code2, Play, PlusSquare, UserPlus
 } from 'lucide-react';
 
 // ==========================================
@@ -24,6 +24,14 @@ const CONTENT = {
     websiteLink: 'https://nice-app.ru',
     actionText: 'ЗАКАЗАТЬ СВОЙ DIGITAL-МИР',
     actionLink: 'https://t.me/elenlime',
+  },
+  // 📇 ДАННЫЕ ДЛЯ СОХРАНЕНИЯ В ТЕЛЕФОН (vCard)
+  // Внимание: Эти данные скрыты на визитке, но при нажатии "Сохранить контакт" они попадут в адресную книгу клиента!
+  contact: {
+    phone: '+79995051277', // Ваш реальный номер телефона (в формате +7...)
+    email: 'limetut@gmail.com', // Ваш рабочий email
+    company: 'Premium Web', // Название компании/бренда
+    title: 'Digital Creator & Developer' // Ваша должность для контакта
   }
 };
 
@@ -814,6 +822,35 @@ const App = () => {
     }
   };
 
+  // Функция скачивания vCard (контакта)
+  const handleDownloadVCard = () => {
+    // Формируем vCard стандарта 3.0
+    const vcard = [
+      "BEGIN:VCARD",
+      "VERSION:3.0",
+      `FN:${CONTENT.creator.name1} ${CONTENT.creator.name2}`,
+      `N:${CONTENT.creator.name2};${CONTENT.creator.name1};;;`,
+      `ORG:${CONTENT.contact.company}`,
+      `TITLE:${CONTENT.contact.title}`,
+      `TEL;TYPE=CELL:${CONTENT.contact.phone}`,
+      `EMAIL;TYPE=WORK:${CONTENT.contact.email}`,
+      `URL:${CONTENT.creator.websiteLink}`,
+      "NOTE:Сохранено с цифровой визитки",
+      "END:VCARD"
+    ].join("\n");
+
+    // Создаем Blob и скачиваем
+    const blob = new Blob([vcard], { type: 'text/vcard;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', `${CONTENT.creator.name1}_${CONTENT.creator.name2}.vcf`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div className="fixed inset-0 w-full h-full bg-neutral-950 flex flex-col font-sans select-none transition-all duration-500 overflow-hidden justify-center items-center p-4 sm:p-8">
       {/* Вставляем глобальные стили */}
@@ -988,6 +1025,21 @@ const App = () => {
           aria-label="Поделиться"
         >
           <QrCode className="w-4 h-4 group-hover:scale-110 transition-transform" />
+        </button>
+
+        {/* КНОПКА СОХРАНИТЬ КОНТАКТ (vCard) */}
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(15);
+            handleDownloadVCard();
+          }}
+          className="active:scale-90 rounded-full bg-white/5 backdrop-blur-md border border-white/10 text-white/40 hover:text-white/90 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-all duration-300 group touch-manipulation flex items-center justify-center w-10 h-10"
+          aria-label="Сохранить контакт"
+          title="Сохранить в контакты"
+        >
+          <UserPlus className="w-4 h-4 group-hover:scale-110 transition-transform" />
         </button>
 
       </div>
