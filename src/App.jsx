@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { 
   Globe, Star, UserCircle2, Diamond, Crown,
   QrCode, Share2, Copy, X, Check,
-  Rocket, Code2, Play, PlusSquare, UserPlus
+  Rocket, Code2, Play, PlusSquare, UserPlus, Gift
 } from 'lucide-react';
 
 // ==========================================
@@ -24,6 +24,13 @@ const CONTENT = {
     websiteLink: 'https://nice-app.ru',
     actionText: 'ЗАКАЗАТЬ СВОЙ DIGITAL-МИР',
     actionLink: 'https://t.me/elenlime',
+  },
+  // 🧲 ЛИД-МАГНИТ (SECRET OFFER)
+  leadMagnet: {
+    title: 'SECRET OFFER',
+    description: 'Заберите промокод на скидку 15% на разработку тарифов PRO и ULTRA. Сделайте шаг к премиальному позиционированию.',
+    buttonText: 'ЗАБРАТЬ ПРОМОКОД',
+    link: 'https://t.me/elenlime?text=Елена, привет! Хочу забрать скидку 15% на Mini-App',
   },
   // 📊 АНАЛИТИКА (Яндекс.Метрика)
   analytics: {
@@ -386,6 +393,7 @@ const CreatorCard = () => {
               { id: 'pro', icon: Rocket },
               { id: 'ultra', icon: Crown },
               { id: 'tech', icon: Code2 },
+              { id: 'lead', icon: Gift },
             ].map((item) => (
               <button 
                 key={item.id}
@@ -477,7 +485,22 @@ const CreatorCard = () => {
               </p>
             </div>
 
-            {/* 6. ОТЗЫВЫ */}
+            {/* 6. ЛИД-МАГНИТ (SECRET OFFER) */}
+            <div className={`absolute inset-0 flex flex-col justify-center transition-all duration-500 ease-in-out ${view === 'lead' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
+              <div className="w-10 h-10 rounded-full bg-rose-900/30 border border-rose-500/30 flex items-center justify-center mb-3 shadow-[0_0_15px_rgba(159,18,57,0.2)]">
+                <Gift className="w-5 h-5 text-rose-300 animate-bounce" />
+              </div>
+              <h3 className="text-xl font-serif font-light text-rose-100 tracking-wider mb-2">{CONTENT.leadMagnet.title}</h3>
+              <p className="font-serif text-[11px] text-rose-100/80 leading-relaxed bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-rose-900/50 shadow-inner mb-4">
+                {CONTENT.leadMagnet.description}
+              </p>
+              <a href={CONTENT.leadMagnet.link} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()} className="no-tilt w-full bg-gradient-to-r from-rose-700 to-rose-500 hover:from-rose-600 hover:to-rose-400 text-white text-[10px] font-bold uppercase tracking-widest py-3.5 rounded-xl flex items-center justify-center transition-all shadow-[0_0_20px_rgba(225,29,72,0.3)] border border-rose-500/50 group">
+                <Crown className="w-3.5 h-3.5 mr-2 text-rose-200 group-hover:scale-110 transition-transform" />
+                {CONTENT.leadMagnet.buttonText}
+              </a>
+            </div>
+
+            {/* 7. ОТЗЫВЫ */}
             <div className={`absolute inset-0 flex flex-col pt-2 transition-all duration-500 ease-in-out ${view === 'reviews' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
               <div className="flex items-center gap-3 mb-3 shrink-0">
                 <div className="w-8 h-8 rounded-full bg-rose-900/30 border border-rose-500/30 flex items-center justify-center shadow-[0_0_15px_rgba(159,18,57,0.2)]">
@@ -885,16 +908,14 @@ const App = () => {
       "END:VCARD"
     ].filter(Boolean).join("\n"); // filter(Boolean) уберет пустые строки, если фото нет
 
-    // Создаем Blob и скачиваем
-    const blob = new Blob([vcard], { type: 'text/vcard;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
+    // ИСПОЛЬЗУЕМ МЕТОД DATA URI ДЛЯ ОБХОДА БЛОКИРОВОК TELEGRAM
+    const uri = 'data:text/vcard;charset=utf-8,' + encodeURIComponent(vcard);
     const link = document.createElement('a');
-    link.href = url;
+    link.href = uri;
     link.setAttribute('download', `${CONTENT.creator.name1}_${CONTENT.creator.name2}.vcf`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    URL.revokeObjectURL(url);
   };
 
   return (
