@@ -28,9 +28,10 @@ const CONTENT = {
   // 🧲 ЛИД-МАГНИТ (SECRET OFFER)
   leadMagnet: {
     title: 'SECRET OFFER',
-    description: 'Заберите промокод на скидку 15% на разработку тарифов PRO и ULTRA. Сделайте шаг к премиальному позиционированию.',
+    description: 'Скидка 15% на разработку любого тарифа: NANO, PRO или ULTRA. Нажмите кнопку, чтобы перейти в Telegram и забрать скидку.',
     buttonText: 'ЗАБРАТЬ ПРОМОКОД',
-    link: 'https://t.me/elenlime?text=Елена, привет! Хочу забрать скидку 15% на Mini-App',
+    promoCode: 'ELEN-TECH-15%',
+    link: 'https://t.me/elenlime?text=Елена, привет! У меня есть промокод ELEN-TECH-15%. Хочу обсудить создание цифровой визитки.',
   },
   // 📊 АНАЛИТИКА (Яндекс.Метрика)
   analytics: {
@@ -324,6 +325,14 @@ const CreatorCard = () => {
     return () => clearInterval(interval);
   }, []);
 
+  const handlePromoClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    // Сразу перекидываем в Telegram с готовым текстом
+    window.location.href = CONTENT.leadMagnet.link;
+  };
+
   return (
     <>
       {/* ЛИЦЕВАЯ СТОРОНА */}
@@ -494,10 +503,13 @@ const CreatorCard = () => {
               <p className="font-serif text-[11px] text-rose-100/80 leading-relaxed bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-rose-900/50 shadow-inner mb-4">
                 {CONTENT.leadMagnet.description}
               </p>
-              <a href={CONTENT.leadMagnet.link} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()} className="no-tilt w-full bg-gradient-to-r from-rose-700 to-rose-500 hover:from-rose-600 hover:to-rose-400 text-white text-[10px] font-bold uppercase tracking-widest py-3.5 rounded-xl flex items-center justify-center transition-all shadow-[0_0_20px_rgba(225,29,72,0.3)] border border-rose-500/50 group">
+              <button 
+                onClick={handlePromoClick} 
+                className="no-tilt w-full bg-gradient-to-r from-rose-700 to-rose-500 hover:from-rose-600 hover:to-rose-400 text-white text-[10px] font-bold uppercase tracking-widest py-3.5 rounded-xl flex items-center justify-center transition-all shadow-[0_0_20px_rgba(225,29,72,0.3)] border border-rose-500/50 group"
+              >
                 <Crown className="w-3.5 h-3.5 mr-2 text-rose-200 group-hover:scale-110 transition-transform" />
                 {CONTENT.leadMagnet.buttonText}
-              </a>
+              </button>
             </div>
 
             {/* 7. ОТЗЫВЫ */}
