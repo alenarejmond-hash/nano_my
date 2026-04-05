@@ -918,52 +918,32 @@ const App = () => {
     const isTelegram = /Telegram/i.test(navigator.userAgent || navigator.vendor || window.opera);
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
-    // === ИДЕАЛЬНОЕ РЕШЕНИЕ ДЛЯ TELEGRAM И СМАРТФОНОВ ===
+    // === ПРЯМОЕ СКАЧИВАНИЕ (БЕЗ МЕНЮ "ПОДЕЛИТЬСЯ") ===
     
-    // 1. Пробуем Web Share API (только вне Telegram, т.к. внутри него этот метод багует)
-    if (!isTelegram) {
-      try {
-        const file = new File([vcard], fileName, { type: 'text/vcard' });
-        if (navigator.canShare && navigator.canShare({ files: [file] })) {
-          await navigator.share({
-            files: [file],
-            title: 'Сохранить контакт',
-          });
-          return; 
-        }
-      } catch (error) {
-        console.log('Native share failed or cancelled', error);
-      }
-    }
-
-    // 2. Специальные хаки для Telegram WebView
-    if (isTelegram) {
-      if (isIOS) {
-        // На iOS в Telegram прямая подмена URL на data URI вызывает нативное окно сохранения контакта
-        window.location.href = 'data:text/vcard;charset=utf-8,' + encodeURIComponent(vcard);
-      } else {
-        // На Android в Telegram работает стандартный тег <a download> с data URI
-        const link = document.createElement('a');
-        link.href = 'data:text/vcard;charset=utf-8,' + encodeURIComponent(vcard);
-        link.download = fileName;
-        link.target = '_blank';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      }
+    // Специальный хак для iOS внутри Telegram
+    if (isTelegram && isIOS) {
+      window.location.href = 'data:text/vcard;charset=utf-8,' + encodeURIComponent(vcard);
       return;
     }
 
-    // 3. Фолбэк для ПК и обычных браузеров (стандартное скачивание)
+    // Для всех остальных браузеров (Safari, Chrome, Android Telegram и т.д.)
+    // Принудительно создаем файл и скачиваем его напрямую
     const blob = new Blob([vcard], { type: 'text/vcard;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
+    const url = window.URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
     link.setAttribute('download', fileName);
+    
+    // Для стабильной работы в iOS Safari иногда полезно открывать загрузку в новой вкладке
+    if (isIOS) {
+        link.target = '_blank';
+    }
+    
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    setTimeout(() => URL.revokeObjectURL(url), 100);
+    
+    setTimeout(() => window.URL.revokeObjectURL(url), 100);
   };
 
   return (
