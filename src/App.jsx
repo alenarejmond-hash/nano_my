@@ -9,41 +9,167 @@ import {
 // ⚙️ НАСТРОЙКИ КОНТЕНТА (МЕНЯТЬ ТЕКСТ, ФОТО И ССЫЛКИ ТОЛЬКО ЗДЕСЬ!)
 // ==========================================
 const CONTENT = {
-  creator: {
-    bgImage: '/bg-creator.jpg',
-    avatar: '/avatar-creator.jpg', 
-    audioGreeting: '/greeting.mp3', // 🔊 Ссылка на ваш аудиофайл
-    badge: 'DESIGN & CODE',
-    name1: 'ЕЛЕНА',
-    name2: 'СОТНИКОВА',
-    role: 'Premium Web',
-    status: 'Digital Creator',
-    quote1: 'Не просто визитка,',
-    quote2: 'а ваш главный цифровой актив...',
-    websiteText: 'Подробнее...',
-    websiteLink: 'https://nice-app.ru',
-    actionText: 'ЗАКАЗАТЬ СВОЙ DIGITAL-МИР',
-    actionLink: 'https://t.me/elenlime',
+  // 🇷🇺 РУССКИЙ ЯЗЫК
+  ru: {
+    creator: {
+      bgImage: '/bg-creator.jpg',
+      avatar: '/avatar-creator.jpg', 
+      audioGreeting: '/greeting.mp3', // 🔊 Ссылка на ваш аудиофайл (можно сделать разные для RU и EN)
+      badge: 'DESIGN & CODE',
+      name1: 'ЕЛЕНА',
+      name2: 'СОТНИКОВА',
+      role: 'Premium Web',
+      status: 'Digital Creator',
+      quote1: 'Не просто визитка,',
+      quote2: 'а ваш главный цифровой актив...',
+      websiteText: 'Подробнее...',
+      websiteLink: 'https://nice-app.ru',
+      actionText: 'ЗАКАЗАТЬ СВОЙ DIGITAL-МИР',
+      actionLink: 'https://t.me/elenlime',
+    },
+    leadMagnet: {
+      title: 'SECRET OFFER',
+      description: 'Скидка 15% на разработку любого тарифа: NANO, PRO или ULTRA. Нажмите кнопку, чтобы перейти в Telegram и забрать скидку.',
+      buttonText: 'ЗАБРАТЬ ПРОМОКОД',
+      promoCode: 'ELEN-TECH-15%',
+      link: 'https://t.me/elenlime?text=Елена, привет! У меня есть промокод ELEN-TECH-15%. Хочу обсудить создание цифровой визитки.',
+    },
+    contact: {
+      phone: '+79995051277',
+      email: 'limetut@gmail.com',
+      company: 'Premium Web',
+      title: 'Digital Creator & Developer'
+    },
+    views: {
+      profile: {
+        title: 'Моя философия',
+        desc: 'Я создаю не просто сайты, а премиальные digital-миры. Ваша цифровая визитка — это статус, который продает ваши услуги еще до того, как вы заговорите. Уникальные анимации, PWA-приложения и 100% WOW-эффект.'
+      },
+      nano: {
+        title: 'Nano визитка',
+        desc: 'Элегантный старт для вашего бренда. Идеально выверенная база, стильные анимации, адаптивность и мгновенная загрузка. Один платеж — и она ваша навсегда.'
+      },
+      pro: {
+        title: 'Архитектура Pro',
+        desc: 'Premium-шаблон из моей базы с полной адаптацией под вас. Мини-апп в TG/VK + веб-версия (PWA). Поддомен в подарок и запуск «под ключ» всего за 3-5 дней.'
+      },
+      ultra: {
+        title: 'Эксклюзив Ultra',
+        desc: 'Уникальный цифровой код вашего бизнеса. Разработка индивидуальной структуры, сложнейшие 3D-сцены, эффекты стекла и частиц. Решение для тех, кто не терпит компромиссов.'
+      },
+      tech: {
+        title: 'Под капотом',
+        desc: 'Каждая визитка — это шедевр кода. Работает без VPN, устанавливается на экран телефона как приложение, не требует абонентской платы. Легко делиться через QR или ссылку.'
+      },
+      reviewsTitle: 'Отзывы',
+      reviews: [
+        { name: 'Виктория', date: '21.03.2026', text: '"Забыла про конструкторы как про страшный сон. Очень плавно, стильно, вайб передается на 100%"' },
+        { name: 'Алексей', date: '20.03.2026', text: '"Дизайн просто космос. Клиенты теперь не хотят уходить из моей мини-апп. Конверсия выросла вдвое!"' },
+        { name: 'Мария', date: '', text: '"Елена — мастер своего дела. Все продумано до мелочей: от визуала до анимаций."' }
+      ]
+    },
+    ui: {
+      shareTitle: 'Поделиться визиткой',
+      shareDesc: 'Дайте отсканировать QR-код или отправьте ссылку напрямую.',
+      shareText: 'Привет! Вот моя визитка с контактами:',
+      copy: 'Копировать',
+      copied: 'Скопировано!',
+      send: 'Отправить',
+      installTitle: 'Установить приложение',
+      installDesc: 'Добавьте визитку на экран «Домой», чтобы открывать её в один клик без браузера.',
+      installStep1_1: 'Нажмите кнопку ',
+      installStep1_2: '«Поделиться»',
+      installStep1_3: 'в меню браузера (обычно внизу).',
+      installStep2_1: 'Выберите ',
+      installStep2_2: '«На экран "Домой"»',
+      installStep2_3: 'в появившемся списке.',
+      done: 'Готово',
+      saveContact: 'Сохранено с цифровой визитки'
+    }
   },
-  // 🧲 ЛИД-МАГНИТ (SECRET OFFER)
-  leadMagnet: {
-    title: 'SECRET OFFER',
-    description: 'Скидка 15% на разработку любого тарифа: NANO, PRO или ULTRA. Нажмите кнопку, чтобы перейти в Telegram и забрать скидку.',
-    buttonText: 'ЗАБРАТЬ ПРОМОКОД',
-    promoCode: 'ELEN-TECH-15%',
-    link: 'https://t.me/elenlime?text=Елена, привет! У меня есть промокод ELEN-TECH-15%. Хочу обсудить создание цифровой визитки.',
+
+  // 🇬🇧 АНГЛИЙСКИЙ ЯЗЫК
+  en: {
+    creator: {
+      bgImage: '/bg-creator.jpg',
+      avatar: '/avatar-creator.jpg', 
+      audioGreeting: '/greeting.mp3', // 🔊 Ссылка на ваш аудиофайл
+      badge: 'DESIGN & CODE',
+      name1: 'ELENA',
+      name2: 'SOTNIKOVA',
+      role: 'Premium Web',
+      status: 'Digital Creator',
+      quote1: 'Not just a business card,',
+      quote2: 'but your main digital asset...',
+      websiteText: 'Learn more...',
+      websiteLink: 'https://nice-app.ru',
+      actionText: 'ORDER YOUR DIGITAL WORLD',
+      actionLink: 'https://t.me/elenlime',
+    },
+    leadMagnet: {
+      title: 'SECRET OFFER',
+      description: '15% discount on any tariff: NANO, PRO, or ULTRA. Click the button to go to Telegram and claim your discount.',
+      buttonText: 'CLAIM PROMO CODE',
+      promoCode: 'ELEN-TECH-15%',
+      link: 'https://t.me/elenlime?text=Hi Elena! I have the promo code ELEN-TECH-15%. I want to discuss creating a digital business card.',
+    },
+    contact: {
+      phone: '+79995051277',
+      email: 'limetut@gmail.com',
+      company: 'Premium Web',
+      title: 'Digital Creator & Developer'
+    },
+    views: {
+      profile: {
+        title: 'My Philosophy',
+        desc: 'I create not just websites, but premium digital worlds. Your digital business card is a status that sells your services before you even speak. Unique animations, PWA apps, and a 100% WOW effect.'
+      },
+      nano: {
+        title: 'Nano Card',
+        desc: 'An elegant start for your brand. A perfectly balanced base, stylish animations, responsive design, and instant loading. One payment — and it\'s yours forever.'
+      },
+      pro: {
+        title: 'Architecture Pro',
+        desc: 'A premium template from my base fully adapted for you. TG/VK mini-app + web version (PWA). A free subdomain and a turnkey launch in just 3-5 days.'
+      },
+      ultra: {
+        title: 'Exclusive Ultra',
+        desc: 'The unique digital code of your business. Custom structure development, complex 3D scenes, glass and particle effects. A solution for those who accept no compromises.'
+      },
+      tech: {
+        title: 'Under the Hood',
+        desc: 'Every business card is a masterpiece of code. Works without VPN, installs on your phone screen as an app, requires no subscription fee. Easy to share via QR or link.'
+      },
+      reviewsTitle: 'Reviews',
+      reviews: [
+        { name: 'Victoria', date: '21.03.2026', text: '"Forgot about website builders like a bad dream. Very smooth, stylish, the vibe is conveyed 100%"' },
+        { name: 'Alexey', date: '20.03.2026', text: '"The design is just cosmic. Clients now don\'t want to leave my mini-app. Conversions have doubled!"' },
+        { name: 'Maria', date: '', text: '"Elena is a master of her craft. Everything is thought out to the smallest detail: from visuals to animations."' }
+      ]
+    },
+    ui: {
+      shareTitle: 'Share Contact',
+      shareDesc: 'Let them scan the QR code or send the link directly.',
+      shareText: 'Hi! Here is my digital business card:',
+      copy: 'Copy',
+      copied: 'Copied!',
+      send: 'Send',
+      installTitle: 'Install App',
+      installDesc: 'Add the business card to your Home Screen for one-click access without a browser.',
+      installStep1_1: 'Tap the ',
+      installStep1_2: 'Share',
+      installStep1_3: ' button in your browser menu (usually at the bottom).',
+      installStep2_1: 'Select ',
+      installStep2_2: '"Add to Home Screen"',
+      installStep2_3: ' from the list.',
+      done: 'Done',
+      saveContact: 'Saved from digital business card'
+    }
   },
-  // 📊 АНАЛИТИКА (Яндекс.Метрика)
+
+  // 📊 АНАЛИТИКА (Общая для всех языков)
   analytics: {
-    yandexMetricaId: '108395630', // Впиши сюда номер счетчика (только цифры, например: 98765432). Оставь пустым, если не нужно.
-  },
-  // 📇 ДАННЫЕ ДЛЯ СОХРАНЕНИЯ В ТЕЛЕФОН (vCard)
-  // Внимание: Эти данные скрыты на визитке, но при нажатии "Сохранить контакт" они попадут в адресную книгу клиента!
-  contact: {
-    phone: '+79995051277', // Ваш реальный номер телефона (в формате +7...)
-    email: 'limetut@gmail.com', // Ваш рабочий email
-    company: 'Premium Web', // Название компании/бренда
-    title: 'Digital Creator & Developer' // Ваша должность для контакта
+    yandexMetricaId: '108395630', 
   }
 };
 
@@ -287,17 +413,19 @@ const BurnRevealImage = ({ src, className, style, imgClassName = "", burnColor =
 // ==========================================
 
 // 0. БОСС / СОЗДАТЕЛЬ (Елена Сотникова)
-const CreatorCard = () => {
+const CreatorCard = ({ lang }) => {
   const [view, setView] = useState('profile');
   const [isNameRevealed, setIsNameRevealed] = useState(false);
-  const [hackerName1, setHackerName1] = useState(() => CONTENT.creator.name1.replace(/./g, () => HACKER_CHARS[Math.floor(Math.random() * HACKER_CHARS.length)]));
-  const [hackerName2, setHackerName2] = useState(() => CONTENT.creator.name2.replace(/./g, () => HACKER_CHARS[Math.floor(Math.random() * HACKER_CHARS.length)]));
+  const [hackerName1, setHackerName1] = useState(() => CONTENT[lang].creator.name1.replace(/./g, () => HACKER_CHARS[Math.floor(Math.random() * HACKER_CHARS.length)]));
+  const [hackerName2, setHackerName2] = useState(() => CONTENT[lang].creator.name2.replace(/./g, () => HACKER_CHARS[Math.floor(Math.random() * HACKER_CHARS.length)]));
 
   useEffect(() => {
     let iteration = 0;
-    const target1 = CONTENT.creator.name1;
-    const target2 = CONTENT.creator.name2;
+    const target1 = CONTENT[lang].creator.name1;
+    const target2 = CONTENT[lang].creator.name2;
     const maxLen = Math.max(target1.length, target2.length);
+
+    setIsNameRevealed(false);
 
     // Рассчитываем шаги так, чтобы эффект длился ровно 1 секунду (1000 мс)
     const intervalMs = 40;
@@ -323,14 +451,14 @@ const CreatorCard = () => {
     }, intervalMs);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [lang]);
 
   const handlePromoClick = (e) => {
     e.preventDefault();
     e.stopPropagation();
     
     // Сразу перекидываем в Telegram с готовым текстом
-    window.location.href = CONTENT.leadMagnet.link;
+    window.location.href = CONTENT[lang].leadMagnet.link;
   };
 
   return (
@@ -348,13 +476,13 @@ const CreatorCard = () => {
         <div className="absolute inset-0 bg-gradient-to-t from-black from-0% via-black/80 via-[15%] to-transparent to-[30%] pointer-events-none z-0 rounded-[2.5rem]"></div>
 
         {/* ЗАМЕНА СТАТИЧНОГО ФОНА НА СГОРАЮЩИЙ (Винный огонь) ПОВЕРХ ВСЕХ СЛОЕВ */}
-        <BurnRevealImage src={CONTENT.creator.bgImage} className="grayscale-[0.2]" burnColor="wine" startBurn={isNameRevealed} />
+        <BurnRevealImage src={CONTENT[lang].creator.bgImage} className="grayscale-[0.2]" burnColor="wine" startBurn={isNameRevealed} />
 
         <div className="relative z-10 flex flex-col h-full justify-between">
           <div className="flex justify-between items-start">
             <div className="bg-black/40 backdrop-blur-md px-4 py-2 rounded-full border border-rose-900/50 flex items-center gap-2">
               <Crown className="w-4 h-4 text-rose-400" />
-              <span className="text-xs font-serif tracking-widest uppercase text-rose-200/90">{CONTENT.creator.badge}</span>
+              <span className="text-xs font-serif tracking-widest uppercase text-rose-200/90">{CONTENT[lang].creator.badge}</span>
             </div>
             <Code2 className="w-8 h-8 text-rose-300/60 drop-shadow-[0_0_10px_rgba(159,18,57,0.5)]" />
           </div>
@@ -367,11 +495,11 @@ const CreatorCard = () => {
             </h2>
             <div className="flex flex-col items-center gap-3 mt-3">
               <p className="font-serif text-[11px] text-rose-100/70 italic tracking-wider max-w-[80%] mx-auto">
-                "{CONTENT.creator.quote1} {CONTENT.creator.quote2}"
+                "{CONTENT[lang].creator.quote1} {CONTENT[lang].creator.quote2}"
               </p>
               <div className="flex items-center gap-1.5 bg-black/50 px-3 py-1.5 rounded-full border border-rose-900/50 mt-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse shadow-[0_0_8px_rgba(225,29,72,0.8)]"></span>
-                <span className="text-[9px] font-bold uppercase tracking-widest text-rose-200">{CONTENT.creator.status}</span>
+                <span className="text-[9px] font-bold uppercase tracking-widest text-rose-200">{CONTENT[lang].creator.status}</span>
               </div>
             </div>
           </div>
@@ -434,13 +562,13 @@ const CreatorCard = () => {
               <div className="w-10 h-10 rounded-full bg-rose-900/30 border border-rose-500/30 flex items-center justify-center mb-3 shadow-[0_0_15px_rgba(159,18,57,0.2)]">
                 <UserCircle2 className="w-5 h-5 text-rose-300" />
               </div>
-              <h3 className="text-xl font-serif font-light text-rose-100 tracking-wider mb-2">Моя философия</h3>
+              <h3 className="text-xl font-serif font-light text-rose-100 tracking-wider mb-2">{CONTENT[lang].views.profile.title}</h3>
               <p className="font-serif text-[11px] text-rose-100/80 leading-relaxed bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-rose-900/50 shadow-inner">
-                Я создаю не просто сайты, а премиальные digital-миры. Ваша цифровая визитка — это статус, который продает ваши услуги еще до того, как вы заговорите. Уникальные анимации, PWA-приложения и 100% WOW-эффект.
+                {CONTENT[lang].views.profile.desc}
               </p>
-              <a href={CONTENT.creator.websiteLink} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()} className="no-tilt mt-3 bg-gradient-to-r from-rose-950 to-black border border-rose-800/50 hover:border-rose-600/50 text-rose-200 text-[10px] uppercase tracking-[0.2em] py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 transition-all shadow-[0_0_15px_rgba(0,0,0,0.5)] w-fit mx-auto group">
+              <a href={CONTENT[lang].creator.websiteLink} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()} className="no-tilt mt-3 bg-gradient-to-r from-rose-950 to-black border border-rose-800/50 hover:border-rose-600/50 text-rose-200 text-[10px] uppercase tracking-[0.2em] py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 transition-all shadow-[0_0_15px_rgba(0,0,0,0.5)] w-fit mx-auto group">
                  <Globe className="w-3.5 h-3.5 text-rose-400 group-hover:animate-pulse" />
-                 {CONTENT.creator.websiteText}
+                 {CONTENT[lang].creator.websiteText}
               </a>
             </div>
 
@@ -450,10 +578,10 @@ const CreatorCard = () => {
                 <Diamond className="w-5 h-5 text-rose-300" />
               </div>
               <div className="flex items-end gap-2 mb-2">
-                <h3 className="text-xl font-serif font-light text-rose-100 tracking-wider">Nano визитка</h3>
+                <h3 className="text-xl font-serif font-light text-rose-100 tracking-wider">{CONTENT[lang].views.nano.title}</h3>
               </div>
               <p className="font-serif text-[11px] text-rose-100/80 leading-relaxed bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-rose-900/50 shadow-inner">
-                Элегантный старт для вашего бренда. Идеально выверенная база, стильные анимации, адаптивность и мгновенная загрузка. Один платеж — и она ваша навсегда.
+                {CONTENT[lang].views.nano.desc}
               </p>
             </div>
 
@@ -463,10 +591,10 @@ const CreatorCard = () => {
                 <Rocket className="w-5 h-5 text-rose-300" />
               </div>
               <div className="flex flex-col mb-2">
-                <h3 className="text-xl font-serif font-light text-rose-100 tracking-wider">Архитектура Pro</h3>
+                <h3 className="text-xl font-serif font-light text-rose-100 tracking-wider">{CONTENT[lang].views.pro.title}</h3>
               </div>
               <p className="font-serif text-[11px] text-rose-100/80 leading-relaxed bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-rose-900/50 shadow-inner">
-                Premium-шаблон из моей базы с полной адаптацией под вас. Мини-апп в TG/VK + веб-версия (PWA). Поддомен в подарок и запуск «под ключ» всего за 3-5 дней.
+                {CONTENT[lang].views.pro.desc}
               </p>
             </div>
 
@@ -476,10 +604,10 @@ const CreatorCard = () => {
                 <Crown className="w-5 h-5 text-rose-300" />
               </div>
               <div className="flex flex-col mb-2">
-                <h3 className="text-[1.15rem] whitespace-nowrap font-serif font-light text-rose-100 tracking-wider">Эксклюзив Ultra</h3>
+                <h3 className="text-[1.15rem] whitespace-nowrap font-serif font-light text-rose-100 tracking-wider">{CONTENT[lang].views.ultra.title}</h3>
               </div>
               <p className="font-serif text-[11px] text-rose-100/80 leading-relaxed bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-rose-900/50 shadow-inner">
-                Уникальный цифровой код вашего бизнеса. Разработка индивидуальной структуры, сложнейшие 3D-сцены, эффекты стекла и частиц. Решение для тех, кто не терпит компромиссов.
+                {CONTENT[lang].views.ultra.desc}
               </p>
             </div>
 
@@ -488,9 +616,9 @@ const CreatorCard = () => {
               <div className="w-10 h-10 rounded-full bg-rose-900/30 border border-rose-500/30 flex items-center justify-center mb-3 shadow-[0_0_15px_rgba(159,18,57,0.2)]">
                 <Code2 className="w-5 h-5 text-rose-300" />
               </div>
-              <h3 className="text-xl font-serif font-light text-rose-100 tracking-wider mb-2">Под капотом</h3>
+              <h3 className="text-xl font-serif font-light text-rose-100 tracking-wider mb-2">{CONTENT[lang].views.tech.title}</h3>
               <p className="font-serif text-[11px] text-rose-100/80 leading-relaxed bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-rose-900/50 shadow-inner">
-                Каждая визитка — это шедевр кода. Работает без VPN, устанавливается на экран телефона как приложение, не требует абонентской платы. Легко делиться через QR или ссылку.
+                {CONTENT[lang].views.tech.desc}
               </p>
             </div>
 
@@ -499,16 +627,16 @@ const CreatorCard = () => {
               <div className="w-10 h-10 rounded-full bg-rose-900/30 border border-rose-500/30 flex items-center justify-center mb-3 shadow-[0_0_15px_rgba(159,18,57,0.2)]">
                 <Gift className="w-5 h-5 text-rose-300 animate-bounce" />
               </div>
-              <h3 className="text-xl font-serif font-light text-rose-100 tracking-wider mb-2">{CONTENT.leadMagnet.title}</h3>
+              <h3 className="text-xl font-serif font-light text-rose-100 tracking-wider mb-2">{CONTENT[lang].leadMagnet.title}</h3>
               <p className="font-serif text-[11px] text-rose-100/80 leading-relaxed bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-rose-900/50 shadow-inner mb-4">
-                {CONTENT.leadMagnet.description}
+                {CONTENT[lang].leadMagnet.description}
               </p>
               <button 
                 onClick={handlePromoClick} 
                 className="no-tilt w-full bg-gradient-to-r from-rose-700 to-rose-500 hover:from-rose-600 hover:to-rose-400 text-white text-[10px] font-bold uppercase tracking-widest py-3.5 rounded-xl flex items-center justify-center transition-all shadow-[0_0_20px_rgba(225,29,72,0.3)] border border-rose-500/50 group"
               >
                 <Crown className="w-3.5 h-3.5 mr-2 text-rose-200 group-hover:scale-110 transition-transform" />
-                {CONTENT.leadMagnet.buttonText}
+                {CONTENT[lang].leadMagnet.buttonText}
               </button>
             </div>
 
@@ -518,7 +646,7 @@ const CreatorCard = () => {
                 <div className="w-8 h-8 rounded-full bg-rose-900/30 border border-rose-500/30 flex items-center justify-center shadow-[0_0_15px_rgba(159,18,57,0.2)]">
                   <Star className="w-4 h-4 text-rose-300" />
                 </div>
-                <h3 className="text-lg font-serif font-light text-rose-100 tracking-wider">Отзывы</h3>
+                <h3 className="text-lg font-serif font-light text-rose-100 tracking-wider">{CONTENT[lang].views.reviewsTitle}</h3>
               </div>
               
               <div className="flex-1 overflow-y-auto hide-scrollbar flex flex-col gap-2.5 pb-10 pr-1 mask-image-bottom">
@@ -527,8 +655,8 @@ const CreatorCard = () => {
                 <div className="bg-black/40 backdrop-blur-sm p-3 rounded-2xl border border-rose-900/50 shadow-inner relative shrink-0">
                   <div className="flex justify-between items-center mb-1.5 px-1">
                     <div className="flex items-center gap-2">
-                      <span className="text-[10px] text-rose-200/90 font-medium">Виктория</span>
-                      <span className="text-[8px] text-rose-500/60">21.03.2026</span>
+                      <span className="text-[10px] text-rose-200/90 font-medium">{CONTENT[lang].views.reviews[0].name}</span>
+                      {CONTENT[lang].views.reviews[0].date && <span className="text-[8px] text-rose-500/60">{CONTENT[lang].views.reviews[0].date}</span>}
                     </div>
                     <div className="flex gap-0.5">
                       <Star className="w-2.5 h-2.5 fill-rose-400 text-rose-400" />
@@ -539,7 +667,7 @@ const CreatorCard = () => {
                     </div>
                   </div>
                   <p className="font-serif text-[10px] text-rose-100/80 leading-relaxed italic px-1">
-                    "Забыла про конструкторы как про страшный сон. Очень плавно, стильно, вайб передается на 100%"
+                    {CONTENT[lang].views.reviews[0].text}
                   </p>
                 </div>
 
@@ -547,8 +675,8 @@ const CreatorCard = () => {
                 <div className="bg-black/40 backdrop-blur-sm p-3 rounded-2xl border border-rose-900/50 shadow-inner relative shrink-0">
                   <div className="flex justify-between items-center mb-1.5 px-1">
                     <div className="flex items-center gap-2">
-                      <span className="text-[10px] text-rose-200/90 font-medium">Алексей</span>
-                      <span className="text-[8px] text-rose-500/60">20.03.2026</span>
+                      <span className="text-[10px] text-rose-200/90 font-medium">{CONTENT[lang].views.reviews[1].name}</span>
+                      {CONTENT[lang].views.reviews[1].date && <span className="text-[8px] text-rose-500/60">{CONTENT[lang].views.reviews[1].date}</span>}
                     </div>
                     <div className="flex gap-0.5">
                       <Star className="w-2.5 h-2.5 fill-rose-400 text-rose-400" />
@@ -559,7 +687,7 @@ const CreatorCard = () => {
                     </div>
                   </div>
                   <p className="font-serif text-[10px] text-rose-100/80 leading-relaxed italic px-1">
-                    "Дизайн просто космос. Клиенты теперь не хотят уходить из моей мини-апп. Конверсия выросла вдвое!"
+                    {CONTENT[lang].views.reviews[1].text}
                   </p>
                 </div>
 
@@ -567,7 +695,8 @@ const CreatorCard = () => {
                 <div className="bg-black/40 backdrop-blur-sm p-3 rounded-2xl border border-rose-900/50 shadow-inner relative shrink-0">
                   <div className="flex justify-between items-center mb-1.5 px-1">
                     <div className="flex items-center gap-2">
-                      <span className="text-[10px] text-rose-200/90 font-medium">Мария</span>
+                      <span className="text-[10px] text-rose-200/90 font-medium">{CONTENT[lang].views.reviews[2].name}</span>
+                      {CONTENT[lang].views.reviews[2].date && <span className="text-[8px] text-rose-500/60">{CONTENT[lang].views.reviews[2].date}</span>}
                     </div>
                     <div className="flex gap-0.5">
                       <Star className="w-2.5 h-2.5 fill-rose-400 text-rose-400" />
@@ -578,7 +707,7 @@ const CreatorCard = () => {
                     </div>
                   </div>
                   <p className="font-serif text-[10px] text-rose-100/80 leading-relaxed italic px-1">
-                    "Елена — мастер своего дела. Все продумано до мелочей: от визуала до анимаций."
+                    {CONTENT[lang].views.reviews[2].text}
                   </p>
                 </div>
 
@@ -592,9 +721,9 @@ const CreatorCard = () => {
             className="mt-3 w-full no-tilt cursor-default relative z-20 flex flex-col gap-2"
             onClick={(e) => e.stopPropagation()}
           >
-            <a href={CONTENT.creator.actionLink} className="w-full bg-gradient-to-r from-[#380e1b] to-black backdrop-blur-md text-rose-100 font-serif text-[10px] uppercase tracking-[0.15em] py-4 rounded-2xl flex items-center justify-center gap-2 hover:from-[#4a1223] transition-all shadow-[0_0_25px_rgba(159,18,57,0.3)] border border-rose-800/50 group active:scale-95">
+            <a href={CONTENT[lang].creator.actionLink} className="w-full bg-gradient-to-r from-[#380e1b] to-black backdrop-blur-md text-rose-100 font-serif text-[10px] uppercase tracking-[0.15em] py-4 rounded-2xl flex items-center justify-center gap-2 hover:from-[#4a1223] transition-all shadow-[0_0_25px_rgba(159,18,57,0.3)] border border-rose-800/50 group active:scale-95">
               <Crown className="w-4 h-4 text-rose-400 group-hover:scale-110 transition-transform" />
-              {CONTENT.creator.actionText} →
+              {CONTENT[lang].creator.actionText} →
             </a>
           </div>
         </div>
@@ -608,6 +737,7 @@ const CreatorCard = () => {
 // ==========================================
 
 const App = () => {
+  const [lang, setLang] = useState('ru'); // Состояние текущего языка
   const [isFlipped, setIsFlipped] = useState(false);
   const [rotate, setRotate] = useState({ x: 0, y: 0 });
   const [glare, setGlare] = useState({ x: 50, y: 50, opacity: 0 });
@@ -696,14 +826,14 @@ const App = () => {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const manifest = {
-        name: `${CONTENT.creator.name1} ${CONTENT.creator.name2} | ${CONTENT.creator.role}`,
+        name: `${CONTENT[lang].creator.name1} ${CONTENT[lang].creator.name2} | ${CONTENT[lang].creator.role}`,
         short_name: "Визитка",
         start_url: window.location.pathname,
         display: "standalone",
         background_color: "#0a0a0a",
         theme_color: "#9f1239",
         icons: [{
-          src: CONTENT.creator.avatar || "https://api.qrserver.com/v1/create-qr-code/?size=192x192&data=PWA",
+          src: CONTENT[lang].creator.avatar || "https://api.qrserver.com/v1/create-qr-code/?size=192x192&data=PWA",
           sizes: "192x192",
           type: "image/png"
         }]
@@ -719,7 +849,7 @@ const App = () => {
       }
       link.href = manifestURL;
     }
-  }, []);
+  }, [lang]);
 
   // Магнитный 3D наклон за курсором/пальцем
   const handlePointerMove = (e) => {
@@ -868,8 +998,8 @@ const App = () => {
     if (navigator.share) {
       try {
         await navigator.share({
-          title: 'Моя цифровая визитка',
-          text: 'Привет! Вот моя визитка с контактами:',
+          title: CONTENT[lang].ui.shareTitle,
+          text: CONTENT[lang].ui.shareText,
           url: window.location.href,
         });
       } catch (err) {
@@ -912,19 +1042,19 @@ const App = () => {
     const vcard = [
       "BEGIN:VCARD",
       "VERSION:3.0",
-      `FN:${CONTENT.creator.name1} ${CONTENT.creator.name2}`,
-      `N:${CONTENT.creator.name2};${CONTENT.creator.name1};;;`,
-      `ORG:${CONTENT.contact.company}`,
-      `TITLE:${CONTENT.contact.title}`,
-      `TEL;TYPE=CELL:${CONTENT.contact.phone}`,
-      `EMAIL;TYPE=WORK:${CONTENT.contact.email}`,
-      `URL:${CONTENT.creator.websiteLink}`,
+      `FN:${CONTENT[lang].creator.name1} ${CONTENT[lang].creator.name2}`,
+      `N:${CONTENT[lang].creator.name2};${CONTENT[lang].creator.name1};;;`,
+      `ORG:${CONTENT[lang].contact.company}`,
+      `TITLE:${CONTENT[lang].contact.title}`,
+      `TEL;TYPE=CELL:${CONTENT[lang].contact.phone}`,
+      `EMAIL;TYPE=WORK:${CONTENT[lang].contact.email}`,
+      `URL:${CONTENT[lang].creator.websiteLink}`,
       photoBase64 ? `PHOTO;ENCODING=b;TYPE=JPEG:${photoBase64}` : "",
-      "NOTE:Сохранено с цифровой визитки",
+      `NOTE:${CONTENT[lang].ui.saveContact}`,
       "END:VCARD"
     ].filter(Boolean).join("\n"); 
 
-    const fileName = `${CONTENT.creator.name1}_${CONTENT.creator.name2}.vcf`;
+    const fileName = `${CONTENT[lang].creator.name1}_${CONTENT[lang].creator.name2}.vcf`;
     
     // Определяем среду (находимся ли мы внутри Telegram и тип устройства)
     const isTelegram = /Telegram/i.test(navigator.userAgent || navigator.vendor || window.opera);
@@ -1041,7 +1171,8 @@ const App = () => {
                 style={{ transform: 'rotateY(180deg)', boxShadow: `0 0 60px ${getGlowColor()}` }} 
               />
 
-              <CreatorCard />
+              {/* ПЕРЕДАЕМ ВЫБРАННЫЙ ЯЗЫК В КАРТОЧКУ */}
+              <CreatorCard lang={lang} />
 
               {/* === ЭФФЕКТЫ СВЕЧЕНИЯ И БЛИКОВ (ЖИДКОЕ СТЕКЛО) === */}
 
@@ -1092,7 +1223,7 @@ const App = () => {
         {/* СКРЫТЫЙ HTML5 АУДИО ПЛЕЕР (Самый надежный метод для всех устройств) */}
         <audio
           ref={audioRef}
-          src={CONTENT.creator.audioGreeting}
+          src={CONTENT[lang].creator.audioGreeting}
           preload="auto"
           playsInline
           onPlay={() => setIsAudioPlaying(true)}
@@ -1118,6 +1249,22 @@ const App = () => {
           ) : (
             <Play className="w-4 h-4 group-hover:scale-110 transition-transform ml-0.5" />
           )}
+        </button>
+
+        {/* НОВАЯ КНОПКА: СМЕНА ЯЗЫКА (RU/EN) */}
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(15);
+            setLang(prev => prev === 'ru' ? 'en' : 'ru'); // Переключатель
+          }}
+          className="active:scale-90 rounded-full bg-white/5 backdrop-blur-md border border-white/10 text-white/40 hover:text-white/90 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-all duration-300 group touch-manipulation flex items-center justify-center w-10 h-10"
+          aria-label="Сменить язык"
+        >
+          <span className="font-bold text-[11px] tracking-wider transition-transform group-hover:scale-110">
+            {lang === 'ru' ? 'EN' : 'RU'}
+          </span>
         </button>
 
         {/* КНОПКА ПОДЕЛИТЬСЯ */}
@@ -1169,7 +1316,6 @@ const App = () => {
               <X className="w-5 h-5" />
             </button>
             
-            {/* Кнопка вызова плашки PWA (заменили старый div на интерактивный button) */}
             <button 
               onClick={() => {
                 setShowShare(false);
@@ -1181,13 +1327,13 @@ const App = () => {
               <QrCode className={`w-6 h-6 group-hover:scale-110 transition-transform ${getModalTheme().icon}`} />
             </button>
             
-            <h3 className="text-xl font-bold text-white mb-2 tracking-wide">Поделиться визиткой</h3>
-            <p className="text-sm text-white/60 text-center mb-6 leading-relaxed">Дайте отсканировать QR-код или отправьте ссылку напрямую.</p>
+            <h3 className="text-xl font-bold text-white mb-2 tracking-wide">{CONTENT[lang].ui.shareTitle}</h3>
+            <p className="text-sm text-white/60 text-center mb-6 leading-relaxed">{CONTENT[lang].ui.shareDesc}</p>
             
-            {/* Динамический QR код (Белый непрозрачный фон для сканера) */}
+            {/* Динамический QR код */}
             <div className="bg-white p-4 rounded-3xl mb-6 shadow-[0_0_40px_rgba(255,255,255,0.15)] flex items-center justify-center">
               <img 
-                src={`https://api.qrserver.com/v1/create-qr-code/?size=180x180&margin=0&data=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : 'https://nice-app.ru')}`} 
+                src={`https://api.qrserver.com/v1/create-qr-code/?size=180x180&margin=0&data=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : CONTENT[lang].creator.websiteLink)}`} 
                 alt="QR Code" 
                 className="w-[180px] h-[180px] object-contain rounded-lg"
               />
@@ -1199,14 +1345,14 @@ const App = () => {
                 className="flex-1 bg-black/20 hover:bg-black/40 border border-white/10 text-white font-medium py-3.5 px-4 rounded-2xl flex items-center justify-center gap-2 transition-colors text-sm"
               >
                 {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
-                {copied ? 'Скопировано!' : 'Копировать'}
+                {copied ? CONTENT[lang].ui.copied : CONTENT[lang].ui.copy}
               </button>
               <button 
                 onClick={handleShare}
                 className={`flex-1 bg-white/10 hover:bg-white/20 border border-white/10 text-white font-bold py-3.5 px-4 rounded-2xl flex items-center justify-center gap-2 transition-colors text-sm`}
               >
                 <Share2 className="w-4 h-4" />
-                Отправить
+                {CONTENT[lang].ui.send}
               </button>
             </div>
           </div>
@@ -1239,9 +1385,9 @@ const App = () => {
                </div>
             </div>
 
-            <h3 className="text-xl font-bold text-white mb-2 text-center tracking-wide">Установить приложение</h3>
+            <h3 className="text-xl font-bold text-white mb-2 text-center tracking-wide">{CONTENT[lang].ui.installTitle}</h3>
             <p className="text-sm text-white/60 text-center mb-8 leading-relaxed">
-              Добавьте визитку на экран «Домой», чтобы открывать её в один клик без браузера.
+              {CONTENT[lang].ui.installDesc}
             </p>
 
             <div className="w-full bg-white/5 border border-white/10 rounded-2xl p-5 flex flex-col gap-5 mb-8 shadow-inner">
@@ -1250,7 +1396,7 @@ const App = () => {
                    <Share2 className="w-4 h-4 text-rose-300" />
                  </div>
                  <p className="text-sm text-white/80 leading-snug">
-                   Нажмите кнопку <b>«Поделиться»</b><br/>в меню браузера (обычно внизу).
+                   {CONTENT[lang].ui.installStep1_1}<b>{CONTENT[lang].ui.installStep1_2}</b><br/>{CONTENT[lang].ui.installStep1_3}
                  </p>
                </div>
                <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
@@ -1259,7 +1405,7 @@ const App = () => {
                    <PlusSquare className="w-4 h-4 text-rose-300" />
                  </div>
                  <p className="text-sm text-white/80 leading-snug">
-                   Выберите <b className="text-white">«На экран "Домой"»</b><br/>в появившемся списке.
+                   {CONTENT[lang].ui.installStep2_1}<b className="text-white">{CONTENT[lang].ui.installStep2_2}</b><br/>{CONTENT[lang].ui.installStep2_3}
                  </p>
                </div>
             </div>
@@ -1268,7 +1414,7 @@ const App = () => {
               onClick={() => setShowPwaPrompt(false)}
               className="w-full bg-gradient-to-r from-[#380e1b] to-black hover:from-[#4a1223] border border-rose-800/50 text-rose-100 font-bold py-4 px-4 rounded-2xl transition-colors shadow-[0_0_20px_rgba(159,18,57,0.3)] active:scale-95"
             >
-              Готово
+              {CONTENT[lang].ui.done}
             </button>
           </div>
         </div>
