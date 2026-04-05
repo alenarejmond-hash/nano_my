@@ -65,7 +65,7 @@ const CONTENT = {
       reviews: [
         { name: 'Виктория', date: '21.03.2026', text: '"Забыла про конструкторы как про страшный сон. Очень плавно, стильно, вайб передается на 100%"' },
         { name: 'Алексей', date: '20.03.2026', text: '"Дизайн просто космос. Клиенты теперь не хотят уходить из моей мини-апп. Конверсия выросла вдвое!"' },
-        { name: 'Мария', date: '', text: '"Елена — мастер своего дела. Все продумано до мелочей: от визуала до анимаций."' }
+        { name: 'Мария', date: '01.04.2026', text: '"Елена — мастер своего дела. Все продумано до мелочей: от визуала до анимаций."' }
       ]
     },
     ui: {
@@ -144,7 +144,7 @@ const CONTENT = {
       reviews: [
         { name: 'Victoria', date: '21.03.2026', text: '"Forgot about website builders like a bad dream. Very smooth, stylish, the vibe is conveyed 100%"' },
         { name: 'Alexey', date: '20.03.2026', text: '"The design is just cosmic. Clients now don\'t want to leave my mini-app. Conversions have doubled!"' },
-        { name: 'Maria', date: '', text: '"Elena is a master of her craft. Everything is thought out to the smallest detail: from visuals to animations."' }
+        { name: 'Maria', date: '01.04.2026', text: '"Elena is a master of her craft. Everything is thought out to the smallest detail: from visuals to animations."' }
       ]
     },
     ui: {
