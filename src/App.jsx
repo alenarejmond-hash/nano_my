@@ -14,8 +14,8 @@ const CONTENT = {
     avatar: '/avatar-creator.jpg', 
     audioGreeting: '/greeting.mp3', // 🔊 Ссылка на ваш аудиофайл
     badge: 'DESIGN & CODE',
-    name1: 'ELENA',
-    name2: 'SOTNIKOVA',
+    name1: 'ЕЛЕНА',
+    name2: 'СОТНИКОВА',
     role: 'Premium Web',
     status: 'Digital Creator',
     quote1: 'Не просто визитка,',
@@ -248,7 +248,7 @@ const globalStyles = `
 // ==========================================
 // 🪄 КОМПОНЕНТ ЭФФЕКТА СГОРАНИЯ (УМНАЯ ЦВЕТОВАЯ ПОДСТРОЙКА)
 // ==========================================
-const HACKER_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const HACKER_CHARS = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
 
 const BurnRevealImage = ({ src, className, style, imgClassName = "", burnColor = "wine", startBurn = true }) => {
   // Цветовые темы огня (c1 - пепел/край, c2 - основной огонь, c3 - яркая вспышка)
@@ -908,14 +908,12 @@ const App = () => {
       "END:VCARD"
     ].filter(Boolean).join("\n"); // filter(Boolean) уберет пустые строки, если фото нет
 
-    // ИСПОЛЬЗУЕМ МЕТОД DATA URI ДЛЯ ОБХОДА БЛОКИРОВОК TELEGRAM
+    // ИСПОЛЬЗУЕМ МЕТОД ДЛЯ ОБХОДА БЛОКИРОВОК TELEGRAM
     const uri = 'data:text/vcard;charset=utf-8,' + encodeURIComponent(vcard);
-    const link = document.createElement('a');
-    link.href = uri;
-    link.setAttribute('download', `${CONTENT.creator.name1}_${CONTENT.creator.name2}.vcf`);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    
+    // Прямой переход по ссылке заставляет iOS/Android открыть карточку контакта,
+    // игнорируя попытку Telegram сохранить это как текстовый документ.
+    window.location.href = uri;
   };
 
   return (
