@@ -884,13 +884,15 @@ const App = () => {
     }
   };
 
-  // === БРОНЕБОЙНАЯ ФУНКЦИЯ СКАЧИВАНИЯ КОНТАКТА ===
+  // Функция скачивания vCard (контакта)
   const handleDownloadVCard = async () => {
+    // Конвертируем аватарку в Base64
     let photoBase64 = null;
     if (CONTENT.creator.avatar) {
       photoBase64 = await getBase64Image(CONTENT.creator.avatar);
     }
 
+    // Формируем vCard стандарта 3.0
     const vcard = [
       "BEGIN:VCARD",
       "VERSION:3.0",
@@ -904,46 +906,14 @@ const App = () => {
       photoBase64 ? `PHOTO;ENCODING=b;TYPE=JPEG:${photoBase64}` : "",
       "NOTE:Сохранено с цифровой визитки",
       "END:VCARD"
-    ].filter(Boolean).join("\n");
+    ].filter(Boolean).join("\n"); // filter(Boolean) уберет пустые строки, если фото нет
 
-    const fileName = `${CONTENT.creator.name1}_${CONTENT.creator.name2}.vcf`;
-    const blob = new Blob([vcard], { type: 'text/vcard;charset=utf-8' });
-
-    // 1. Попытка через Native Share API (Идеально для современных смартфонов)
-    try {
-      const file = new File([blob], fileName, { type: 'text/vcard' });
-      if (navigator.canShare && navigator.canShare({ files: [file] })) {
-        await navigator.share({
-          files: [file],
-          title: 'Сохранить контакт',
-        });
-        return; // Если получилось — выходим!
-      }
-    } catch (error) {
-      console.log('Native share failed, falling back...', error);
-    }
-
-    // 2. Алгоритм разделения (Умный фолбэк)
-    // Проверяем, сидит ли пользователь с iPhone/iPad
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-    const link = document.createElement('a');
-
-    if (isIOS) {
-      // Для iOS (особенно в Telegram) blob-скачивания часто блокируются.
-      // Открываем Data URI, и система iOS сама перехватывает его как "Карточку контакта"
-      link.href = 'data:text/vcard;charset=utf-8,' + encodeURIComponent(vcard);
-      link.target = '_blank';
-      // ВАЖНО: для iOS мы НЕ ставим атрибут download, иначе Telegram превратит это в "текстовый документ"
-    } else {
-      // Для Android, Windows и Mac — стандартное скачивание файла работает идеально
-      const url = URL.createObjectURL(blob);
-      link.href = url;
-      link.setAttribute('download', fileName);
-    }
-
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    // ИСПОЛЬЗУЕМ МЕТОД ДЛЯ ОБХОДА БЛОКИРОВОК TELEGRAM
+    const uri = 'data:text/vcard;charset=utf-8,' + encodeURIComponent(vcard);
+    
+    // Прямой переход по ссылке заставляет iOS/Android открыть карточку контакта,
+    // игнорируя попытку Telegram сохранить это как текстовый документ.
+    window.location.href = uri;
   };
 
   return (
