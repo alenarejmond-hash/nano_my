@@ -886,10 +886,14 @@ const App = () => {
 
   // Функция скачивания vCard (контакта)
   const handleDownloadVCard = async () => {
-    // Конвертируем аватарку в Base64
+    // Конвертируем картинку bg-creator.jpg в Base64
     let photoBase64 = null;
-    if (CONTENT.creator.avatar) {
-      photoBase64 = await getBase64Image(CONTENT.creator.avatar);
+    const photoUrl = '/bg-creator.jpg'; // Строго используем этот файл по твоему запросу
+    
+    try {
+      photoBase64 = await getBase64Image(photoUrl);
+    } catch (e) {
+      console.error("Ошибка загрузки фото для vCard", e);
     }
 
     // Формируем vCard стандарта 3.0
@@ -906,14 +910,60 @@ const App = () => {
       photoBase64 ? `PHOTO;ENCODING=b;TYPE=JPEG:${photoBase64}` : "",
       "NOTE:Сохранено с цифровой визитки",
       "END:VCARD"
-    ].filter(Boolean).join("\n"); // filter(Boolean) уберет пустые строки, если фото нет
+    ].filter(Boolean).join("\n"); 
 
-    // ИСПОЛЬЗУЕМ МЕТОД ДЛЯ ОБХОДА БЛОКИРОВОК TELEGRAM
-    const uri = 'data:text/vcard;charset=utf-8,' + encodeURIComponent(vcard);
+    const fileName = `${CONTENT.creator.name1}_${CONTENT.creator.name2}.vcf`;
     
-    // Прямой переход по ссылке заставляет iOS/Android открыть карточку контакта,
-    // игнорируя попытку Telegram сохранить это как текстовый документ.
-    window.location.href = uri;
+    // Определяем среду (находимся ли мы внутри Telegram и тип устройства)
+    const isTelegram = /Telegram/i.test(navigator.userAgent || navigator.vendor || window.opera);
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+    // === ИДЕАЛЬНОЕ РЕШЕНИЕ ДЛЯ TELEGRAM И СМАРТФОНОВ ===
+    
+    // 1. Пробуем Web Share API (только вне Telegram, т.к. внутри него этот метод багует)
+    if (!isTelegram) {
+      try {
+        const file = new File([vcard], fileName, { type: 'text/vcard' });
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          await navigator.share({
+            files: [file],
+            title: 'Сохранить контакт',
+          });
+          return; 
+        }
+      } catch (error) {
+        console.log('Native share failed or cancelled', error);
+      }
+    }
+
+    // 2. Специальные хаки для Telegram WebView
+    if (isTelegram) {
+      if (isIOS) {
+        // На iOS в Telegram прямая подмена URL на data URI вызывает нативное окно сохранения контакта
+        window.location.href = 'data:text/vcard;charset=utf-8,' + encodeURIComponent(vcard);
+      } else {
+        // На Android в Telegram работает стандартный тег <a download> с data URI
+        const link = document.createElement('a');
+        link.href = 'data:text/vcard;charset=utf-8,' + encodeURIComponent(vcard);
+        link.download = fileName;
+        link.target = '_blank';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+      return;
+    }
+
+    // 3. Фолбэк для ПК и обычных браузеров (стандартное скачивание)
+    const blob = new Blob([vcard], { type: 'text/vcard;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', fileName);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    setTimeout(() => URL.revokeObjectURL(url), 100);
   };
 
   return (
