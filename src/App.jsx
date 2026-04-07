@@ -1056,36 +1056,38 @@ const App = () => {
 
     const fileName = `${CONTENT[lang].creator.name1}_${CONTENT[lang].creator.name2}.vcf`;
     
-    // Определяем среду (находимся ли мы внутри Telegram и тип устройства)
-    const isTelegram = /Telegram/i.test(navigator.userAgent || navigator.vendor || window.opera);
+    // Определяем среду
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    const isAndroid = /Android/.test(navigator.userAgent);
 
-    // === ПРЯМОЕ СКАЧИВАНИЕ (БЕЗ МЕНЮ "ПОДЕЛИТЬСЯ") ===
+    // === ПРЯМОЕ ОТКРЫТИЕ КОНТАКТА В ОС ===
     
-    // Специальный хак для iOS внутри Telegram
-    if (isTelegram && isIOS) {
+    if (isIOS) {
+      // На iOS (Safari, Chrome, Telegram) data URI мгновенно вызывает нативное окно контакта
       window.location.href = 'data:text/vcard;charset=utf-8,' + encodeURIComponent(vcard);
       return;
     }
 
-    // Для всех остальных браузеров (Safari, Chrome, Android Telegram и т.д.)
-    // Принудительно создаем файл и скачиваем его напрямую
-    const blob = new Blob([vcard], { type: 'text/vcard;charset=utf-8' });
+    // Для Android и ПК используем Blob
+    const blob = new Blob([vcard], { type: 'text/x-vcard;charset=utf-8' });
     const url = window.URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.setAttribute('download', fileName);
     
-    // Для стабильной работы в iOS Safari иногда полезно открывать загрузку в новой вкладке
-    if (isIOS) {
-        link.target = '_blank';
+    // КЛЮЧЕВОЙ ХАК ДЛЯ ANDROID:
+    // Мы НАМЕРЕННО не ставим атрибут download для Android.
+    // Браузер не сможет "прочитать" ссылку как страницу и передаст 
+    // этот файл напрямую в операционную систему, которая сразу откроет Контакты!
+    // Для обычных компьютеров (ПК) оставляем классическое скачивание.
+    if (!isAndroid) {
+      link.setAttribute('download', fileName);
     }
     
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
     
-    setTimeout(() => window.URL.revokeObjectURL(url), 100);
+    setTimeout(() => window.URL.revokeObjectURL(url), 500);
   };
 
   return (
