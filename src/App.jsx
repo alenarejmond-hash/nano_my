@@ -23,9 +23,9 @@ const CONTENT = {
       quote1: 'Не просто визитка,',
       quote2: 'а ваш главный цифровой актив...',
       websiteText: 'Подробнее...',
-      websiteLink: 'https://nice-app.ru',
+      websiteLink: 'https://t.me/elenlime?text=Елена, привет! У меня есть промокод ELEN-TECH-15%. Хочу заказать свой digital-мир.',
       actionText: 'ЗАКАЗАТЬ СВОЙ DIGITAL-МИР',
-      actionLink: 'https://t.me/elenlime',
+      actionLink: 'https://t.me/elenlime?text=Елена, привет! Хочу заказать свой digital-мир.',
     },
     leadMagnet: {
       title: 'SECRET OFFER',
@@ -102,9 +102,9 @@ const CONTENT = {
       quote1: 'Not just a business card,',
       quote2: 'but your main digital asset...',
       websiteText: 'Learn more...',
-      websiteLink: 'https://nice-app.ru',
+      websiteLink: 'https://t.me/elenlime?text=Hi Elena! I have the promo code ELEN-TECH-15%. I like to order my digital world.',
       actionText: 'ORDER YOUR DIGITAL WORLD',
-      actionLink: 'https://t.me/elenlime',
+      actionLink: 'https://t.me/elenlime?text=Hi Elena! I want to order my digital world.',
     },
     leadMagnet: {
       title: 'SECRET OFFER',
