@@ -38,7 +38,8 @@ const CONTENT = {
       phone: '+79995051277',
       email: 'limetut@gmail.com',
       company: 'Premium Web',
-      title: 'Digital Creator & Developer'
+      title: 'Digital Creator & Developer',
+      website: 'https://nice-app.ru'
     },
     views: {
       profile: {
@@ -117,7 +118,8 @@ const CONTENT = {
       phone: '+79995051277',
       email: 'limetut@gmail.com',
       company: 'Premium Web',
-      title: 'Digital Creator & Developer'
+      title: 'Digital Creator & Developer',
+      website: 'https://nice-app.ru'
     },
     views: {
       profile: {
@@ -1030,10 +1032,16 @@ const App = () => {
   const handleDownloadVCard = async () => {
     // Конвертируем картинку bg-creator.jpg в Base64
     let photoBase64 = null;
+    let photoStr = "";
     const photoUrl = '/bg-creator.jpg'; // Строго используем этот файл по твоему запросу
     
     try {
       photoBase64 = await getBase64Image(photoUrl);
+      if (photoBase64) {
+        // Разбиваем base64 на строки (складывание строк) — строгое требование iOS для больших фото
+        const foldedBase64 = photoBase64.match(/.{1,75}/g).join('\r\n ');
+        photoStr = `PHOTO;TYPE=JPEG;ENCODING=b:\r\n ${foldedBase64}`;
+      }
     } catch (e) {
       console.error("Ошибка загрузки фото для vCard", e);
     }
@@ -1048,37 +1056,36 @@ const App = () => {
       `TITLE:${CONTENT[lang].contact.title}`,
       `TEL;TYPE=CELL:${CONTENT[lang].contact.phone}`,
       `EMAIL;TYPE=WORK:${CONTENT[lang].contact.email}`,
-      `URL:${CONTENT[lang].creator.websiteLink}`,
-      photoBase64 ? `PHOTO;ENCODING=b;TYPE=JPEG:${photoBase64}` : "",
+      `URL:${CONTENT[lang].contact.website}`,
+      photoStr,
       `NOTE:${CONTENT[lang].ui.saveContact}`,
       "END:VCARD"
-    ].filter(Boolean).join("\n"); 
+    ].filter(Boolean).join("\r\n"); 
 
     const fileName = `${CONTENT[lang].creator.name1}_${CONTENT[lang].creator.name2}.vcf`;
     
     // Определяем среду
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
     const isAndroid = /Android/.test(navigator.userAgent);
+    const isTelegram = /Telegram/i.test(navigator.userAgent || navigator.vendor || window.opera);
 
     // === ПРЯМОЕ ОТКРЫТИЕ КОНТАКТА В ОС ===
     
-    if (isIOS) {
-      // На iOS (Safari, Chrome, Telegram) data URI мгновенно вызывает нативное окно контакта
+    // В Telegram на iOS используем data URI (т.к. Blob блокируется), но фото может быть обрезано из-за лимита длины URL
+    if (isIOS && isTelegram) {
       window.location.href = 'data:text/vcard;charset=utf-8,' + encodeURIComponent(vcard);
       return;
     }
 
-    // Для Android и ПК используем Blob
-    const blob = new Blob([vcard], { type: 'text/x-vcard;charset=utf-8' });
+    // Для Safari (iOS), Android и ПК используем Blob — надежно передает фото любого размера!
+    const mimeType = isAndroid ? 'text/x-vcard;charset=utf-8' : 'text/vcard;charset=utf-8';
+    const blob = new Blob([vcard], { type: mimeType });
     const url = window.URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
     
     // КЛЮЧЕВОЙ ХАК ДЛЯ ANDROID:
     // Мы НАМЕРЕННО не ставим атрибут download для Android.
-    // Браузер не сможет "прочитать" ссылку как страницу и передаст 
-    // этот файл напрямую в операционную систему, которая сразу откроет Контакты!
-    // Для обычных компьютеров (ПК) оставляем классическое скачивание.
     if (!isAndroid) {
       link.setAttribute('download', fileName);
     }
