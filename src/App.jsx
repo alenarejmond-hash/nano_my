@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { 
   Globe, Star, UserCircle2, Diamond, Crown,
   QrCode, Share2, Copy, X, Check,
-  Rocket, Code2, Play, PlusSquare, UserPlus, Gift
+  Rocket, Code2, Play, PlusSquare, UserPlus, Gift,
+  Smartphone, CreditCard
 } from 'lucide-react';
 
 // ==========================================
@@ -24,12 +25,12 @@ const CONTENT = {
       quote2: 'а ваш главный цифровой актив...',
       websiteText: 'Подробнее...',
       websiteLink: 'https://nice-app.ru',
-      actionText: 'ЗАКАЗАТЬ СВОЙ DIGITAL-МИР',
-      actionLink: 'https://t.me/elenlime?text=Елена, привет! Хочу заказать свой digital-мир.',
+      actionText: 'ЗАКАЗАТЬ ВИЗИТКУ',
+      actionLink: 'https://t.me/elenlime?text=Елена, привет! Хочу заказать свою визитку',
     },
     leadMagnet: {
       title: 'SECRET OFFER',
-      description: 'Скидка 15% на разработку любого тарифа: NANO, PRO или ULTRA. Нажмите кнопку, чтобы перейти в Telegram и забрать скидку.',
+      description: <>Вы нашли секретную вкладку! Нажмите кнопку ниже, чтобы перейти в Telegram и получить сразу два бонуса:<br/><br/>• Скидку 15% на любой тариф (Digital Start, Smart Touch, Leather VIP, Custom)<br/>• Бесплатное тиснение ваших инициалов на кожаном брелоке</>,
       buttonText: 'ЗАБРАТЬ ПРОМОКОД',
       promoCode: 'ELEN-TECH-15%',
       link: 'https://t.me/elenlime?text=Елена, привет! У меня есть промокод ELEN-TECH-15%. Хочу обсудить создание цифровой визитки.',
@@ -44,28 +45,28 @@ const CONTENT = {
     views: {
       profile: {
         title: 'Моя философия',
-        desc: 'Я создаю не просто сайты, а премиальные digital-миры. Ваша цифровая визитка — это статус, который продает ваши услуги еще до того, как вы заговорите. Уникальные анимации, PWA-приложения и 100% WOW-эффект.'
+        desc: <>Создаю умные цифровые визитки, которые сохраняются на экран смартфона как полноценное PWA-приложение.<br/><br/>Персональный поддомен и хостинг уже включены.<br/><br/>Работает без VPN, без установки лишнего софта и без абонентской платы навсегда.</>
       },
       nano: {
-        title: 'Nano визитка',
-        desc: 'Элегантный старт для вашего бренда. Идеально выверенная база, стильные анимации, адаптивность и мгновенная загрузка. Один платеж — и она ваша навсегда.'
+        title: 'Тариф Digital Start',
+        desc: <>Цифровая PWA-визитка по шаблону под вашу нишу.<br/><br/>Иконка-приложение на экран телефона, персональный поддомен, хостинг, мгновенное сохранение контакта в 1 клик и стильный QR-код.</>
       },
       pro: {
-        title: 'Архитектура Pro',
-        desc: 'Premium-шаблон из моей базы с полной адаптацией под вас. Мини-апп в TG/VK + веб-версия (PWA). Поддомен в подарок и запуск «под ключ» всего за 3-5 дней.'
+        title: 'Тариф Smart Touch',
+        desc: <>Всё из тарифа Digital Start + пластиковая NFC-карта с минималистичным дизайном.<br/><br/>Прикладываете карту к смартфону клиента — визитка открывается мгновенно.</>
       },
       ultra: {
-        title: 'Эксклюзив Ultra',
-        desc: 'Уникальный цифровой код вашего бизнеса. Разработка индивидуальной структуры, сложнейшие 3D-сцены, эффекты стекла и частиц. Решение для тех, кто не терпит компромиссов.'
+        title: 'Тариф Leather VIP',
+        desc: <>Цифровая визитка из тарифа Digital Start + авторский NFC-брелок ручной работы из натуральной кожи Crazy Horse.<br/><br/>Тиснение ваших инициалов на коже в ПОДАРОК.</>
       },
       tech: {
-        title: 'Под капотом',
-        desc: 'Каждая визитка — это шедевр кода. Работает без VPN, устанавливается на экран телефона как приложение, не требует абонентской платы. Легко делиться через QR или ссылку.'
+        title: 'Тариф Exclusive Custom',
+        desc: <>Разработка 100% уникального дизайна и кода с нуля под ваш бренд.<br/><br/>Сложные анимации, редкие интерактивы + кожаный NFC-брелок ручной работы в подарок!</>
       },
       reviewsTitle: 'Отзывы',
       reviews: [
-        { name: 'Виктория', date: '21.03.2026', text: '"Забыла про конструкторы как про страшный сон. Очень плавно, стильно, вайб передается на 100%"' },
-        { name: 'Алексей', date: '20.03.2026', text: '"Дизайн просто космос. Клиенты теперь не хотят уходить из моей мини-апп. Конверсия выросла вдвое!"' },
+        { name: 'Виктория', date: '20.03.2026', text: '"Забыла про конструкторы как про страшный сон. Очень плавно, стильно, вайб передается на 100%"' },
+        { name: 'Алексей', date: '21.03.2026', text: '"Дизайн просто космос. Клиенты теперь не хотят уходить из моей мини-апп. Конверсия выросла вдвое!"' },
         { name: 'Мария', date: '01.04.2026', text: '"Елена — мастер своего дела. Все продумано до мелочей: от визуала до анимаций."' }
       ]
     },
@@ -94,23 +95,23 @@ const CONTENT = {
     creator: {
       bgImage: '/bg-creator.jpg',
       avatar: '/avatar-creator.jpg', 
-      audioGreeting: '/greeting.mp3', // 🔊 Ссылка на ваш аудиофайл
+      audioGreeting: '/greeting.mp3',
       badge: 'DESIGN & CODE',
       name1: 'ELENA',
       name2: 'SOTNIKOVA',
       role: 'Premium Web',
       status: 'Digital Creator',
       quote1: 'Not just a business card,',
-      quote2: 'but your main digital asset...',
+      quote2: 'but your ultimate digital asset...',
       websiteText: 'Learn more...',
       websiteLink: 'https://nice-app.ru',
-      actionText: 'ORDER YOUR DIGITAL WORLD',
-      actionLink: 'https://t.me/elenlime?text=Hi Elena! I want to order my digital world.',
+      actionText: 'ORDER BUSINESS CARD',
+      actionLink: 'https://t.me/elenlime?text=Hi Elena! I want to order my digital business card.',
     },
     leadMagnet: {
       title: 'SECRET OFFER',
-      description: '15% discount on any tariff: NANO, PRO, or ULTRA. Click the button to go to Telegram and claim your discount.',
-      buttonText: 'CLAIM PROMO CODE',
+      description: <>You found the secret tab! Click the button below to go to Telegram and instantly receive two bonuses:<br/><br/>• 15% discount on any plan (Digital Start, Smart Touch, Leather VIP, Custom)<br/>• Free embossing of your initials on a leather keychain</>,
+      buttonText: 'GET PROMO CODE',
       promoCode: 'ELEN-TECH-15%',
       link: 'https://t.me/elenlime?text=Hi Elena! I have the promo code ELEN-TECH-15%. I want to discuss creating a digital business card.',
     },
@@ -123,46 +124,46 @@ const CONTENT = {
     },
     views: {
       profile: {
-        title: 'My Philosophy',
-        desc: 'I create not just websites, but premium digital worlds. Your digital business card is a status that sells your services before you even speak. Unique animations, PWA apps, and a 100% WOW effect.'
+        title: 'My philosophy',
+        desc: <>I create smart digital business cards that save to your smartphone screen as a fully-fledged PWA application.<br/><br/>Personal subdomain and hosting are already included.<br/><br/>Works without VPN, without installing unnecessary software, and without any subscription fees forever.</>
       },
       nano: {
-        title: 'Nano Card',
-        desc: 'An elegant start for your brand. A perfectly balanced base, stylish animations, responsive design, and instant loading. One payment — and it\'s yours forever.'
+        title: 'Digital Start Plan',
+        desc: <>A digital PWA business card based on a template tailored to your niche.<br/><br/>App icon on your phone screen, personal subdomain, hosting, instant one-click contact saving, and a stylish QR code.</>
       },
       pro: {
-        title: 'Architecture Pro',
-        desc: 'A premium template from my base fully adapted for you. TG/VK mini-app + web version (PWA). A free subdomain and a turnkey launch in just 3-5 days.'
+        title: 'Smart Touch Plan',
+        desc: <>Everything in the Digital Start plan + a plastic NFC card with a minimalist design.<br/><br/>Tap the card to your client's smartphone — the business card opens instantly.</>
       },
       ultra: {
-        title: 'Exclusive Ultra',
-        desc: 'The unique digital code of your business. Custom structure development, complex 3D scenes, glass and particle effects. A solution for those who accept no compromises.'
+        title: 'Leather VIP Plan',
+        desc: <>A digital business card from the Digital Start plan + an exclusive handmade NFC keychain made of natural Crazy Horse leather.<br/><br/>Embossing of your initials on the leather as a GIFT.</>
       },
       tech: {
-        title: 'Under the Hood',
-        desc: 'Every business card is a masterpiece of code. Works without VPN, installs on your phone screen as an app, requires no subscription fee. Easy to share via QR or link.'
+        title: 'Exclusive Custom Plan',
+        desc: <>Development of a 100% unique design and code from scratch for your brand.<br/><br/>Complex animations, rare interactive elements + a handmade leather NFC keychain as a gift!</>
       },
       reviewsTitle: 'Reviews',
       reviews: [
-        { name: 'Victoria', date: '21.03.2026', text: '"Forgot about website builders like a bad dream. Very smooth, stylish, the vibe is conveyed 100%"' },
-        { name: 'Alexey', date: '20.03.2026', text: '"The design is just cosmic. Clients now don\'t want to leave my mini-app. Conversions have doubled!"' },
+        { name: 'Victoria', date: '20.03.2026', text: '"Forgot about website builders like a bad dream. Very smooth, stylish, the vibe is conveyed 100%"' },
+        { name: 'Alexey', date: '21.03.2026', text: '"The design is just cosmic. Clients now don\'t want to leave my mini-app. Conversions have doubled!"' },
         { name: 'Maria', date: '01.04.2026', text: '"Elena is a master of her craft. Everything is thought out to the smallest detail: from visuals to animations."' }
       ]
     },
     ui: {
-      shareTitle: 'Share Contact',
+      shareTitle: 'Share Business Card',
       shareDesc: 'Let them scan the QR code or send the link directly.',
-      shareText: 'Hi! Here is my digital business card:',
+      shareText: 'Hi! Here is my digital business card with contacts:',
       copy: 'Copy',
       copied: 'Copied!',
       send: 'Send',
       installTitle: 'Install App',
       installDesc: 'Add the business card to your Home Screen for one-click access without a browser.',
       installStep1_1: 'Tap the ',
-      installStep1_2: 'Share',
+      installStep1_2: '«Share»',
       installStep1_3: ' button in your browser menu (usually at the bottom).',
       installStep2_1: 'Select ',
-      installStep2_2: '"Add to Home Screen"',
+      installStep2_2: '«Add to Home Screen»',
       installStep2_3: ' from the list.',
       done: 'Done',
       saveContact: 'Saved from digital business card'
@@ -184,12 +185,12 @@ const CONTENT = {
       quote2: 'այլ ձեր գլխավոր թվային ակտիվը...',
       websiteText: 'Ավելին...',
       websiteLink: 'https://nice-app.ru',
-      actionText: 'ՊԱՏՎԻՐԵԼ ՁԵՐ ԹՎԱՅԻՆ ԱՇԽԱՐՀԸ',
-      actionLink: 'https://t.me/elenlime?text=Ողջույն Ելենա: Ցանկանում եմ պատվիրել իմ թվային աշխարհը:',
+      actionText: 'ՊԱՏՎԻՐԵԼ ԱՅՑԵՔԱՐՏ',
+      actionLink: 'https://t.me/elenlime?text=Ողջույն Ելենա: Ցանկանում եմ պատվիրել իմ այցեքարտը:',
     },
     leadMagnet: {
       title: 'SECRET OFFER',
-      description: '15% զեղչ ցանկացած սակագնի մշակման համար՝ NANO, PRO կամ ULTRA։ Սեղմեք կոճակը Telegram անցնելու և զեղչը ստանալու համար։',
+      description: <>Դուք գտաք գաղտնի ներդիրը: Սեղմեք ստորև նշված կոճակը՝ Telegram անցնելու և միանգամից երկու բոնուս ստանալու համար՝<br/><br/>• 15% զեղչ ցանկացած սակագնի համար (Digital Start, Smart Touch, Leather VIP, Custom)<br/>• Ձեր անվանատառերի անվճար դրոշմում կաշվե կախազարդի վրա</>,
       buttonText: 'ՍՏԱՆԱԼ ՊՐՈՄՈԿՈԴԸ',
       promoCode: 'ELEN-TECH-15%',
       link: 'https://t.me/elenlime?text=Ողջույն Ելենա: Ես ունեմ ELEN-TECH-15% պրոմոկոդը: Ցանկանում եմ քննարկել թվային այցեքարտի ստեղծումը:',
@@ -204,43 +205,43 @@ const CONTENT = {
     views: {
       profile: {
         title: 'Իմ փիլիսոփայությունը',
-        desc: 'Ես ստեղծում եմ ոչ միայն կայքեր, այլ պրեմիում թվային աշխարհներ: Ձեր թվային այցեքարտը կարգավիճակ է, որը վաճառում է ձեր ծառայությունները նույնիսկ նախքան ձեր խոսելը: Եզակի անիմացիաներ, PWA հավելվածներ և 100% WOW էֆեկտ:'
+        desc: <>Ես ստեղծում եմ խելացի թվային այցեքարտեր, որոնք պահպանվում են սմարթֆոնի էկրանին որպես լիարժեք PWA-հավելված:<br/><br/>Անհատական ենթադոմենը և հոսթինգն արդեն ներառված են:<br/><br/>Աշխատում է առանց VPN-ի, առանց ավելորդ ծրագրերի տեղադրման և առանց բաժանորդային վճարի՝ ընդմիշտ:</>
       },
       nano: {
-        title: 'Nano այցեքարտ',
-        desc: 'Նրբագեղ մեկնարկ ձեր բրենդի համար: Կատարյալ հավասարակշռված հիմք, ոճային անիմացիաներ, ադապտիվություն և ակնթարթային բեռնում: Մեկ վճարում — և այն ձերն է ընդմիշտ:'
+        title: 'Digital Start սակագին',
+        desc: <>Թվային PWA-այցեքարտ ըստ ձեր ոլորտի ձևանմուշի:<br/><br/>Հավելվածի պատկերակ հեռախոսի էկրանին, անհատական ենթադոմեն, հոսթինգ, կոնտակտի ակնթարթային պահպանում 1 սեղմումով և ոճային QR-կոդ:</>
       },
       pro: {
-        title: 'Architecture Pro',
-        desc: 'Պրեմիում ձևանմուշ իմ բազայից՝ ամբողջությամբ հարմարեցված ձեզ համար: Մինի հավելված TG/VK + վեբ տարբերակ (PWA): Ենթադոմեն որպես նվեր և գործարկում «բանալիով» ընդամենը 3-5 օրում:'
+        title: 'Smart Touch սակագին',
+        desc: <>Ամեն ինչ Digital Start սակագնից + մինիմալիստական դիզայնով պլաստիկ NFC-քարտ:<br/><br/>Մոտեցնում եք քարտը հաճախորդի սմարթֆոնին — այցեքարտը բացվում է ակնթարթորեն:</>
       },
       ultra: {
-        title: 'Exclusive Ultra',
-        desc: 'Ձեր բիզնեսի եզակի թվային կոդը: Անհատական կառուցվածքի մշակում, բարդ 3D տեսարաններ, ապակու և մասնիկների էֆեկտներ: Լուծում նրանց համար, ովքեր չեն հանդուրժում փոխզիջումներ:'
+        title: 'Leather VIP սակագին',
+        desc: <>Թվային այցեքարտ Digital Start սակագնից + հեղինակային ձեռագործ NFC-կախազարդ՝ բնական Crazy Horse կաշվից:<br/><br/>Ձեր անվանատառերի դրոշմում կաշվի վրա որպես ՆՎԵՐ:</>
       },
       tech: {
-        title: 'Տեխնոլոգիաներ',
-        desc: 'Յուրաքանչյուր այցեքարտ կոդի գլուխգործոց է: Աշխատում է առանց VPN-ի, տեղադրվում է հեռախոսի էկրանին որպես հավելված, չի պահանջում բաժանորդային վճար: Հեշտ է կիսվել QR-ով կամ հղումով:'
+        title: 'Exclusive Custom սակագին',
+        desc: <>100% եզակի դիզայնի և կոդի մշակում զրոյից՝ ձեր բրենդի համար:<br/><br/>Բարդ անիմացիաներ, հազվագյուտ ինտերակտիվ տարրեր + ձեռագործ կաշվե NFC-կախազարդ որպես նվեր:</>
       },
       reviewsTitle: 'Կարծիքներ',
       reviews: [
-        { name: 'Վիկտորյա', date: '21.03.2026', text: '"Մոռացել եմ կոնստրուկտորների մասին ինչպես վատ երազի: Շատ սահուն, ոճային, մթնոլորտը փոխանցվում է 100%"' },
-        { name: 'Ալեքսեյ', date: '20.03.2026', text: '"Դիզայնը պարզապես տիեզերք է: Հաճախորդներն այժմ չեն ցանկանում լքել իմ մինի հավելվածը: Կոնվերսիան կրկնապատկվել է:"' },
+        { name: 'Վիկտորյա', date: '20.03.2026', text: '"Մոռացել եմ կոնստրուկտորների մասին ինչպես վատ երազի: Շատ սահուն, ոճային, մթնոլորտը փոխանցվում է 100%"' },
+        { name: 'Ալեքսեյ', date: '21.03.2026', text: '"Դիզայնը պարզապես տիեզերք է: Հաճախորդներն այժմ չեն ցանկանում լքել իմ մինի հավելվածը: Կոնվերսիան կրկնապատկվել է:"' },
         { name: 'Մարիա', date: '01.04.2026', text: '"Ելենան իր գործի վարպետն է: Ամեն ինչ մտածված է մինչև մանրուքները՝ վիզուալից մինչև անիմացիաներ:"' }
       ]
     },
     ui: {
       shareTitle: 'Կիսվել այցեքարտով',
-      shareDesc: 'Թույլ տվեք սկանավորել QR կոդը կամ ուղարկեք հղումը անմիջապես:',
+      shareDesc: 'Թույլ տվեք սկանավորել QR-կոդը կամ ուղարկեք հղումն անմիջապես:',
       shareText: 'Ողջույն: Ահա իմ այցեքարտը կոնտակտներով՝',
       copy: 'Պատճենել',
-      copied: 'Պատճենված է',
+      copied: 'Պատճենված է!',
       send: 'Ուղարկել',
       installTitle: 'Տեղադրել հավելվածը',
       installDesc: 'Ավելացրեք այցեքարտը «Գլխավոր» էկրանին՝ մեկ սեղմումով բացելու համար առանց բրաուզերի:',
       installStep1_1: 'Սեղմեք ',
       installStep1_2: '«Կիսվել»',
-      installStep1_3: ' բրաուզերի ընտրացանկում (սովորաբար ներքևում):',
+      installStep1_3: ' կոճակը բրաուզերի ընտրացանկում (սովորաբար ներքևում):',
       installStep2_1: 'Ընտրեք ',
       installStep2_2: '«Գլխավոր էկրանին»',
       installStep2_3: ' հայտնված ցանկում:',
@@ -574,10 +575,10 @@ const CreatorCard = ({ lang }) => {
           <div className="flex flex-col gap-2.5 w-full items-center relative z-10">
             {[
               { id: 'profile', icon: UserCircle2 },
-              { id: 'nano', icon: Diamond },
-              { id: 'pro', icon: Rocket },
-              { id: 'ultra', icon: Crown },
-              { id: 'tech', icon: Code2 },
+              { id: 'nano', icon: Smartphone },
+              { id: 'pro', icon: CreditCard },
+              { id: 'ultra', icon: Diamond },
+              { id: 'tech', icon: Crown },
               { id: 'lead', icon: Gift },
             ].map((item) => (
               <button 
@@ -623,7 +624,7 @@ const CreatorCard = ({ lang }) => {
             {/* 2. ТАРИФ NANO */}
             <div className={`absolute inset-0 flex flex-col justify-center transition-all duration-500 ease-in-out ${view === 'nano' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
               <div className="w-10 h-10 rounded-full bg-rose-900/30 border border-rose-500/30 flex items-center justify-center mb-3 shadow-[0_0_15px_rgba(159,18,57,0.2)]">
-                <Diamond className="w-5 h-5 text-rose-300" />
+                <Smartphone className="w-5 h-5 text-rose-300" />
               </div>
               <div className="flex items-end gap-2 mb-2">
                 <h3 className="text-xl font-serif font-light text-rose-100 tracking-wider">{CONTENT[lang].views.nano.title}</h3>
@@ -636,7 +637,7 @@ const CreatorCard = ({ lang }) => {
             {/* 3. ТАРИФ PRO */}
             <div className={`absolute inset-0 flex flex-col justify-center transition-all duration-500 ease-in-out ${view === 'pro' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
               <div className="w-10 h-10 rounded-full bg-rose-900/30 border border-rose-500/30 flex items-center justify-center mb-3 shadow-[0_0_15px_rgba(159,18,57,0.2)]">
-                <Rocket className="w-5 h-5 text-rose-300" />
+                <CreditCard className="w-5 h-5 text-rose-300" />
               </div>
               <div className="flex flex-col mb-2">
                 <h3 className="text-xl font-serif font-light text-rose-100 tracking-wider">{CONTENT[lang].views.pro.title}</h3>
@@ -649,7 +650,7 @@ const CreatorCard = ({ lang }) => {
             {/* 4. ТАРИФ ULTRA */}
             <div className={`absolute inset-0 flex flex-col justify-center transition-all duration-500 ease-in-out ${view === 'ultra' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
               <div className="w-10 h-10 rounded-full bg-rose-900/30 border border-rose-500/30 flex items-center justify-center mb-3 shadow-[0_0_15px_rgba(159,18,57,0.2)]">
-                <Crown className="w-5 h-5 text-rose-300" />
+                <Diamond className="w-5 h-5 text-rose-300" />
               </div>
               <div className="flex flex-col mb-2">
                 <h3 className="text-[1.15rem] whitespace-nowrap font-serif font-light text-rose-100 tracking-wider">{CONTENT[lang].views.ultra.title}</h3>
@@ -662,7 +663,7 @@ const CreatorCard = ({ lang }) => {
             {/* 5. ТЕХНОЛОГИИ */}
             <div className={`absolute inset-0 flex flex-col justify-center transition-all duration-500 ease-in-out ${view === 'tech' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
               <div className="w-10 h-10 rounded-full bg-rose-900/30 border border-rose-500/30 flex items-center justify-center mb-3 shadow-[0_0_15px_rgba(159,18,57,0.2)]">
-                <Code2 className="w-5 h-5 text-rose-300" />
+                <Crown className="w-5 h-5 text-rose-300" />
               </div>
               <h3 className="text-xl font-serif font-light text-rose-100 tracking-wider mb-2">{CONTENT[lang].views.tech.title}</h3>
               <p className="font-serif text-[11px] text-rose-100/80 leading-relaxed bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-rose-900/50 shadow-inner">
