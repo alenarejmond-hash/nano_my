@@ -6,6 +6,19 @@ import {
   Smartphone, CreditCard
 } from 'lucide-react';
 
+const QRCodeSVG = ({ value, size, className }) => {
+  const encoded = encodeURIComponent(value);
+  return (
+    <img 
+      src={`https://api.qrserver.com/v1/create-qr-code/?size=${size}x${size}&data=${encoded}`} 
+      width={size} 
+      height={size} 
+      className={className}
+      alt="QR Code"
+    />
+  );
+};
+
 // ==========================================
 // ⚙️ НАСТРОЙКИ КОНТЕНТА (МЕНЯТЬ ТЕКСТ, ФОТО И ССЫЛКИ ТОЛЬКО ЗДЕСЬ!)
 // ==========================================
@@ -24,7 +37,7 @@ const CONTENT = {
       quote1: 'Не просто визитка,',
       quote2: 'а ваш главный цифровой актив...',
       websiteText: 'Подробнее...',
-      websiteLink: 'https://nice-app.ru',
+      websiteLink: 'https://appsea.ru/',
       actionText: 'ЗАКАЗАТЬ ВИЗИТКУ',
       actionLink: 'https://t.me/elenlime?text=Елена, привет! Хочу заказать свою визитку',
     },
@@ -41,6 +54,7 @@ const CONTENT = {
       email: 'limetut@gmail.com',
       company: 'Premium Web',
       title: 'Digital Creator & Developer',
+      website: 'https://appsea.ru/'
     },
     views: {
       profile: {
@@ -108,7 +122,7 @@ const CONTENT = {
       quote1: 'More than just a business card,',
       quote2: 'it\'s your core digital asset...',
       websiteText: 'Learn more...',
-      websiteLink: 'https://nice-app.ru',
+      websiteLink: 'https://appsea.ru/',
       actionText: 'ORDER YOUR CARD',
       actionLink: 'https://t.me/elenlime?text=Hi Elena! I want to order my digital business card.',
     },
@@ -125,7 +139,7 @@ const CONTENT = {
       email: 'limetut@gmail.com',
       company: 'Premium Web',
       title: 'Digital Creator & Developer',
-      website: 'https://nice-app.ru'
+      website: 'https://appsea.ru/'
     },
     views: {
       profile: {
@@ -193,7 +207,7 @@ const CONTENT = {
       quote1: 'Ավելին, քան պարզապես այցեքարտ,',
       quote2: 'այլ ձեր գլխավոր թվային ակտիվը...',
       websiteText: 'Ավելին...',
-      websiteLink: 'https://nice-app.ru',
+      websiteLink: 'https://appsea.ru/',
       actionText: 'ՊԱՏՎԻՐԵԼ ԱՅՑԵՔԱՐՏ',
       actionLink: 'https://t.me/elenlime?text=Ողջույն Ելենա: Ցանկանում եմ պատվիրել իմ թվային այցեքարտը:',
     },
@@ -210,7 +224,7 @@ const CONTENT = {
       email: 'limetut@gmail.com',
       company: 'Premium Web',
       title: 'Digital Creator & Developer',
-      website: 'https://nice-app.ru'
+      website: 'https://appsea.ru/'
     },
     views: {
       profile: {
@@ -258,9 +272,9 @@ const CONTENT = {
       installStep1_3: ' կոճակը բրաուզերի ընտրացանկում (սովորաբար ներքևում):',
       installStep2_1: 'Ընտրեք ',
       installStep2_2: '«Ավելացնել Գլխավոր էկրանին»',
-      installStep2_3: ' հայտնված ցանկում:',
-      done: 'Պատրաստ է',
-      saveContact: 'Պահպանված է թվային այցեքարտից'
+      installStep2_3: ' в появившемся списке.',
+      done: 'Готово',
+      saveContact: 'Сохранено с цифровой визитки'
     }
   },
 
@@ -472,13 +486,10 @@ const globalStyles = `
 // ==========================================
 // 🪄 КОМПОНЕНТ ЭФФЕКТА СГОРАНИЯ (УМНАЯ ЦВЕТОВАЯ ПОДСТРОЙКА)
 // ==========================================
-const HACKER_CHARS = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
-
 const BurnRevealImage = ({ src, className, style, imgClassName = "", burnColor = "wine", startBurn = true }) => {
-  // Цветовые темы огня (c1 - пепел/край, c2 - основной огонь, c3 - яркая вспышка)
   const themes = {
     default: { c1: 'rgba(220, 38, 38, 0.9)', c2: 'rgba(250, 150, 0, 1)', c3: 'rgba(255, 220, 50, 0.8)' },
-    wine: { c1: 'rgba(88, 11, 37, 0.9)', c2: 'rgba(159, 18, 57, 1)', c3: 'rgba(225, 29, 72, 0.8)' } // Босс (Елена)
+    wine: { c1: 'rgba(88, 11, 37, 0.9)', c2: 'rgba(159, 18, 57, 1)', c3: 'rgba(225, 29, 72, 0.8)' }
   };
   
   const t = themes[burnColor] || themes.wine;
@@ -506,7 +517,7 @@ const BurnRevealImage = ({ src, className, style, imgClassName = "", burnColor =
 };
 
 // ==========================================
-// ШАБЛОНЫ ВИЗИТОК (4 направления)
+// ШАБЛОНЫ ВИЗИТОК
 // ==========================================
 
 // 0. БОСС / СОЗДАТЕЛЬ (Елена Сотникова)
@@ -519,8 +530,6 @@ const CreatorCard = ({ lang }) => {
   const handlePromoClick = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    
-    // Сразу перекидываем в Telegram с готовым текстом
     window.location.href = CONTENT[lang].leadMagnet.link;
   };
 
@@ -529,16 +538,16 @@ const CreatorCard = ({ lang }) => {
       {/* ЛИЦЕВАЯ СТОРОНА */}
       <div className="absolute inset-0 w-full h-full card-backface-hidden rounded-[2.5rem] shadow-[0_20px_50px_rgba(159,18,57,0.4)] overflow-hidden bg-[#0a0103] text-white flex flex-col p-6 group-hover:shadow-[0_20px_80px_rgba(159,18,57,0.6)] transition-shadow duration-700">
         
-        {/* === КРАСИВЫЙ ПРЕМИАЛЬНЫЙ ГРАДИЕНТ (Виден 1 секунду до проявления фото) === */}
+        {/* === КРАСИВЫЙ ПРЕМИАЛЬНЫЙ ГРАДИЕНТ === */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#380e1b] via-[#0f0206] to-[#1f030e]"></div>
         <div className="absolute -inset-1/2 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-rose-900/30 via-transparent to-transparent animate-pulse" style={{ animationDuration: '3s' }}></div>
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-rose-500/25 via-transparent to-transparent mix-blend-screen"></div>
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-rose-900/40 via-transparent to-transparent"></div>
 
-        {/* ТЕМНЫЙ ПОЛУПРОЗРАЧНЫЙ ГРАДИЕНТ (Лежит под фото, как ты и просила) */}
+        {/* ТЕМНЫЙ ПОЛУПРОЗРАЧНЫЙ ГРАДИЕНТ */}
         <div className="absolute inset-0 bg-gradient-to-t from-black from-0% via-black/80 via-[15%] to-transparent to-[30%] pointer-events-none z-0 rounded-[2.5rem]"></div>
 
-        {/* ЗАМЕНА СТАТИЧНОГО ФОНА НА СГОРАЮЩИЙ (Винный огонь) ПОВЕРХ ВСЕХ СЛОЕВ */}
+        {/* СГОРАЮЩИЙ ФОН */}
         <BurnRevealImage src={CONTENT[lang].creator.bgImage} className="grayscale-[0.2]" burnColor="wine" startBurn={isNameRevealed} />
 
         <div className="relative z-10 flex flex-col h-full justify-between">
@@ -572,7 +581,7 @@ const CreatorCard = ({ lang }) => {
       {/* ОБРАТНАЯ СТОРОНА (GlassOS / Vertical Left Dock) */}
       <div className="absolute inset-0 w-full h-full card-backface-hidden rounded-[2.5rem] shadow-[0_20px_50px_rgba(159,18,57,0.4)] overflow-hidden bg-[#0a0205] flex flex-row p-4 gap-4 text-white border border-rose-900/40" style={{ transform: 'rotateY(180deg) translateZ(0)' }}>
         
-        {/* ФОН (Медленные орбиты и Аура) */}
+        {/* ФОН */}
         <div className="absolute -top-[20%] -left-[20%] w-[160%] aspect-square rounded-full border border-rose-500/10 border-dashed pointer-events-none" style={{ animation: 'esoteric-slow-drift-1 90s linear infinite', transformOrigin: '45% 55%' }}></div>
         <div className="absolute -bottom-[30%] -right-[30%] w-[140%] aspect-square rounded-full border-[1.5px] border-rose-900/20 pointer-events-none" style={{ animation: 'esoteric-slow-drift-2 100s linear infinite', transformOrigin: '55% 45%' }}></div>
         
@@ -728,65 +737,25 @@ const CreatorCard = ({ lang }) => {
               
               <div className="flex-1 overflow-y-auto hide-scrollbar flex flex-col gap-2.5 pb-10 pr-1 mask-image-bottom">
                 
-                {/* Отзыв 1: Виктория */}
-                <div className="bg-black/40 backdrop-blur-sm p-3 rounded-2xl border border-rose-900/50 shadow-inner relative shrink-0">
-                  <div className="flex justify-between items-center mb-1.5 px-1">
-                    <div className="flex items-center gap-2">
-                      <span className="text-[10px] text-rose-200/90 font-medium">{CONTENT[lang].views.reviews[0].name}</span>
-                      {CONTENT[lang].views.reviews[0].date && <span className="text-[8px] text-rose-500/60">{CONTENT[lang].views.reviews[0].date}</span>}
+                {/* Отзывы */}
+                {CONTENT[lang].views.reviews.map((rev, idx) => (
+                  <div key={idx} className="bg-black/40 backdrop-blur-sm p-3 rounded-2xl border border-rose-900/50 shadow-inner relative shrink-0">
+                    <div className="flex justify-between items-center mb-1.5 px-1">
+                      <div className="flex items-center gap-2">
+                        <span className="text-[10px] text-rose-200/90 font-medium">{rev.name}</span>
+                        {rev.date && <span className="text-[8px] text-rose-500/60">{rev.date}</span>}
+                      </div>
+                      <div className="flex gap-0.5">
+                        {[...Array(5)].map((_, i) => (
+                          <Star key={i} className="w-2.5 h-2.5 fill-rose-400 text-rose-400" />
+                        ))}
+                      </div>
                     </div>
-                    <div className="flex gap-0.5">
-                      <Star className="w-2.5 h-2.5 fill-rose-400 text-rose-400" />
-                      <Star className="w-2.5 h-2.5 fill-rose-400 text-rose-400" />
-                      <Star className="w-2.5 h-2.5 fill-rose-400 text-rose-400" />
-                      <Star className="w-2.5 h-2.5 fill-rose-400 text-rose-400" />
-                      <Star className="w-2.5 h-2.5 fill-rose-400 text-rose-400" />
-                    </div>
+                    <p className="font-serif text-[10px] text-rose-100/80 leading-relaxed italic px-1">
+                      {rev.text}
+                    </p>
                   </div>
-                  <p className="font-serif text-[10px] text-rose-100/80 leading-relaxed italic px-1">
-                    {CONTENT[lang].views.reviews[0].text}
-                  </p>
-                </div>
-
-                {/* Отзыв 2: Алексей */}
-                <div className="bg-black/40 backdrop-blur-sm p-3 rounded-2xl border border-rose-900/50 shadow-inner relative shrink-0">
-                  <div className="flex justify-between items-center mb-1.5 px-1">
-                    <div className="flex items-center gap-2">
-                      <span className="text-[10px] text-rose-200/90 font-medium">{CONTENT[lang].views.reviews[1].name}</span>
-                      {CONTENT[lang].views.reviews[1].date && <span className="text-[8px] text-rose-500/60">{CONTENT[lang].views.reviews[1].date}</span>}
-                    </div>
-                    <div className="flex gap-0.5">
-                      <Star className="w-2.5 h-2.5 fill-rose-400 text-rose-400" />
-                      <Star className="w-2.5 h-2.5 fill-rose-400 text-rose-400" />
-                      <Star className="w-2.5 h-2.5 fill-rose-400 text-rose-400" />
-                      <Star className="w-2.5 h-2.5 fill-rose-400 text-rose-400" />
-                      <Star className="w-2.5 h-2.5 fill-rose-400 text-rose-400" />
-                    </div>
-                  </div>
-                  <p className="font-serif text-[10px] text-rose-100/80 leading-relaxed italic px-1">
-                    {CONTENT[lang].views.reviews[1].text}
-                  </p>
-                </div>
-
-                {/* Отзыв 3: Мария */}
-                <div className="bg-black/40 backdrop-blur-sm p-3 rounded-2xl border border-rose-900/50 shadow-inner relative shrink-0">
-                  <div className="flex justify-between items-center mb-1.5 px-1">
-                    <div className="flex items-center gap-2">
-                      <span className="text-[10px] text-rose-200/90 font-medium">{CONTENT[lang].views.reviews[2].name}</span>
-                      {CONTENT[lang].views.reviews[2].date && <span className="text-[8px] text-rose-500/60">{CONTENT[lang].views.reviews[2].date}</span>}
-                    </div>
-                    <div className="flex gap-0.5">
-                      <Star className="w-2.5 h-2.5 fill-rose-400 text-rose-400" />
-                      <Star className="w-2.5 h-2.5 fill-rose-400 text-rose-400" />
-                      <Star className="w-2.5 h-2.5 fill-rose-400 text-rose-400" />
-                      <Star className="w-2.5 h-2.5 fill-rose-400 text-rose-400" />
-                      <Star className="w-2.5 h-2.5 fill-rose-400 text-rose-400" />
-                    </div>
-                  </div>
-                  <p className="font-serif text-[10px] text-rose-100/80 leading-relaxed italic px-1">
-                    {CONTENT[lang].views.reviews[2].text}
-                  </p>
-                </div>
+                ))}
 
               </div>
             </div>
@@ -814,21 +783,21 @@ const CreatorCard = ({ lang }) => {
 // ==========================================
 
 const App = () => {
-  const [lang, setLang] = useState('ru'); // Состояние текущего языка
+  const [lang, setLang] = useState('ru');
   const [isFlipped, setIsFlipped] = useState(false);
   const [rotate, setRotate] = useState({ x: 0, y: 0 });
   const [glare, setGlare] = useState({ x: 50, y: 50, opacity: 0 });
   const [sparks, setSparks] = useState([]);
   const [bgOffset, setBgOffset] = useState({ x: 0, y: 0 });
-  const [showShare, setShowShare] = useState(false); // Состояние для модального окна
-  const [showPwaPrompt, setShowPwaPrompt] = useState(false); // Состояние для iOS плашки PWA
-  const [copied, setCopied] = useState(false);       // Состояние для копирования ссылки
-  const [isAudioPlaying, setIsAudioPlaying] = useState(false); // Состояние аудио
-  const [trail, setTrail] = useState([]); // Состояние для искристого шлейфа
+  const [showShare, setShowShare] = useState(false);
+  const [showPwaPrompt, setShowPwaPrompt] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const [isAudioPlaying, setIsAudioPlaying] = useState(false);
+  const [trail, setTrail] = useState([]);
   const cardRef = useRef(null);
-  const audioCtxRef = useRef(null); // Реф для аудио контекста (чтобы звук не пропадал)
-  const audioRef = useRef(null); // Надежный реф для HTML5 аудио
-  const isFlippingRef = useRef(false); // Реф для блокировки наклона во время переворота
+  const audioCtxRef = useRef(null);
+  const audioRef = useRef(null);
+  const isFlippingRef = useRef(false);
 
   // Инициализация Яндекс.Метрики
   useEffect(() => {
@@ -859,14 +828,10 @@ const App = () => {
       audio.volume = 1.0;
       audio.muted = false;
       
-      // Пробуем штатно запустить звук
       const playPromise = audio.play();
       if (playPromise !== undefined) {
         playPromise.catch(err => {
           console.warn("Safari blocked play, applying fallback:", err);
-          // СПАСИТЕЛЬНЫЙ ФОЛБЭК ДЛЯ iOS: 
-          // Если Safari заартачился (из-за чего не было ни звука, ни эквалайзера),
-          // мы жестко пинаем плеер и заставляем его играть.
           audio.load();
           audio.play().catch(e => console.error("Fatal audio error:", e));
         });
@@ -876,17 +841,15 @@ const App = () => {
     }
   };
 
-  // Глобальный параллакс фона (Живые сферы)
+  // Глобальный параллакс фона
   useEffect(() => {
     const handleGlobalMove = (e) => {
       const clientX = e.touches ? e.touches[0].clientX : e.clientX;
       const clientY = e.touches ? e.touches[0].clientY : e.clientY;
       
-      // Вычисляем смещение от центра экрана (максимум 80px)
       const x = (clientX / window.innerWidth - 0.5) * 80;
       const y = (clientY / window.innerHeight - 0.5) * 80;
       
-      // Инвертируем (-x, -y), чтобы фон плыл в противоположную от курсора сторону
       setBgOffset({ x: -x, y: -y });
     };
 
@@ -899,7 +862,7 @@ const App = () => {
     };
   }, []);
 
-  // Динамическая генерация PWA manifest.json (чтобы работала установка на экран)
+  // Динамическая генерация PWA manifest.json
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const manifest = {
@@ -928,12 +891,9 @@ const App = () => {
     }
   }, [lang]);
 
-  // Магнитный 3D наклон за курсором/пальцем
   const handlePointerMove = (e) => {
-    // Блокируем наклон, если карточка прямо сейчас переворачивается
     if (isFlippingRef.current || !cardRef.current) return;
     
-    // Исключение для интерактивных зон (чтобы удобно было читать и нажимать)
     if (e.target.closest('.no-tilt')) {
       setRotate({ x: 0, y: 0 });
       setGlare(prev => ({ ...prev, opacity: 0 }));
@@ -942,7 +902,6 @@ const App = () => {
     
     const rect = cardRef.current.getBoundingClientRect();
     
-    // Поддержка как мыши, так и тач-событий
     const clientX = e.touches ? e.touches[0].clientX : e.clientX;
     const clientY = e.touches ? e.touches[0].clientY : e.clientY;
 
@@ -952,11 +911,9 @@ const App = () => {
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
     
-    // Максимальный угол наклона увеличен с 15 до 25 градусов для большей подвижности
     const rotateX = ((y - centerY) / centerY) * -25;
     const rotateY = ((x - centerX) / centerX) * 25;
     
-    // Вычисляем позицию блика (в процентах)
     const glareX = (x / rect.width) * 100;
     const glareY = (y / rect.height) * 100;
     
@@ -964,7 +921,6 @@ const App = () => {
     setGlare({ x: glareX, y: glareY, opacity: 1 });
   };
 
-  // Сброс наклона, когда курсор уходит
   const handlePointerLeave = () => {
     if (isFlippingRef.current) return;
     setRotate({ x: 0, y: 0 });
@@ -976,14 +932,13 @@ const App = () => {
       const AudioContext = window.AudioContext || window.webkitAudioContext;
       if (!AudioContext) return;
       
-      // Создаем контекст только один раз, чтобы браузер его не блокировал со временем
       if (!audioCtxRef.current) {
         audioCtxRef.current = new AudioContext();
       }
       
       const ctx = audioCtxRef.current;
       if (ctx.state === 'suspended') {
-        ctx.resume(); // Возобновляем, если браузер усыпил контекст
+        ctx.resume();
       }
 
       const osc = ctx.createOscillator();
@@ -992,7 +947,6 @@ const App = () => {
       osc.connect(gainNode);
       gainNode.connect(ctx.destination);
 
-      // Создаем мягкий звук "взмаха" или "карточки"
       osc.type = 'sine';
       osc.frequency.setValueAtTime(300, ctx.currentTime);
       osc.frequency.exponentialRampToValueAtTime(40, ctx.currentTime + 0.15);
@@ -1004,28 +958,23 @@ const App = () => {
       osc.start(ctx.currentTime);
       osc.stop(ctx.currentTime + 0.15);
     } catch (e) {
-      // Игнорируем ошибки (если автоплей заблокирован браузером)
+      // Игнорируем ошибки автоплея
     }
   };
 
   const handleFlip = () => {
-    // Звук переворота (саунд-дизайн)
     playFlipSound();
     
-    // Блокируем магнитный наклон и выравниваем карточку ровно при перевороте
     isFlippingRef.current = true;
     setRotate({ x: 0, y: 0 });
     setGlare(prev => ({ ...prev, opacity: 0 }));
     
-    // Разблокируем наклон после завершения анимации переворота
     setTimeout(() => { isFlippingRef.current = false; }, 700);
 
     if (!isFlipped) {
-      // Взрыв более яркой и крупной белой пыльцы
       const newSparks = Array.from({ length: 35 }).map((_, i) => {
-        // Распределяем искры по кругу
         const angle = (Math.PI * 2 * i) / 35 + (Math.random() * 0.5);
-        const distance = 80 + Math.random() * 100; // Мягкий стартовый разлет
+        const distance = 80 + Math.random() * 100;
         return {
           id: Date.now() + i,
           tx: Math.cos(angle) * distance + 'px',
@@ -1036,35 +985,24 @@ const App = () => {
           wy2: (Math.random() - 0.5) * 200 + 'px',
           wx3: (Math.random() - 0.5) * 300 + 'px',
           wy3: (Math.random() - 0.5) * 300 + 'px',
-          wt: (20 + Math.random() * 20) + 's', // Время полета от 20 до 40 секунд!
-          size: Math.random() * 2.5 + 1.5 + 'px', // Сделали крупнее (от 1.5px до 4px)
+          wt: (20 + Math.random() * 20) + 's',
+          size: Math.random() * 2.5 + 1.5 + 'px',
         };
       });
       setSparks(newSparks);
     } else {
-      // Очищаем искры при возврате на лицевую сторону
       setSparks([]);
     }
 
-    // Вибрация (Haptic feedback) при поддержке устройством для премиум-ощущений
     if (typeof navigator !== 'undefined' && navigator.vibrate) {
-      // Двойной мягкий импульс при перевороте карточки
       navigator.vibrate([30, 30, 40]); 
     }
     setIsFlipped(!isFlipped);
   };
 
-  // Функция для получения цвета мобильного свечения в зависимости от шаблона
-  const getGlowColor = () => {
-    return 'rgba(159,18,57,0.6)'; // Босс (Винный)
-  };
+  const getGlowColor = () => 'rgba(159,18,57,0.6)';
+  const getModalTheme = () => ({ bg: 'rgba(159,18,57,0.15)', border: 'rgba(159,18,57,0.3)', icon: 'text-rose-400' });
 
-  // Получение индивидуальной темы для воздушного модального окна
-  const getModalTheme = () => {
-    return { bg: 'rgba(159,18,57,0.15)', border: 'rgba(159,18,57,0.3)', icon: 'text-rose-400' }; // Босс
-  };
-
-  // Функции для шаринга
   const handleCopy = () => {
     navigator.clipboard.writeText(window.location.href);
     setCopied(true);
@@ -1083,11 +1021,10 @@ const App = () => {
         console.log('Шаринг отменен');
       }
     } else {
-      handleCopy(); // Фолбек для десктопов без поддержки Web Share API
+      handleCopy();
     }
   };
 
-  // Функция для конвертации картинки в Base64 для vCard
   const getBase64Image = async (imgUrl) => {
     try {
       const response = await fetch(imgUrl);
@@ -1103,17 +1040,14 @@ const App = () => {
     }
   };
 
-  // Функция скачивания vCard (контакта)
   const handleDownloadVCard = async () => {
-    // Конвертируем картинку bg-creator.jpg в Base64
     let photoBase64 = null;
     let photoStr = "";
-    const photoUrl = '/bg-creator.jpg'; // Строго используем этот файл по твоему запросу
+    const photoUrl = '/bg-creator.jpg';
     
     try {
       photoBase64 = await getBase64Image(photoUrl);
       if (photoBase64) {
-        // Разбиваем base64 на строки (складывание строк) — строгое требование iOS для больших фото
         const foldedBase64 = photoBase64.match(/.{1,75}/g).join('\r\n ');
         photoStr = `PHOTO;TYPE=JPEG;ENCODING=b:\r\n ${foldedBase64}`;
       }
@@ -1121,7 +1055,6 @@ const App = () => {
       console.error("Ошибка загрузки фото для vCard", e);
     }
 
-    // Формируем vCard стандарта 3.0
     const vcard = [
       "BEGIN:VCARD",
       "VERSION:3.0",
@@ -1140,28 +1073,21 @@ const App = () => {
 
     const fileName = `${CONTENT[lang].creator.name1}_${CONTENT[lang].creator.name2}.vcf`;
     
-    // Определяем среду
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
     const isAndroid = /Android/.test(navigator.userAgent);
     const isTelegram = /Telegram/i.test(navigator.userAgent || navigator.vendor || window.opera);
 
-    // === ПРЯМОЕ ОТКРЫТИЕ КОНТАКТА В ОС ===
-    
-    // В Telegram на iOS используем data URI (т.к. Blob блокируется), но фото может быть обрезано из-за лимита длины URL
     if (isIOS && isTelegram) {
       window.location.href = 'data:text/vcard;charset=utf-8,' + encodeURIComponent(vcard);
       return;
     }
 
-    // Для Safari (iOS), Android и ПК используем Blob — надежно передает фото любого размера!
     const mimeType = isAndroid ? 'text/x-vcard;charset=utf-8' : 'text/vcard;charset=utf-8';
     const blob = new Blob([vcard], { type: mimeType });
     const url = window.URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
     
-    // КЛЮЧЕВОЙ ХАК ДЛЯ ANDROID:
-    // Мы НАМЕРЕННО не ставим атрибут download для Android.
     if (!isAndroid) {
       link.setAttribute('download', fileName);
     }
@@ -1175,19 +1101,14 @@ const App = () => {
 
   return (
     <div className="fixed inset-0 w-full h-full bg-neutral-950 flex flex-col font-sans select-none transition-all duration-500 overflow-hidden justify-center items-center p-4 sm:p-8">
-      {/* Вставляем глобальные стили */}
       <style>{globalStyles}</style>
 
-      {/* Интерактивный шлейф из пыльцы */}
+      {/* Интерактивный шлейф */}
       {trail.map(p => (
-        <div
-          key={p.id}
-          className="trail-particle"
-          style={{ left: p.x, top: p.y }}
-        />
+        <div key={p.id} className="trail-particle" style={{ left: p.x, top: p.y }} />
       ))}
 
-      {/* Фоновое свечение приложения (Живые сферы) */}
+      {/* Фоновое свечение */}
       <div 
         className="fixed top-1/4 left-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-[120px] pointer-events-none transition-transform duration-1000 ease-out"
         style={{ transform: `translate(${bgOffset.x}px, ${bgOffset.y}px)` }}
@@ -1197,10 +1118,8 @@ const App = () => {
         style={{ transform: `translate(${bgOffset.x * 1.5}px, ${bgOffset.y * 1.5}px)` }}
       ></div>
 
-      {/* КОНТЕЙНЕР ВИЗИТКИ (3D Сцена с ограничением высоты для мобилок) */}
-      <div 
-        className="w-full flex justify-center relative z-40 items-center"
-      >
+      {/* КОНТЕЙНЕР ВИЗИТКИ */}
+      <div className="w-full flex justify-center relative z-40 items-center">
         <div 
           ref={cardRef}
           className="relative z-10 w-full aspect-[10/16] sm:aspect-[10/15] cursor-pointer group animate-float touch-none"
@@ -1211,7 +1130,7 @@ const App = () => {
           onTouchMove={handlePointerMove}
           onTouchEnd={handlePointerLeave}
         >
-          {/* Искры (Magic Dust) */}
+          {/* Искры */}
           {sparks.map(spark => (
             <div
               key={spark.id}
@@ -1236,17 +1155,15 @@ const App = () => {
             />
           ))}
 
-          {/* Обертка для магнитного 3D наклона (следит за мышью/пальцем) */}
+          {/* 3D наклон */}
           <div
             className="w-full h-full card-preserve-3d transition-transform duration-100 ease-out z-10 relative"
             style={{ transform: `rotateX(${rotate.x}deg) rotateY(${rotate.y}deg)` }}
           >
-            {/* Сама визитка с анимацией вращения (переворот на 180) */}
             <div 
               className="relative w-full h-full transition-transform duration-700 ease-[cubic-bezier(0.4,0.2,0.2,1)] card-preserve-3d"
               style={{ transform: isFlipped ? 'rotateY(180deg) translateZ(0)' : 'rotateY(0deg) translateZ(0)' }}
             >
-              {/* Дополнительное мощное свечение для мобилок */}
               <div 
                 className="absolute inset-0 rounded-[2.5rem] pointer-events-none sm:hidden card-backface-hidden" 
                 style={{ boxShadow: `0 0 60px ${getGlowColor()}` }} 
@@ -1256,12 +1173,9 @@ const App = () => {
                 style={{ transform: 'rotateY(180deg)', boxShadow: `0 0 60px ${getGlowColor()}` }} 
               />
 
-              {/* ПЕРЕДАЕМ ВЫБРАННЫЙ ЯЗЫК В КАРТОЧКУ */}
               <CreatorCard lang={lang} />
 
-              {/* === ЭФФЕКТЫ СВЕЧЕНИЯ И БЛИКОВ (ЖИДКОЕ СТЕКЛО) === */}
-
-              {/* Лицевая сторона: Жидкое стекло (Liquid Glass) */}
+              {/* Блики */}
               <div 
                 className="absolute inset-0 w-full h-full rounded-[2.5rem] pointer-events-none transition-opacity duration-300 card-backface-hidden"
                 style={{
@@ -1279,7 +1193,6 @@ const App = () => {
                 }}
               />
 
-              {/* Обратная сторона: Жидкое стекло (Liquid Glass) */}
               <div 
                 className="absolute inset-0 w-full h-full rounded-[2.5rem] pointer-events-none transition-opacity duration-300 card-backface-hidden"
                 style={{
@@ -1302,10 +1215,9 @@ const App = () => {
         </div>
       </div>
 
-      {/* === ПАНЕЛЬ С КНОПКАМИ (Центрированная внизу, на десктопе опущена ниже) === */}
+      {/* === ПАНЕЛЬ С КНОПКАМИ === */}
       <div className="fixed bottom-10 sm:bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-6">
 
-        {/* СКРЫТЫЙ HTML5 АУДИО ПЛЕЕР (Самый надежный метод для всех устройств) */}
         <audio
           ref={audioRef}
           src={CONTENT[lang].creator.audioGreeting}
@@ -1336,9 +1248,8 @@ const App = () => {
           )}
         </button>
 
-        {/* СЕГМЕНТИРОВАННЫЙ ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКОВ (Pill / Segmented Control [ RU | AM | EN ]) */}
+        {/* ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКОВ */}
         <div className="relative flex items-center p-1 h-10 rounded-full bg-white/5 backdrop-blur-md border border-white/10 shadow-[0_0_20px_rgba(0,0,0,0.3)]">
-          {/* Плавающая неоновая плашка */}
           <div 
             className="absolute top-1 bottom-1 w-[calc(33.333%-2.66px)] rounded-full bg-gradient-to-r from-rose-800 to-rose-600 border border-rose-400/50 shadow-[0_0_15px_rgba(225,29,72,0.5)] transition-all duration-300 ease-out"
             style={{
@@ -1382,7 +1293,7 @@ const App = () => {
           <QrCode className="w-4 h-4 group-hover:scale-110 transition-transform" />
         </button>
 
-        {/* КНОПКА СОХРАНИТЬ КОНТАКТ (vCard) */}
+        {/* КНОПКА СОХРАНИТЬ КОНТАКТ */}
         <button
           onClick={(e) => {
             e.preventDefault();
@@ -1399,7 +1310,7 @@ const App = () => {
 
       </div>
 
-      {/* МОДАЛЬНОЕ ОКНО ПОДЕЛИТЬСЯ (Индивидуальное, Воздушное) */}
+      {/* МОДАЛЬНОЕ ОКНО ПОДЕЛИТЬСЯ */}
       {showShare && (
         <div 
           className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm transition-opacity animate-in fade-in duration-200" 
@@ -1431,11 +1342,23 @@ const App = () => {
             <h3 className="text-xl font-bold text-white mb-2 tracking-wide">{CONTENT[lang].ui.shareTitle}</h3>
             <p className="text-sm text-white/60 text-center mb-6 leading-relaxed">{CONTENT[lang].ui.shareDesc}</p>
             
-            {/* Динамический QR код */}
             <div className="bg-white p-4 rounded-3xl mb-6 shadow-[0_0_40px_rgba(255,255,255,0.15)] flex items-center justify-center">
-              <img 
-                src={`https://api.qrserver.com/v1/create-qr-code/?size=180x180&margin=0&data=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : CONTENT[lang].creator.websiteLink)}`} 
-                alt="QR Code" 
+              <QRCodeSVG 
+                value={[
+                  "BEGIN:VCARD",
+                  "VERSION:3.0",
+                  `FN:${CONTENT[lang].creator.name1} ${CONTENT[lang].creator.name2}`,
+                  `N:${CONTENT[lang].creator.name2};${CONTENT[lang].creator.name1};;;`,
+                  `ORG:${CONTENT[lang].contact.company}`,
+                  `TITLE:${CONTENT[lang].contact.title}`,
+                  `TEL;TYPE=CELL:${CONTENT[lang].contact.phone}`,
+                  `TEL;TYPE=WHATSAPP:${CONTENT[lang].contact.whatsapp}`,
+                  `EMAIL;TYPE=WORK:${CONTENT[lang].contact.email}`,
+                  `URL:${CONTENT[lang].contact.website}`,
+                  `NOTE:${CONTENT[lang].ui.saveContact}`,
+                  "END:VCARD"
+                ].filter(Boolean).join("\n")}
+                size={180}
                 className="w-[180px] h-[180px] object-contain rounded-lg"
               />
             </div>
@@ -1450,7 +1373,7 @@ const App = () => {
               </button>
               <button 
                 onClick={handleShare}
-                className={`flex-1 bg-white/10 hover:bg-white/20 border border-white/10 text-white font-bold py-3.5 px-4 rounded-2xl flex items-center justify-center gap-2 transition-colors text-sm`}
+                className="flex-1 bg-white/10 hover:bg-white/20 border border-white/10 text-white font-bold py-3.5 px-4 rounded-2xl flex items-center justify-center gap-2 transition-colors text-sm"
               >
                 <Share2 className="w-4 h-4" />
                 {CONTENT[lang].ui.send}
@@ -1460,7 +1383,7 @@ const App = () => {
         </div>
       )}
 
-      {/* МОДАЛЬНОЕ ОКНО PWA (Установка на экран 'Домой' в стиле iOS) */}
+      {/* МОДАЛЬНОЕ ОКНО PWA */}
       {showPwaPrompt && (
         <div 
           className="fixed inset-0 z-[110] flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/60 backdrop-blur-sm transition-opacity animate-in fade-in duration-300"
@@ -1470,7 +1393,6 @@ const App = () => {
             className="w-full max-w-sm bg-[#0a0205] sm:rounded-3xl rounded-t-3xl p-6 pb-10 sm:pb-6 flex flex-col items-center relative animate-in slide-in-from-bottom-full sm:zoom-in-95 duration-300 border-t sm:border border-rose-900/30 shadow-[0_-10px_40px_rgba(159,18,57,0.2)]"
             onClick={e => e.stopPropagation()}
           >
-            {/* iOS стиль: полоска-ручка сверху */}
             <div className="w-12 h-1.5 bg-white/20 rounded-full mb-6 sm:hidden"></div>
             
             <button 
