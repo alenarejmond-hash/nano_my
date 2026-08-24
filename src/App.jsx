@@ -36,16 +36,16 @@ const CONTENT = {
       link: 'https://t.me/elenlime?text=Елена, привет! У меня есть промокод ELEN-TECH-15%. Хочу обсудить создание цифровой визитки.',
     },
     contact: {
-      phone: '+79995051277',
+      phone: '+37494262223',
+      whatsapp: '+79995051277',
       email: 'limetut@gmail.com',
       company: 'Premium Web',
       title: 'Digital Creator & Developer',
-      website: 'https://nice-app.ru'
     },
     views: {
       profile: {
         title: 'Моя философия',
-        desc: <>Создаю умные цифровые визитки, которые сохраняются на экран смартфона как полноценное PWA-приложение.<br/><br/>Персональный поддомен и хостинг уже включены.<br/><br/>Работает без VPN, без установки лишнего софта и без абонентской платы навсегда.</>
+        desc: <>Создаю умные цифровые визитки, которые сохраняются на экран смартфона как полноценное PWA-приложение. А также авторские NFC-брелоки из натуральной кожи ручной работы.<br/><br/>Персональный поддомен и хостинг уже включены.<br/><br/>Работает без VPN, без установки лишнего софта и без абонентской платы навсегда. </>
       },
       nano: {
         title: 'Тариф Digital Start',
@@ -117,6 +117,7 @@ const CONTENT = {
     },
     contact: {
       phone: '+79995051277',
+      whatsapp: '+79995051277',
       email: 'limetut@gmail.com',
       company: 'Premium Web',
       title: 'Digital Creator & Developer',
@@ -197,6 +198,7 @@ const CONTENT = {
     },
     contact: {
       phone: '+79995051277',
+      whatsapp: '+79995051277',
       email: 'limetut@gmail.com',
       company: 'Premium Web',
       title: 'Digital Creator & Developer',
@@ -1102,6 +1104,7 @@ const App = () => {
       `ORG:${CONTENT[lang].contact.company}`,
       `TITLE:${CONTENT[lang].contact.title}`,
       `TEL;TYPE=CELL:${CONTENT[lang].contact.phone}`,
+      `TEL;TYPE=WHATSAPP:${CONTENT[lang].contact.whatsapp}`,
       `EMAIL;TYPE=WORK:${CONTENT[lang].contact.email}`,
       `URL:${CONTENT[lang].contact.website}`,
       photoStr,
