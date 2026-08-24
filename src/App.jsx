@@ -169,6 +169,86 @@ const CONTENT = {
     }
   },
 
+  // 🇦🇲 АРМЯНСКИЙ ЯЗЫК
+  hy: {
+    creator: {
+      bgImage: '/bg-creator.jpg',
+      avatar: '/avatar-creator.jpg', 
+      audioGreeting: '/greeting.mp3',
+      badge: 'DESIGN & CODE',
+      name1: 'ԵԼԵՆԱ',
+      name2: 'ՍՈՏՆԻԿՈՎԱ',
+      role: 'Premium Web',
+      status: 'Digital Creator',
+      quote1: 'Ոչ պարզապես այցեքարտ,',
+      quote2: 'այլ ձեր գլխավոր թվային ակտիվը...',
+      websiteText: 'Ավելին...',
+      websiteLink: 'https://nice-app.ru',
+      actionText: 'ՊԱՏՎԻՐԵԼ ՁԵՐ ԹՎԱՅԻՆ ԱՇԽԱՐՀԸ',
+      actionLink: 'https://t.me/elenlime?text=Ողջույն Ելենա: Ցանկանում եմ պատվիրել իմ թվային աշխարհը:',
+    },
+    leadMagnet: {
+      title: 'SECRET OFFER',
+      description: '15% զեղչ ցանկացած սակագնի մշակման համար՝ NANO, PRO կամ ULTRA։ Սեղմեք կոճակը Telegram անցնելու և զեղչը ստանալու համար։',
+      buttonText: 'ՍՏԱՆԱԼ ՊՐՈՄՈԿՈԴԸ',
+      promoCode: 'ELEN-TECH-15%',
+      link: 'https://t.me/elenlime?text=Ողջույն Ելենա: Ես ունեմ ELEN-TECH-15% պրոմոկոդը: Ցանկանում եմ քննարկել թվային այցեքարտի ստեղծումը:',
+    },
+    contact: {
+      phone: '+79995051277',
+      email: 'limetut@gmail.com',
+      company: 'Premium Web',
+      title: 'Digital Creator & Developer',
+      website: 'https://nice-app.ru'
+    },
+    views: {
+      profile: {
+        title: 'Իմ փիլիսոփայությունը',
+        desc: 'Ես ստեղծում եմ ոչ միայն կայքեր, այլ պրեմիում թվային աշխարհներ: Ձեր թվային այցեքարտը կարգավիճակ է, որը վաճառում է ձեր ծառայությունները նույնիսկ նախքան ձեր խոսելը: Եզակի անիմացիաներ, PWA հավելվածներ և 100% WOW էֆեկտ:'
+      },
+      nano: {
+        title: 'Nano այցեքարտ',
+        desc: 'Նրբագեղ մեկնարկ ձեր բրենդի համար: Կատարյալ հավասարակշռված հիմք, ոճային անիմացիաներ, ադապտիվություն և ակնթարթային բեռնում: Մեկ վճարում — և այն ձերն է ընդմիշտ:'
+      },
+      pro: {
+        title: 'Architecture Pro',
+        desc: 'Պրեմիում ձևանմուշ իմ բազայից՝ ամբողջությամբ հարմարեցված ձեզ համար: Մինի հավելված TG/VK + վեբ տարբերակ (PWA): Ենթադոմեն որպես նվեր և գործարկում «բանալիով» ընդամենը 3-5 օրում:'
+      },
+      ultra: {
+        title: 'Exclusive Ultra',
+        desc: 'Ձեր բիզնեսի եզակի թվային կոդը: Անհատական կառուցվածքի մշակում, բարդ 3D տեսարաններ, ապակու և մասնիկների էֆեկտներ: Լուծում նրանց համար, ովքեր չեն հանդուրժում փոխզիջումներ:'
+      },
+      tech: {
+        title: 'Տեխնոլոգիաներ',
+        desc: 'Յուրաքանչյուր այցեքարտ կոդի գլուխգործոց է: Աշխատում է առանց VPN-ի, տեղադրվում է հեռախոսի էկրանին որպես հավելված, չի պահանջում բաժանորդային վճար: Հեշտ է կիսվել QR-ով կամ հղումով:'
+      },
+      reviewsTitle: 'Կարծիքներ',
+      reviews: [
+        { name: 'Վիկտորյա', date: '21.03.2026', text: '"Մոռացել եմ կոնստրուկտորների մասին ինչպես վատ երազի: Շատ սահուն, ոճային, մթնոլորտը փոխանցվում է 100%"' },
+        { name: 'Ալեքսեյ', date: '20.03.2026', text: '"Դիզայնը պարզապես տիեզերք է: Հաճախորդներն այժմ չեն ցանկանում լքել իմ մինի հավելվածը: Կոնվերսիան կրկնապատկվել է:"' },
+        { name: 'Մարիա', date: '01.04.2026', text: '"Ելենան իր գործի վարպետն է: Ամեն ինչ մտածված է մինչև մանրուքները՝ վիզուալից մինչև անիմացիաներ:"' }
+      ]
+    },
+    ui: {
+      shareTitle: 'Կիսվել այցեքարտով',
+      shareDesc: 'Թույլ տվեք սկանավորել QR կոդը կամ ուղարկեք հղումը անմիջապես:',
+      shareText: 'Ողջույն: Ահա իմ այցեքարտը կոնտակտներով՝',
+      copy: 'Պատճենել',
+      copied: 'Պատճենված է',
+      send: 'Ուղարկել',
+      installTitle: 'Տեղադրել հավելվածը',
+      installDesc: 'Ավելացրեք այցեքարտը «Գլխավոր» էկրանին՝ մեկ սեղմումով բացելու համար առանց բրաուզերի:',
+      installStep1_1: 'Սեղմեք ',
+      installStep1_2: '«Կիսվել»',
+      installStep1_3: ' բրաուզերի ընտրացանկում (սովորաբար ներքևում):',
+      installStep2_1: 'Ընտրեք ',
+      installStep2_2: '«Գլխավոր էկրանին»',
+      installStep2_3: ' հայտնված ցանկում:',
+      done: 'Պատրաստ է',
+      saveContact: 'Պահպանված է թվային այցեքարտից'
+    }
+  },
+
   // 📊 АНАЛИТИКА (Общая для всех языков)
   analytics: {
     yandexMetricaId: '108395630', 
@@ -417,43 +497,9 @@ const BurnRevealImage = ({ src, className, style, imgClassName = "", burnColor =
 // 0. БОСС / СОЗДАТЕЛЬ (Елена Сотникова)
 const CreatorCard = ({ lang }) => {
   const [view, setView] = useState('profile');
-  const [isNameRevealed, setIsNameRevealed] = useState(false);
-  const [hackerName1, setHackerName1] = useState(() => CONTENT[lang].creator.name1.replace(/./g, () => HACKER_CHARS[Math.floor(Math.random() * HACKER_CHARS.length)]));
-  const [hackerName2, setHackerName2] = useState(() => CONTENT[lang].creator.name2.replace(/./g, () => HACKER_CHARS[Math.floor(Math.random() * HACKER_CHARS.length)]));
-
-  useEffect(() => {
-    let iteration = 0;
-    const target1 = CONTENT[lang].creator.name1;
-    const target2 = CONTENT[lang].creator.name2;
-    const maxLen = Math.max(target1.length, target2.length);
-
-    setIsNameRevealed(false);
-
-    // Рассчитываем шаги так, чтобы эффект длился ровно 1 секунду (1000 мс)
-    const intervalMs = 40;
-    const totalSteps = 1000 / intervalMs; 
-    const step = maxLen / totalSteps;
-
-    const interval = setInterval(() => {
-      setHackerName1(target1.split("").map((letter, index) => {
-        if (index < iteration) return target1[index];
-        return HACKER_CHARS[Math.floor(Math.random() * HACKER_CHARS.length)];
-      }).join(""));
-
-      setHackerName2(target2.split("").map((letter, index) => {
-        if (index < iteration) return target2[index];
-        return HACKER_CHARS[Math.floor(Math.random() * HACKER_CHARS.length)];
-      }).join(""));
-
-      if (iteration >= maxLen) {
-        clearInterval(interval);
-        setIsNameRevealed(true);
-      }
-      iteration += step; // Идеально выверенная скорость для 1 секунды
-    }, intervalMs);
-
-    return () => clearInterval(interval);
-  }, [lang]);
+  const [isNameRevealed, setIsNameRevealed] = useState(true);
+  const hackerName1 = CONTENT[lang].creator.name1;
+  const hackerName2 = CONTENT[lang].creator.name2;
 
   const handlePromoClick = (e) => {
     e.preventDefault();
@@ -490,7 +536,7 @@ const CreatorCard = ({ lang }) => {
           </div>
 
           <div className="text-center pb-2">
-            <h2 className="text-3xl sm:text-4xl leading-tight font-serif font-light mb-2 uppercase tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-rose-100 via-white to-rose-200 drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
+            <h2 className={`text-3xl sm:text-4xl leading-tight font-serif mb-2 uppercase tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-rose-100 via-white to-rose-200 drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]`}>
               {hackerName1}
               <br />
               {hackerName2}
@@ -1260,21 +1306,37 @@ const App = () => {
           )}
         </button>
 
-        {/* НОВАЯ КНОПКА: СМЕНА ЯЗЫКА (RU/EN) */}
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(15);
-            setLang(prev => prev === 'ru' ? 'en' : 'ru'); // Переключатель
-          }}
-          className="active:scale-90 rounded-full bg-white/5 backdrop-blur-md border border-white/10 text-white/40 hover:text-white/90 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-all duration-300 group touch-manipulation flex items-center justify-center w-10 h-10"
-          aria-label="Сменить язык"
-        >
-          <span className="font-bold text-[11px] tracking-wider transition-transform group-hover:scale-110">
-            {lang === 'ru' ? 'EN' : 'RU'}
-          </span>
-        </button>
+        {/* СЕГМЕНТИРОВАННЫЙ ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКОВ (Pill / Segmented Control [ RU | AM | EN ]) */}
+        <div className="relative flex items-center p-1 h-10 rounded-full bg-white/5 backdrop-blur-md border border-white/10 shadow-[0_0_20px_rgba(0,0,0,0.3)]">
+          {/* Плавающая неоновая плашка */}
+          <div 
+            className="absolute top-1 bottom-1 w-[calc(33.333%-2.66px)] rounded-full bg-gradient-to-r from-rose-800 to-rose-600 border border-rose-400/50 shadow-[0_0_15px_rgba(225,29,72,0.5)] transition-all duration-300 ease-out"
+            style={{
+              left: lang === 'ru' ? '4px' : lang === 'hy' ? 'calc(33.333% + 1.33px)' : 'calc(66.666% - 1.33px)'
+            }}
+          />
+          {[
+            { code: 'ru', label: 'RU' },
+            { code: 'hy', label: 'AM' },
+            { code: 'en', label: 'EN' }
+          ].map((item) => (
+            <button
+              key={item.code}
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(15);
+                setLang(item.code);
+              }}
+              aria-label={`Язык ${item.label}`}
+              className={`relative z-10 px-2.5 h-full flex items-center justify-center text-[11px] font-bold tracking-wider transition-colors duration-200 touch-manipulation min-w-[32px] text-center ${
+                lang === item.code ? 'text-white drop-shadow-[0_0_6px_rgba(255,255,255,0.8)]' : 'text-white/40 hover:text-white/80'
+              }`}
+            >
+              {item.label}
+            </button>
+          ))}
+        </div>
 
         {/* КНОПКА ПОДЕЛИТЬСЯ */}
         <button
