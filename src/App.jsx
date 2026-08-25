@@ -6,36 +6,19 @@ import {
   Smartphone, CreditCard
 } from 'lucide-react';
 
-// Компонент QR-кода без зависимостей от npm
+// Компонент QR-кода
 const QRCodeComponent = ({ value, size }) => {
-  const qrRef = useRef(null);
-
-  useEffect(() => {
-    const loadQR = async () => {
-      if (!window.QRCode) {
-        await new Promise((resolve) => {
-          const script = document.createElement('script');
-          script.src = 'https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js';
-          script.onload = resolve;
-          document.head.appendChild(script);
-        });
-      }
-      if (qrRef.current) {
-        qrRef.current.innerHTML = '';
-        new window.QRCode(qrRef.current, {
-          text: value,
-          width: size,
-          height: size,
-          colorDark: "#000000",
-          colorLight: "#ffffff",
-          correctLevel: window.QRCode.CorrectLevel.L
-        });
-      }
-    };
-    loadQR();
-  }, [value, size]);
-
-  return <div ref={qrRef} style={{ width: size, height: size }} className="object-contain rounded-lg flex items-center justify-center bg-white" />;
+  return (
+    <div style={{ width: size, height: size }} className="object-contain rounded-lg flex items-center justify-center bg-white overflow-hidden">
+      <img 
+        src={`https://api.qrserver.com/v1/create-qr-code/?size=${size}x${size}&data=${encodeURIComponent(value)}`} 
+        alt="QR Code" 
+        width={size} 
+        height={size} 
+        className="w-full h-full object-contain"
+      />
+    </div>
+  );
 };
 
 // ==========================================
