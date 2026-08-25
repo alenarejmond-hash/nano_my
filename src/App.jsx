@@ -6,16 +6,316 @@ import {
   Smartphone, CreditCard
 } from 'lucide-react';
 
-// Компонент QR-кода
+// Компонент QR-кода (Локальная SVG-генерация без внешних API для 100% оффлайн работы)
 const QRCodeComponent = ({ value, size }) => {
-  const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=${size}x${size}&data=${encodeURIComponent(value)}&bgcolor=ffffff&color=000000`;
+  const qrData = React.useMemo(() => {
+    try {
+      // 1. Кодирование текста в UTF-8 байты
+      const bytes = [];
+      for (let i = 0; i < value.length; i++) {
+        let c = value.charCodeAt(i);
+        if (c < 128) bytes.push(c);
+        else if (c < 2048) {
+          bytes.push(192 | (c >> 6), 128 | (c & 63));
+        } else if (c < 55296 || c >= 57344) {
+          bytes.push(224 | (c >> 12), 128 | ((c >> 6) & 63), 128 | (c & 63));
+        } else {
+          i++;
+          c = 0x10000 + (((c & 1023) << 10) | (value.charCodeAt(i) & 1023));
+          bytes.push(240 | (c >> 18), 128 | ((c >> 12) & 63), 128 | ((c >> 6) & 63), 128 | (c & 63));
+        }
+      }
+
+      // 2. Таблицы версий и выравнивания (Level L)
+      const VERSIONS = [
+        null,
+        [1, 19, 7, 1, 19, 0, 0],
+        [2, 34, 10, 1, 34, 0, 0],
+        [3, 55, 15, 1, 55, 0, 0],
+        [4, 80, 20, 1, 80, 0, 0],
+        [5, 108, 26, 1, 108, 0, 0],
+        [6, 136, 18, 2, 68, 0, 0],
+        [7, 156, 20, 2, 78, 0, 0],
+        [8, 194, 24, 2, 97, 0, 0],
+        [9, 232, 30, 2, 116, 0, 0],
+        [10, 274, 18, 2, 68, 2, 69],
+      ];
+
+      const ALIGNMENT = [
+        [], [], [6, 18], [6, 22], [6, 26], [6, 30],
+        [6, 34], [6, 22, 38], [6, 24, 42], [6, 26, 46], [6, 28, 50]
+      ];
+
+      // Подбор подходящей версии QR-кода
+      let version = 1;
+      while (version <= 10) {
+        const info = VERSIONS[version];
+        const headerBits = 4 + (version <= 9 ? 8 : 16);
+        if (bytes.length + Math.ceil(headerBits / 8) <= info[1]) break;
+        version++;
+      }
+      if (version > 10) version = 10;
+
+      const verInfo = VERSIONS[version];
+      const totalDataBytes = verInfo[1];
+
+      // 3. Формирование битового буфера
+      const bitBuf = [];
+      const putBits = (val, len) => {
+        for (let i = len - 1; i >= 0; i--) {
+          bitBuf.push((val >> i) & 1);
+        }
+      };
+
+      putBits(4, 4); // Режим Byte (0100)
+      putBits(bytes.length, version <= 9 ? 8 : 16);
+      for (let b of bytes) putBits(b, 8);
+
+      const totalBits = totalDataBytes * 8;
+      const termBits = Math.min(4, totalBits - bitBuf.length);
+      if (termBits > 0) putBits(0, termBits);
+      while (bitBuf.length % 8 !== 0) bitBuf.push(0);
+
+      const padBytes = [0xEC, 0x11];
+      let padIdx = 0;
+      while (bitBuf.length < totalBits) {
+        putBits(padBytes[padIdx], 8);
+        padIdx = (padIdx + 1) % 2;
+      }
+
+      const dataBytes = new Uint8Array(totalDataBytes);
+      for (let i = 0; i < totalDataBytes; i++) {
+        let b = 0;
+        for (let j = 0; j < 8; j++) b = (b << 1) | bitBuf[i * 8 + j];
+        dataBytes[i] = b;
+      }
+
+      // 4. Коррекция ошибок Рида-Соломона (Galois Field GF(256))
+      const numBlks1 = verInfo[3], dataBytes1 = verInfo[4];
+      const numBlks2 = verInfo[5], dataBytes2 = verInfo[6];
+      const ecLen = verInfo[2];
+
+      const blocks = [];
+      let byteOffset = 0;
+      for (let i = 0; i < numBlks1; i++) {
+        blocks.push(dataBytes.slice(byteOffset, byteOffset + dataBytes1));
+        byteOffset += dataBytes1;
+      }
+      for (let i = 0; i < numBlks2; i++) {
+        blocks.push(dataBytes.slice(byteOffset, byteOffset + dataBytes2));
+        byteOffset += dataBytes2;
+      }
+
+      const EXP = new Uint8Array(512), LOG = new Uint8Array(256);
+      for (let i = 0, x = 1; i < 255; i++) {
+        EXP[i] = x; LOG[x] = i; x <<= 1;
+        if (x & 256) x ^= 0x11d;
+      }
+      for (let i = 255; i < 512; i++) EXP[i] = EXP[i - 255];
+
+      const gfMul = (a, b) => (a === 0 || b === 0 ? 0 : EXP[LOG[a] + LOG[b]]);
+      const polyMul = (p1, p2) => {
+        const r = new Uint8Array(p1.length + p2.length - 1);
+        for (let i = 0; i < p1.length; i++) {
+          for (let j = 0; j < p2.length; j++) r[i + j] ^= gfMul(p1[i], p2[j]);
+        }
+        return r;
+      };
+
+      let genPoly = new Uint8Array([1]);
+      for (let i = 0; i < ecLen; i++) {
+        genPoly = polyMul(genPoly, new Uint8Array([1, EXP[i]]));
+      }
+
+      const ecBlocks = blocks.map(block => {
+        const res = new Uint8Array(block.length + ecLen);
+        res.set(block);
+        for (let i = 0; i < block.length; i++) {
+          const coef = res[i];
+          if (coef !== 0) {
+            for (let j = 0; j < genPoly.length; j++) res[i + j] ^= gfMul(genPoly[j], coef);
+          }
+        }
+        return res.slice(block.length);
+      });
+
+      // Перемешивание байт данных и коррекции
+      const finalCodewords = [];
+      const maxDataLen = Math.max(dataBytes1, dataBytes2);
+      for (let i = 0; i < maxDataLen; i++) {
+        for (let b = 0; b < blocks.length; b++) {
+          if (i < blocks[b].length) finalCodewords.push(blocks[b][i]);
+        }
+      }
+      for (let i = 0; i < ecLen; i++) {
+        for (let b = 0; b < ecBlocks.length; b++) {
+          finalCodewords.push(ecBlocks[b][i]);
+        }
+      }
+
+      // 5. Построение матрицы
+      const gridDim = 17 + 4 * version;
+      const grid = Array.from({ length: gridDim }, () => new Array(gridDim).fill(null));
+      const isFunc = Array.from({ length: gridDim }, () => new Array(gridDim).fill(false));
+
+      const setFunc = (r, c, val) => {
+        grid[r][c] = val;
+        isFunc[r][c] = true;
+      };
+
+      // Поисковые паттерны (углы)
+      const placeFinder = (sr, sc) => {
+        for (let r = -1; r <= 7; r++) {
+          for (let c = -1; c <= 7; c++) {
+            const gr = sr + r, gc = sc + c;
+            if (gr >= 0 && gr < gridDim && gc >= 0 && gc < gridDim) {
+              const isDark = (r >= 0 && r <= 6 && (c === 0 || c === 6)) ||
+                             (c >= 0 && c <= 6 && (r === 0 || r === 6)) ||
+                             (r >= 2 && r <= 4 && c >= 2 && c <= 4);
+              setFunc(gr, gc, isDark ? 1 : 0);
+            }
+          }
+        }
+      };
+      placeFinder(0, 0);
+      placeFinder(0, gridDim - 7);
+      placeFinder(gridDim - 7, 0);
+
+      // Паттерны выравнивания
+      const alignCoords = ALIGNMENT[version];
+      for (let r of alignCoords) {
+        for (let c of alignCoords) {
+          if (isFunc[r][c]) continue;
+          for (let dr = -2; dr <= 2; dr++) {
+            for (let dc = -2; dc <= 2; dc++) {
+              const isDark = Math.abs(dr) === 2 || Math.abs(dc) === 2 || (dr === 0 && dc === 0);
+              setFunc(r + dr, c + dc, isDark ? 1 : 0);
+            }
+          }
+        }
+      }
+
+      // Синхрополосы (Timing)
+      for (let i = 8; i < gridDim - 8; i++) {
+        if (!isFunc[6][i]) setFunc(6, i, i % 2 === 0 ? 1 : 0);
+        if (!isFunc[i][6]) setFunc(i, 6, i % 2 === 0 ? 1 : 0);
+      }
+
+      setFunc(4 * version + 9, 8, 1); // Тёмный модуль
+
+      // Резервирование служебных областей
+      for (let i = 0; i < 9; i++) {
+        if (!isFunc[8][i]) setFunc(8, i, 0);
+        if (!isFunc[i][8]) setFunc(i, 8, 0);
+      }
+      for (let i = gridDim - 8; i < gridDim; i++) {
+        if (!isFunc[8][i]) setFunc(8, i, 0);
+        if (!isFunc[i][8]) setFunc(i, 8, 0);
+      }
+
+      if (version >= 7) {
+        for (let r = 0; r < 6; r++) {
+          for (let c = gridDim - 11; c < gridDim - 8; c++) {
+            setFunc(r, c, 0);
+            setFunc(c, r, 0);
+          }
+        }
+      }
+
+      // Заполнение данными
+      let bitIdx = 0, dir = -1, col = gridDim - 1;
+      while (col > 0) {
+        if (col === 6) col--;
+        const rStart = dir === -1 ? gridDim - 1 : 0;
+        const rEnd = dir === -1 ? -1 : gridDim;
+        for (let r = rStart; r !== rEnd; r += dir) {
+          for (let c of [col, col - 1]) {
+            if (!isFunc[r][c]) {
+              let bit = 0;
+              if (bitIdx < finalCodewords.length * 8) {
+                bit = (finalCodewords[bitIdx >> 3] >> (7 - (bitIdx & 7))) & 1;
+                bitIdx++;
+              }
+              grid[r][c] = bit;
+            }
+          }
+        }
+        dir = -dir;
+        col -= 2;
+      }
+
+      // Маска и форматная информация
+      const maskFn = (r, c) => (r + c) % 2 === 0; // Mask 0
+      for (let r = 0; r < gridDim; r++) {
+        for (let c = 0; c < gridDim; c++) {
+          if (!isFunc[r][c] && maskFn(r, c)) grid[r][c] ^= 1;
+        }
+      }
+
+      // Код формата BCH (Level L = 01, Mask 0 = 000 -> 0x77c4 / 111011111000100)
+      const fmtBits = 0x77c4;
+      const getFmtBit = (i) => (fmtBits >> i) & 1;
+
+      grid[8][0] = getFmtBit(14); grid[8][1] = getFmtBit(13); grid[8][2] = getFmtBit(12);
+      grid[8][3] = getFmtBit(11); grid[8][4] = getFmtBit(10); grid[8][5] = getFmtBit(9);
+      grid[8][7] = getFmtBit(8);  grid[8][8] = getFmtBit(7);  grid[7][8] = getFmtBit(6);
+      grid[5][8] = getFmtBit(5);  grid[4][8] = getFmtBit(4);  grid[3][8] = getFmtBit(3);
+      grid[2][8] = getFmtBit(2);  grid[1][8] = getFmtBit(1);  grid[0][8] = getFmtBit(0);
+
+      grid[8][gridDim - 1] = getFmtBit(14); grid[8][gridDim - 2] = getFmtBit(13);
+      grid[8][gridDim - 3] = getFmtBit(12); grid[8][gridDim - 4] = getFmtBit(11);
+      grid[8][gridDim - 5] = getFmtBit(10); grid[8][gridDim - 6] = getFmtBit(9);
+      grid[8][gridDim - 7] = getFmtBit(8);  grid[gridDim - 8][8] = getFmtBit(7);
+      grid[gridDim - 7][8] = getFmtBit(6);  grid[gridDim - 6][8] = getFmtBit(5);
+      grid[gridDim - 5][8] = getFmtBit(4);  grid[gridDim - 4][8] = getFmtBit(3);
+      grid[gridDim - 3][8] = getFmtBit(2);  grid[gridDim - 2][8] = getFmtBit(1);
+      grid[gridDim - 1][8] = getFmtBit(0);
+
+      if (version >= 7) {
+        let rem = version << 12;
+        for (let i = 5; i >= 0; i--) {
+          if ((rem >> (i + 12)) & 1) rem ^= 0x1f25 << i;
+        }
+        const verBits = (version << 12) | rem;
+        for (let i = 0; i < 18; i++) {
+          const bit = (verBits >> i) & 1;
+          const r = Math.floor(i / 3);
+          const c = (i % 3) + gridDim - 11;
+          grid[r][c] = bit;
+          grid[c][r] = bit;
+        }
+      }
+
+      // Генерация компактной SVG-дорожки (Path)
+      const margin = 2;
+      const totalSize = gridDim + margin * 2;
+      let path = '';
+      for (let r = 0; r < gridDim; r++) {
+        for (let c = 0; c < gridDim; c++) {
+          if (grid[r][c] === 1) {
+            path += `M${c + margin},${r + margin}h1v1h-1z`;
+          }
+        }
+      }
+
+      return { path, size: totalSize };
+    } catch (e) {
+      console.error("Ошибок при локальной генерации QR:", e);
+      return null;
+    }
+  }, [value]);
+
+  if (!qrData) return null;
+
   return (
     <div style={{ width: size, height: size }} className="object-contain rounded-lg flex items-center justify-center bg-white overflow-hidden p-3">
-      <img 
-        src={qrUrl}
-        alt="QR Code"
-        style={{ height: "auto", maxWidth: "100%", width: "100%" }}
-      />
+      <svg 
+        viewBox={`0 0 ${qrData.size} ${qrData.size}`} 
+        className="w-full h-full"
+        shapeRendering="crispEdges"
+      >
+        <path d={qrData.path} fill="#000000" />
+      </svg>
     </div>
   );
 };
@@ -73,7 +373,7 @@ const CONTENT = {
         desc: <>Разработка 100% уникального дизайна и кода с нуля под ваш бренд и статус.<br/><br/>• Кастомные 3D-эффекты, сложные анимации и редкие интерактивы<br/>• Индивидуальная структура под ваши бизнес-задачи<br/>• PWA-формат, персональный поддомен и хостинг навсегда<br/><br/>🎁 ПОДАРОК: Авторский NFC-брелок ручной работы из натуральной кожи Crazy Horse с тиснением ваших инициалов включен в стоимость!</>
       },
       catalog: {
-        title: 'КАТАЛОГ СТИЛЕЙ & NFC',
+        title: 'Каталог Стилей & NFC',
         desc: 'Выберите дизайн вашей цифровой визитки и физический NFC-носитель',
         items: [
           { name: 'Glassmorphism Design', desc: 'Стильный дизайн со стеклянными панелями', url: 'https://nano.nice-app.ru/' },
@@ -156,7 +456,7 @@ const CONTENT = {
         desc: <>100% unique design and code development from scratch for your brand and status.<br/><br/>• Custom 3D effects, complex animations, and rare interactives<br/>• Individual structure tailored to your business goals<br/>• PWA format, personal subdomain, and hosting forever<br/><br/>🎁 GIFT: A handmade author's NFC keychain made of genuine Crazy Horse leather with embossing of your initials is included in the price!</>
       },
       catalog: {
-        title: 'STYLE CATALOG & NFC',
+        title: 'Style catalog & NFC',
         desc: 'Choose the design of your digital business card and physical NFC media',
         items: [
           { name: 'Glassmorphism Design', desc: 'Stylish design with glass panels', url: 'https://nano.nice-app.ru/' },
@@ -239,7 +539,7 @@ const CONTENT = {
         desc: <>100% եզակի դիզայնի և կոդի մշակում զրոյից՝ ձեր բրենդի և կարգավիճակի համար:<br/><br/>• Պատվերով 3D-էֆեկտներ, բարդ անիմացիաներ և հազվագյուտ ինտերակտիվ տարրեր<br/>• Անհատական կառուցվածք ձեր բիզնես խնդիրների համար<br/>• PWA ձևաչափ, անհատական ենթադոմեն և հոսթինգ ընդմիշտ<br/><br/>🎁 ՆՎԵՐ՝ Հեղինակային ձեռագործ NFC-կախազարդ բնական Crazy Horse կաշվից՝ ձեր անվանատառերի դրոշմամբ ներառված է գնի մեջ:</>
       },
       catalog: {
-        title: 'ՈՃԵՐԻ ԿԱՏԱԼՈԳ & NFC',
+        title: 'Ոճերի կատալոգ & NFC',
         desc: 'Ընտրեք ձեր թվային այցեքարտի դիզայնը և ֆիզիկական NFC կրիչը',
         items: [
           { name: 'Glassmorphism Design', desc: 'Ոճային դիզայն ապակե վահանակներով', url: 'https://nano.nice-app.ru/' },
