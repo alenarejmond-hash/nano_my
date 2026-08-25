@@ -45,7 +45,7 @@ const CONTENT = {
     },
     leadMagnet: {
       title: 'SECRET OFFER',
-      description: <>Вы нашли секретную вкладку! Нажмите кнопку ниже, чтобы перейти в Telegram и получить сразу два бонуса:<br/><br/>• Скидку 15% на любой тариф (Start, Plus, Premium, Vip)<br/>• Бесплатное тиснение ваших инициалов на кожаном брелоке (если входит в тариф) </>,
+      description: <>Вы нашли секретную вкладку! Нажмите кнопку ниже, чтобы перейти в Telegram и получить сразу два бонуса:<br/><br/>• Скидку 15% на любой тариф (Start, Plus, Premium)<br/>• Бесплатное тиснение ваших инициалов на кожаном брелоке (если входит в тариф) </>,
       buttonText: 'ЗАБРАТЬ ПРОМОКОД',
       promoCode: 'ELEN-TECH-15%',
       link: 'https://t.me/elenlime?text=Елена, привет! У меня есть промокод ELEN-TECH-15%. Хочу обсудить создание цифровой визитки.',
@@ -63,25 +63,15 @@ const CONTENT = {
         title: 'Моя философия',
         desc: <>Создаю умные цифровые визитки, которые сохраняются на экран смартфона как полноценное PWA-приложение. А также авторские NFC-брелоки из натуральной кожи ручной работы.<br/><br/>Персональный поддомен и хостинг уже включены.<br/><br/>Работает без VPN, без установки лишнего софта и без абонентской платы навсегда. </>
       },
-      nano: {
-        title: 'Тариф START',
+      standart: {
+        title: 'Тариф STANDART',
         price: '5 300 ₽',
-        desc: <>Цифровая PWA-визитка по шаблону под вашу нишу.<br/><br/>Иконка-приложение на экран телефона, персональный поддомен, хостинг, мгновенное сохранение контакта в 1 клик и стильный QR-код, который работает даже без интернета.</>
+        desc: <>Цифровая PWA-визитка по стильному шаблону под вашу нишу.<br/><br/>• Иконка-приложение на экран смартфона<br/>• Персональный поддомен и хостинг уже включены<br/>• Мгновенное сохранение контакта в 1 клик и стильный QR-код<br/>• Работает без VPN, без установки приложений и без абонентской платы навсегда.<br/><br/>Физический NFC-носитель на выбор (при заказе):<br/>💳 + NFC-карта (пластик, минимализм): +2 400 ₽<br/>🔑 + NFC-брелок (ручная работа, кожа Crazy Horse + тиснение): +7 600 ₽</>
       },
-      pro: {
-        title: 'Тариф PLUS',
-        price: '7 700 ₽',
-        desc: <>Всё из тарифа START + пластиковая NFC-карта с минималистичным дизайном.<br/><br/>Прикладываете карту к смартфону клиента — визитка открывается мгновенно.</>
-      },
-      ultra: {
+      vip: {
         title: 'Тариф PREMIUM',
-        price: '12 900 ₽',
-        desc: <>Цифровая визитка из тарифа START + авторский NFC-брелок ручной работы из натуральной кожи Crazy Horse.<br/><br/>Тиснение ваших инициалов на коже в ПОДАРОК.</>
-      },
-      tech: {
-        title: 'Тариф VIP',
         price: 'от 23 500 ₽',
-        desc: <>Разработка 100% уникального дизайна и кода с нуля под ваш бренд.<br/><br/>Сложные анимации, редкие интерактивы + кожаный NFC-брелок ручной работы в подарок!</>
+        desc: <>Разработка 100% уникального дизайна и кода с нуля под ваш бренд и статус.<br/><br/>• Кастомные 3D-эффекты, сложные анимации и редкие интерактивы<br/>• Индивидуальная структура под ваши бизнес-задачи<br/>• PWA-формат, персональный поддомен и хостинг навсегда<br/><br/>🎁 ПОДАРОК: Авторский NFC-брелок ручной работы из натуральной кожи Crazy Horse с тиснением ваших инициалов включен в стоимость!</>
       },
       reviewsTitle: 'Отзывы',
       reviews: [
@@ -130,7 +120,7 @@ const CONTENT = {
     },
     leadMagnet: {
       title: 'SECRET OFFER',
-      description: <>You've found the secret tab! Click the button below to go to Telegram and instantly receive two bonuses:<br/><br/>• A 15% discount on any plan (Start, Plus, Premium, VIP)<br/>• Free embossing of your initials on a leather keychain</>,
+      description: <>You've found the secret tab! Click the button below to go to Telegram and instantly receive two bonuses:<br/><br/>• A 15% discount on any plan (Start, Plus, Premium)<br/>• Free embossing of your initials on a leather keychain</>,
       buttonText: 'GET PROMO CODE',
       promoCode: 'ELEN-TECH-15%',
       link: 'https://t.me/elenlime?text=Hi Elena! I have the promo code ELEN-TECH-15%. I want to discuss creating a digital business card.',
@@ -148,25 +138,15 @@ const CONTENT = {
         title: 'My Philosophy',
         desc: <>I create smart digital business cards that save to your smartphone screen as a fully-fledged PWA. Also, custom handmade NFC keychains from genuine leather.<br/><br/>Personal subdomain and hosting are already included.<br/><br/>Works without VPN, no extra app installation, and zero subscription fees forever.</>
       },
-      nano: {
-        title: 'START Plan',
+      standart: {
+        title: 'STANDART Plan',
         price: '$59',
-        desc: <>A digital PWA business card based on a template tailored to your niche.<br/><br/>App icon on your home screen, personal subdomain, hosting, instant one-click contact saving, and a stylish QR code.</>
+        desc: <>Digital PWA business card based on a stylish template tailored to your niche.<br/><br/>• App icon on your smartphone screen<br/>• Personal subdomain and hosting already included<br/>• Instant 1-click contact saving and a stylish QR code<br/>• Works without VPN, no app installation, and no subscription fees forever.<br/><br/>Physical NFC carrier of your choice (when ordering):<br/>💳 + NFC card (plastic, minimalism): +$25<br/>🔑 + NFC keychain (handmade, Crazy Horse leather + embossing): +$80</>
       },
-      pro: {
-        title: 'PLUS Plan',
-        price: '$85',
-        desc: <>Everything in the START plan + a plastic NFC card with a minimalist design.<br/><br/>Tap the card to a client's smartphone — your business card opens instantly.</>
-      },
-      ultra: {
+      vip: {
         title: 'PREMIUM Plan',
-        price: '$143',
-        desc: <>START plan digital business card + an exclusive handmade NFC keychain made of genuine Crazy Horse leather.<br/><br/>Embossing of your initials on the leather as a GIFT.</>
-      },
-      tech: {
-        title: 'VIP Plan',
         price: 'from $260',
-        desc: <>100% unique design and code development from scratch for your brand.<br/><br/>Complex animations, rare interactive elements + a handmade leather NFC keychain as a gift!</>
+        desc: <>100% unique design and code development from scratch for your brand and status.<br/><br/>• Custom 3D effects, complex animations, and rare interactives<br/>• Individual structure tailored to your business goals<br/>• PWA format, personal subdomain, and hosting forever<br/><br/>🎁 GIFT: A handmade author's NFC keychain made of genuine Crazy Horse leather with embossing of your initials is included in the price!</>
       },
       reviewsTitle: 'Reviews',
       reviews: [
@@ -215,7 +195,7 @@ const CONTENT = {
     },
     leadMagnet: {
       title: 'SECRET OFFER',
-      description: <>Դուք գտաք գաղտնի ներդիրը: Սեղմեք ստորև նշված կոճակը՝ Telegram անցնելու և միանգամից երկու բոնուս ստանալու համար՝<br/><br/>• 15% զեղչ ցանկացած տարիֆի համար (Start, Plus, Premium, VIP)<br/>• Ձեր անվանատառերի անվճար դրոշմում կաշվե կախազարդի վրա</>,
+      description: <>Դուք գտաք գաղտնի ներդիրը: Սեղմեք ստորև նշված կոճակը՝ Telegram անցնելու և միանգամից երկու բոնուս ստանալու համար՝<br/><br/>• 15% զեղչ ցանկացած տարիֆի համար (Start, Plus, Premium)<br/>• Ձեր անվանատառերի անվճար դրոշմում կաշվե կախազարդի վրա</>,
       buttonText: 'ՍՏԱՆԱԼ ՊՐՈՄՈԿՈԴԸ',
       promoCode: 'ELEN-TECH-15%',
       link: 'https://t.me/elenlime?text=Ողջույն Ելենա: Ես ունեմ ELEN-TECH-15% պրոմոկոդը: Ցանկանում եմ քննարկել թվային այցեքարտի ստեղծումը:',
@@ -233,25 +213,15 @@ const CONTENT = {
         title: 'Իմ փիլիսոփայությունը',
         desc: <>Ստեղծում եմ խելացի թվային այցեքարտեր, որոնք պահպանվում են սմարթֆոնի էկրանին որպես լիարժեք PWA-հավելված: Ինչպես նաև հեղինակային ձեռագործ NFC-կախազարդեր՝ բնական կաշվից:<br/><br/>Անհատական ենթադոմենը և հոսթինգն արդեն ներառված են:<br/><br/>Աշխատում է առանց VPN-ի, առանց ավելորդ ծրագրերի տեղադրման և առանց ամսավճարի՝ ընդմիշտ:</>
       },
-      nano: {
-        title: 'START Տարիֆ',
+      standart: {
+        title: 'STANDART Տարիֆ',
         price: '21 200 ֏',
-        desc: <>Թվային PWA-այցեքարտ՝ ձեր ոլորտին համապատասխան ձևանմուշով:<br/><br/>Հավելվածի պատկերակ հեռախոսի էկրանին, անհատական ենթադոմեն, հոսթինգ, կոնտակտի ակնթարթային պահպանում 1 սեղմումով և ոճային QR-կոդ:</>
+        desc: <>Թվային PWA-այցեքարտ ոճային ձևանմուշով ձեր ոլորտի համար:<br/><br/>• Հավելվածի պատկերակ սմարթֆոնի էկրանին<br/>• Անհատական ենթադոմենը և հոսթինգն արդեն ներառված են<br/>• Կոնտակտի ակնթարթային պահպանում 1 սեղմումով և ոճային QR-կոդ<br/>• Աշխատում է առանց VPN-ի, առանց ծրագրերի տեղադրման և առանց ամսավճարի ընդմիշտ:<br/><br/>Ֆիզիկական NFC-կրիչի ընտրություն (պատվիրելիս)՝<br/>💳 + NFC-քարտ (պլաստիկ, մինիմալիզմ)՝ + 9 600 ֏<br/>🔑 + NFC-կախազարդ (ձեռագործ, Crazy Horse կաշի + դրոշմում)՝ + 30 400 ֏</>
       },
-      pro: {
-        title: 'PLUS Տարիֆ',
-        price: '30 800 ֏',
-        desc: <>Ամեն ինչ START տարիֆից + մինիմալիստական դիզայնով պլաստիկ NFC-քարտ:<br/><br/>Մոտեցնում եք քարտը հաճախորդի սմարթֆոնին — այցեքարտը բացվում է ակնթարթորեն:</>
-      },
-      ultra: {
+      vip: {
         title: 'PREMIUM Տարիֆ',
-        price: '51 600 ֏',
-        desc: <>Թվային այցեքարտ START տարիֆից + հեղինակային ձեռագործ NFC-կախազարդ՝ բնական Crazy Horse կաշվից:<br/><br/>Ձեր անվանատառերի դրոշմում կաշվի վրա՝ որպես ՆՎԵՐ:</>
-      },
-      tech: {
-        title: 'VIP Տարիֆ',
         price: 'սկսած 94 000 ֏',
-        desc: <>100% եզակի դիզայնի և կոդի մշակում զրոյից՝ հատուկ ձեր բրենդի համար:<br/><br/>Բարդ անիմացիաներ, հազվագյուտ ինտերակտիվ տարրեր + ձեռագործ կաշվե NFC-կախազարդ որպես նվեր:</>
+        desc: <>100% եզակի դիզայնի և կոդի մշակում զրոյից՝ ձեր բրենդի և կարգավիճակի համար:<br/><br/>• Պատվերով 3D-էֆեկտներ, բարդ անիմացիաներ և հազվագյուտ ինտերակտիվ տարրեր<br/>• Անհատական կառուցվածք ձեր բիզնես խնդիրների համար<br/>• PWA ձևաչափ, անհատական ենթադոմեն և հոսթինգ ընդմիշտ<br/><br/>🎁 ՆՎԵՐ՝ Հեղինակային ձեռագործ NFC-կախազարդ բնական Crazy Horse կաշվից՝ ձեր անվանատառերի դրոշմամբ ներառված է գնի մեջ:</>
       },
       reviewsTitle: 'Արձագանքներ',
       reviews: [
@@ -600,10 +570,8 @@ const CreatorCard = ({ lang }) => {
           <div className="flex flex-col gap-2.5 w-full items-center relative z-10">
             {[
               { id: 'profile', icon: UserCircle2 },
-              { id: 'nano', icon: Smartphone },
-              { id: 'pro', icon: CreditCard },
-              { id: 'ultra', icon: Diamond },
-              { id: 'tech', icon: Crown },
+              { id: 'standart', icon: Diamond },
+              { id: 'vip', icon: Crown },
               { id: 'lead', icon: Gift },
             ].map((item) => (
               <button 
@@ -646,68 +614,42 @@ const CreatorCard = ({ lang }) => {
               </a>
             </div>
 
-            {/* 2. ТАРИФ NANO */}
-            <div className={`absolute inset-0 flex flex-col justify-center transition-all duration-500 ease-in-out ${view === 'nano' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
-              <div className="absolute top-0 right-0 bg-rose-500/20 border border-rose-400/30 px-2.5 py-1 rounded-full flex items-center justify-center whitespace-nowrap shadow-[0_0_15px_rgba(225,29,72,0.2)] z-10">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-rose-200">{lang === 'ru' ? 'Цена:' : lang === 'en' ? 'Price:' : 'Գինը:'} {CONTENT[lang].views.nano.price}</span>
+            {/* 2. ТАРИФ STANDART */}
+            <div className={`absolute inset-0 flex flex-col pt-2 transition-all duration-500 ease-in-out ${view === 'standart' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
+              <div className="flex items-center justify-between mb-3 shrink-0">
+                <div className="w-10 h-10 rounded-full bg-rose-900/30 border border-rose-500/30 flex items-center justify-center shadow-[0_0_15px_rgba(159,18,57,0.2)]">
+                  <Diamond className="w-5 h-5 text-rose-300" />
+                </div>
+                <div className="bg-rose-500/20 border border-rose-400/30 px-2.5 py-1 rounded-full flex items-center justify-center whitespace-nowrap shadow-[0_0_15px_rgba(225,29,72,0.2)]">
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-rose-200">{lang === 'ru' ? 'Цена:' : lang === 'en' ? 'Price:' : 'Գինը:'} {CONTENT[lang].views.standart.price}</span>
+                </div>
               </div>
-              <div className="w-10 h-10 rounded-full bg-rose-900/30 border border-rose-500/30 flex items-center justify-center mb-3 shadow-[0_0_15px_rgba(159,18,57,0.2)]">
-                <Smartphone className="w-5 h-5 text-rose-300" />
+              <h3 className="text-xl font-serif font-light text-rose-100 tracking-wider mb-2 shrink-0">{CONTENT[lang].views.standart.title}</h3>
+              
+              <div className="flex-1 overflow-y-auto hide-scrollbar mask-image-bottom pb-10 pr-1">
+                <p className="font-serif text-[11px] text-rose-100/80 leading-relaxed bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-rose-900/50 shadow-inner">
+                  {CONTENT[lang].views.standart.desc}
+                </p>
               </div>
-              <div className="flex justify-between items-center gap-2 mb-2 w-full">
-                <h3 className="text-xl font-serif font-light text-rose-100 tracking-wider truncate">{CONTENT[lang].views.nano.title}</h3>
-              </div>
-              <p className="font-serif text-[11px] text-rose-100/80 leading-relaxed bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-rose-900/50 shadow-inner">
-                {CONTENT[lang].views.nano.desc}
-              </p>
             </div>
 
-            {/* 3. ТАРИФ PRO */}
-            <div className={`absolute inset-0 flex flex-col justify-center transition-all duration-500 ease-in-out ${view === 'pro' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
-              <div className="absolute top-0 right-0 bg-rose-500/20 border border-rose-400/30 px-2.5 py-1 rounded-full flex items-center justify-center whitespace-nowrap shadow-[0_0_15px_rgba(225,29,72,0.2)] z-10">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-rose-200">{lang === 'ru' ? 'Цена:' : lang === 'en' ? 'Price:' : 'Գինը:'} {CONTENT[lang].views.pro.price}</span>
+            {/* 3. ТАРИФ VIP */}
+            <div className={`absolute inset-0 flex flex-col pt-2 transition-all duration-500 ease-in-out ${view === 'vip' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
+              <div className="flex items-center justify-between mb-3 shrink-0">
+                <div className="w-10 h-10 rounded-full bg-rose-900/30 border border-rose-500/30 flex items-center justify-center shadow-[0_0_15px_rgba(159,18,57,0.2)]">
+                  <Crown className="w-5 h-5 text-rose-300" />
+                </div>
+                <div className="bg-rose-500/20 border border-rose-400/30 px-2.5 py-1 rounded-full flex items-center justify-center whitespace-nowrap shadow-[0_0_15px_rgba(225,29,72,0.2)]">
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-rose-200">{lang === 'ru' ? 'Цена:' : lang === 'en' ? 'Price:' : 'Գինը:'} {CONTENT[lang].views.vip.price}</span>
+                </div>
               </div>
-              <div className="w-10 h-10 rounded-full bg-rose-900/30 border border-rose-500/30 flex items-center justify-center mb-3 shadow-[0_0_15px_rgba(159,18,57,0.2)]">
-                <CreditCard className="w-5 h-5 text-rose-300" />
+              <h3 className="text-xl font-serif font-light text-rose-100 tracking-wider mb-2 shrink-0">{CONTENT[lang].views.vip.title}</h3>
+              
+              <div className="flex-1 overflow-y-auto hide-scrollbar mask-image-bottom pb-10 pr-1">
+                <p className="font-serif text-[11px] text-rose-100/80 leading-relaxed bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-rose-900/50 shadow-inner">
+                  {CONTENT[lang].views.vip.desc}
+                </p>
               </div>
-              <div className="flex justify-between items-center gap-2 mb-2 w-full">
-                <h3 className="text-xl font-serif font-light text-rose-100 tracking-wider truncate">{CONTENT[lang].views.pro.title}</h3>
-              </div>
-              <p className="font-serif text-[11px] text-rose-100/80 leading-relaxed bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-rose-900/50 shadow-inner">
-                {CONTENT[lang].views.pro.desc}
-              </p>
-            </div>
-
-            {/* 4. ТАРИФ ULTRA */}
-            <div className={`absolute inset-0 flex flex-col justify-center transition-all duration-500 ease-in-out ${view === 'ultra' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
-              <div className="absolute top-0 right-0 bg-rose-500/20 border border-rose-400/30 px-2.5 py-1 rounded-full flex items-center justify-center whitespace-nowrap shadow-[0_0_15px_rgba(225,29,72,0.2)] z-10">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-rose-200">{lang === 'ru' ? 'Цена:' : lang === 'en' ? 'Price:' : 'Գինը:'} {CONTENT[lang].views.ultra.price}</span>
-              </div>
-              <div className="w-10 h-10 rounded-full bg-rose-900/30 border border-rose-500/30 flex items-center justify-center mb-3 shadow-[0_0_15px_rgba(159,18,57,0.2)]">
-                <Diamond className="w-5 h-5 text-rose-300" />
-              </div>
-              <div className="flex justify-between items-center gap-2 mb-2 w-full">
-                <h3 className="text-[1.15rem] font-serif font-light text-rose-100 tracking-wider truncate">{CONTENT[lang].views.ultra.title}</h3>
-              </div>
-              <p className="font-serif text-[11px] text-rose-100/80 leading-relaxed bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-rose-900/50 shadow-inner">
-                {CONTENT[lang].views.ultra.desc}
-              </p>
-            </div>
-
-            {/* 5. ТЕХНОЛОГИИ */}
-            <div className={`absolute inset-0 flex flex-col justify-center transition-all duration-500 ease-in-out ${view === 'tech' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
-              <div className="absolute top-0 right-0 bg-rose-500/20 border border-rose-400/30 px-2.5 py-1 rounded-full flex items-center justify-center whitespace-nowrap shadow-[0_0_15px_rgba(225,29,72,0.2)] z-10">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-rose-200">{lang === 'ru' ? 'Цена:' : lang === 'en' ? 'Price:' : 'Գինը:'} {CONTENT[lang].views.tech.price}</span>
-              </div>
-              <div className="w-10 h-10 rounded-full bg-rose-900/30 border border-rose-500/30 flex items-center justify-center mb-3 shadow-[0_0_15px_rgba(159,18,57,0.2)]">
-                <Crown className="w-5 h-5 text-rose-300" />
-              </div>
-              <div className="flex justify-between items-center gap-2 mb-2 w-full">
-                <h3 className="text-xl font-serif font-light text-rose-100 tracking-wider truncate">{CONTENT[lang].views.tech.title}</h3>
-              </div>
-              <p className="font-serif text-[11px] text-rose-100/80 leading-relaxed bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-rose-900/50 shadow-inner">
-                {CONTENT[lang].views.tech.desc}
-              </p>
             </div>
 
             {/* 6. ЛИД-МАГНИТ (SECRET OFFER) */}
