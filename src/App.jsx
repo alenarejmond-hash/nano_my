@@ -73,6 +73,14 @@ const CONTENT = {
         price: 'от 23 500 ₽',
         desc: <>Разработка 100% уникального дизайна и кода с нуля под ваш бренд и статус.<br/><br/>• Кастомные 3D-эффекты, сложные анимации и редкие интерактивы<br/>• Индивидуальная структура под ваши бизнес-задачи<br/>• PWA-формат, персональный поддомен и хостинг навсегда<br/><br/>🎁 ПОДАРОК: Авторский NFC-брелок ручной работы из натуральной кожи Crazy Horse с тиснением ваших инициалов включен в стоимость!</>
       },
+      catalog: {
+        title: 'КАТАЛОГ СТИЛЕЙ & NFC',
+        desc: 'Выберите дизайн вашей цифровой визитки и физический NFC-носитель',
+        items: [
+          { name: 'Glassmorphism Design', desc: 'Стильный дизайн со стеклянными панелями', url: 'https://appsea.ru/' },
+          { name: 'Dark Premium Design', desc: 'Строгий темный дизайн для бизнеса', url: 'https://appsea.ru/' },
+        ]
+      },
       reviewsTitle: 'Отзывы',
       reviews: [
         { name: 'Виктория', date: '20.03.2026', text: '"Забыла про конструкторы как про страшный сон. Очень плавно, стильно, вайб передается на 100%."' },
@@ -148,6 +156,14 @@ const CONTENT = {
         price: 'from $260',
         desc: <>100% unique design and code development from scratch for your brand and status.<br/><br/>• Custom 3D effects, complex animations, and rare interactives<br/>• Individual structure tailored to your business goals<br/>• PWA format, personal subdomain, and hosting forever<br/><br/>🎁 GIFT: A handmade author's NFC keychain made of genuine Crazy Horse leather with embossing of your initials is included in the price!</>
       },
+      catalog: {
+        title: 'STYLE CATALOG & NFC',
+        desc: 'Choose the design of your digital business card and physical NFC media',
+        items: [
+          { name: 'Glassmorphism Design', desc: 'Stylish design with glass panels', url: 'https://appsea.ru/' },
+          { name: 'Dark Premium Design', desc: 'Strict dark design for business', url: 'https://appsea.ru/' },
+        ]
+      },
       reviewsTitle: 'Reviews',
       reviews: [
         { name: 'Victoria', date: '20.03.2026', text: '"Forgot about website builders like a bad dream. Very smooth, stylish, the vibe is 100% there."' },
@@ -222,6 +238,14 @@ const CONTENT = {
         title: 'PREMIUM Տարիֆ',
         price: 'սկսած 94 000 ֏',
         desc: <>100% եզակի դիզայնի և կոդի մշակում զրոյից՝ ձեր բրենդի և կարգավիճակի համար:<br/><br/>• Պատվերով 3D-էֆեկտներ, բարդ անիմացիաներ և հազվագյուտ ինտերակտիվ տարրեր<br/>• Անհատական կառուցվածք ձեր բիզնես խնդիրների համար<br/>• PWA ձևաչափ, անհատական ենթադոմեն և հոսթինգ ընդմիշտ<br/><br/>🎁 ՆՎԵՐ՝ Հեղինակային ձեռագործ NFC-կախազարդ բնական Crazy Horse կաշվից՝ ձեր անվանատառերի դրոշմամբ ներառված է գնի մեջ:</>
+      },
+      catalog: {
+        title: 'ՈՃԵՐԻ ԿԱՏԱԼՈԳ & NFC',
+        desc: 'Ընտրեք ձեր թվային այցեքարտի դիզայնը և ֆիզիկական NFC կրիչը',
+        items: [
+          { name: 'Glassmorphism Design', desc: 'Ոճային դիզայն ապակե վահանակներով', url: 'https://appsea.ru/' },
+          { name: 'Dark Premium Design', desc: 'Խիստ մուգ դիզայն բիզնեսի համար', url: 'https://appsea.ru/' },
+        ]
       },
       reviewsTitle: 'Արձագանքներ',
       reviews: [
@@ -493,7 +517,7 @@ const BurnRevealImage = ({ src, className, style, imgClassName = "", burnColor =
 // ==========================================
 
 // 0. БОСС / СОЗДАТЕЛЬ (Елена Сотникова)
-const CreatorCard = ({ lang }) => {
+const CreatorCard = ({ lang, onOpenIframe }) => {
   const [view, setView] = useState('profile');
   const [isNameRevealed, setIsNameRevealed] = useState(true);
   const hackerName1 = CONTENT[lang].creator.name1;
@@ -572,6 +596,7 @@ const CreatorCard = ({ lang }) => {
               { id: 'profile', icon: UserCircle2 },
               { id: 'standart', icon: Diamond },
               { id: 'vip', icon: Crown },
+              { id: 'catalog', icon: Smartphone },
               { id: 'lead', icon: Gift },
             ].map((item) => (
               <button 
@@ -649,6 +674,35 @@ const CreatorCard = ({ lang }) => {
                 <p className="font-serif text-[11px] text-rose-100/80 leading-relaxed bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-rose-900/50 shadow-inner">
                   {CONTENT[lang].views.vip.desc}
                 </p>
+              </div>
+            </div>
+
+            {/* 4. КАТАЛОГ СТИЛЕЙ & NFC */}
+            <div className={`absolute inset-0 flex flex-col pt-2 transition-all duration-500 ease-in-out ${view === 'catalog' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
+              <div className="flex items-center gap-3 mb-3 shrink-0">
+                <div className="w-10 h-10 rounded-full bg-rose-900/30 border border-rose-500/30 flex items-center justify-center shadow-[0_0_15px_rgba(159,18,57,0.2)]">
+                  <Smartphone className="w-5 h-5 text-rose-300" />
+                </div>
+                <h3 className="text-lg font-serif font-light text-rose-100 tracking-wider leading-tight">{CONTENT[lang].views.catalog.title}</h3>
+              </div>
+              <p className="font-serif text-[10px] text-rose-100/70 mb-3 shrink-0 px-1">{CONTENT[lang].views.catalog.desc}</p>
+              
+              <div className="flex-1 overflow-y-auto hide-scrollbar mask-image-bottom pb-10 pr-1 flex flex-col gap-3">
+                {CONTENT[lang].views.catalog.items.map((item, idx) => (
+                  <div 
+                    key={idx}
+                    onClick={(e) => { e.stopPropagation(); onOpenIframe(item.url); }}
+                    className="bg-black/40 backdrop-blur-sm p-3 rounded-2xl border border-rose-900/50 shadow-inner flex justify-between items-center cursor-pointer hover:bg-rose-900/20 hover:border-rose-500/50 transition-all group shrink-0"
+                  >
+                    <div>
+                      <div className="text-rose-200 text-xs font-bold mb-1">{item.name}</div>
+                      <div className="text-rose-100/60 text-[9px]">{item.desc}</div>
+                    </div>
+                    <div className="w-8 h-8 rounded-full bg-rose-900/40 border border-rose-500/30 flex items-center justify-center group-hover:scale-110 transition-transform shadow-[0_0_10px_rgba(159,18,57,0.2)]">
+                      <Play className="w-3 h-3 text-rose-300 ml-0.5" />
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
 
@@ -735,6 +789,8 @@ const App = () => {
   const [bgOffset, setBgOffset] = useState({ x: 0, y: 0 });
   const [showShare, setShowShare] = useState(false);
   const [showPwaPrompt, setShowPwaPrompt] = useState(false);
+  const [showIframeModal, setShowIframeModal] = useState(false);
+  const [iframeUrl, setIframeUrl] = useState('');
   const [copied, setCopied] = useState(false);
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
   const [trail, setTrail] = useState([]);
@@ -1117,7 +1173,7 @@ const App = () => {
                 style={{ transform: 'rotateY(180deg)', boxShadow: `0 0 60px ${getGlowColor()}` }} 
               />
 
-              <CreatorCard lang={lang} />
+              <CreatorCard lang={lang} onOpenIframe={(url) => { setIframeUrl(url); setShowIframeModal(true); }} />
 
               {/* Блики */}
               <div 
@@ -1369,6 +1425,49 @@ const App = () => {
             >
               {CONTENT[lang].ui.done}
             </button>
+          </div>
+        </div>
+      )}
+
+      {/* МОДАЛЬНОЕ ОКНО IFRAME (КАТАЛОГ СТИЛЕЙ) */}
+      {showIframeModal && (
+        <div 
+          className="fixed inset-0 z-[120] flex items-center justify-center p-2 sm:p-4 bg-black/80 backdrop-blur-md transition-opacity animate-in fade-in duration-300"
+          onClick={() => setShowIframeModal(false)}
+        >
+          <div 
+            className="w-full h-full max-w-[400px] max-h-[800px] bg-[#0a0205] sm:rounded-[2.5rem] rounded-[2rem] overflow-hidden relative shadow-[0_0_50px_rgba(159,18,57,0.4)] border border-rose-900/50 flex flex-col animate-in zoom-in-95 duration-300"
+            onClick={e => e.stopPropagation()}
+          >
+            {/* Header модалки */}
+            <div className="h-14 border-b border-rose-900/50 flex items-center justify-between px-4 sm:px-5 bg-black/40 backdrop-blur-sm shrink-0">
+              <div className="flex items-center gap-3">
+                <Smartphone className="w-5 h-5 text-rose-400" />
+                <span className="text-rose-100 font-serif tracking-wider text-[11px] sm:text-sm uppercase font-bold">{CONTENT[lang].views.catalog.title}</span>
+              </div>
+              <button 
+                onClick={() => setShowIframeModal(false)}
+                className="text-white/40 hover:text-white bg-white/5 hover:bg-white/10 rounded-full p-2 transition-colors border border-white/5 active:scale-95"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+            
+            {/* Iframe Container */}
+            <div className="flex-1 w-full relative bg-neutral-950">
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div className="flex flex-col items-center gap-3">
+                  <div className="w-8 h-8 border-2 border-rose-500/30 border-t-rose-500 rounded-full animate-spin"></div>
+                  <div className="text-rose-200/50 text-[10px] font-serif tracking-widest uppercase">Loading...</div>
+                </div>
+              </div>
+              <iframe 
+                src={iframeUrl} 
+                className="w-full h-full border-0 relative z-10 bg-transparent"
+                title="Template Preview"
+                sandbox="allow-scripts allow-same-origin allow-popups"
+              ></iframe>
+            </div>
           </div>
         </div>
       )}
