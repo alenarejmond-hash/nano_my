@@ -8,15 +8,13 @@ import {
 
 // Компонент QR-кода
 const QRCodeComponent = ({ value, size }) => {
-  // ⚠️ СТАТИЧНЫЙ QR-КОД ВНУТРИ КОДА (БЕЗ ВНЕШНИХ ЗАПРОСОВ)
-  // Вставь свой Base64-код QR-кода в эту переменную. 
-  // (Перевести свою картинку с QR-кодом в Base64 можно через любой онлайн-конвертер)
-  const staticQrCode = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2ZmZiIvPjx0ZXh0IHg9IjUwIiB5PSI1MCIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxMiI+UVIgQ09ERTwvdGV4dD48L3N2Zz4=";
+  // Постоянный рабочий QR-код для ссылки https://appsea.ru/
+  const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=https://appsea.ru/`;
   
   return (
     <div style={{ width: size, height: size }} className="object-contain rounded-lg flex items-center justify-center bg-white overflow-hidden p-3">
       <img 
-        src={staticQrCode} 
+        src={qrUrl} 
         alt="QR Code"
         style={{ height: "auto", maxWidth: "100%", width: "100%" }}
       />
