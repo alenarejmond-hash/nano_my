@@ -596,13 +596,12 @@ const CreatorCard = ({ lang, onOpenIframe }) => {
               { id: 'profile', icon: UserCircle2 },
               { id: 'standart', icon: Diamond },
               { id: 'vip', icon: Crown },
-              { id: 'catalog', icon: Smartphone },
-              { id: 'lead', icon: Gift },
+              { id: 'catalog', icon: Smartphone, highlight: true },
             ].map((item) => (
               <button 
                 key={item.id}
                 onClick={() => setView(item.id)}
-                className={`relative p-2.5 rounded-full transition-all duration-300 flex items-center justify-center w-full ${view === item.id ? 'bg-gradient-to-br from-rose-700 to-rose-400 text-white shadow-[0_0_15px_rgba(225,29,72,0.5)] scale-110' : 'text-rose-400/60 hover:text-rose-200 hover:bg-rose-900/40'}`}
+                className={`relative p-2.5 rounded-full transition-all duration-300 flex items-center justify-center w-full ${item.highlight ? 'mt-2 border border-rose-500/50 bg-rose-900/20 shadow-[0_0_10px_rgba(225,29,72,0.3)] animate-pulse' : ''} ${view === item.id ? 'bg-gradient-to-br from-rose-700 to-rose-400 text-white shadow-[0_0_15px_rgba(225,29,72,0.5)] scale-110' : 'text-rose-400/60 hover:text-rose-200 hover:bg-rose-900/40'}`}
               >
                 <item.icon className="w-4 h-4" />
               </button>
@@ -630,7 +629,7 @@ const CreatorCard = ({ lang, onOpenIframe }) => {
                 <UserCircle2 className="w-5 h-5 text-rose-300" />
               </div>
               <h3 className="text-xl font-serif font-light text-rose-100 tracking-wider mb-2">{CONTENT[lang].views.profile.title}</h3>
-              <p className="font-serif text-[11px] text-rose-100/80 leading-relaxed bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-rose-900/50 shadow-inner">
+              <p className="font-serif text-[11px] text-rose-100/80 leading-relaxed bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-rose-900/50 shadow-inner no-tilt">
                 {CONTENT[lang].views.profile.desc}
               </p>
               <a href={CONTENT[lang].creator.websiteLink} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()} className="no-tilt mt-3 bg-gradient-to-r from-rose-950 to-black border border-rose-800/50 hover:border-rose-600/50 text-rose-200 text-[10px] uppercase tracking-[0.2em] py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 transition-all shadow-[0_0_15px_rgba(0,0,0,0.5)] w-fit mx-auto group">
@@ -651,7 +650,7 @@ const CreatorCard = ({ lang, onOpenIframe }) => {
               </div>
               <h3 className="text-xl font-serif font-light text-rose-100 tracking-wider mb-2 shrink-0">{CONTENT[lang].views.standart.title}</h3>
               
-              <div className="flex-1 overflow-y-auto hide-scrollbar mask-image-bottom pb-10 pr-1">
+              <div className="flex-1 overflow-y-auto hide-scrollbar mask-image-bottom pb-10 pr-1 no-tilt">
                 <p className="font-serif text-[11px] text-rose-100/80 leading-relaxed bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-rose-900/50 shadow-inner">
                   {CONTENT[lang].views.standart.desc}
                 </p>
@@ -670,7 +669,7 @@ const CreatorCard = ({ lang, onOpenIframe }) => {
               </div>
               <h3 className="text-xl font-serif font-light text-rose-100 tracking-wider mb-2 shrink-0">{CONTENT[lang].views.vip.title}</h3>
               
-              <div className="flex-1 overflow-y-auto hide-scrollbar mask-image-bottom pb-10 pr-1">
+              <div className="flex-1 overflow-y-auto hide-scrollbar mask-image-bottom pb-10 pr-1 no-tilt">
                 <p className="font-serif text-[11px] text-rose-100/80 leading-relaxed bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-rose-900/50 shadow-inner">
                   {CONTENT[lang].views.vip.desc}
                 </p>
@@ -679,15 +678,13 @@ const CreatorCard = ({ lang, onOpenIframe }) => {
 
             {/* 4. КАТАЛОГ СТИЛЕЙ & NFC */}
             <div className={`absolute inset-0 flex flex-col pt-2 transition-all duration-500 ease-in-out ${view === 'catalog' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
-              <div className="flex items-center gap-3 mb-3 shrink-0">
-                <div className="w-10 h-10 rounded-full bg-rose-900/30 border border-rose-500/30 flex items-center justify-center shadow-[0_0_15px_rgba(159,18,57,0.2)]">
-                  <Smartphone className="w-5 h-5 text-rose-300" />
-                </div>
-                <h3 className="text-lg font-serif font-light text-rose-100 tracking-wider leading-tight">{CONTENT[lang].views.catalog.title}</h3>
+              <div className="w-10 h-10 rounded-full bg-rose-900/30 border border-rose-500/30 flex items-center justify-center mb-3 shrink-0 shadow-[0_0_15px_rgba(159,18,57,0.2)]">
+                <Smartphone className="w-5 h-5 text-rose-300" />
               </div>
+              <h3 className="text-xl font-serif font-light text-rose-100 tracking-wider mb-2 shrink-0">{CONTENT[lang].views.catalog.title}</h3>
               <p className="font-serif text-[10px] text-rose-100/70 mb-3 shrink-0 px-1">{CONTENT[lang].views.catalog.desc}</p>
               
-              <div className="flex-1 overflow-y-auto hide-scrollbar mask-image-bottom pb-10 pr-1 flex flex-col gap-3">
+              <div className="flex-1 overflow-y-auto hide-scrollbar mask-image-bottom pb-10 pr-1 flex flex-col gap-3 no-tilt">
                 {CONTENT[lang].views.catalog.items.map((item, idx) => (
                   <div 
                     key={idx}
@@ -706,24 +703,6 @@ const CreatorCard = ({ lang, onOpenIframe }) => {
               </div>
             </div>
 
-            {/* 6. ЛИД-МАГНИТ (SECRET OFFER) */}
-            <div className={`absolute inset-0 flex flex-col justify-center transition-all duration-500 ease-in-out ${view === 'lead' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
-              <div className="w-10 h-10 rounded-full bg-rose-900/30 border border-rose-500/30 flex items-center justify-center mb-3 shadow-[0_0_15px_rgba(159,18,57,0.2)]">
-                <Gift className="w-5 h-5 text-rose-300 animate-bounce" />
-              </div>
-              <h3 className="text-xl font-serif font-light text-rose-100 tracking-wider mb-2">{CONTENT[lang].leadMagnet.title}</h3>
-              <p className="font-serif text-[11px] text-rose-100/80 leading-relaxed bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-rose-900/50 shadow-inner mb-4">
-                {CONTENT[lang].leadMagnet.description}
-              </p>
-              <button 
-                onClick={handlePromoClick} 
-                className="no-tilt w-full bg-gradient-to-r from-rose-700 to-rose-500 hover:from-rose-600 hover:to-rose-400 text-white text-[10px] font-bold uppercase tracking-widest py-3.5 rounded-xl flex items-center justify-center transition-all shadow-[0_0_20px_rgba(225,29,72,0.3)] border border-rose-500/50 group"
-              >
-                <Crown className="w-3.5 h-3.5 mr-2 text-rose-200 group-hover:scale-110 transition-transform" />
-                {CONTENT[lang].leadMagnet.buttonText}
-              </button>
-            </div>
-
             {/* 7. ОТЗЫВЫ */}
             <div className={`absolute inset-0 flex flex-col pt-2 transition-all duration-500 ease-in-out ${view === 'reviews' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
               <div className="flex items-center gap-3 mb-3 shrink-0">
@@ -733,7 +712,7 @@ const CreatorCard = ({ lang, onOpenIframe }) => {
                 <h3 className="text-lg font-serif font-light text-rose-100 tracking-wider">{CONTENT[lang].views.reviewsTitle}</h3>
               </div>
               
-              <div className="flex-1 overflow-y-auto hide-scrollbar flex flex-col gap-2.5 pb-10 pr-1 mask-image-bottom">
+              <div className="flex-1 overflow-y-auto hide-scrollbar flex flex-col gap-2.5 pb-10 pr-1 mask-image-bottom no-tilt">
                 
                 {/* Отзывы */}
                 {CONTENT[lang].views.reviews.map((rev, idx) => (
