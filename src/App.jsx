@@ -8,16 +8,12 @@ import {
 
 // Компонент QR-кода
 const QRCodeComponent = ({ value, size }) => {
-  const encodedValue = encodeURIComponent(value || "https://appsea.ru/");
-  const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=${size}x${size}&data=${encodedValue}&margin=0`;
-  
+  const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=${size}x${size}&data=${encodeURIComponent(value)}&bgcolor=ffffff&color=000000`;
   return (
     <div style={{ width: size, height: size }} className="object-contain rounded-lg flex items-center justify-center bg-white overflow-hidden p-3">
       <img 
         src={qrUrl}
         alt="QR Code"
-        width={size}
-        height={size}
         style={{ height: "auto", maxWidth: "100%", width: "100%" }}
       />
     </div>
