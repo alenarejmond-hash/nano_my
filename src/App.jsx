@@ -6,17 +6,36 @@ import {
   Smartphone, CreditCard
 } from 'lucide-react';
 
-const QRCodeSVG = ({ value, size, className }) => {
-  const encoded = encodeURIComponent(value);
-  return (
-    <img 
-      src={`https://api.qrserver.com/v1/create-qr-code/?size=${size}x${size}&data=${encoded}`} 
-      width={size} 
-      height={size} 
-      className={className}
-      alt="QR Code"
-    />
-  );
+// Компонент QR-кода без зависимостей от npm
+const QRCodeComponent = ({ value, size }) => {
+  const qrRef = useRef(null);
+
+  useEffect(() => {
+    const loadQR = async () => {
+      if (!window.QRCode) {
+        await new Promise((resolve) => {
+          const script = document.createElement('script');
+          script.src = 'https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js';
+          script.onload = resolve;
+          document.head.appendChild(script);
+        });
+      }
+      if (qrRef.current) {
+        qrRef.current.innerHTML = '';
+        new window.QRCode(qrRef.current, {
+          text: value,
+          width: size,
+          height: size,
+          colorDark: "#000000",
+          colorLight: "#ffffff",
+          correctLevel: window.QRCode.CorrectLevel.L
+        });
+      }
+    };
+    loadQR();
+  }, [value, size]);
+
+  return <div ref={qrRef} style={{ width: size, height: size }} className="object-contain rounded-lg flex items-center justify-center bg-white" />;
 };
 
 // ==========================================
@@ -1258,7 +1277,7 @@ const App = () => {
           />
           {[
             { code: 'ru', label: 'RU' },
-            { code: 'hy', label: 'AM' },
+            { code: 'hy', label: 'HY' },
             { code: 'en', label: 'EN' }
           ].map((item) => (
             <button
@@ -1343,23 +1362,9 @@ const App = () => {
             <p className="text-sm text-white/60 text-center mb-6 leading-relaxed">{CONTENT[lang].ui.shareDesc}</p>
             
             <div className="bg-white p-4 rounded-3xl mb-6 shadow-[0_0_40px_rgba(255,255,255,0.15)] flex items-center justify-center">
-              <QRCodeSVG 
-                value={[
-                  "BEGIN:VCARD",
-                  "VERSION:3.0",
-                  `FN:${CONTENT[lang].creator.name1} ${CONTENT[lang].creator.name2}`,
-                  `N:${CONTENT[lang].creator.name2};${CONTENT[lang].creator.name1};;;`,
-                  `ORG:${CONTENT[lang].contact.company}`,
-                  `TITLE:${CONTENT[lang].contact.title}`,
-                  `TEL;TYPE=CELL:${CONTENT[lang].contact.phone}`,
-                  `TEL;TYPE=WHATSAPP:${CONTENT[lang].contact.whatsapp}`,
-                  `EMAIL;TYPE=WORK:${CONTENT[lang].contact.email}`,
-                  `URL:${CONTENT[lang].contact.website}`,
-                  `NOTE:${CONTENT[lang].ui.saveContact}`,
-                  "END:VCARD"
-                ].filter(Boolean).join("\n")}
+              <QRCodeComponent 
+                value={typeof window !== 'undefined' ? window.location.href : 'https://appsea.ru/'}
                 size={180}
-                className="w-[180px] h-[180px] object-contain rounded-lg"
               />
             </div>
 
