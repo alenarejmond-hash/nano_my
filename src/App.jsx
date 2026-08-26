@@ -377,7 +377,7 @@ const CONTENT = {
         desc: 'Выберите дизайн вашей цифровой визитки и физический NFC-носитель',
         items: [
           { name: 'Glassmorphism Design', desc: 'Стильный дизайн со стеклянными панелями', url: 'https://nano.nice-app.ru/' },
-          { name: 'Dark Premium Design', desc: 'Строгий темный дизайн для бизнеса', url: 'https://appsea.ru/' },
+          { name: 'Dark Premium Design', desc: 'Строгий темный дизайн для бизнеса', url: '/promo.mp4' },
         ]
       },
       reviewsTitle: 'Отзывы',
@@ -460,7 +460,7 @@ const CONTENT = {
         desc: 'Choose the design of your digital business card and physical NFC media',
         items: [
           { name: 'Glassmorphism Design', desc: 'Stylish design with glass panels', url: 'https://nano.nice-app.ru/' },
-          { name: 'Dark Premium Design', desc: 'Strict dark design for business', url: 'https://appsea.ru/' },
+          { name: 'Dark Premium Design', desc: 'Strict dark design for business', url: '/promo.mp4' },
         ]
       },
       reviewsTitle: 'Reviews',
