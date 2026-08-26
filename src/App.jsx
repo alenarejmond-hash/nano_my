@@ -543,7 +543,7 @@ const CONTENT = {
         desc: 'Ընտրեք ձեր թվային այցեքարտի դիզայնը և ֆիզիկական NFC կրիչը',
         items: [
           { name: 'Glassmorphism Design', desc: 'Ոճային դիզայն ապակե վահանակներով', url: 'https://nano.nice-app.ru/' },
-          { name: 'Dark Premium Design', desc: 'Խիստ մուգ դիզայն բիզնեսի համար', url: 'https://appsea.ru/' },
+          { name: 'Dark Premium Design', desc: 'Խիստ մուգ դիզայն բիզնեսի համար', url: '/promo.mp4' },
         ]
       },
       reviewsTitle: 'Արձագանքներ',
