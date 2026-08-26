@@ -829,7 +829,7 @@ const CreatorCard = ({ lang, onOpenIframe }) => {
   };
 
   return (
-    <>
+    <div style={{ transform: "scale(min(1, 100vw / 400, 100dvh / 800))", transformOrigin: "center", width: "100%", height: "100%", transformStyle: "preserve-3d" }}> //добавила для сжатия визитки на маленьких телефонах
       {/* ЛИЦЕВАЯ СТОРОНА */}
       <div className="absolute inset-0 w-full h-full card-backface-hidden rounded-[2.5rem] shadow-[0_20px_50px_rgba(159,18,57,0.4)] overflow-hidden bg-[#0a0103] text-white flex flex-col p-6 group-hover:shadow-[0_20px_80px_rgba(159,18,57,0.6)] transition-shadow duration-700">
         
@@ -951,7 +951,7 @@ const CreatorCard = ({ lang, onOpenIframe }) => {
               </div>
               <h3 className="text-xl font-serif font-light text-rose-100 tracking-wider mb-2 shrink-0">{CONTENT[lang].views.standart.title}</h3>
               
-              <div className="flex-1 min-h-0 overflow-y-auto hide-scrollbar mask-image-bottom pb-10 pr-1 no-tilt">
+              <div className="flex-1 overflow-y-auto hide-scrollbar mask-image-bottom pb-10 pr-1 no-tilt">
                 <p className="font-serif text-[11px] text-rose-100/80 leading-relaxed bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-rose-900/50 shadow-inner">
                   {CONTENT[lang].views.standart.desc}
                 </p>
@@ -1052,7 +1052,7 @@ const CreatorCard = ({ lang, onOpenIframe }) => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
