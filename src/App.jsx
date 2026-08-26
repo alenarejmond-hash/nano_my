@@ -951,7 +951,7 @@ const CreatorCard = ({ lang, onOpenIframe }) => {
               </div>
               <h3 className="text-xl font-serif font-light text-rose-100 tracking-wider mb-2 shrink-0">{CONTENT[lang].views.standart.title}</h3>
               
-              <div className="flex-1 overflow-y-auto hide-scrollbar mask-image-bottom pb-10 pr-1 no-tilt">
+              <div className="flex-1 min-h-0 overflow-y-auto hide-scrollbar mask-image-bottom pb-10 pr-1 no-tilt">
                 <p className="font-serif text-[11px] text-rose-100/80 leading-relaxed bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-rose-900/50 shadow-inner">
                   {CONTENT[lang].views.standart.desc}
                 </p>
