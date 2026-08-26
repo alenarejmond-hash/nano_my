@@ -8,17 +8,13 @@ import {
 
 // Компонент QR-кода
 const QRCodeComponent = ({ value, size }) => {
-  // ⚠️ СТАТИЧНЫЙ QR-КОД ВНУТРИ КОДА (БЕЗ ВНЕШНИХ ЗАПРОСОВ)
-  // Вставь свой Base64-код QR-кода в эту переменную. 
-  // (Перевести свою картинку с QR-кодом в Base64 можно через любой онлайн-конвертер)
-  const staticQrCode = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2ZmZiIvPjx0ZXh0IHg9IjUwIiB5PSI1MCIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxMiI+UVIgQ09ERTwvdGV4dD48L3N2Zz4=";
-  
+  const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=${size}x${size}&data=${encodeURIComponent(value)}`;
   return (
     <div style={{ width: size, height: size }} className="object-contain rounded-lg flex items-center justify-center bg-white overflow-hidden p-3">
       <img 
-        src={staticQrCode} 
-        alt="QR Code"
-        style={{ height: "auto", maxWidth: "100%", width: "100%" }}
+        src={qrUrl} 
+        alt="QR Code" 
+        style={{ width: '100%', height: '100%', objectFit: 'contain' }}
       />
     </div>
   );
@@ -635,10 +631,6 @@ const CreatorCard = ({ lang, onOpenIframe }) => {
               <p className="font-serif text-[11px] text-rose-100/80 leading-relaxed bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-rose-900/50 shadow-inner no-tilt">
                 {CONTENT[lang].views.profile.desc}
               </p>
-              <a href={CONTENT[lang].creator.websiteLink} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()} className="no-tilt mt-3 bg-gradient-to-r from-rose-950 to-black border border-rose-800/50 hover:border-rose-600/50 text-rose-200 text-[10px] uppercase tracking-[0.2em] py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 transition-all shadow-[0_0_15px_rgba(0,0,0,0.5)] w-fit mx-auto group">
-                 <Globe className="w-3.5 h-3.5 text-rose-400 group-hover:animate-pulse" />
-                 {CONTENT[lang].creator.websiteText}
-              </a>
             </div>
 
             {/* 2. ТАРИФ STANDART */}
@@ -776,7 +768,6 @@ const App = () => {
   const [copied, setCopied] = useState(false);
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
   const [trail, setTrail] = useState([]);
-  const [cardScale, setCardScale] = useState(1);
   const cardRef = useRef(null);
   const audioCtxRef = useRef(null);
   const audioRef = useRef(null);
@@ -852,16 +843,16 @@ const App = () => {
         name: `${CONTENT[lang].creator.name1} ${CONTENT[lang].creator.name2} | ${CONTENT[lang].creator.role}`,
         short_name: "Елена Сотникова",
         start_url: window.location.pathname,
-        display: "standalone",
-        background_color: "#0a0a0a",
-        theme_color: "#9f1239",
-        icons: [{
-          src: CONTENT[lang].creator.avatar || "https://api.qrserver.com/v1/create-qr-code/?size=192x192&data=PWA",
-          sizes: "192x192",
-          type: "image/png"
-        }]
-      };
-      const stringManifest = JSON.stringify(manifest);
+      display: "standalone",
+      background_color: "#0a0a0a",
+      theme_color: "#9f1239",
+      icons: [{
+        src: CONTENT[lang].creator.avatar || "/avatar-creator.jpg",
+        sizes: "192x192",
+        type: "image/png"
+      }]
+    };
+    const stringManifest = JSON.stringify(manifest);
       const blob = new Blob([stringManifest], { type: 'application/json' });
       const manifestURL = URL.createObjectURL(blob);
       let link = document.querySelector('link[rel="manifest"]');
@@ -874,30 +865,14 @@ const App = () => {
     }
   }, [lang]);
 
-  // Масштабирование визитки как картинки под любой экран
-  useEffect(() => {
-    const updateScale = () => {
-      const baseWidth = 360; 
-      const baseHeight = 576;
-      
-      // Доступная ширина и высота с учетом отступов (padding 16px с каждой стороны, снизу место для кнопок)
-      const maxWidth = window.innerWidth - 32; 
-      const maxHeight = window.innerHeight - 140; 
-      
-      const scaleW = maxWidth / baseWidth;
-      const scaleH = maxHeight / baseHeight;
-      
-      // Берем минимальный масштаб, чтобы карточка целиком влезла на экран без поломки
-      setCardScale(Math.min(scaleW, scaleH, 1.2));
-    };
-
-    updateScale();
-    window.addEventListener('resize', updateScale);
-    return () => window.removeEventListener('resize', updateScale);
-  }, []);
-
   const handlePointerMove = (e) => {
     if (isFlippingRef.current || !cardRef.current) return;
+    
+    if (isFlipped) {
+      setRotate({ x: 0, y: 0 });
+      setGlare(prev => ({ ...prev, opacity: 0 }));
+      return;
+    }
     
     if (e.target.closest('.no-tilt')) {
       setRotate({ x: 0, y: 0 });
@@ -1124,54 +1099,41 @@ const App = () => {
       ></div>
 
       {/* КОНТЕЙНЕР ВИЗИТКИ */}
-      <div 
-        className="w-full flex justify-center relative z-40 items-center transition-all duration-300"
-        style={{ height: `${576 * cardScale}px` }}
-      >
-        {/* МАСШТАБИРУЮЩАЯ ОБЕРТКА (Работает как картинка) */}
-        <div
-          style={{
-            transform: `scale(${cardScale})`,
-            transformOrigin: 'center center',
-            width: '360px',
-            height: '576px',
-          }}
-          className="relative flex-shrink-0"
+      <div className="w-full flex justify-center relative z-40 items-center">
+        <div 
+          ref={cardRef}
+          className="relative z-10 w-full aspect-[10/16] sm:aspect-[10/15] cursor-pointer group animate-float touch-none"
+          style={{ perspective: '1500px', maxWidth: 'min(22rem, 85vw, 55vh)' }}
+          onClick={handleFlip}
+          onMouseMove={handlePointerMove}
+          onMouseLeave={handlePointerLeave}
+          onTouchMove={handlePointerMove}
+          onTouchEnd={handlePointerLeave}
         >
-          <div 
-            ref={cardRef}
-            className="relative z-10 w-full h-full cursor-pointer group animate-float touch-none"
-            style={{ perspective: '1500px' }}
-            onClick={handleFlip}
-            onMouseMove={handlePointerMove}
-            onMouseLeave={handlePointerLeave}
-            onTouchMove={handlePointerMove}
-            onTouchEnd={handlePointerLeave}
-          >
-            {/* Искры */}
-            {sparks.map(spark => (
-              <div
-                key={spark.id}
-                className="spark-particle"
-                style={{
-                  '--tx': spark.tx,
-                  '--ty': spark.ty,
-                  '--wx1': spark.wx1,
-                  '--wy1': spark.wy1,
-                  '--wx2': spark.wx2,
-                  '--wy2': spark.wy2,
-                  '--wx3': spark.wx3,
-                  '--wy3': spark.wy3,
-                  '--wt': spark.wt,
-                  width: spark.size,
-                  height: spark.size,
-                  left: '50%',
-                  top: '50%',
-                  marginTop: '-' + (parseFloat(spark.size) / 2) + 'px',
-                  marginLeft: '-' + (parseFloat(spark.size) / 2) + 'px'
-                }}
-              />
-            ))}
+          {/* Искры */}
+          {sparks.map(spark => (
+            <div
+              key={spark.id}
+              className="spark-particle"
+              style={{
+                '--tx': spark.tx,
+                '--ty': spark.ty,
+                '--wx1': spark.wx1,
+                '--wy1': spark.wy1,
+                '--wx2': spark.wx2,
+                '--wy2': spark.wy2,
+                '--wx3': spark.wx3,
+                '--wy3': spark.wy3,
+                '--wt': spark.wt,
+                width: spark.size,
+                height: spark.size,
+                left: '50%',
+                top: '50%',
+                marginTop: '-' + (parseFloat(spark.size) / 2) + 'px',
+                marginLeft: '-' + (parseFloat(spark.size) / 2) + 'px'
+              }}
+            />
+          ))}
 
           {/* 3D наклон */}
           <div
@@ -1230,7 +1192,6 @@ const App = () => {
               />
             </div>
           </div>
-        </div>
         </div>
       </div>
 
