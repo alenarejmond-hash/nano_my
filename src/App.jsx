@@ -281,14 +281,6 @@ const CONTENT = {
 
 // --- Глобальные стили для сложных анимаций (вставляем прямо в компонент) ---
 const globalStyles = `
-  :root {
-    --card-h: calc(min(22rem, 50vh) * 1.6);
-  }
-  @media (min-width: 640px) {
-    :root {
-      --card-h: calc(min(22rem, 50vh) * 1.5);
-    }
-  }
   html, body {
     background-color: #0a0a0a;
     overscroll-behavior: none;
@@ -546,7 +538,7 @@ const CreatorCard = ({ lang, onOpenIframe }) => {
         <BurnRevealImage src={CONTENT[lang].creator.bgImage} className="grayscale-[0.2]" burnColor="wine" startBurn={isNameRevealed} />
 
         <div className="relative z-10 flex flex-col h-full justify-between">
-          <div className="flex justify-between items-start">
+          <div className="flex justify-between items-start shrink-0">
             <div className="bg-black/40 backdrop-blur-md px-4 py-2 rounded-full border border-rose-900/50 flex items-center gap-2">
               <Crown className="w-4 h-4 text-rose-400" />
               <span className="text-xs font-serif tracking-widest uppercase text-rose-200/90">{CONTENT[lang].creator.badge}</span>
@@ -554,14 +546,14 @@ const CreatorCard = ({ lang, onOpenIframe }) => {
             <Code2 className="w-8 h-8 text-rose-300/60 drop-shadow-[0_0_10px_rgba(159,18,57,0.5)]" />
           </div>
 
-          <div className="text-center pb-2">
-            <h2 className={`text-3xl sm:text-4xl leading-tight font-serif mb-2 uppercase tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-rose-100 via-white to-rose-200 drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]`}>
+          <div className="text-center pb-2 shrink-0">
+            <h2 className={`text-[clamp(1.5rem,6vw,2.25rem)] leading-tight font-serif mb-2 uppercase tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-rose-100 via-white to-rose-200 drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]`}>
               {hackerName1}
               <br />
               {hackerName2}
             </h2>
             <div className="flex flex-col items-center gap-3 mt-3">
-              <p className="font-serif text-[11px] text-rose-100/70 italic tracking-wider max-w-[80%] mx-auto">
+              <p className="font-serif text-[clamp(10px,2.5vw,12px)] text-rose-100/70 italic tracking-wider max-w-[85%] mx-auto">
                 "{CONTENT[lang].creator.quote1} {CONTENT[lang].creator.quote2}"
               </p>
               <div className="flex items-center gap-1.5 bg-black/50 px-3 py-1.5 rounded-full border border-rose-900/50 mt-1">
@@ -590,7 +582,7 @@ const CreatorCard = ({ lang, onOpenIframe }) => {
           {/* Световой шар */}
           <div className="absolute left-1/2 -translate-x-1/2 w-6 h-6 bg-rose-500/30 rounded-full blur-[6px] shadow-[0_0_15px_rgba(225,29,72,0.5)] pointer-events-none z-0" style={{ animation: 'scan-vertical 4s ease-in-out infinite' }}></div>
 
-          <div className="flex flex-col gap-2.5 w-full items-center relative z-10">
+          <div className="flex flex-col gap-2.5 w-full items-center relative z-10 shrink-0">
             {[
               { id: 'profile', icon: UserCircle2 },
               { id: 'standart', icon: Diamond },
@@ -607,7 +599,7 @@ const CreatorCard = ({ lang, onOpenIframe }) => {
             ))}
           </div>
           
-          <div className="w-full flex flex-col items-center gap-2 relative z-10 mt-1">
+          <div className="w-full flex flex-col items-center gap-2 relative z-10 mt-1 shrink-0">
             <div className="w-5 h-[1px] bg-rose-900/60"></div>
             <button 
               onClick={() => setView('reviews')}
@@ -623,18 +615,21 @@ const CreatorCard = ({ lang, onOpenIframe }) => {
           <div className="relative flex-1 w-full overflow-hidden">
 
             {/* 1. ФИЛОСОФИЯ */}
-            <div className={`absolute inset-0 flex flex-col justify-center transition-all duration-500 ease-in-out ${view === 'profile' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
-              <div className="w-10 h-10 rounded-full bg-rose-900/30 border border-rose-500/30 flex items-center justify-center mb-3 shadow-[0_0_15px_rgba(159,18,57,0.2)]">
+            <div className={`absolute inset-0 flex flex-col pt-1 transition-all duration-500 ease-in-out ${view === 'profile' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
+              <div className="w-10 h-10 rounded-full bg-rose-900/30 border border-rose-500/30 flex items-center justify-center mb-3 shrink-0 shadow-[0_0_15px_rgba(159,18,57,0.2)]">
                 <UserCircle2 className="w-5 h-5 text-rose-300" />
               </div>
-              <h3 className="text-xl font-serif font-light text-rose-100 tracking-wider mb-2">{CONTENT[lang].views.profile.title}</h3>
-              <p className="font-serif text-[11px] text-rose-100/80 leading-relaxed bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-rose-900/50 shadow-inner no-tilt">
-                {CONTENT[lang].views.profile.desc}
-              </p>
+              <h3 className="text-[clamp(1.125rem,4vw,1.25rem)] font-serif font-light text-rose-100 tracking-wider mb-2 shrink-0">{CONTENT[lang].views.profile.title}</h3>
+              
+              <div className="flex-1 overflow-y-auto hide-scrollbar mask-image-bottom pb-10 pr-1 no-tilt touch-pan-y overscroll-contain">
+                <p className="font-serif text-[clamp(10px,2.5vw,11px)] text-rose-100/80 leading-relaxed bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-rose-900/50 shadow-inner">
+                  {CONTENT[lang].views.profile.desc}
+                </p>
+              </div>
             </div>
 
             {/* 2. ТАРИФ STANDART */}
-            <div className={`absolute inset-0 flex flex-col pt-2 transition-all duration-500 ease-in-out ${view === 'standart' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
+            <div className={`absolute inset-0 flex flex-col pt-1 transition-all duration-500 ease-in-out ${view === 'standart' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
               <div className="flex items-center justify-between mb-3 shrink-0">
                 <div className="w-10 h-10 rounded-full bg-rose-900/30 border border-rose-500/30 flex items-center justify-center shadow-[0_0_15px_rgba(159,18,57,0.2)]">
                   <Diamond className="w-5 h-5 text-rose-300" />
@@ -643,17 +638,17 @@ const CreatorCard = ({ lang, onOpenIframe }) => {
                   <span className="text-[10px] font-bold uppercase tracking-widest text-rose-200">{lang === 'ru' ? 'Цена:' : lang === 'en' ? 'Price:' : 'Գինը:'} {CONTENT[lang].views.standart.price}</span>
                 </div>
               </div>
-              <h3 className="text-xl font-serif font-light text-rose-100 tracking-wider mb-2 shrink-0">{CONTENT[lang].views.standart.title}</h3>
+              <h3 className="text-[clamp(1.125rem,4vw,1.25rem)] font-serif font-light text-rose-100 tracking-wider mb-2 shrink-0">{CONTENT[lang].views.standart.title}</h3>
               
-              <div className="flex-1 overflow-y-auto hide-scrollbar mask-image-bottom pb-10 pr-1 no-tilt">
-                <p className="font-serif text-[11px] text-rose-100/80 leading-relaxed bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-rose-900/50 shadow-inner">
+              <div className="flex-1 overflow-y-auto hide-scrollbar mask-image-bottom pb-10 pr-1 no-tilt touch-pan-y overscroll-contain">
+                <p className="font-serif text-[clamp(10px,2.5vw,11px)] text-rose-100/80 leading-relaxed bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-rose-900/50 shadow-inner block shrink-0">
                   {CONTENT[lang].views.standart.desc}
                 </p>
               </div>
             </div>
 
             {/* 3. ТАРИФ VIP */}
-            <div className={`absolute inset-0 flex flex-col pt-2 transition-all duration-500 ease-in-out ${view === 'vip' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
+            <div className={`absolute inset-0 flex flex-col pt-1 transition-all duration-500 ease-in-out ${view === 'vip' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
               <div className="flex items-center justify-between mb-3 shrink-0">
                 <div className="w-10 h-10 rounded-full bg-rose-900/30 border border-rose-500/30 flex items-center justify-center shadow-[0_0_15px_rgba(159,18,57,0.2)]">
                   <Crown className="w-5 h-5 text-rose-300" />
@@ -662,24 +657,24 @@ const CreatorCard = ({ lang, onOpenIframe }) => {
                   <span className="text-[10px] font-bold uppercase tracking-widest text-rose-200">{lang === 'ru' ? 'Цена:' : lang === 'en' ? 'Price:' : 'Գինը:'} {CONTENT[lang].views.vip.price}</span>
                 </div>
               </div>
-              <h3 className="text-xl font-serif font-light text-rose-100 tracking-wider mb-2 shrink-0">{CONTENT[lang].views.vip.title}</h3>
+              <h3 className="text-[clamp(1.125rem,4vw,1.25rem)] font-serif font-light text-rose-100 tracking-wider mb-2 shrink-0">{CONTENT[lang].views.vip.title}</h3>
               
-              <div className="flex-1 overflow-y-auto hide-scrollbar mask-image-bottom pb-10 pr-1 no-tilt">
-                <p className="font-serif text-[11px] text-rose-100/80 leading-relaxed bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-rose-900/50 shadow-inner">
+              <div className="flex-1 overflow-y-auto hide-scrollbar mask-image-bottom pb-10 pr-1 no-tilt touch-pan-y overscroll-contain">
+                <p className="font-serif text-[clamp(10px,2.5vw,11px)] text-rose-100/80 leading-relaxed bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-rose-900/50 shadow-inner block shrink-0">
                   {CONTENT[lang].views.vip.desc}
                 </p>
               </div>
             </div>
 
             {/* 4. КАТАЛОГ СТИЛЕЙ & NFC */}
-            <div className={`absolute inset-0 flex flex-col pt-2 transition-all duration-500 ease-in-out ${view === 'catalog' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
+            <div className={`absolute inset-0 flex flex-col pt-1 transition-all duration-500 ease-in-out ${view === 'catalog' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
               <div className="w-10 h-10 rounded-full bg-rose-900/30 border border-rose-500/30 flex items-center justify-center mb-3 shrink-0 shadow-[0_0_15px_rgba(159,18,57,0.2)]">
                 <Smartphone className="w-5 h-5 text-rose-300" />
               </div>
-              <h3 className="text-xl font-serif font-light text-rose-100 tracking-wider mb-2 shrink-0">{CONTENT[lang].views.catalog.title}</h3>
-              <p className="font-serif text-[10px] text-rose-100/70 mb-3 shrink-0 px-1">{CONTENT[lang].views.catalog.desc}</p>
+              <h3 className="text-[clamp(1.125rem,4vw,1.25rem)] font-serif font-light text-rose-100 tracking-wider mb-2 shrink-0">{CONTENT[lang].views.catalog.title}</h3>
+              <p className="font-serif text-[clamp(10px,2vw,11px)] text-rose-100/70 mb-3 shrink-0 px-1">{CONTENT[lang].views.catalog.desc}</p>
               
-              <div className="flex-1 overflow-y-auto hide-scrollbar mask-image-bottom pb-10 pr-1 flex flex-col gap-3 no-tilt">
+              <div className="flex-1 overflow-y-auto hide-scrollbar mask-image-bottom pb-10 pr-1 flex flex-col gap-3 no-tilt touch-pan-y overscroll-contain">
                 {CONTENT[lang].views.catalog.items.map((item, idx) => (
                   <div 
                     key={idx}
@@ -687,10 +682,10 @@ const CreatorCard = ({ lang, onOpenIframe }) => {
                     className="bg-black/40 backdrop-blur-sm p-3 rounded-2xl border border-rose-900/50 shadow-inner flex justify-between items-center cursor-pointer hover:bg-rose-900/20 hover:border-rose-500/50 transition-all group shrink-0"
                   >
                     <div>
-                      <div className="text-rose-200 text-xs font-bold mb-1">{item.name}</div>
-                      <div className="text-rose-100/60 text-[9px]">{item.desc}</div>
+                      <div className="text-rose-200 text-[clamp(10px,2.5vw,12px)] font-bold mb-1">{item.name}</div>
+                      <div className="text-rose-100/60 text-[clamp(9px,2vw,10px)]">{item.desc}</div>
                     </div>
-                    <div className="w-8 h-8 rounded-full bg-rose-900/40 border border-rose-500/30 flex items-center justify-center group-hover:scale-110 transition-transform shadow-[0_0_10px_rgba(159,18,57,0.2)]">
+                    <div className="w-8 h-8 rounded-full bg-rose-900/40 border border-rose-500/30 flex items-center justify-center group-hover:scale-110 transition-transform shadow-[0_0_10px_rgba(159,18,57,0.2)] shrink-0 ml-2">
                       <Play className="w-3 h-3 text-rose-300 ml-0.5" />
                     </div>
                   </div>
@@ -699,31 +694,31 @@ const CreatorCard = ({ lang, onOpenIframe }) => {
             </div>
 
             {/* 7. ОТЗЫВЫ */}
-            <div className={`absolute inset-0 flex flex-col pt-2 transition-all duration-500 ease-in-out ${view === 'reviews' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
+            <div className={`absolute inset-0 flex flex-col pt-1 transition-all duration-500 ease-in-out ${view === 'reviews' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
               <div className="flex items-center gap-3 mb-3 shrink-0">
                 <div className="w-8 h-8 rounded-full bg-rose-900/30 border border-rose-500/30 flex items-center justify-center shadow-[0_0_15px_rgba(159,18,57,0.2)]">
                   <Star className="w-4 h-4 text-rose-300" />
                 </div>
-                <h3 className="text-lg font-serif font-light text-rose-100 tracking-wider">{CONTENT[lang].views.reviewsTitle}</h3>
+                <h3 className="text-[clamp(1rem,4vw,1.125rem)] font-serif font-light text-rose-100 tracking-wider">{CONTENT[lang].views.reviewsTitle}</h3>
               </div>
               
-              <div className="flex-1 overflow-y-auto hide-scrollbar flex flex-col gap-2.5 pb-10 pr-1 mask-image-bottom no-tilt">
+              <div className="flex-1 overflow-y-auto hide-scrollbar flex flex-col gap-2.5 pb-10 pr-1 mask-image-bottom no-tilt touch-pan-y overscroll-contain">
                 
                 {/* Отзывы */}
                 {CONTENT[lang].views.reviews.map((rev, idx) => (
-                  <div key={idx} className="bg-black/40 backdrop-blur-sm p-3 rounded-2xl border border-rose-900/50 shadow-inner relative shrink-0">
+                  <div key={idx} className="bg-black/40 backdrop-blur-sm p-3 rounded-2xl border border-rose-900/50 shadow-inner relative shrink-0 block">
                     <div className="flex justify-between items-center mb-1.5 px-1">
                       <div className="flex items-center gap-2">
                         <span className="text-[10px] text-rose-200/90 font-medium">{rev.name}</span>
                         {rev.date && <span className="text-[8px] text-rose-500/60">{rev.date}</span>}
                       </div>
-                      <div className="flex gap-0.5">
+                      <div className="flex gap-0.5 shrink-0">
                         {[...Array(5)].map((_, i) => (
                           <Star key={i} className="w-2.5 h-2.5 fill-rose-400 text-rose-400" />
                         ))}
                       </div>
                     </div>
-                    <p className="font-serif text-[10px] text-rose-100/80 leading-relaxed italic px-1">
+                    <p className="font-serif text-[clamp(10px,2vw,11px)] text-rose-100/80 leading-relaxed italic px-1">
                       {rev.text}
                     </p>
                   </div>
@@ -736,11 +731,11 @@ const CreatorCard = ({ lang, onOpenIframe }) => {
 
           {/* Кнопка записи (Главная кнопка) */}
           <div 
-            className="mt-3 w-full no-tilt cursor-default relative z-20 flex flex-col gap-2"
+            className="mt-2 sm:mt-3 w-full no-tilt cursor-default relative z-20 flex flex-col gap-2 shrink-0"
             onClick={(e) => e.stopPropagation()}
           >
-            <a href={CONTENT[lang].creator.actionLink} className="w-full bg-gradient-to-r from-[#380e1b] to-black backdrop-blur-md text-rose-100 font-serif text-[10px] uppercase tracking-[0.15em] py-4 rounded-2xl flex items-center justify-center gap-2 hover:from-[#4a1223] transition-all shadow-[0_0_25px_rgba(159,18,57,0.3)] border border-rose-800/50 group active:scale-95">
-              <Crown className="w-4 h-4 text-rose-400 group-hover:scale-110 transition-transform" />
+            <a href={CONTENT[lang].creator.actionLink} className="w-full bg-gradient-to-r from-[#380e1b] to-black backdrop-blur-md text-rose-100 font-serif text-[clamp(10px,2.5vw,11px)] uppercase tracking-[0.15em] py-3.5 sm:py-4 rounded-2xl flex items-center justify-center gap-2 hover:from-[#4a1223] transition-all shadow-[0_0_25px_rgba(159,18,57,0.3)] border border-rose-800/50 group active:scale-95 shrink-0">
+              <Crown className="w-4 h-4 text-rose-400 group-hover:scale-110 transition-transform shrink-0" />
               {CONTENT[lang].creator.actionText} →
             </a>
           </div>
@@ -1080,7 +1075,7 @@ const App = () => {
   };
 
   return (
-    <div className="fixed inset-0 w-full h-full bg-neutral-950 flex flex-col font-sans select-none transition-all duration-500 overflow-hidden justify-center items-center p-4 sm:p-8">
+    <div className="fixed inset-0 w-full h-full bg-neutral-950 flex flex-col font-sans select-none transition-all duration-500 overflow-hidden justify-center items-center px-4 pt-[max(1rem,env(safe-area-inset-top))] pb-[calc(env(safe-area-inset-bottom,1rem)+4rem)]">
       <style>{globalStyles}</style>
 
       {/* Интерактивный шлейф */}
@@ -1102,8 +1097,8 @@ const App = () => {
       <div className="w-full flex justify-center relative z-40 items-center">
         <div 
           ref={cardRef}
-          className="relative z-10 w-full aspect-[10/16] sm:aspect-[10/15] cursor-pointer group animate-float touch-none"
-          style={{ perspective: '1500px', maxWidth: 'min(22rem, 85vw, 55vh)' }}
+          className="relative z-10 w-full aspect-[10/16] sm:aspect-[10/15] cursor-pointer group animate-float touch-none mx-auto"
+          style={{ perspective: '1500px', maxWidth: 'min(22rem, 85vw, 55dvh)' }}
           onClick={handleFlip}
           onMouseMove={handlePointerMove}
           onMouseLeave={handlePointerLeave}
@@ -1196,7 +1191,7 @@ const App = () => {
       </div>
 
       {/* === ПАНЕЛЬ С КНОПКАМИ === */}
-      <div className="fixed bottom-10 sm:bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-6">
+      <div className="fixed bottom-[max(1.5rem,env(safe-area-inset-bottom))] left-1/2 -translate-x-1/2 z-50 flex items-center gap-4 sm:gap-6 w-max max-w-[95vw]">
 
         <audio
           ref={audioRef}
@@ -1213,7 +1208,7 @@ const App = () => {
         <button
           type="button"
           onClick={toggleGreetingAudio}
-          className={`active:scale-90 rounded-full backdrop-blur-md border transition-all duration-300 group touch-manipulation flex items-center justify-center w-10 h-10 ${isAudioPlaying ? 'bg-rose-900/40 border-rose-500/50 shadow-[0_0_20px_rgba(225,29,72,0.3)]' : 'bg-white/5 border-white/10 text-white/40 hover:text-white/90 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]'}`}
+          className={`shrink-0 active:scale-90 rounded-full backdrop-blur-md border transition-all duration-300 group touch-manipulation flex items-center justify-center w-10 h-10 ${isAudioPlaying ? 'bg-rose-900/40 border-rose-500/50 shadow-[0_0_20px_rgba(225,29,72,0.3)]' : 'bg-white/5 border-white/10 text-white/40 hover:text-white/90 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]'}`}
           aria-label="Голосовое приветствие"
         >
           {isAudioPlaying ? (
@@ -1229,7 +1224,7 @@ const App = () => {
         </button>
 
         {/* ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКОВ */}
-        <div className="relative flex items-center p-1 h-10 rounded-full bg-white/5 backdrop-blur-md border border-white/10 shadow-[0_0_20px_rgba(0,0,0,0.3)]">
+        <div className="shrink-0 relative flex items-center p-1 h-10 rounded-full bg-white/5 backdrop-blur-md border border-white/10 shadow-[0_0_20px_rgba(0,0,0,0.3)]">
           <div 
             className="absolute top-1 bottom-1 w-[calc(33.333%-2.66px)] rounded-full bg-gradient-to-r from-rose-800 to-rose-600 border border-rose-400/50 shadow-[0_0_15px_rgba(225,29,72,0.5)] transition-all duration-300 ease-out"
             style={{
@@ -1267,7 +1262,7 @@ const App = () => {
             if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(15);
             setShowShare(true);
           }}
-          className="active:scale-90 rounded-full bg-white/5 backdrop-blur-md border border-white/10 text-white/40 hover:text-white/90 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-all duration-300 group touch-manipulation flex items-center justify-center w-10 h-10"
+          className="shrink-0 active:scale-90 rounded-full bg-white/5 backdrop-blur-md border border-white/10 text-white/40 hover:text-white/90 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-all duration-300 group touch-manipulation flex items-center justify-center w-10 h-10"
           aria-label="Поделиться"
         >
           <QrCode className="w-4 h-4 group-hover:scale-110 transition-transform" />
@@ -1281,7 +1276,7 @@ const App = () => {
             if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(15);
             handleDownloadVCard();
           }}
-          className="active:scale-90 rounded-full bg-white/5 backdrop-blur-md border border-white/10 text-white/40 hover:text-white/90 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-all duration-300 group touch-manipulation flex items-center justify-center w-10 h-10"
+          className="shrink-0 active:scale-90 rounded-full bg-white/5 backdrop-blur-md border border-white/10 text-white/40 hover:text-white/90 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-all duration-300 group touch-manipulation flex items-center justify-center w-10 h-10"
           aria-label="Сохранить контакт"
           title="Сохранить в контакты"
         >
