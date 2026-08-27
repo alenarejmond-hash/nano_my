@@ -73,11 +73,11 @@ const CONTENT = {
         desc: <>Разработка 100% уникального дизайна и кода с нуля под ваш бренд и статус.<br/><br/>• Кастомные 3D-эффекты, сложные анимации и редкие интерактивы<br/>• Индивидуальная структура под ваши бизнес-задачи<br/>• PWA-формат, персональный поддомен и хостинг навсегда<br/><br/>🎁 ПОДАРОК: Авторский NFC-брелок ручной работы из натуральной кожи Crazy Horse с тиснением ваших инициалов включен в стоимость!</>
       },
       catalog: {
-        title: 'КАТАЛОГ СТИЛЕЙ & NFC',
-        desc: 'Выберите дизайн вашей цифровой визитки и физический NFC-носитель',
+        title: 'Примеры работ',
+        desc: 'Посмотрите готовые дизайны визиток и как выглядит NFC-брелок вживую',
         items: [
-          { name: 'Glassmorphism Design', desc: 'Стильный дизайн со стеклянными панелями', url: 'https://nano.nice-app.ru/' },
-          { name: 'Dark Premium Design', desc: 'Строгий темный дизайн для бизнеса', url: '/promo.mp4' },
+          { name: 'Галерея дизайнов', desc: 'Посмотреть примеры готовых визиток', url: 'https://nano.nice-app.ru/' },
+          { name: 'NFC-брелок вживую', desc: 'Как выглядит и работает NFC-брелок', url: '/promo.mp4' },
         ]
       },
       reviewsTitle: 'Отзывы',
@@ -127,7 +127,7 @@ const CONTENT = {
     },
     leadMagnet: {
       title: 'SECRET OFFER',
-      description: <>You've found the secret tab! Click the button below to go to Telegram and instantly receive two bonuses:<br/><br/>• A 15% discount on any plan (Start, Plus, Premium)<br/>• Free embossing of your initials on a leather keychain</>,
+      description: <>You've found the secret tab! Click the button below to go to Telegram and instantly receive two bonuses:<br/><br/>• A 15% discount on any plan (Start, Plus, Premium)<br/>• Free embossing of your initials on the leather keychain (if included in your plan)</>,
       buttonText: 'GET PROMO CODE',
       promoCode: 'ELEN-TECH-15%',
       link: 'https://t.me/elenlime?text=Hi Elena! I have the promo code ELEN-TECH-15%. I want to discuss creating a digital business card.',
@@ -143,24 +143,24 @@ const CONTENT = {
     views: {
       profile: {
         title: 'My Philosophy',
-        desc: <>I create smart digital business cards that save to your smartphone screen as a fully-fledged PWA. Also, custom handmade NFC keychains from genuine leather.<br/><br/>Personal subdomain and hosting are already included.<br/><br/>Works without VPN, no extra app installation, and zero subscription fees forever.</>
+        desc: <>I create smart digital business cards that save to your smartphone screen as a fully-fledged PWA. I also make exclusive handmade NFC keychains from genuine leather.<br/><br/>A personal subdomain and hosting are already included.<br/><br/>Works without a VPN, requires no extra app installations, and has zero subscription fees forever.</>
       },
       standart: {
         title: 'STANDART Plan',
         price: '$59',
-        desc: <>Digital PWA business card based on a stylish template tailored to your niche.<br/><br/>• App icon on your smartphone screen<br/>• Personal subdomain and hosting already included<br/>• Instant 1-click contact saving and a stylish QR code<br/>• Works without VPN, no app installation, and no subscription fees forever.<br/><br/>Physical NFC carrier of your choice (when ordering):<br/>💳 + NFC card (plastic, minimalism): +$25<br/>🔑 + NFC keychain (handmade, Crazy Horse leather + embossing): +$80</>
+        desc: <>Digital PWA business card based on a stylish template tailored to your niche.<br/><br/>• App icon on your smartphone screen<br/>• Personal subdomain and hosting already included<br/>• Instant 1-click contact saving and a stylish QR code<br/>• Works without a VPN, requires no app installations, and has zero subscription fees forever.<br/><br/>Physical NFC carrier of your choice (when ordering):<br/>💳 + NFC card (plastic, minimalist): +$25<br/>🔑 + NFC keychain (handmade, Crazy Horse leather + embossing): +$80</>
       },
       vip: {
         title: 'PREMIUM Plan',
         price: 'from $260',
-        desc: <>100% unique design and code development from scratch for your brand and status.<br/><br/>• Custom 3D effects, complex animations, and rare interactives<br/>• Individual structure tailored to your business goals<br/>• PWA format, personal subdomain, and hosting forever<br/><br/>🎁 GIFT: A handmade author's NFC keychain made of genuine Crazy Horse leather with embossing of your initials is included in the price!</>
+        desc: <>100% unique design and code development from scratch to match your brand and status.<br/><br/>• Custom 3D effects, complex animations, and rare interactive elements<br/>• Tailored structure designed for your business goals<br/>• PWA format, personal subdomain, and hosting forever<br/><br/>🎁 GIFT: An exclusive handmade NFC keychain made of genuine Crazy Horse leather, embossed with your initials, is included in the price!</>
       },
       catalog: {
-        title: 'STYLE CATALOG & NFC',
-        desc: 'Choose the design of your digital business card and physical NFC media',
+        title: 'Portfolio',
+        desc: 'Check out ready-made business card designs and see how the NFC keychain looks in real life',
         items: [
-          { name: 'Glassmorphism Design', desc: 'Stylish design with glass panels', url: 'https://nano.nice-app.ru/' },
-          { name: 'Dark Premium Design', desc: 'Strict dark design for business', url: '/promo.mp4' },
+          { name: 'Design Gallery', desc: 'View examples of ready-made business cards', url: 'https://nano.nice-app.ru/' },
+          { name: 'NFC Keychain in Real Life', desc: 'How the NFC keychain looks and works', url: '/promo.mp4' },
         ]
       },
       reviewsTitle: 'Reviews',
@@ -210,7 +210,7 @@ const CONTENT = {
     },
     leadMagnet: {
       title: 'SECRET OFFER',
-      description: <>Դուք գտաք գաղտնի ներդիրը: Սեղմեք ստորև նշված կոճակը՝ Telegram անցնելու և միանգամից երկու բոնուս ստանալու համար՝<br/><br/>• 15% զեղչ ցանկացած տարիֆի համար (Start, Plus, Premium)<br/>• Ձեր անվանատառերի անվճար դրոշմում կաշվե կախազարդի վրա</>,
+      description: <>Դուք գտաք գաղտնի ներդիրը: Սեղմեք ստորև նշված կոճակը՝ Telegram անցնելու և միանգամից երկու բոնուս ստանալու համար՝<br/><br/>• 15% զեղչ ցանկացած տարիֆի համար (Start, Plus, Premium)<br/>• Ձեր անվանատառերի անվճար դրոշմում կաշվե կախազարդի վրա (եթե ներառված է տարիֆի մեջ)</>,
       buttonText: 'ՍՏԱՆԱԼ ՊՐՈՄՈԿՈԴԸ',
       promoCode: 'ELEN-TECH-15%',
       link: 'https://t.me/elenlime?text=Ողջույն Ելենա: Ես ունեմ ELEN-TECH-15% պրոմոկոդը: Ցանկանում եմ քննարկել թվային այցեքարտի ստեղծումը:',
@@ -231,19 +231,19 @@ const CONTENT = {
       standart: {
         title: 'STANDART Տարիֆ',
         price: '21 200 ֏',
-        desc: <>Թվային PWA-այցեքարտ ոճային ձևանմուշով ձեր ոլորտի համար:<br/><br/>• Հավելվածի պատկերակ սմարթֆոնի էկրանին<br/>• Անհատական ենթադոմենը և հոսթինգն արդեն ներառված են<br/>• Կոնտակտի ակնթարթային պահպանում 1 սեղմումով և ոճային QR-կոդ<br/>• Աշխատում է առանց VPN-ի, առանց ծրագրերի տեղադրման և առանց ամսավճարի ընդմիշտ:<br/><br/>Ֆիզիկական NFC-կրիչի ընտրություն (պատվիրելիս)՝<br/>💳 + NFC-քարտ (պլաստիկ, մինիմալիզմ)՝ + 9 600 ֏<br/>🔑 + NFC-կախազարդ (ձեռագործ, Crazy Horse կաշի + դրոշմում)՝ + 30 400 ֏</>
+        desc: <>Թվային PWA-այցեքարտ ոճային ձևանմուշով՝ հարմարեցված ձեր ոլորտին:<br/><br/>• Հավելվածի պատկերակ սմարթֆոնի էկրանին<br/>• Անհատական ենթադոմենը և հոսթինգն արդեն ներառված են<br/>• Կոնտակտի ակնթարթային պահպանում 1 սեղմումով և ոճային QR-կոդ<br/>• Աշխատում է առանց VPN-ի, առանց ծրագրերի տեղադրման և առանց ամսավճարի ընդմիշտ:<br/><br/>Ֆիզիկական NFC-կրիչի ընտրություն (պատվիրելիս)՝<br/>💳 + NFC-քարտ (պլաստիկ, մինիմալիզմ)՝ + 9 600 ֏<br/>🔑 + NFC-կախազարդ (ձեռագործ, Crazy Horse կաշի + դրոշմում)՝ + 30 400 ֏</>
       },
       vip: {
         title: 'PREMIUM Տարիֆ',
         price: 'սկսած 94 000 ֏',
-        desc: <>100% եզակի դիզայնի և կոդի մշակում զրոյից՝ ձեր բրենդի և կարգավիճակի համար:<br/><br/>• Պատվերով 3D-էֆեկտներ, բարդ անիմացիաներ և հազվագյուտ ինտերակտիվ տարրեր<br/>• Անհատական կառուցվածք ձեր բիզնես խնդիրների համար<br/>• PWA ձևաչափ, անհատական ենթադոմեն և հոսթինգ ընդմիշտ<br/><br/>🎁 ՆՎԵՐ՝ Հեղինակային ձեռագործ NFC-կախազարդ բնական Crazy Horse կաշվից՝ ձեր անվանատառերի դրոշմամբ ներառված է գնի մեջ:</>
+        desc: <>100% եզակի դիզայնի և կոդի մշակում զրոյից՝ ձեր բրենդի և կարգավիճակի համար:<br/><br/>• Պատվերով 3D-էֆեկտներ, բարդ անիմացիաներ և հազվագյուտ ինտերակտիվ տարրեր<br/>• Անհատական կառուցվածք ձեր բիզնես նպատակների համար<br/>• PWA ձևաչափ, անհատական ենթադոմեն և հոսթինգ ընդմիշտ<br/><br/>🎁 ՆՎԵՐ՝ Հեղինակային ձեռագործ NFC-կախազարդ բնական Crazy Horse կաշվից՝ ձեր անվանատառերի դրոշմամբ, ներառված է արժեքի մեջ:</>
       },
       catalog: {
-        title: 'ՈՃԵՐԻ ԿԱՏԱԼՈԳ & NFC',
-        desc: 'Ընտրեք ձեր թվային այցեքարտի դիզայնը և ֆիզիկական NFC կրիչը',
+        title: 'Աշխատանքների օրինակներ',
+        desc: 'Դիտեք այցեքարտերի պատրաստի դիզայնները և տեսեք, թե ինչպես է իրականում նայվում NFC-կախազարդը',
         items: [
-          { name: 'Glassmorphism Design', desc: 'Ոճային դիզայն ապակե վահանակներով', url: 'https://nano.nice-app.ru/' },
-          { name: 'Dark Premium Design', desc: 'Խիստ մուգ դիզայն բիզնեսի համար', url: '/promo.mp4' },
+          { name: 'Դիզայնների պատկերասրահ', desc: 'Դիտել պատրաստի այցեքարտերի օրինակներ', url: 'https://nano.nice-app.ru/' },
+          { name: 'NFC-կախազարդն իրականում', desc: 'Ինչ տեսք ունի և ինչպես է աշխատում NFC-կախազարդը', url: '/promo.mp4' },
         ]
       },
       reviewsTitle: 'Արձագանքներ',
@@ -267,9 +267,9 @@ const CONTENT = {
       installStep1_3: ' կոճակը բրաուզերի ընտրացանկում (սովորաբար ներքևում):',
       installStep2_1: 'Ընտրեք ',
       installStep2_2: '«Ավելացնել Գլխավոր էկրանին»',
-      installStep2_3: ' в появившемся списке.',
-      done: 'Готово',
-      saveContact: 'Сохранено с цифровой визитки'
+      installStep2_3: ' հայտնված ցանկում:',
+      done: 'Պատրաստ է',
+      saveContact: 'Պահպանված է թվային այցեքարտից'
     }
   },
 
