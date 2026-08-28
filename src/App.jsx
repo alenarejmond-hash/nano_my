@@ -50,7 +50,7 @@ const CONTENT = {
       link: 'https://t.me/elenlime?text=Елена, привет! У меня есть промокод ELEN-TECH-15%. Хочу обсудить создание цифровой визитки.',
     },
     contact: {
-      phone: '+37494262223',
+      phone: '+37494261123',
       whatsapp: '+79995051277',
       email: 'limetut@gmail.com',
       company: 'Premium Web',
