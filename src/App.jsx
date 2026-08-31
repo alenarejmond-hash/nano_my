@@ -52,7 +52,7 @@ const CONTENT = {
     contact: {
       phone: '+37494261123',
       whatsapp: '+79995051277',
-      email: 'limetut@gmail.com',
+      telegram: 'elenlime',
       company: 'Premium Web',
       title: 'Digital Creator & Developer',
       website: 'https://appsea.ru/'
@@ -135,7 +135,7 @@ const CONTENT = {
     contact: {
       phone: '+79995051277',
       whatsapp: '+79995051277',
-      email: 'limetut@gmail.com',
+      telegram: 'elenlime',
       company: 'Premium Web',
       title: 'Digital Creator & Developer',
       website: 'https://appsea.ru/'
@@ -218,7 +218,7 @@ const CONTENT = {
     contact: {
       phone: '+79995051277',
       whatsapp: '+79995051277',
-      email: 'limetut@gmail.com',
+      telegram: 'elenlime',
       company: 'Premium Web',
       title: 'Digital Creator & Developer',
       website: 'https://appsea.ru/'
@@ -1039,7 +1039,7 @@ const App = () => {
       `TITLE:${CONTENT[lang].contact.title}`,
       `TEL;TYPE=CELL:${CONTENT[lang].contact.phone}`,
       `TEL;TYPE=WHATSAPP:${CONTENT[lang].contact.whatsapp}`,
-      `EMAIL;TYPE=WORK:${CONTENT[lang].contact.email}`,
+      `URL;TYPE=Telegram:https://t.me/${CONTENT[lang].contact.telegram}`,
       `URL:${CONTENT[lang].contact.website}`,
       photoStr,
       `NOTE:${CONTENT[lang].ui.saveContact}`,
