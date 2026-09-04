@@ -76,7 +76,7 @@ const CONTENT = {
         title: 'Примеры работ',
         desc: 'Посмотрите готовые дизайны визиток и как выглядит NFC-брелок вживую',
         items: [
-          { name: 'Галерея дизайнов', desc: 'Посмотреть примеры готовых визиток', url: 'https://nano.nice-app.ru/' },
+          { name: 'Галерея дизайнов', desc: 'Посмотреть примеры готовых визиток', url: 'https://start.appsea.ru/' },
           { name: 'NFC-брелок вживую', desc: 'Как выглядит и работает NFC-брелок', url: '/promo.mp4' },
         ]
       },
@@ -159,7 +159,7 @@ const CONTENT = {
         title: 'Portfolio',
         desc: 'Check out ready-made business card designs and see how the NFC keychain looks in real life',
         items: [
-          { name: 'Design Gallery', desc: 'View examples of ready-made business cards', url: 'https://nano.nice-app.ru/' },
+          { name: 'Design Gallery', desc: 'View examples of ready-made business cards', url: 'https://start.appsea.ru/' },
           { name: 'NFC Keychain in Real Life', desc: 'How the NFC keychain looks and works', url: '/promo.mp4' },
         ]
       },
@@ -242,7 +242,7 @@ const CONTENT = {
         title: 'Աշխատանքների օրինակներ',
         desc: 'Դիտեք այցեքարտերի պատրաստի դիզայնները և տեսեք, թե ինչպես է իրականում նայվում NFC-կախազարդը',
         items: [
-          { name: 'Դիզայնների պատկերասրահ', desc: 'Դիտել պատրաստի այցեքարտերի օրինակներ', url: 'https://nano.nice-app.ru/' },
+          { name: 'Դիզայնների պատկերասրահ', desc: 'Դիտել պատրաստի այցեքարտերի օրինակներ', url: 'https://start.appsea.ru/' },
           { name: 'NFC-կախազարդն իրականում', desc: 'Ինչ տեսք ունի և ինչպես է աշխատում NFC-կախազարդը', url: '/promo.mp4' },
         ]
       },
@@ -542,7 +542,7 @@ const CreatorCard = ({ lang, onOpenIframe }) => {
   return (
     <>
       {/* ЛИЦЕВАЯ СТОРОНА */}
-      <div className="absolute inset-0 w-full h-full card-backface-hidden rounded-[2.5rem] shadow-[0_20px_50px_rgba(159,18,57,0.4)] overflow-hidden bg-[#0a0103] text-white flex flex-col p-6 group-hover:shadow-[0_20px_80px_rgba(159,18,57,0.6)] transition-shadow duration-700">
+      <div className="absolute inset-0 w-full h-full card-backface-hidden rounded-[2.5rem] shadow-[0_20px_50px_rgba(159,18,57,0.4)] overflow-hidden bg-[#0a0103] text-white flex flex-col p-[clamp(1rem,6cqw,1.5rem)] group-hover:shadow-[0_20px_80px_rgba(159,18,57,0.6)] transition-shadow duration-700">
         
         {/* === КРАСИВЫЙ ПРЕМИАЛЬНЫЙ ГРАДИЕНТ === */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#380e1b] via-[#0f0206] to-[#1f030e]"></div>
@@ -558,26 +558,26 @@ const CreatorCard = ({ lang, onOpenIframe }) => {
 
         <div className="relative z-10 flex flex-col h-full justify-between">
           <div className="flex justify-between items-start shrink-0">
-            <div className="bg-[#151515]/95 sm:bg-black/40 sm:backdrop-blur-md px-4 py-2 rounded-full border border-rose-900/50 flex items-center gap-2">
-              <Crown className="w-4 h-4 text-rose-400" />
-              <span className="text-xs font-serif tracking-widest uppercase text-rose-200/90">{CONTENT[lang].creator.badge}</span>
+            <div className="bg-[#151515]/95 sm:bg-black/40 sm:backdrop-blur-md px-[clamp(0.75rem,4cqw,1rem)] py-[clamp(0.375rem,2cqw,0.5rem)] rounded-full border border-rose-900/50 flex items-center gap-[clamp(0.375rem,2cqw,0.5rem)]">
+              <Crown className="w-[clamp(0.75rem,4cqw,1rem)] h-[clamp(0.75rem,4cqw,1rem)] text-rose-400" />
+              <span className="text-[clamp(0.6rem,3cqw,0.75rem)] font-serif tracking-widest uppercase text-rose-200/90">{CONTENT[lang].creator.badge}</span>
             </div>
-            <Code2 className="w-8 h-8 text-rose-300/60 drop-shadow-[0_0_10px_rgba(159,18,57,0.5)]" />
+            <Code2 className="w-[clamp(1.5rem,8cqw,2rem)] h-[clamp(1.5rem,8cqw,2rem)] text-rose-300/60 drop-shadow-[0_0_10px_rgba(159,18,57,0.5)]" />
           </div>
 
-          <div className="text-center pb-2 shrink-0">
-            <h2 className={`text-[clamp(1.5rem,6vw,2.25rem)] leading-tight font-serif mb-2 uppercase tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-rose-100 via-white to-rose-200 drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]`}>
+          <div className="text-center pb-[clamp(0.375rem,2cqw,0.5rem)] shrink-0">
+            <h2 className={`text-[clamp(1.25rem,8cqw,2.25rem)] leading-tight font-serif mb-[clamp(0.375rem,2cqw,0.5rem)] uppercase tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-rose-100 via-white to-rose-200 drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]`}>
               {hackerName1}
               <br />
               {hackerName2}
             </h2>
-            <div className="flex flex-col items-center gap-3 mt-3">
-              <p className="font-serif text-[clamp(10px,2.5vw,12px)] text-rose-100/70 italic tracking-wider max-w-[85%] mx-auto">
+            <div className="flex flex-col items-center gap-[clamp(0.5rem,3cqw,0.75rem)] mt-[clamp(0.5rem,3cqw,0.75rem)]">
+              <p className="font-serif text-[clamp(0.625rem,3cqw,0.75rem)] text-rose-100/70 italic tracking-wider max-w-[85%] mx-auto">
                 "{CONTENT[lang].creator.quote1} {CONTENT[lang].creator.quote2}"
               </p>
-              <div className="flex items-center gap-1.5 bg-black/50 px-3 py-1.5 rounded-full border border-rose-900/50 mt-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse shadow-[0_0_8px_rgba(225,29,72,0.8)]"></span>
-                <span className="text-[9px] font-bold uppercase tracking-widest text-rose-200">{CONTENT[lang].creator.status}</span>
+              <div className="flex items-center gap-[clamp(0.25rem,1.5cqw,0.375rem)] bg-black/50 px-[clamp(0.5rem,3cqw,0.75rem)] py-[clamp(0.25rem,1.5cqw,0.375rem)] rounded-full border border-rose-900/50 mt-[clamp(0.125rem,1cqw,0.25rem)]">
+                <span className="w-[clamp(0.25rem,1.5cqw,0.375rem)] h-[clamp(0.25rem,1.5cqw,0.375rem)] rounded-full bg-rose-500 animate-pulse shadow-[0_0_8px_rgba(225,29,72,0.8)]"></span>
+                <span className="text-[clamp(0.5rem,2cqw,0.5625rem)] font-bold uppercase tracking-widest text-rose-200">{CONTENT[lang].creator.status}</span>
               </div>
             </div>
           </div>
@@ -585,7 +585,7 @@ const CreatorCard = ({ lang, onOpenIframe }) => {
       </div>
 
       {/* ОБРАТНАЯ СТОРОНА (GlassOS / Vertical Left Dock) */}
-      <div className="absolute inset-0 w-full h-full card-backface-hidden rounded-[2.5rem] shadow-[0_20px_50px_rgba(159,18,57,0.4)] overflow-hidden bg-[#0a0205] flex flex-row p-4 gap-4 text-white border border-rose-900/40" style={{ transform: 'rotateY(180deg) translateZ(0)' }}>
+      <div className="absolute inset-0 w-full h-full card-backface-hidden rounded-[2.5rem] shadow-[0_20px_50px_rgba(159,18,57,0.4)] overflow-hidden bg-[#0a0205] flex flex-row p-[clamp(0.75rem,4cqw,1rem)] gap-[clamp(0.75rem,4cqw,1rem)] text-white border border-rose-900/40" style={{ transform: 'rotateY(180deg) translateZ(0)' }}>
         
         {/* ФОН */}
         <div className="absolute -top-[20%] -left-[20%] w-[160%] aspect-square rounded-full border border-rose-500/10 border-dashed pointer-events-none" style={{ animation: 'esoteric-slow-drift-1 90s linear infinite', transformOrigin: '45% 55%' }}></div>
@@ -595,13 +595,13 @@ const CreatorCard = ({ lang, onOpenIframe }) => {
 
         {/* === ЛЕВАЯ ПАНЕЛЬ (DOCK) === */}
         <div 
-          className="relative z-50 flex flex-col items-center justify-between bg-[#0a0205] sm:bg-[#0a0205]/80 sm:backdrop-blur-xl py-4 px-2 rounded-[2rem] border border-rose-900/50 shadow-[0_10px_40px_rgba(159,18,57,0.3)] w-[3.5rem] shrink-0 no-tilt cursor-default"
+          className="relative z-50 flex flex-col items-center justify-between bg-[#0a0205] sm:bg-[#0a0205]/80 sm:backdrop-blur-xl py-[clamp(0.75rem,4cqw,1rem)] px-[clamp(0.375rem,2cqw,0.5rem)] rounded-[2rem] border border-rose-900/50 shadow-[0_10px_40px_rgba(159,18,57,0.3)] w-[clamp(2.5rem,12cqw,3.5rem)] shrink-0 no-tilt cursor-default"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Световой шар */}
-          <div className="absolute left-1/2 -translate-x-1/2 w-6 h-6 bg-rose-500/30 rounded-full blur-[6px] shadow-[0_0_15px_rgba(225,29,72,0.5)] pointer-events-none z-0" style={{ animation: 'scan-vertical 4s ease-in-out infinite' }}></div>
+          <div className="absolute left-1/2 -translate-x-1/2 w-[clamp(1.25rem,6cqw,1.5rem)] h-[clamp(1.25rem,6cqw,1.5rem)] bg-rose-500/30 rounded-full blur-[6px] shadow-[0_0_15px_rgba(225,29,72,0.5)] pointer-events-none z-0" style={{ animation: 'scan-vertical 4s ease-in-out infinite' }}></div>
 
-          <div className="flex flex-col gap-2.5 w-full items-center relative z-10 shrink-0">
+          <div className="flex flex-col gap-[clamp(0.5rem,2.5cqw,0.625rem)] w-full items-center relative z-10 shrink-0">
             {[
               { id: 'profile', icon: UserCircle2 },
               { id: 'standart', icon: Diamond },
@@ -611,20 +611,20 @@ const CreatorCard = ({ lang, onOpenIframe }) => {
               <button 
                 key={item.id}
                 onClick={() => setView(item.id)}
-                className={`relative p-2.5 rounded-full transition-all duration-300 flex items-center justify-center w-full ${item.highlight ? 'mt-2 border border-rose-500/50 bg-rose-900/20 shadow-[0_0_10px_rgba(225,29,72,0.3)] animate-pulse' : ''} ${view === item.id ? 'bg-gradient-to-br from-rose-700 to-rose-400 text-white shadow-[0_0_15px_rgba(225,29,72,0.5)] scale-110' : 'text-rose-400/60 hover:text-rose-200 hover:bg-rose-900/40'}`}
+                className={`relative p-[clamp(0.5rem,2.5cqw,0.625rem)] rounded-full transition-all duration-300 flex items-center justify-center w-full ${item.highlight ? 'mt-[clamp(0.375rem,2cqw,0.5rem)] border border-rose-500/50 bg-rose-900/20 shadow-[0_0_10px_rgba(225,29,72,0.3)] animate-pulse' : ''} ${view === item.id ? 'bg-gradient-to-br from-rose-700 to-rose-400 text-white shadow-[0_0_15px_rgba(225,29,72,0.5)] scale-110' : 'text-rose-400/60 hover:text-rose-200 hover:bg-rose-900/40'}`}
               >
-                <item.icon className="w-4 h-4" />
+                <item.icon className="w-[clamp(0.75rem,4cqw,1rem)] h-[clamp(0.75rem,4cqw,1rem)]" />
               </button>
             ))}
           </div>
           
-          <div className="w-full flex flex-col items-center gap-2 relative z-10 mt-1 shrink-0">
-            <div className="w-5 h-[1px] bg-rose-900/60"></div>
+          <div className="w-full flex flex-col items-center gap-[clamp(0.375rem,2cqw,0.5rem)] relative z-10 mt-[clamp(0.125rem,1cqw,0.25rem)] shrink-0">
+            <div className="w-[clamp(1rem,5cqw,1.25rem)] h-[1px] bg-rose-900/60"></div>
             <button 
               onClick={() => setView('reviews')}
-              className={`p-2.5 w-full rounded-full transition-all duration-300 flex items-center justify-center ${view === 'reviews' ? 'bg-rose-600 text-white shadow-[0_0_15px_rgba(225,29,72,0.6)] scale-110' : 'text-rose-400/60 hover:text-rose-200 hover:bg-rose-900/40'}`}
+              className={`p-[clamp(0.5rem,2.5cqw,0.625rem)] w-full rounded-full transition-all duration-300 flex items-center justify-center ${view === 'reviews' ? 'bg-rose-600 text-white shadow-[0_0_15px_rgba(225,29,72,0.6)] scale-110' : 'text-rose-400/60 hover:text-rose-200 hover:bg-rose-900/40'}`}
             >
-              <Star className="w-4 h-4" />
+              <Star className="w-[clamp(0.75rem,4cqw,1rem)] h-[clamp(0.75rem,4cqw,1rem)]" />
             </button>
           </div>
         </div>
@@ -634,78 +634,78 @@ const CreatorCard = ({ lang, onOpenIframe }) => {
           <div className="relative flex-1 w-full overflow-hidden">
 
             {/* 1. ФИЛОСОФИЯ */}
-            <div className={`absolute inset-0 flex flex-col pt-1 transition-all duration-500 ease-in-out ${view === 'profile' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
-              <div className="w-10 h-10 rounded-full bg-rose-900/30 border border-rose-500/30 flex items-center justify-center mb-3 shrink-0 shadow-[0_0_15px_rgba(159,18,57,0.2)]">
-                <UserCircle2 className="w-5 h-5 text-rose-300" />
+            <div className={`absolute inset-0 flex flex-col pt-[clamp(0.125rem,1cqw,0.25rem)] transition-all duration-500 ease-in-out ${view === 'profile' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
+              <div className="w-[clamp(2rem,8cqw,2.5rem)] h-[clamp(2rem,8cqw,2.5rem)] rounded-full bg-rose-900/30 border border-rose-500/30 flex items-center justify-center mb-[clamp(0.5rem,3cqw,0.75rem)] shrink-0 shadow-[0_0_15px_rgba(159,18,57,0.2)]">
+                <UserCircle2 className="w-[clamp(1rem,4cqw,1.25rem)] h-[clamp(1rem,4cqw,1.25rem)] text-rose-300" />
               </div>
-              <h3 className="text-[clamp(1.125rem,4vw,1.25rem)] font-serif font-light text-rose-100 tracking-wider mb-2 shrink-0">{CONTENT[lang].views.profile.title}</h3>
+              <h3 className="text-[clamp(1rem,6cqw,1.25rem)] font-serif font-light text-rose-100 tracking-wider mb-[clamp(0.375rem,2cqw,0.5rem)] shrink-0">{CONTENT[lang].views.profile.title}</h3>
               
-              <div className="flex-1 overflow-y-auto hide-scrollbar mask-image-bottom pb-10 pr-1 no-tilt touch-pan-y overscroll-contain">
-                <p className="font-serif text-[clamp(10px,2.5vw,11px)] text-rose-100/80 leading-relaxed bg-[#151515]/95 sm:bg-black/40 sm:backdrop-blur-sm p-3.5 rounded-2xl border border-rose-900/50 shadow-inner">
+              <div className="flex-1 overflow-y-auto hide-scrollbar mask-image-bottom pb-[clamp(1.5rem,8cqw,2.5rem)] pr-[clamp(0.125rem,1cqw,0.25rem)] no-tilt touch-pan-y overscroll-contain">
+                <p className="font-serif text-[clamp(0.6rem,3cqw,0.6875rem)] text-rose-100/80 leading-relaxed bg-[#151515]/95 sm:bg-black/40 sm:backdrop-blur-sm p-[clamp(0.75rem,4cqw,0.875rem)] rounded-2xl border border-rose-900/50 shadow-inner">
                   {CONTENT[lang].views.profile.desc}
                 </p>
               </div>
             </div>
 
             {/* 2. ТАРИФ STANDART */}
-            <div className={`absolute inset-0 flex flex-col pt-1 transition-all duration-500 ease-in-out ${view === 'standart' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
-              <div className="flex items-center justify-between mb-3 shrink-0">
-                <div className="w-10 h-10 rounded-full bg-rose-900/30 border border-rose-500/30 flex items-center justify-center shadow-[0_0_15px_rgba(159,18,57,0.2)]">
-                  <Diamond className="w-5 h-5 text-rose-300" />
+            <div className={`absolute inset-0 flex flex-col pt-[clamp(0.125rem,1cqw,0.25rem)] transition-all duration-500 ease-in-out ${view === 'standart' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
+              <div className="flex items-center justify-between mb-[clamp(0.5rem,3cqw,0.75rem)] shrink-0">
+                <div className="w-[clamp(2rem,8cqw,2.5rem)] h-[clamp(2rem,8cqw,2.5rem)] rounded-full bg-rose-900/30 border border-rose-500/30 flex items-center justify-center shadow-[0_0_15px_rgba(159,18,57,0.2)]">
+                  <Diamond className="w-[clamp(1rem,4cqw,1.25rem)] h-[clamp(1rem,4cqw,1.25rem)] text-rose-300" />
                 </div>
-                <div className="bg-rose-500/20 border border-rose-400/30 px-2.5 py-1 rounded-full flex items-center justify-center whitespace-nowrap shadow-[0_0_15px_rgba(225,29,72,0.2)]">
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-rose-200">{lang === 'ru' ? 'Цена:' : lang === 'en' ? 'Price:' : 'Գինը:'} {CONTENT[lang].views.standart.price}</span>
+                <div className="bg-rose-500/20 border border-rose-400/30 px-[clamp(0.5rem,3cqw,0.625rem)] py-[clamp(0.2rem,1.5cqw,0.25rem)] rounded-full flex items-center justify-center whitespace-nowrap shadow-[0_0_15px_rgba(225,29,72,0.2)]">
+                  <span className="text-[clamp(0.55rem,2.5cqw,0.625rem)] font-bold uppercase tracking-widest text-rose-200">{lang === 'ru' ? 'Цена:' : lang === 'en' ? 'Price:' : 'Գինը:'} {CONTENT[lang].views.standart.price}</span>
                 </div>
               </div>
-              <h3 className="text-[clamp(1.125rem,4vw,1.25rem)] font-serif font-light text-rose-100 tracking-wider mb-2 shrink-0">{CONTENT[lang].views.standart.title}</h3>
+              <h3 className="text-[clamp(1rem,6cqw,1.25rem)] font-serif font-light text-rose-100 tracking-wider mb-[clamp(0.375rem,2cqw,0.5rem)] shrink-0">{CONTENT[lang].views.standart.title}</h3>
               
-              <div className="flex-1 overflow-y-auto hide-scrollbar mask-image-bottom pb-10 pr-1 no-tilt touch-pan-y overscroll-contain">
-                <p className="font-serif text-[clamp(10px,2.5vw,11px)] text-rose-100/80 leading-relaxed bg-[#151515]/95 sm:bg-black/40 sm:backdrop-blur-sm p-3.5 rounded-2xl border border-rose-900/50 shadow-inner block shrink-0">
+              <div className="flex-1 overflow-y-auto hide-scrollbar mask-image-bottom pb-[clamp(1.5rem,8cqw,2.5rem)] pr-[clamp(0.125rem,1cqw,0.25rem)] no-tilt touch-pan-y overscroll-contain">
+                <p className="font-serif text-[clamp(0.6rem,3cqw,0.6875rem)] text-rose-100/80 leading-relaxed bg-[#151515]/95 sm:bg-black/40 sm:backdrop-blur-sm p-[clamp(0.75rem,4cqw,0.875rem)] rounded-2xl border border-rose-900/50 shadow-inner block shrink-0">
                   {CONTENT[lang].views.standart.desc}
                 </p>
               </div>
             </div>
 
             {/* 3. ТАРИФ VIP */}
-            <div className={`absolute inset-0 flex flex-col pt-1 transition-all duration-500 ease-in-out ${view === 'vip' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
-              <div className="flex items-center justify-between mb-3 shrink-0">
-                <div className="w-10 h-10 rounded-full bg-rose-900/30 border border-rose-500/30 flex items-center justify-center shadow-[0_0_15px_rgba(159,18,57,0.2)]">
-                  <Crown className="w-5 h-5 text-rose-300" />
+            <div className={`absolute inset-0 flex flex-col pt-[clamp(0.125rem,1cqw,0.25rem)] transition-all duration-500 ease-in-out ${view === 'vip' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
+              <div className="flex items-center justify-between mb-[clamp(0.5rem,3cqw,0.75rem)] shrink-0">
+                <div className="w-[clamp(2rem,8cqw,2.5rem)] h-[clamp(2rem,8cqw,2.5rem)] rounded-full bg-rose-900/30 border border-rose-500/30 flex items-center justify-center shadow-[0_0_15px_rgba(159,18,57,0.2)]">
+                  <Crown className="w-[clamp(1rem,4cqw,1.25rem)] h-[clamp(1rem,4cqw,1.25rem)] text-rose-300" />
                 </div>
-                <div className="bg-rose-500/20 border border-rose-400/30 px-2.5 py-1 rounded-full flex items-center justify-center whitespace-nowrap shadow-[0_0_15px_rgba(225,29,72,0.2)]">
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-rose-200">{lang === 'ru' ? 'Цена:' : lang === 'en' ? 'Price:' : 'Գինը:'} {CONTENT[lang].views.vip.price}</span>
+                <div className="bg-rose-500/20 border border-rose-400/30 px-[clamp(0.5rem,3cqw,0.625rem)] py-[clamp(0.2rem,1.5cqw,0.25rem)] rounded-full flex items-center justify-center whitespace-nowrap shadow-[0_0_15px_rgba(225,29,72,0.2)]">
+                  <span className="text-[clamp(0.55rem,2.5cqw,0.625rem)] font-bold uppercase tracking-widest text-rose-200">{lang === 'ru' ? 'Цена:' : lang === 'en' ? 'Price:' : 'Գինը:'} {CONTENT[lang].views.vip.price}</span>
                 </div>
               </div>
-              <h3 className="text-[clamp(1.125rem,4vw,1.25rem)] font-serif font-light text-rose-100 tracking-wider mb-2 shrink-0">{CONTENT[lang].views.vip.title}</h3>
+              <h3 className="text-[clamp(1rem,6cqw,1.25rem)] font-serif font-light text-rose-100 tracking-wider mb-[clamp(0.375rem,2cqw,0.5rem)] shrink-0">{CONTENT[lang].views.vip.title}</h3>
               
-              <div className="flex-1 overflow-y-auto hide-scrollbar mask-image-bottom pb-10 pr-1 no-tilt touch-pan-y overscroll-contain">
-                <p className="font-serif text-[clamp(10px,2.5vw,11px)] text-rose-100/80 leading-relaxed bg-[#151515]/95 sm:bg-black/40 sm:backdrop-blur-sm p-3.5 rounded-2xl border border-rose-900/50 shadow-inner block shrink-0">
+              <div className="flex-1 overflow-y-auto hide-scrollbar mask-image-bottom pb-[clamp(1.5rem,8cqw,2.5rem)] pr-[clamp(0.125rem,1cqw,0.25rem)] no-tilt touch-pan-y overscroll-contain">
+                <p className="font-serif text-[clamp(0.6rem,3cqw,0.6875rem)] text-rose-100/80 leading-relaxed bg-[#151515]/95 sm:bg-black/40 sm:backdrop-blur-sm p-[clamp(0.75rem,4cqw,0.875rem)] rounded-2xl border border-rose-900/50 shadow-inner block shrink-0">
                   {CONTENT[lang].views.vip.desc}
                 </p>
               </div>
             </div>
 
             {/* 4. КАТАЛОГ СТИЛЕЙ & NFC */}
-            <div className={`absolute inset-0 flex flex-col pt-1 transition-all duration-500 ease-in-out ${view === 'catalog' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
-              <div className="w-10 h-10 rounded-full bg-rose-900/30 border border-rose-500/30 flex items-center justify-center mb-3 shrink-0 shadow-[0_0_15px_rgba(159,18,57,0.2)]">
-                <Smartphone className="w-5 h-5 text-rose-300" />
+            <div className={`absolute inset-0 flex flex-col pt-[clamp(0.125rem,1cqw,0.25rem)] transition-all duration-500 ease-in-out ${view === 'catalog' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
+              <div className="w-[clamp(2rem,8cqw,2.5rem)] h-[clamp(2rem,8cqw,2.5rem)] rounded-full bg-rose-900/30 border border-rose-500/30 flex items-center justify-center mb-[clamp(0.5rem,3cqw,0.75rem)] shrink-0 shadow-[0_0_15px_rgba(159,18,57,0.2)]">
+                <Smartphone className="w-[clamp(1rem,4cqw,1.25rem)] h-[clamp(1rem,4cqw,1.25rem)] text-rose-300" />
               </div>
-              <h3 className="text-[clamp(1.125rem,4vw,1.25rem)] font-serif font-light text-rose-100 tracking-wider mb-2 shrink-0">{CONTENT[lang].views.catalog.title}</h3>
-              <p className="font-serif text-[clamp(10px,2vw,11px)] text-rose-100/70 mb-3 shrink-0 px-1">{CONTENT[lang].views.catalog.desc}</p>
+              <h3 className="text-[clamp(1rem,6cqw,1.25rem)] font-serif font-light text-rose-100 tracking-wider mb-[clamp(0.375rem,2cqw,0.5rem)] shrink-0">{CONTENT[lang].views.catalog.title}</h3>
+              <p className="font-serif text-[clamp(0.6rem,3cqw,0.6875rem)] text-rose-100/70 mb-[clamp(0.5rem,3cqw,0.75rem)] shrink-0 px-[clamp(0.125rem,1cqw,0.25rem)]">{CONTENT[lang].views.catalog.desc}</p>
               
-              <div className="flex-1 overflow-y-auto hide-scrollbar mask-image-bottom pb-10 pr-1 flex flex-col gap-3 no-tilt touch-pan-y overscroll-contain">
+              <div className="flex-1 overflow-y-auto hide-scrollbar mask-image-bottom pb-[clamp(1.5rem,8cqw,2.5rem)] pr-[clamp(0.125rem,1cqw,0.25rem)] flex flex-col gap-[clamp(0.5rem,3cqw,0.75rem)] no-tilt touch-pan-y overscroll-contain">
                 {CONTENT[lang].views.catalog.items.map((item, idx) => (
                   <div 
                     key={idx}
                     onClick={(e) => { e.stopPropagation(); onOpenIframe(item.url); }}
-                    className="bg-[#151515]/95 sm:bg-black/40 sm:backdrop-blur-sm p-3 rounded-2xl border border-rose-900/50 shadow-inner flex justify-between items-center cursor-pointer hover:bg-rose-900/20 hover:border-rose-500/50 transition-all group shrink-0"
+                    className="bg-[#151515]/95 sm:bg-black/40 sm:backdrop-blur-sm p-[clamp(0.625rem,3cqw,0.75rem)] rounded-2xl border border-rose-900/50 shadow-inner flex justify-between items-center cursor-pointer hover:bg-rose-900/20 hover:border-rose-500/50 transition-all group shrink-0"
                   >
                     <div>
-                      <div className="text-rose-200 text-[clamp(10px,2.5vw,12px)] font-bold mb-1">{item.name}</div>
-                      <div className="text-rose-100/60 text-[clamp(9px,2vw,10px)]">{item.desc}</div>
+                      <div className="text-rose-200 text-[clamp(0.6rem,3cqw,0.75rem)] font-bold mb-[clamp(0.125rem,1cqw,0.25rem)]">{item.name}</div>
+                      <div className="text-rose-100/60 text-[clamp(0.5rem,2.5cqw,0.625rem)]">{item.desc}</div>
                     </div>
-                    <div className="w-8 h-8 rounded-full bg-rose-900/40 border border-rose-500/30 flex items-center justify-center group-hover:scale-110 transition-transform shadow-[0_0_10px_rgba(159,18,57,0.2)] shrink-0 ml-2">
-                      <Play className="w-3 h-3 text-rose-300 ml-0.5" />
+                    <div className="w-[clamp(1.5rem,6cqw,2rem)] h-[clamp(1.5rem,6cqw,2rem)] rounded-full bg-rose-900/40 border border-rose-500/30 flex items-center justify-center group-hover:scale-110 transition-transform shadow-[0_0_10px_rgba(159,18,57,0.2)] shrink-0 ml-[clamp(0.25rem,2cqw,0.5rem)]">
+                      <Play className="w-[clamp(0.6rem,3cqw,0.75rem)] h-[clamp(0.6rem,3cqw,0.75rem)] text-rose-300 ml-[clamp(0.0625rem,0.5cqw,0.125rem)]" />
                     </div>
                   </div>
                 ))}
@@ -713,31 +713,31 @@ const CreatorCard = ({ lang, onOpenIframe }) => {
             </div>
 
             {/* 7. ОТЗЫВЫ */}
-            <div className={`absolute inset-0 flex flex-col pt-1 transition-all duration-500 ease-in-out ${view === 'reviews' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
-              <div className="flex items-center gap-3 mb-3 shrink-0">
-                <div className="w-8 h-8 rounded-full bg-rose-900/30 border border-rose-500/30 flex items-center justify-center shadow-[0_0_15px_rgba(159,18,57,0.2)]">
-                  <Star className="w-4 h-4 text-rose-300" />
+            <div className={`absolute inset-0 flex flex-col pt-[clamp(0.125rem,1cqw,0.25rem)] transition-all duration-500 ease-in-out ${view === 'reviews' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
+              <div className="flex items-center gap-[clamp(0.5rem,3cqw,0.75rem)] mb-[clamp(0.5rem,3cqw,0.75rem)] shrink-0">
+                <div className="w-[clamp(1.5rem,6cqw,2rem)] h-[clamp(1.5rem,6cqw,2rem)] rounded-full bg-rose-900/30 border border-rose-500/30 flex items-center justify-center shadow-[0_0_15px_rgba(159,18,57,0.2)]">
+                  <Star className="w-[clamp(0.75rem,4cqw,1rem)] h-[clamp(0.75rem,4cqw,1rem)] text-rose-300" />
                 </div>
-                <h3 className="text-[clamp(1rem,4vw,1.125rem)] font-serif font-light text-rose-100 tracking-wider">{CONTENT[lang].views.reviewsTitle}</h3>
+                <h3 className="text-[clamp(0.875rem,5cqw,1.125rem)] font-serif font-light text-rose-100 tracking-wider">{CONTENT[lang].views.reviewsTitle}</h3>
               </div>
               
-              <div className="flex-1 overflow-y-auto hide-scrollbar flex flex-col gap-2.5 pb-10 pr-1 mask-image-bottom no-tilt touch-pan-y overscroll-contain">
+              <div className="flex-1 overflow-y-auto hide-scrollbar flex flex-col gap-[clamp(0.5rem,2.5cqw,0.625rem)] pb-[clamp(1.5rem,8cqw,2.5rem)] pr-[clamp(0.125rem,1cqw,0.25rem)] mask-image-bottom no-tilt touch-pan-y overscroll-contain">
                 
                 {/* Отзывы */}
                 {CONTENT[lang].views.reviews.map((rev, idx) => (
-                  <div key={idx} className="bg-[#151515]/95 sm:bg-black/40 sm:backdrop-blur-sm p-3 rounded-2xl border border-rose-900/50 shadow-inner relative shrink-0 block">
-                    <div className="flex justify-between items-center mb-1.5 px-1">
-                      <div className="flex items-center gap-2">
-                        <span className="text-[10px] text-rose-200/90 font-medium">{rev.name}</span>
-                        {rev.date && <span className="text-[8px] text-rose-500/60">{rev.date}</span>}
+                  <div key={idx} className="bg-[#151515]/95 sm:bg-black/40 sm:backdrop-blur-sm p-[clamp(0.625rem,3cqw,0.75rem)] rounded-2xl border border-rose-900/50 shadow-inner relative shrink-0 block">
+                    <div className="flex justify-between items-center mb-[clamp(0.25rem,1.5cqw,0.375rem)] px-[clamp(0.125rem,1cqw,0.25rem)]">
+                      <div className="flex items-center gap-[clamp(0.25rem,2cqw,0.5rem)]">
+                        <span className="text-[clamp(0.55rem,2.5cqw,0.625rem)] text-rose-200/90 font-medium">{rev.name}</span>
+                        {rev.date && <span className="text-[clamp(0.45rem,2cqw,0.5rem)] text-rose-500/60">{rev.date}</span>}
                       </div>
-                      <div className="flex gap-0.5 shrink-0">
+                      <div className="flex gap-[clamp(0.0625rem,0.5cqw,0.125rem)] shrink-0">
                         {[...Array(5)].map((_, i) => (
-                          <Star key={i} className="w-2.5 h-2.5 fill-rose-400 text-rose-400" />
+                          <Star key={i} className="w-[clamp(0.5rem,2.5cqw,0.625rem)] h-[clamp(0.5rem,2.5cqw,0.625rem)] fill-rose-400 text-rose-400" />
                         ))}
                       </div>
                     </div>
-                    <p className="font-serif text-[clamp(10px,2vw,11px)] text-rose-100/80 leading-relaxed italic px-1">
+                    <p className="font-serif text-[clamp(0.6rem,3cqw,0.6875rem)] text-rose-100/80 leading-relaxed italic px-[clamp(0.125rem,1cqw,0.25rem)]">
                       {rev.text}
                     </p>
                   </div>
@@ -750,11 +750,11 @@ const CreatorCard = ({ lang, onOpenIframe }) => {
 
           {/* Кнопка записи (Главная кнопка) */}
           <div 
-            className="mt-2 sm:mt-3 w-full no-tilt cursor-default relative z-20 flex flex-col gap-2 shrink-0"
+            className="mt-[clamp(0.5rem,3cqw,0.75rem)] w-full no-tilt cursor-default relative z-20 flex flex-col gap-[clamp(0.375rem,2cqw,0.5rem)] shrink-0"
             onClick={(e) => e.stopPropagation()}
           >
-            <a href={CONTENT[lang].creator.actionLink} className="w-full bg-gradient-to-r from-[#380e1b] to-black sm:backdrop-blur-md text-rose-100 font-serif text-[clamp(10px,2.5vw,11px)] uppercase tracking-[0.15em] py-3.5 sm:py-4 rounded-2xl flex items-center justify-center gap-2 hover:from-[#4a1223] transition-all shadow-[0_0_25px_rgba(159,18,57,0.3)] border border-rose-800/50 group active:scale-95 shrink-0">
-              <Crown className="w-4 h-4 text-rose-400 group-hover:scale-110 transition-transform shrink-0" />
+            <a href={CONTENT[lang].creator.actionLink} className="w-full bg-gradient-to-r from-[#380e1b] to-black sm:backdrop-blur-md text-rose-100 font-serif text-[clamp(0.6rem,3cqw,0.6875rem)] uppercase tracking-[0.15em] py-[clamp(0.75rem,4cqw,1rem)] rounded-2xl flex items-center justify-center gap-[clamp(0.375rem,2cqw,0.5rem)] hover:from-[#4a1223] transition-all shadow-[0_0_25px_rgba(159,18,57,0.3)] border border-rose-800/50 group active:scale-95 shrink-0">
+              <Crown className="w-[clamp(0.75rem,4cqw,1rem)] h-[clamp(0.75rem,4cqw,1rem)] text-rose-400 group-hover:scale-110 transition-transform shrink-0" />
               {CONTENT[lang].creator.actionText} →
             </a>
           </div>
@@ -1113,11 +1113,11 @@ const App = () => {
       ></div>
 
       {/* КОНТЕЙНЕР ВИЗИТКИ */}
-      <div className="w-full flex justify-center relative z-40 items-center">
+      <div className="flex-1 w-full flex items-center justify-center min-h-0 relative z-40">
         <div 
           ref={cardRef}
-          className="relative z-10 w-full aspect-[10/16] sm:aspect-[10/15] cursor-pointer group animate-float touch-none mx-auto"
-          style={{ perspective: '1500px', maxWidth: 'min(22rem, 85vw, 55dvh)' }}
+          className="relative z-10 w-full aspect-[10/16] sm:aspect-[10/15] cursor-pointer group animate-float touch-none mx-auto @container"
+          style={{ perspective: '1500px', maxWidth: 'min(26rem, 94vw, 52dvh)' }}
           onClick={handleFlip}
           onMouseMove={handlePointerMove}
           onMouseLeave={handlePointerLeave}
