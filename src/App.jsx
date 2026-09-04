@@ -3,7 +3,7 @@ import {
   Globe, Star, UserCircle2, Diamond, Crown,
   QrCode, Share2, Copy, X, Check,
   Rocket, Code2, Play, PlusSquare, UserPlus, Gift,
-  Smartphone, CreditCard
+  Smartphone, CreditCard, Key, Sparkles
 } from 'lucide-react';
 
 // Компонент QR-кода
@@ -60,7 +60,15 @@ const CONTENT = {
     views: {
       profile: {
         title: 'Моя философия',
-        desc: <>Создаю умные цифровые визитки, которые сохраняются на экран смартфона как полноценное PWA-приложение. А также авторские NFC-брелоки из натуральной кожи ручной работы.<br/><br/>Персональный поддомен и хостинг уже включены.<br/><br/>Работает без VPN, без установки лишнего софта и без абонентской платы навсегда. </>
+        desc: <>Создаю умные цифровые визитки, которые сохраняются на экран смартфона как полноценное PWA-приложение. А также авторские NFC-брелоки из натуральной кожи ручной работы.</>,
+        features: [
+          { icon: 'Crown', title: 'WOW-Эффект', desc: 'ЗАПОМИНАЕШЬСЯ СРАЗУ' },
+          { icon: 'CreditCard', title: 'Разовая оплата', desc: 'БЕЗ АБОНЕНТСКОЙ ПЛАТЫ' },
+          { icon: 'Globe', title: 'Личный домен', desc: 'ИМЯ.APPSEA.RU' },
+          { icon: 'Key', title: 'Без VPN', desc: 'РАБОТАЕТ ВСЕГДА' },
+          { icon: 'Sparkles', title: 'Удобство', desc: 'КОНТАКТЫ В 1 КЛИК' },
+          { icon: 'Diamond', title: 'Статус', desc: 'ПРЕМИАЛЬНЫЙ ИМИДЖ' }
+        ]
       },
       standart: {
         title: 'Тариф STANDART',
@@ -143,7 +151,15 @@ const CONTENT = {
     views: {
       profile: {
         title: 'My Philosophy',
-        desc: <>I create smart digital business cards that save to your smartphone screen as a fully-fledged PWA. I also make exclusive handmade NFC keychains from genuine leather.<br/><br/>A personal subdomain and hosting are already included.<br/><br/>Works without a VPN, requires no extra app installations, and has zero subscription fees forever.</>
+        desc: <>I create smart digital business cards that save to your smartphone screen as a fully-fledged PWA. I also make exclusive handmade NFC keychains from genuine leather.</>,
+        features: [
+          { icon: 'Crown', title: 'WOW Effect', desc: 'MEMORABLE INSTANTLY' },
+          { icon: 'CreditCard', title: 'One-time Pay', desc: 'NO SUBSCRIPTIONS' },
+          { icon: 'Globe', title: 'Custom Domain', desc: 'NAME.APPSEA.RU' },
+          { icon: 'Key', title: 'No VPN Needed', desc: 'WORKS EVERYWHERE' },
+          { icon: 'Sparkles', title: 'Convenience', desc: '1-CLICK CONTACTS' },
+          { icon: 'Diamond', title: 'Status', desc: 'PREMIUM IMAGE' }
+        ]
       },
       standart: {
         title: 'STANDART Plan',
@@ -226,7 +242,15 @@ const CONTENT = {
     views: {
       profile: {
         title: 'Իմ փիլիսոփայությունը',
-        desc: <>Ստեղծում եմ խելացի թվային այցեքարտեր, որոնք պահպանվում են սմարթֆոնի էկրանին որպես լիարժեք PWA-հավելված: Ինչպես նաև հեղինակային ձեռագործ NFC-կախազարդեր՝ բնական կաշվից:<br/><br/>Անհատական ենթադոմենը և հոսթինգն արդեն ներառված են:<br/><br/>Աշխատում է առանց VPN-ի, առանց ավելորդ ծրագրերի տեղադրման և առանց ամսավճարի՝ ընդմիշտ:</>
+        desc: <>Ստեղծում եմ խելացի թվային այցեքարտեր, որոնք պահպանվում են սմարթֆոնի էկրանին որպես լիարժեք PWA-հավելված: Ինչպես նաև հեղինակային ձեռագործ NFC-կախազարդեր՝ բնական կաշվից:</>,
+        features: [
+          { icon: 'Crown', title: 'WOW Էֆեկտ', desc: 'ԱՆՄԻՋԱՊԵՍ ՀԻՇՎՈՂ' },
+          { icon: 'CreditCard', title: 'Միանվագ վճար', desc: 'ԱՌԱՆՑ ԱՄՍԱՎՃԱՐԻ' },
+          { icon: 'Globe', title: 'Անձնական դոմեն', desc: 'ԱՆՈՒՆ.APPSEA.RU' },
+          { icon: 'Key', title: 'Առանց VPN', desc: 'ԱՇԽԱՏՈՒՄ Է ՄԻՇՏ' },
+          { icon: 'Sparkles', title: 'Հարմարավետություն', desc: 'ԿՈՆՏԱԿՏՆԵՐ 1 ՍԵՂՄՈՒՄՈՎ' },
+          { icon: 'Diamond', title: 'Կարգավիճակ', desc: 'ՊՐԵՄԻՈՒՄ ԻՄԻՋ' }
+        ]
       },
       standart: {
         title: 'STANDART Տարիֆ',
@@ -640,10 +664,25 @@ const CreatorCard = ({ lang, onOpenIframe }) => {
               </div>
               <h3 className="text-[clamp(1rem,6cqw,1.25rem)] font-serif font-light text-rose-100 tracking-wider mb-[clamp(0.375rem,2cqw,0.5rem)] shrink-0">{CONTENT[lang].views.profile.title}</h3>
               
-              <div className="flex-1 overflow-y-auto hide-scrollbar mask-image-bottom pb-[clamp(1.5rem,8cqw,2.5rem)] pr-[clamp(0.125rem,1cqw,0.25rem)] no-tilt touch-pan-y overscroll-contain">
-                <p className="font-serif text-[clamp(0.6rem,3cqw,0.6875rem)] text-rose-100/80 leading-relaxed bg-[#151515]/95 sm:bg-black/40 sm:backdrop-blur-sm p-[clamp(0.75rem,4cqw,0.875rem)] rounded-2xl border border-rose-900/50 shadow-inner">
+              <div className="flex-1 overflow-y-auto hide-scrollbar mask-image-bottom pb-[clamp(1.5rem,8cqw,2.5rem)] pr-[clamp(0.125rem,1cqw,0.25rem)] no-tilt touch-pan-y overscroll-contain flex flex-col gap-[clamp(0.5rem,3cqw,0.75rem)]">
+                <p className="font-serif text-[clamp(0.6rem,3cqw,0.6875rem)] text-rose-100/80 leading-relaxed bg-[#151515]/95 sm:bg-black/40 sm:backdrop-blur-sm p-[clamp(0.75rem,4cqw,0.875rem)] rounded-2xl border border-rose-900/50 shadow-inner shrink-0 block">
                   {CONTENT[lang].views.profile.desc}
                 </p>
+
+                <div className="grid grid-cols-2 gap-[clamp(0.375rem,2cqw,0.5rem)] shrink-0">
+                  {CONTENT[lang].views.profile.features.map((feature, idx) => {
+                    const IconComp = { Crown, CreditCard, Globe, Key, Sparkles, Diamond }[feature.icon];
+                    return (
+                      <div key={idx} className="bg-[#151515]/95 sm:bg-black/40 sm:backdrop-blur-sm p-[clamp(0.625rem,3cqw,0.75rem)] rounded-2xl border border-rose-900/50 shadow-inner flex flex-col items-center justify-center text-center gap-[clamp(0.375rem,2cqw,0.5rem)]">
+                        <IconComp className="w-[clamp(1.25rem,6cqw,1.5rem)] h-[clamp(1.25rem,6cqw,1.5rem)] text-rose-400" />
+                        <div>
+                          <div className="text-rose-200 text-[clamp(0.55rem,2.5cqw,0.6875rem)] font-bold mb-[clamp(0.125rem,1cqw,0.25rem)] leading-tight">{feature.title}</div>
+                          <div className="text-rose-100/50 text-[clamp(0.4rem,2cqw,0.5rem)] uppercase tracking-wider leading-tight">{feature.desc}</div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             </div>
 
