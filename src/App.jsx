@@ -83,7 +83,7 @@ const CONTENT = {
         desc: <>Разработка 100% уникального дизайна и кода с нуля под ваш бренд и статус.<br/><br/>• Кастомные 3D-эффекты, сложные анимации и редкие интерактивы<br/>• Индивидуальная структура под ваши бизнес-задачи<br/>• PWA-формат, персональный поддомен и хостинг навсегда<br/><br/>🎁 ПОДАРОК: Авторский NFC-брелок ручной работы из натуральной кожи Crazy Horse с тиснением ваших инициалов включен в стоимость!</>
       },
       catalog: {
-        title: 'Примеры работ',
+        title: 'Галерея дизайнов',
         desc: 'Посмотрите готовые дизайны визиток и как выглядит NFC-брелок вживую',
         items: [
           { name: 'Галерея дизайнов', desc: 'Посмотреть примеры готовых визиток', url: 'https://start.appsea.ru/' },
@@ -681,13 +681,13 @@ const CreatorCard = ({ lang, onOpenIframe, onOpenGallery }) => {
 
         {/* === ЛЕВАЯ ПАНЕЛЬ (DOCK) === */}
         <div 
-          className="relative z-50 flex flex-col items-center justify-between bg-[#0a0205] sm:bg-[#0a0205]/80 sm:backdrop-blur-xl py-[clamp(0.75rem,4cqw,1rem)] px-[clamp(0.375rem,2cqw,0.5rem)] rounded-[2rem] border border-rose-900/50 shadow-[0_10px_40px_rgba(159,18,57,0.3)] w-[clamp(2.5rem,12cqw,3.5rem)] shrink-0 no-tilt cursor-default"
+          className="relative z-50 flex flex-col items-center justify-between bg-[#0a0205] sm:bg-[#0a0205]/80 sm:backdrop-blur-xl py-[clamp(0.75rem,4cqw,1.25rem)] px-[clamp(0.5rem,2.5cqw,0.75rem)] rounded-[2rem] border border-rose-900/50 shadow-[0_10px_40px_rgba(159,18,57,0.3)] w-[clamp(3rem,14cqw,4rem)] shrink-0 no-tilt cursor-default"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Световой шар */}
           <div className="absolute left-1/2 -translate-x-1/2 w-[clamp(1.25rem,6cqw,1.5rem)] h-[clamp(1.25rem,6cqw,1.5rem)] bg-rose-500/30 rounded-full blur-[6px] shadow-[0_0_15px_rgba(225,29,72,0.5)] pointer-events-none z-0" style={{ animation: 'scan-vertical 4s ease-in-out infinite' }}></div>
 
-          <div className="flex flex-col gap-[clamp(0.5rem,2.5cqw,0.625rem)] w-full items-center relative z-10 shrink-0">
+          <div className="flex flex-col gap-[clamp(0.625rem,3cqw,0.875rem)] w-full items-center relative z-10 shrink-0">
             {[
               { id: 'profile', icon: UserCircle2 },
               { id: 'standart', icon: Diamond },
@@ -697,20 +697,20 @@ const CreatorCard = ({ lang, onOpenIframe, onOpenGallery }) => {
               <button 
                 key={item.id}
                 onClick={() => setView(item.id)}
-                className={`relative p-[clamp(0.5rem,2.5cqw,0.625rem)] rounded-full transition-all duration-300 flex items-center justify-center w-full ${item.highlight ? 'mt-[clamp(0.375rem,2cqw,0.5rem)] border border-rose-500/50 bg-rose-900/20 shadow-[0_0_10px_rgba(225,29,72,0.3)] animate-pulse' : ''} ${view === item.id ? 'bg-gradient-to-br from-rose-700 to-rose-400 text-white shadow-[0_0_15px_rgba(225,29,72,0.5)] scale-110' : 'text-rose-400/60 hover:text-rose-200 hover:bg-rose-900/40'}`}
+                className={`relative aspect-square rounded-full transition-all duration-300 flex items-center justify-center w-full p-0 ${item.highlight ? 'mt-[clamp(0.375rem,2cqw,0.5rem)] border border-rose-500/50 bg-rose-900/20 shadow-[0_0_10px_rgba(225,29,72,0.3)] animate-pulse' : ''} ${view === item.id ? 'bg-gradient-to-br from-rose-700 to-rose-400 text-white shadow-[0_0_15px_rgba(225,29,72,0.5)] scale-110' : 'text-rose-400/60 hover:text-rose-200 hover:bg-rose-900/40'}`}
               >
-                <item.icon className="w-[clamp(0.75rem,4cqw,1rem)] h-[clamp(0.75rem,4cqw,1rem)]" />
+                <item.icon className="w-[clamp(1.125rem,5cqw,1.375rem)] h-[clamp(1.125rem,5cqw,1.375rem)]" />
               </button>
             ))}
           </div>
           
-          <div className="w-full flex flex-col items-center gap-[clamp(0.375rem,2cqw,0.5rem)] relative z-10 mt-[clamp(0.125rem,1cqw,0.25rem)] shrink-0">
-            <div className="w-[clamp(1rem,5cqw,1.25rem)] h-[1px] bg-rose-900/60"></div>
+          <div className="w-full flex flex-col items-center gap-[clamp(0.5rem,2.5cqw,0.75rem)] relative z-10 mt-[clamp(0.5rem,2.5cqw,0.75rem)] shrink-0">
+            <div className="w-[clamp(1.5rem,6cqw,2rem)] h-[1px] bg-rose-900/60"></div>
             <button 
               onClick={() => setView('reviews')}
-              className={`p-[clamp(0.5rem,2.5cqw,0.625rem)] w-full rounded-full transition-all duration-300 flex items-center justify-center ${view === 'reviews' ? 'bg-rose-600 text-white shadow-[0_0_15px_rgba(225,29,72,0.6)] scale-110' : 'text-rose-400/60 hover:text-rose-200 hover:bg-rose-900/40'}`}
+              className={`aspect-square w-full rounded-full transition-all duration-300 flex items-center justify-center p-0 ${view === 'reviews' ? 'bg-rose-600 text-white shadow-[0_0_15px_rgba(225,29,72,0.6)] scale-110' : 'text-rose-400/60 hover:text-rose-200 hover:bg-rose-900/40'}`}
             >
-              <Star className="w-[clamp(0.75rem,4cqw,1rem)] h-[clamp(0.75rem,4cqw,1rem)]" />
+              <Star className="w-[clamp(1.125rem,5cqw,1.375rem)] h-[clamp(1.125rem,5cqw,1.375rem)]" />
             </button>
           </div>
         </div>
@@ -792,7 +792,7 @@ const CreatorCard = ({ lang, onOpenIframe, onOpenGallery }) => {
                 <Smartphone className="w-[clamp(1rem,4cqw,1.25rem)] h-[clamp(1rem,4cqw,1.25rem)] text-rose-300" />
               </div>
               <h3 className="text-[clamp(1rem,6cqw,1.25rem)] font-serif font-light text-rose-100 tracking-wider mb-[clamp(0.375rem,2cqw,0.5rem)] shrink-0">{CONTENT[lang].views.catalog.title}</h3>
-              <p className="font-serif text-[clamp(0.6rem,3cqw,0.6875rem)] text-rose-100/70 mb-[clamp(0.5rem,3cqw,0.75rem)] shrink-0 px-[clamp(0.125rem,1cqw,0.25rem)]">{CONTENT[lang].views.catalog.desc}</p>
+              <p className="font-serif text-[clamp(0.6rem,3cqw,0.6875rem)] text-rose-100/70 mb-[clamp(1.5rem,7cqw,2rem)] shrink-0 px-[clamp(0.125rem,1cqw,0.25rem)]">{CONTENT[lang].views.catalog.desc}</p>
               
               <div className="flex-1 overflow-y-auto hide-scrollbar mask-image-bottom pb-[clamp(1.5rem,8cqw,2.5rem)] pr-[clamp(0.125rem,1cqw,0.25rem)] flex flex-col gap-[clamp(0.5rem,3cqw,0.75rem)] no-tilt touch-pan-y overscroll-contain">
                 {CONTENT[lang].views.catalog.items.map((item, idx) => (
@@ -895,21 +895,8 @@ const DesignGalleryModal = ({ onClose, lang, setLang }) => {
            </div>
         </div>
 
-        {/* Language Switcher */}
-        <div className="absolute left-1/2 -translate-x-1/2 flex items-center bg-[#15050a]/90 backdrop-blur-xl border border-rose-900/50 p-0.5 rounded-full shadow-[0_5px_15px_rgba(0,0,0,0.6),0_0_15px_rgba(159,18,57,0.15)] z-[60]">
-           {['ru', 'hy', 'en'].map((l) => (
-             <button
-               key={l}
-               onClick={() => setLang(l)}
-               className={`px-3 py-1 max-[380px]:px-2.5 max-[380px]:py-0.5 rounded-full text-[10px] max-[380px]:text-[9px] font-bold tracking-widest uppercase transition-all duration-300 flex items-center justify-center ${
-                 lang === l
-                   ? 'bg-gradient-to-r from-rose-800 to-rose-600 text-white shadow-[inset_0_0_10px_rgba(225,29,72,0.4)]'
-                   : 'text-rose-400/60 hover:text-rose-200 hover:bg-white/5'
-               }`}
-             >
-               {l === 'hy' ? 'AM' : l.toUpperCase()}
-             </button>
-           ))}
+        {/* Center spacing where language switcher was */}
+        <div className="absolute left-1/2 -translate-x-1/2 flex items-center z-[60]">
         </div>
 
         {/* Close Button */}
@@ -1491,7 +1478,7 @@ const App = () => {
           />
           {[
             { code: 'ru', label: 'RU' },
-            { code: 'hy', label: 'HY' },
+            { code: 'hy', label: 'AM' },
             { code: 'en', label: 'EN' }
           ].map((item) => (
             <button
