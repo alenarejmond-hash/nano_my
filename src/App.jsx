@@ -2,8 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import { 
   Globe, Star, UserCircle2, Diamond, Crown,
   QrCode, Share2, Copy, X, Check,
-  Rocket, Code2, Play, PlusSquare, UserPlus, Gift,
-  Smartphone, CreditCard, Key, Sparkles
+  Code2, Play, PlusSquare, UserPlus,
+  Smartphone, CreditCard, Key, Sparkles,
+  Moon, Brain, PlaneTakeoff, Camera, Activity, 
+  Droplets, Building2, Smile, Aperture, ChevronLeft, ExternalLink
 } from 'lucide-react';
 
 // Компонент QR-кода
@@ -303,6 +305,66 @@ const CONTENT = {
   }
 };
 
+// ==========================================
+// 🎨 ДАННЫЕ ДЛЯ ГАЛЕРЕИ ШАБЛОНОВ (ВШИТО)
+// ==========================================
+const GALLERY_TRANSLATIONS = {
+  ru: {
+    catalog: "Галерея дизайнов",
+    back: "Назад",
+    openFull: "Открыть",
+    notFound1: "Не нашли свою сферу?",
+    notFound2: "Адаптируем любой шаблон под вас",
+    templates: [
+      { id: 'esoteric', name: 'Эзотерика', icon: Moon, url: 'https://esoteric.appsea.ru' },
+      { id: 'psychology', name: 'Психолог', icon: Brain, url: 'https://psychologist.appsea.ru' },
+      { id: 'travel', name: 'Турагент', icon: PlaneTakeoff, url: 'https://travel.appsea.ru' },
+      { id: 'blogger', name: 'Блогер', icon: Camera, url: 'https://blogger.appsea.ru' },
+      { id: 'fitness', name: 'Спорт', icon: Activity, url: 'https://fitness.appsea.ru' },
+      { id: 'beauty', name: 'Бьюти', icon: Droplets, url: 'https://beauty.appsea.ru' },
+      { id: 'realty', name: 'Недвижимость', icon: Building2, url: 'https://realtor.appsea.ru' },
+      { id: 'dentistry', name: 'Стоматология', icon: Smile, url: 'https://dental.appsea.ru' },
+      { id: 'photographer', name: 'Фотограф', icon: Aperture, url: 'https://photographer.appsea.ru' },
+    ]
+  },
+  hy: {
+    catalog: "Դիզայնների Պատկերասրահ",
+    back: "Հետ",
+    openFull: "Բացել",
+    notFound1: "Չգտա՞ք ձեր ոլորտը",
+    notFound2: "Կհարմարեցնենք ցանկացած ձևանմուշ",
+    templates: [
+      { id: 'esoteric', name: 'Էզոթերիկա', icon: Moon, url: 'https://esoteric.appsea.ru' },
+      { id: 'psychology', name: 'Հոգեբան', icon: Brain, url: 'https://psychologist.appsea.ru' },
+      { id: 'travel', name: 'Տուրգործակալ', icon: PlaneTakeoff, url: 'https://travel.appsea.ru' },
+      { id: 'blogger', name: 'Բլոգեր', icon: Camera, url: 'https://blogger.appsea.ru' },
+      { id: 'fitness', name: 'Սպորտ', icon: Activity, url: 'https://fitness.appsea.ru' },
+      { id: 'beauty', name: 'Գեղեցկություն', icon: Droplets, url: 'https://beauty.appsea.ru' },
+      { id: 'realty', name: 'Անշարժ գույք', icon: Building2, url: 'https://realtor.appsea.ru' },
+      { id: 'dentistry', name: 'Ստոմատոլոգիա', icon: Smile, url: 'https://dental.appsea.ru' },
+      { id: 'photographer', name: 'Լուսանկարիչ', icon: Aperture, url: 'https://photographer.appsea.ru' },
+    ]
+  },
+  en: {
+    catalog: "Design Gallery",
+    back: "Back",
+    openFull: "Open",
+    notFound1: "Didn't find your niche?",
+    notFound2: "We will adapt any template for you",
+    templates: [
+      { id: 'esoteric', name: 'Esoterica', icon: Moon, url: 'https://esoteric.appsea.ru' },
+      { id: 'psychology', name: 'Psychologist', icon: Brain, url: 'https://psychologist.appsea.ru' },
+      { id: 'travel', name: 'Travel Agent', icon: PlaneTakeoff, url: 'https://travel.appsea.ru' },
+      { id: 'blogger', name: 'Blogger', icon: Camera, url: 'https://blogger.appsea.ru' },
+      { id: 'fitness', name: 'Sport', icon: Activity, url: 'https://fitness.appsea.ru' },
+      { id: 'beauty', name: 'Beauty', icon: Droplets, url: 'https://beauty.appsea.ru' },
+      { id: 'realty', name: 'Real Estate', icon: Building2, url: 'https://realtor.appsea.ru' },
+      { id: 'dentistry', name: 'Dentistry', icon: Smile, url: 'https://dental.appsea.ru' },
+      { id: 'photographer', name: 'Photographer', icon: Aperture, url: 'https://photographer.appsea.ru' },
+    ]
+  }
+};
+
 // --- Глобальные стили для сложных анимаций (вставляем прямо в компонент) ---
 const globalStyles = `
   html, body {
@@ -551,7 +613,7 @@ const BurnRevealImage = ({ src, className, style, imgClassName = "", burnColor =
 // ==========================================
 
 // 0. БОСС / СОЗДАТЕЛЬ (Елена Сотникова)
-const CreatorCard = ({ lang, onOpenIframe }) => {
+const CreatorCard = ({ lang, onOpenIframe, onOpenGallery }) => {
   const [view, setView] = useState('profile');
   const [isNameRevealed, setIsNameRevealed] = useState(true);
   const hackerName1 = CONTENT[lang].creator.name1;
@@ -736,7 +798,14 @@ const CreatorCard = ({ lang, onOpenIframe }) => {
                 {CONTENT[lang].views.catalog.items.map((item, idx) => (
                   <div 
                     key={idx}
-                    onClick={(e) => { e.stopPropagation(); onOpenIframe(item.url); }}
+                    onClick={(e) => { 
+                      e.stopPropagation(); 
+                      if (item.url === 'https://start.appsea.ru/') {
+                        onOpenGallery();
+                      } else {
+                        onOpenIframe(item.url); 
+                      }
+                    }}
                     className="bg-[#151515]/95 sm:bg-black/40 sm:backdrop-blur-sm p-[clamp(0.625rem,3cqw,0.75rem)] rounded-2xl border border-rose-900/50 shadow-inner flex justify-between items-center cursor-pointer hover:bg-rose-900/20 hover:border-rose-500/50 transition-all group shrink-0"
                   >
                     <div>
@@ -804,6 +873,132 @@ const CreatorCard = ({ lang, onOpenIframe }) => {
 };
 
 // ==========================================
+// 🌌 МОДАЛЬНОЕ ОКНО ГАЛЕРЕИ ДИЗАЙНОВ
+// ==========================================
+const DesignGalleryModal = ({ onClose, lang, setLang }) => {
+  const [previewInfo, setPreviewInfo] = useState(null);
+  const [iframeLoaded, setIframeLoaded] = useState(false);
+  const t = GALLERY_TRANSLATIONS[lang];
+
+  return (
+    <div className="fixed inset-0 z-[150] flex flex-col bg-[#050102]/95 backdrop-blur-3xl animate-in fade-in duration-300 touch-none">
+      {/* Neon glows */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-rose-600/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-rose-900/10 rounded-full blur-[100px] pointer-events-none" />
+
+      {/* Header */}
+      <div className="relative flex items-center justify-between px-4 max-[380px]:px-3 border-b border-rose-900/50 bg-[#0a0205]/80 shrink-0 z-20 shadow-lg h-[50px] max-[380px]:h-[44px]">
+        {/* Crown */}
+        <div className="flex items-center w-1/4">
+           <div className="w-7 h-7 max-[380px]:w-6 max-[380px]:h-6 rounded-full bg-rose-900/30 border border-rose-500/30 flex items-center justify-center shadow-[0_0_10px_rgba(159,18,57,0.2)] shrink-0">
+              <Crown className="w-3.5 h-3.5 max-[380px]:w-3 max-[380px]:h-3 text-rose-400" />
+           </div>
+        </div>
+
+        {/* Language Switcher */}
+        <div className="absolute left-1/2 -translate-x-1/2 flex items-center bg-[#15050a]/90 backdrop-blur-xl border border-rose-900/50 p-0.5 rounded-full shadow-[0_5px_15px_rgba(0,0,0,0.6),0_0_15px_rgba(159,18,57,0.15)] z-[60]">
+           {['ru', 'hy', 'en'].map((l) => (
+             <button
+               key={l}
+               onClick={() => setLang(l)}
+               className={`px-3 py-1 max-[380px]:px-2.5 max-[380px]:py-0.5 rounded-full text-[10px] max-[380px]:text-[9px] font-bold tracking-widest uppercase transition-all duration-300 flex items-center justify-center ${
+                 lang === l
+                   ? 'bg-gradient-to-r from-rose-800 to-rose-600 text-white shadow-[inset_0_0_10px_rgba(225,29,72,0.4)]'
+                   : 'text-rose-400/60 hover:text-rose-200 hover:bg-white/5'
+               }`}
+             >
+               {l === 'hy' ? 'AM' : l.toUpperCase()}
+             </button>
+           ))}
+        </div>
+
+        {/* Close Button */}
+        <div className="w-1/4 flex justify-end">
+           <button
+             onClick={onClose}
+             className="text-white/40 hover:text-white bg-white/5 hover:bg-white/10 rounded-full p-2 max-[380px]:p-1.5 transition-colors border border-white/5 active:scale-95"
+           >
+             <X className="w-4 h-4 max-[380px]:w-3.5 max-[380px]:h-3.5" />
+           </button>
+        </div>
+      </div>
+
+      {/* Grid */}
+      <div className="flex-1 overflow-y-auto hide-scrollbar relative pb-12 pt-6 max-[380px]:pt-4 touch-pan-y overscroll-contain">
+        <div className="max-w-xl mx-auto w-full px-5 max-[380px]:px-4 relative z-10 flex flex-col">
+           <div className="grid grid-cols-2 gap-4 max-[380px]:gap-3 w-full">
+               {t.templates.map(link => (
+                  <div key={link.id} className="relative group w-full aspect-square">
+                     <div className="absolute -inset-0.5 bg-gradient-to-br from-white/10 to-rose-500/20 rounded-[2rem] max-[380px]:rounded-[1.5rem] blur-[10px] opacity-30 group-hover:opacity-100 group-hover:blur-[14px] transition-all duration-500"></div>
+                     <button
+                       onClick={() => { setIframeLoaded(false); setPreviewInfo(link); }}
+                       className="relative w-full h-full overflow-hidden flex flex-col items-center justify-center p-4 max-[380px]:p-3 rounded-[2rem] max-[380px]:rounded-[1.5rem] bg-[#0a0205]/95 backdrop-blur-md border border-rose-900/50 hover:border-rose-500/50 hover:bg-[#15050a] transition-all duration-300 active:scale-[0.98] shadow-inner"
+                     >
+                       <div className="absolute inset-0 bg-gradient-to-br from-rose-900/0 via-rose-900/0 to-rose-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                       <div className="w-14 h-14 max-[380px]:w-12 max-[380px]:h-12 rounded-full bg-rose-900/20 border border-rose-500/30 flex items-center justify-center shadow-[0_0_15px_rgba(159,18,57,0.2)] mb-3 max-[380px]:mb-2 shrink-0">
+                          <link.icon className="w-6 h-6 max-[380px]:w-5 max-[380px]:h-5 text-rose-400 group-hover:scale-110 transition-transform duration-300" />
+                       </div>
+                       <span className="text-[13px] max-[380px]:text-[11px] font-bold text-rose-100 tracking-wider text-center leading-tight">
+                         {link.name}
+                       </span>
+                     </button>
+                  </div>
+               ))}
+           </div>
+           
+           {/* Фраза внизу */}
+           <div className="mt-8 max-[380px]:mt-6 text-center border-t border-rose-900/30 pt-6 max-[380px]:pt-4 mb-4 max-[380px]:mb-2 shrink-0">
+             <p className="text-[11px] max-[380px]:text-[10px] text-rose-100/50 font-light tracking-wide">
+               {t.notFound1}<br/>
+               <span className="text-rose-400/80 font-medium mt-1.5 inline-block">{t.notFound2}</span>
+             </p>
+           </div>
+        </div>
+      </div>
+
+      {/* Iframe Modal Inside Gallery */}
+      {previewInfo && (
+        <div className="fixed inset-0 z-[200] flex flex-col bg-[#050102] animate-in fade-in zoom-in-[0.98] duration-300">
+           <div className="relative flex items-center justify-between px-4 max-[380px]:px-3 border-b border-rose-900/50 bg-[#0a0205] shrink-0 shadow-lg h-[50px] max-[380px]:h-[44px]">
+              <button
+                onClick={() => setPreviewInfo(null)}
+                className="flex items-center gap-1.5 px-3 py-1.5 max-[380px]:px-2 max-[380px]:py-1 rounded-full bg-rose-900/30 border border-rose-500/30 text-rose-300 hover:bg-rose-900/50 hover:text-rose-100 transition-all active:scale-95 shadow-[0_0_10px_rgba(159,18,57,0.2)]"
+              >
+                <ChevronLeft className="w-4 h-4 max-[380px]:w-3.5 max-[380px]:h-3.5" />
+                <span className="text-[10px] max-[380px]:text-[9px] font-bold tracking-widest uppercase">{t.back}</span>
+              </button>
+              <a
+                href={`${previewInfo.url}?ref=catalog`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="absolute left-1/2 -translate-x-1/2 flex items-center gap-2 px-4 py-1.5 max-[380px]:px-3 max-[380px]:py-1 rounded-full bg-rose-600 border border-rose-400 text-white hover:bg-rose-500 transition-all active:scale-95 shadow-[0_0_15px_rgba(225,29,72,0.4)]"
+              >
+                <span className="text-[10px] max-[380px]:text-[9px] font-bold tracking-widest uppercase">{t.openFull}</span>
+                <ExternalLink className="w-3.5 h-3.5 max-[380px]:w-3 max-[380px]:h-3 text-white" />
+              </a>
+              <div className="w-[74px] max-[380px]:w-[60px]"></div>
+           </div>
+           <div className="flex-1 relative w-full h-full bg-[#050102]">
+              {!iframeLoaded && (
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-[#050102] z-10">
+                   <div className="w-8 h-8 max-[380px]:w-6 max-[380px]:h-6 border-2 border-rose-900/50 border-t-rose-500 rounded-full animate-spin"></div>
+                   <span className="text-[10px] max-[380px]:text-[8px] uppercase tracking-widest text-rose-500/50 animate-pulse">Loading...</span>
+                </div>
+              )}
+              <iframe
+                src={previewInfo.url}
+                className={`w-full h-full border-none transition-opacity duration-700 bg-white ${iframeLoaded ? 'opacity-100' : 'opacity-0'}`}
+                onLoad={() => setIframeLoaded(true)}
+                title={previewInfo.name}
+              />
+           </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+// ==========================================
 // ОСНОВНОЙ КОМПОНЕНТ ПРИЛОЖЕНИЯ
 // ==========================================
 
@@ -817,6 +1012,7 @@ const App = () => {
   const [showShare, setShowShare] = useState(false);
   const [showPwaPrompt, setShowPwaPrompt] = useState(false);
   const [showIframeModal, setShowIframeModal] = useState(false);
+  const [showGallery, setShowGallery] = useState(false); // NEW STATE FOR GALLERY
   const [iframeUrl, setIframeUrl] = useState('');
   const [copied, setCopied] = useState(false);
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
@@ -1206,7 +1402,11 @@ const App = () => {
                 style={{ transform: 'rotateY(180deg)', boxShadow: `0 0 60px ${getGlowColor()}` }} 
               />
 
-              <CreatorCard lang={lang} onOpenIframe={(url) => { setIframeUrl(url); setShowIframeModal(true); }} />
+              <CreatorCard 
+                lang={lang} 
+                onOpenIframe={(url) => { setIframeUrl(url); setShowIframeModal(true); }} 
+                onOpenGallery={() => setShowGallery(true)} 
+              />
 
               {/* Блики */}
               <div 
@@ -1462,47 +1662,13 @@ const App = () => {
         </div>
       )}
 
-      {/* МОДАЛЬНОЕ ОКНО IFRAME (КАТАЛОГ СТИЛЕЙ) */}
-      {showIframeModal && (
-        <div 
-          className="fixed inset-0 z-[120] flex items-center justify-center p-0 sm:p-4 bg-[#0a0205] sm:bg-black/80 sm:backdrop-blur-md transition-opacity animate-in fade-in duration-300"
-          onClick={() => setShowIframeModal(false)}
-        >
-          <div 
-            className="w-full h-full sm:max-w-[400px] sm:max-h-[800px] bg-[#0a0205] rounded-none sm:rounded-[2.5rem] overflow-hidden relative shadow-none sm:shadow-[0_0_50px_rgba(159,18,57,0.4)] border-0 sm:border border-rose-900/50 flex flex-col animate-in slide-in-from-bottom-full sm:slide-in-from-bottom-0 sm:zoom-in-95 duration-300"
-            onClick={e => e.stopPropagation()}
-          >
-            {/* Header модалки */}
-            <div className="h-[calc(3.5rem+env(safe-area-inset-top))] pt-[env(safe-area-inset-top)] border-b border-rose-900/50 flex items-center justify-between px-4 sm:px-5 bg-[#0a0205] sm:bg-black/40 sm:backdrop-blur-sm shrink-0">
-              <div className="flex items-center gap-3">
-                <Smartphone className="w-5 h-5 text-rose-400" />
-                <span className="text-rose-100 font-serif tracking-wider text-[11px] sm:text-sm uppercase font-bold">{CONTENT[lang].views.catalog.title}</span>
-              </div>
-              <button 
-                onClick={() => setShowIframeModal(false)}
-                className="text-white/40 hover:text-white bg-white/5 hover:bg-white/10 rounded-full p-2 transition-colors border border-white/5 active:scale-95"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-            
-            {/* Iframe Container */}
-            <div className="flex-1 w-full relative bg-neutral-950 pb-[env(safe-area-inset-bottom)]">
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <div className="flex flex-col items-center gap-3">
-                  <div className="w-8 h-8 border-2 border-rose-500/30 border-t-rose-500 rounded-full animate-spin"></div>
-                  <div className="text-rose-200/50 text-[10px] font-serif tracking-widest uppercase">Loading...</div>
-                </div>
-              </div>
-              <iframe 
-                src={iframeUrl} 
-                className="w-full h-full border-0 relative z-10 bg-transparent"
-                title="Template Preview"
-                sandbox="allow-scripts allow-same-origin allow-popups"
-              ></iframe>
-            </div>
-          </div>
-        </div>
+      {/* НОВАЯ: МОДАЛКА ГАЛЕРЕИ ДИЗАЙНОВ (SUPERAPP КАТАЛОГ) */}
+      {showGallery && (
+        <DesignGalleryModal 
+          onClose={() => setShowGallery(false)} 
+          lang={lang} 
+          setLang={setLang} 
+        />
       )}
 
     </div>
