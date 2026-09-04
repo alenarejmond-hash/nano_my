@@ -355,53 +355,72 @@ const globalStyles = `
   }
   
   /* === АНИМАЦИИ ДЛЯ ЭФФЕКТА СГОРАЮЩЕЙ БУМАГИ (ОПТИМИЗИРОВАНО ДЛЯ GPU) === */
-  @keyframes burn-mask-reveal {
-    0% { -webkit-mask-position: 100% 0%; mask-position: 100% 0%; }
-    100% { -webkit-mask-position: 0% 100%; mask-position: 0% 100%; }
+  @media (min-width: 640px) {
+    @keyframes burn-mask-reveal {
+      0% { -webkit-mask-position: 100% 0%; mask-position: 100% 0%; }
+      100% { -webkit-mask-position: 0% 100%; mask-position: 0% 100%; }
+    }
+    
+    @keyframes burn-fire-scan {
+      0% { background-position: 100% 0%; opacity: 0; }
+      5% { opacity: 1; }
+      95% { opacity: 1; }
+      100% { background-position: 0% 100%; opacity: 0; }
+    }
+    
+    .smooth-mask-wipe {
+      -webkit-mask-image: linear-gradient(225deg, transparent 47%, rgba(0,0,0,0.6) 49%, black 51%);
+      mask-image: linear-gradient(225deg, transparent 47%, rgba(0,0,0,0.6) 49%, black 51%);
+      -webkit-mask-size: 300% 300%;
+      mask-size: 300% 300%;
+      -webkit-mask-position: 100% 0%;
+      mask-position: 100% 0%;
+      animation: burn-mask-reveal 3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      will-change: mask-position, -webkit-mask-position;
+    }
+    
+    .burn-fire-edge {
+      background: 
+        linear-gradient(224deg, 
+          transparent 48.5%, 
+          rgba(20, 5, 0, 0.95) 49%, 
+          var(--burn-c1, rgba(220, 38, 38, 0.9)) 49.5%, 
+          var(--burn-c2, rgba(250, 150, 0, 1)) 50%, 
+          var(--burn-c3, rgba(255, 220, 50, 0.8)) 50.2%,
+          transparent 51%
+        ),
+        linear-gradient(226deg, 
+          transparent 48.5%, 
+          rgba(20, 5, 0, 0.95) 49%, 
+          var(--burn-c1, rgba(220, 38, 38, 0.9)) 49.5%, 
+          var(--burn-c2, rgba(250, 150, 0, 1)) 50%, 
+          var(--burn-c3, rgba(255, 220, 50, 0.8)) 50.2%,
+          transparent 51%
+        );
+      background-size: 300% 300%;
+      background-position: 100% 0%;
+      mix-blend-mode: normal;
+      filter: drop-shadow(0 0 8px var(--burn-c2, rgba(250, 100, 0, 0.8))) blur(0.5px);
+      animation: burn-fire-scan 3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      will-change: background-position, opacity;
+    }
   }
-  
-  @keyframes burn-fire-scan {
-    0% { background-position: 100% 0%; opacity: 0; }
-    5% { opacity: 1; }
-    95% { opacity: 1; }
-    100% { background-position: 0% 100%; opacity: 0; }
-  }
-  
-  .smooth-mask-wipe {
-    -webkit-mask-image: linear-gradient(225deg, transparent 47%, rgba(0,0,0,0.6) 49%, black 51%);
-    mask-image: linear-gradient(225deg, transparent 47%, rgba(0,0,0,0.6) 49%, black 51%);
-    -webkit-mask-size: 300% 300%;
-    mask-size: 300% 300%;
-    -webkit-mask-position: 100% 0%;
-    mask-position: 100% 0%;
-    animation: burn-mask-reveal 3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-    will-change: mask-position, -webkit-mask-position;
-  }
-  
-  .burn-fire-edge {
-    background: 
-      linear-gradient(224deg, 
-        transparent 48.5%, 
-        rgba(20, 5, 0, 0.95) 49%, 
-        var(--burn-c1, rgba(220, 38, 38, 0.9)) 49.5%, 
-        var(--burn-c2, rgba(250, 150, 0, 1)) 50%, 
-        var(--burn-c3, rgba(255, 220, 50, 0.8)) 50.2%,
-        transparent 51%
-      ),
-      linear-gradient(226deg, 
-        transparent 48.5%, 
-        rgba(20, 5, 0, 0.95) 49%, 
-        var(--burn-c1, rgba(220, 38, 38, 0.9)) 49.5%, 
-        var(--burn-c2, rgba(250, 150, 0, 1)) 50%, 
-        var(--burn-c3, rgba(255, 220, 50, 0.8)) 50.2%,
-        transparent 51%
-      );
-    background-size: 300% 300%;
-    background-position: 100% 0%;
-    mix-blend-mode: normal;
-    filter: drop-shadow(0 0 8px var(--burn-c2, rgba(250, 100, 0, 0.8))) blur(0.5px);
-    animation: burn-fire-scan 3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-    will-change: background-position, opacity;
+
+  @media (max-width: 639px) {
+    @keyframes mobile-fade-in {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+    
+    .smooth-mask-wipe {
+      opacity: 0;
+      animation: mobile-fade-in 1.5s ease-out forwards;
+      will-change: opacity;
+    }
+    
+    .burn-fire-edge {
+      display: none;
+    }
   }
   
   /* === АНИМАЦИИ ФОНА === */
@@ -528,7 +547,7 @@ const CreatorCard = ({ lang, onOpenIframe }) => {
         {/* === КРАСИВЫЙ ПРЕМИАЛЬНЫЙ ГРАДИЕНТ === */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#380e1b] via-[#0f0206] to-[#1f030e]"></div>
         <div className="absolute -inset-1/2 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-rose-900/30 via-transparent to-transparent animate-pulse" style={{ animationDuration: '3s' }}></div>
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-rose-500/25 via-transparent to-transparent mix-blend-screen"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-rose-500/25 via-transparent to-transparent mix-blend-normal sm:mix-blend-screen"></div>
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-rose-900/40 via-transparent to-transparent"></div>
 
         {/* ТЕМНЫЙ ПОЛУПРОЗРАЧНЫЙ ГРАДИЕНТ */}
@@ -539,7 +558,7 @@ const CreatorCard = ({ lang, onOpenIframe }) => {
 
         <div className="relative z-10 flex flex-col h-full justify-between">
           <div className="flex justify-between items-start shrink-0">
-            <div className="bg-black/40 backdrop-blur-md px-4 py-2 rounded-full border border-rose-900/50 flex items-center gap-2">
+            <div className="bg-[#151515]/95 sm:bg-black/40 sm:backdrop-blur-md px-4 py-2 rounded-full border border-rose-900/50 flex items-center gap-2">
               <Crown className="w-4 h-4 text-rose-400" />
               <span className="text-xs font-serif tracking-widest uppercase text-rose-200/90">{CONTENT[lang].creator.badge}</span>
             </div>
@@ -576,7 +595,7 @@ const CreatorCard = ({ lang, onOpenIframe }) => {
 
         {/* === ЛЕВАЯ ПАНЕЛЬ (DOCK) === */}
         <div 
-          className="relative z-50 flex flex-col items-center justify-between bg-[#0a0205]/80 backdrop-blur-xl py-4 px-2 rounded-[2rem] border border-rose-900/50 shadow-[0_10px_40px_rgba(159,18,57,0.3)] w-[3.5rem] shrink-0 no-tilt cursor-default"
+          className="relative z-50 flex flex-col items-center justify-between bg-[#0a0205] sm:bg-[#0a0205]/80 sm:backdrop-blur-xl py-4 px-2 rounded-[2rem] border border-rose-900/50 shadow-[0_10px_40px_rgba(159,18,57,0.3)] w-[3.5rem] shrink-0 no-tilt cursor-default"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Световой шар */}
@@ -622,7 +641,7 @@ const CreatorCard = ({ lang, onOpenIframe }) => {
               <h3 className="text-[clamp(1.125rem,4vw,1.25rem)] font-serif font-light text-rose-100 tracking-wider mb-2 shrink-0">{CONTENT[lang].views.profile.title}</h3>
               
               <div className="flex-1 overflow-y-auto hide-scrollbar mask-image-bottom pb-10 pr-1 no-tilt touch-pan-y overscroll-contain">
-                <p className="font-serif text-[clamp(10px,2.5vw,11px)] text-rose-100/80 leading-relaxed bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-rose-900/50 shadow-inner">
+                <p className="font-serif text-[clamp(10px,2.5vw,11px)] text-rose-100/80 leading-relaxed bg-[#151515]/95 sm:bg-black/40 sm:backdrop-blur-sm p-3.5 rounded-2xl border border-rose-900/50 shadow-inner">
                   {CONTENT[lang].views.profile.desc}
                 </p>
               </div>
@@ -641,7 +660,7 @@ const CreatorCard = ({ lang, onOpenIframe }) => {
               <h3 className="text-[clamp(1.125rem,4vw,1.25rem)] font-serif font-light text-rose-100 tracking-wider mb-2 shrink-0">{CONTENT[lang].views.standart.title}</h3>
               
               <div className="flex-1 overflow-y-auto hide-scrollbar mask-image-bottom pb-10 pr-1 no-tilt touch-pan-y overscroll-contain">
-                <p className="font-serif text-[clamp(10px,2.5vw,11px)] text-rose-100/80 leading-relaxed bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-rose-900/50 shadow-inner block shrink-0">
+                <p className="font-serif text-[clamp(10px,2.5vw,11px)] text-rose-100/80 leading-relaxed bg-[#151515]/95 sm:bg-black/40 sm:backdrop-blur-sm p-3.5 rounded-2xl border border-rose-900/50 shadow-inner block shrink-0">
                   {CONTENT[lang].views.standart.desc}
                 </p>
               </div>
@@ -660,7 +679,7 @@ const CreatorCard = ({ lang, onOpenIframe }) => {
               <h3 className="text-[clamp(1.125rem,4vw,1.25rem)] font-serif font-light text-rose-100 tracking-wider mb-2 shrink-0">{CONTENT[lang].views.vip.title}</h3>
               
               <div className="flex-1 overflow-y-auto hide-scrollbar mask-image-bottom pb-10 pr-1 no-tilt touch-pan-y overscroll-contain">
-                <p className="font-serif text-[clamp(10px,2.5vw,11px)] text-rose-100/80 leading-relaxed bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-rose-900/50 shadow-inner block shrink-0">
+                <p className="font-serif text-[clamp(10px,2.5vw,11px)] text-rose-100/80 leading-relaxed bg-[#151515]/95 sm:bg-black/40 sm:backdrop-blur-sm p-3.5 rounded-2xl border border-rose-900/50 shadow-inner block shrink-0">
                   {CONTENT[lang].views.vip.desc}
                 </p>
               </div>
@@ -679,7 +698,7 @@ const CreatorCard = ({ lang, onOpenIframe }) => {
                   <div 
                     key={idx}
                     onClick={(e) => { e.stopPropagation(); onOpenIframe(item.url); }}
-                    className="bg-black/40 backdrop-blur-sm p-3 rounded-2xl border border-rose-900/50 shadow-inner flex justify-between items-center cursor-pointer hover:bg-rose-900/20 hover:border-rose-500/50 transition-all group shrink-0"
+                    className="bg-[#151515]/95 sm:bg-black/40 sm:backdrop-blur-sm p-3 rounded-2xl border border-rose-900/50 shadow-inner flex justify-between items-center cursor-pointer hover:bg-rose-900/20 hover:border-rose-500/50 transition-all group shrink-0"
                   >
                     <div>
                       <div className="text-rose-200 text-[clamp(10px,2.5vw,12px)] font-bold mb-1">{item.name}</div>
@@ -706,7 +725,7 @@ const CreatorCard = ({ lang, onOpenIframe }) => {
                 
                 {/* Отзывы */}
                 {CONTENT[lang].views.reviews.map((rev, idx) => (
-                  <div key={idx} className="bg-black/40 backdrop-blur-sm p-3 rounded-2xl border border-rose-900/50 shadow-inner relative shrink-0 block">
+                  <div key={idx} className="bg-[#151515]/95 sm:bg-black/40 sm:backdrop-blur-sm p-3 rounded-2xl border border-rose-900/50 shadow-inner relative shrink-0 block">
                     <div className="flex justify-between items-center mb-1.5 px-1">
                       <div className="flex items-center gap-2">
                         <span className="text-[10px] text-rose-200/90 font-medium">{rev.name}</span>
@@ -734,7 +753,7 @@ const CreatorCard = ({ lang, onOpenIframe }) => {
             className="mt-2 sm:mt-3 w-full no-tilt cursor-default relative z-20 flex flex-col gap-2 shrink-0"
             onClick={(e) => e.stopPropagation()}
           >
-            <a href={CONTENT[lang].creator.actionLink} className="w-full bg-gradient-to-r from-[#380e1b] to-black backdrop-blur-md text-rose-100 font-serif text-[clamp(10px,2.5vw,11px)] uppercase tracking-[0.15em] py-3.5 sm:py-4 rounded-2xl flex items-center justify-center gap-2 hover:from-[#4a1223] transition-all shadow-[0_0_25px_rgba(159,18,57,0.3)] border border-rose-800/50 group active:scale-95 shrink-0">
+            <a href={CONTENT[lang].creator.actionLink} className="w-full bg-gradient-to-r from-[#380e1b] to-black sm:backdrop-blur-md text-rose-100 font-serif text-[clamp(10px,2.5vw,11px)] uppercase tracking-[0.15em] py-3.5 sm:py-4 rounded-2xl flex items-center justify-center gap-2 hover:from-[#4a1223] transition-all shadow-[0_0_25px_rgba(159,18,57,0.3)] border border-rose-800/50 group active:scale-95 shrink-0">
               <Crown className="w-4 h-4 text-rose-400 group-hover:scale-110 transition-transform shrink-0" />
               {CONTENT[lang].creator.actionText} →
             </a>
@@ -1085,11 +1104,11 @@ const App = () => {
 
       {/* Фоновое свечение */}
       <div 
-        className="fixed top-1/4 left-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-[120px] pointer-events-none transition-transform duration-1000 ease-out"
+        className="fixed top-1/4 left-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-[120px] hidden sm:block pointer-events-none transition-transform duration-1000 ease-out"
         style={{ transform: `translate(${bgOffset.x}px, ${bgOffset.y}px)` }}
       ></div>
       <div 
-        className="fixed bottom-1/4 right-1/4 w-96 h-96 bg-rose-500/10 rounded-full blur-[120px] pointer-events-none transition-transform duration-1000 ease-out"
+        className="fixed bottom-1/4 right-1/4 w-96 h-96 bg-rose-500/10 rounded-full blur-[120px] hidden sm:block pointer-events-none transition-transform duration-1000 ease-out"
         style={{ transform: `translate(${bgOffset.x * 1.5}px, ${bgOffset.y * 1.5}px)` }}
       ></div>
 
@@ -1208,7 +1227,7 @@ const App = () => {
         <button
           type="button"
           onClick={toggleGreetingAudio}
-          className={`shrink-0 active:scale-90 rounded-full backdrop-blur-md border transition-all duration-300 group touch-manipulation flex items-center justify-center w-10 h-10 ${isAudioPlaying ? 'bg-rose-900/40 border-rose-500/50 shadow-[0_0_20px_rgba(225,29,72,0.3)]' : 'bg-white/5 border-white/10 text-white/40 hover:text-white/90 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]'}`}
+          className={`shrink-0 active:scale-90 rounded-full sm:backdrop-blur-md border transition-all duration-300 group touch-manipulation flex items-center justify-center w-10 h-10 ${isAudioPlaying ? 'bg-[#151515]/95 sm:bg-rose-900/40 border-rose-500/50 shadow-[0_0_20px_rgba(225,29,72,0.3)]' : 'bg-[#151515]/95 sm:bg-white/5 border-white/10 text-white/40 hover:text-white/90 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]'}`}
           aria-label="Голосовое приветствие"
         >
           {isAudioPlaying ? (
@@ -1224,7 +1243,7 @@ const App = () => {
         </button>
 
         {/* ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКОВ */}
-        <div className="shrink-0 relative flex items-center p-1 h-10 rounded-full bg-white/5 backdrop-blur-md border border-white/10 shadow-[0_0_20px_rgba(0,0,0,0.3)]">
+        <div className="shrink-0 relative flex items-center p-1 h-10 rounded-full bg-[#151515]/95 sm:bg-white/5 sm:backdrop-blur-md border border-white/10 shadow-[0_0_20px_rgba(0,0,0,0.3)]">
           <div 
             className="absolute top-1 bottom-1 w-[calc(33.333%-2.66px)] rounded-full bg-gradient-to-r from-rose-800 to-rose-600 border border-rose-400/50 shadow-[0_0_15px_rgba(225,29,72,0.5)] transition-all duration-300 ease-out"
             style={{
@@ -1262,7 +1281,7 @@ const App = () => {
             if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(15);
             setShowShare(true);
           }}
-          className="shrink-0 active:scale-90 rounded-full bg-white/5 backdrop-blur-md border border-white/10 text-white/40 hover:text-white/90 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-all duration-300 group touch-manipulation flex items-center justify-center w-10 h-10"
+          className="shrink-0 active:scale-90 rounded-full bg-[#151515]/95 sm:bg-white/5 sm:backdrop-blur-md border border-white/10 text-white/40 hover:text-white/90 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-all duration-300 group touch-manipulation flex items-center justify-center w-10 h-10"
           aria-label="Поделиться"
         >
           <QrCode className="w-4 h-4 group-hover:scale-110 transition-transform" />
@@ -1276,7 +1295,7 @@ const App = () => {
             if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(15);
             handleDownloadVCard();
           }}
-          className="shrink-0 active:scale-90 rounded-full bg-white/5 backdrop-blur-md border border-white/10 text-white/40 hover:text-white/90 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-all duration-300 group touch-manipulation flex items-center justify-center w-10 h-10"
+          className="shrink-0 active:scale-90 rounded-full bg-[#151515]/95 sm:bg-white/5 sm:backdrop-blur-md border border-white/10 text-white/40 hover:text-white/90 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-all duration-300 group touch-manipulation flex items-center justify-center w-10 h-10"
           aria-label="Сохранить контакт"
           title="Сохранить в контакты"
         >
@@ -1288,11 +1307,11 @@ const App = () => {
       {/* МОДАЛЬНОЕ ОКНО ПОДЕЛИТЬСЯ */}
       {showShare && (
         <div 
-          className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm transition-opacity animate-in fade-in duration-200" 
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-[#151515]/95 sm:bg-black/40 sm:backdrop-blur-sm transition-opacity animate-in fade-in duration-200" 
           onClick={() => setShowShare(false)}
         >
           <div 
-            className="backdrop-blur-3xl rounded-[2.5rem] p-6 sm:p-8 w-full max-w-sm flex flex-col items-center relative shadow-2xl animate-in zoom-in-95 duration-200 border" 
+            className="sm:backdrop-blur-3xl rounded-[2.5rem] p-6 sm:p-8 w-full max-w-sm flex flex-col items-center relative shadow-2xl animate-in zoom-in-95 duration-200 border" 
             style={{ backgroundColor: getModalTheme().bg, borderColor: getModalTheme().border }}
             onClick={e => e.stopPropagation()}
           >
@@ -1347,7 +1366,7 @@ const App = () => {
       {/* МОДАЛЬНОЕ ОКНО PWA */}
       {showPwaPrompt && (
         <div 
-          className="fixed inset-0 z-[110] flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/60 backdrop-blur-sm transition-opacity animate-in fade-in duration-300"
+          className="fixed inset-0 z-[110] flex items-end sm:items-center justify-center p-0 sm:p-4 bg-[#151515]/95 sm:bg-black/60 sm:backdrop-blur-sm transition-opacity animate-in fade-in duration-300"
           onClick={() => setShowPwaPrompt(false)}
         >
           <div 
@@ -1364,7 +1383,7 @@ const App = () => {
             </button>
 
             <div className="w-16 h-16 bg-gradient-to-br from-rose-900 to-black p-0.5 rounded-2xl shadow-[0_0_20px_rgba(159,18,57,0.4)] mb-5">
-               <div className="w-full h-full bg-black/80 backdrop-blur-md rounded-[14px] flex items-center justify-center border border-rose-500/20">
+               <div className="w-full h-full bg-[#151515]/95 sm:bg-black/80 sm:backdrop-blur-md rounded-[14px] flex items-center justify-center border border-rose-500/20">
                  <Crown className="w-8 h-8 text-rose-400" />
                </div>
             </div>
@@ -1407,7 +1426,7 @@ const App = () => {
       {/* МОДАЛЬНОЕ ОКНО IFRAME (КАТАЛОГ СТИЛЕЙ) */}
       {showIframeModal && (
         <div 
-          className="fixed inset-0 z-[120] flex items-center justify-center p-2 sm:p-4 bg-black/80 backdrop-blur-md transition-opacity animate-in fade-in duration-300"
+          className="fixed inset-0 z-[120] flex items-center justify-center p-2 sm:p-4 bg-[#151515]/95 sm:bg-black/80 sm:backdrop-blur-md transition-opacity animate-in fade-in duration-300"
           onClick={() => setShowIframeModal(false)}
         >
           <div 
@@ -1415,7 +1434,7 @@ const App = () => {
             onClick={e => e.stopPropagation()}
           >
             {/* Header модалки */}
-            <div className="h-14 border-b border-rose-900/50 flex items-center justify-between px-4 sm:px-5 bg-black/40 backdrop-blur-sm shrink-0">
+            <div className="h-14 border-b border-rose-900/50 flex items-center justify-between px-4 sm:px-5 bg-[#151515]/95 sm:bg-black/40 sm:backdrop-blur-sm shrink-0">
               <div className="flex items-center gap-3">
                 <Smartphone className="w-5 h-5 text-rose-400" />
                 <span className="text-rose-100 font-serif tracking-wider text-[11px] sm:text-sm uppercase font-bold">{CONTENT[lang].views.catalog.title}</span>
