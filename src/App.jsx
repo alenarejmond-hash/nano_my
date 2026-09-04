@@ -1426,15 +1426,15 @@ const App = () => {
       {/* МОДАЛЬНОЕ ОКНО IFRAME (КАТАЛОГ СТИЛЕЙ) */}
       {showIframeModal && (
         <div 
-          className="fixed inset-0 z-[120] flex items-center justify-center p-2 sm:p-4 bg-[#151515]/95 sm:bg-black/80 sm:backdrop-blur-md transition-opacity animate-in fade-in duration-300"
+          className="fixed inset-0 z-[120] flex items-center justify-center p-0 sm:p-4 bg-[#0a0205] sm:bg-black/80 sm:backdrop-blur-md transition-opacity animate-in fade-in duration-300"
           onClick={() => setShowIframeModal(false)}
         >
           <div 
-            className="w-full h-full max-w-[400px] max-h-[800px] bg-[#0a0205] sm:rounded-[2.5rem] rounded-[2rem] overflow-hidden relative shadow-[0_0_50px_rgba(159,18,57,0.4)] border border-rose-900/50 flex flex-col animate-in zoom-in-95 duration-300"
+            className="w-full h-full sm:max-w-[400px] sm:max-h-[800px] bg-[#0a0205] rounded-none sm:rounded-[2.5rem] overflow-hidden relative shadow-none sm:shadow-[0_0_50px_rgba(159,18,57,0.4)] border-0 sm:border border-rose-900/50 flex flex-col animate-in slide-in-from-bottom-full sm:slide-in-from-bottom-0 sm:zoom-in-95 duration-300"
             onClick={e => e.stopPropagation()}
           >
             {/* Header модалки */}
-            <div className="h-14 border-b border-rose-900/50 flex items-center justify-between px-4 sm:px-5 bg-[#151515]/95 sm:bg-black/40 sm:backdrop-blur-sm shrink-0">
+            <div className="h-[calc(3.5rem+env(safe-area-inset-top))] pt-[env(safe-area-inset-top)] border-b border-rose-900/50 flex items-center justify-between px-4 sm:px-5 bg-[#0a0205] sm:bg-black/40 sm:backdrop-blur-sm shrink-0">
               <div className="flex items-center gap-3">
                 <Smartphone className="w-5 h-5 text-rose-400" />
                 <span className="text-rose-100 font-serif tracking-wider text-[11px] sm:text-sm uppercase font-bold">{CONTENT[lang].views.catalog.title}</span>
@@ -1448,7 +1448,7 @@ const App = () => {
             </div>
             
             {/* Iframe Container */}
-            <div className="flex-1 w-full relative bg-neutral-950">
+            <div className="flex-1 w-full relative bg-neutral-950 pb-[env(safe-area-inset-bottom)]">
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                 <div className="flex flex-col items-center gap-3">
                   <div className="w-8 h-8 border-2 border-rose-500/30 border-t-rose-500 rounded-full animate-spin"></div>
