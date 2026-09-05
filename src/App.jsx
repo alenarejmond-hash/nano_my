@@ -107,6 +107,18 @@ const CONTENT = {
       installStep2_3: 'в появившемся списке.',
       done: 'Готово',
       saveContact: 'Сохранено с цифровой визитки'
+    },
+    conditions: {
+      link: 'Условия',
+      title: 'Условия создания вашего digital-актива',
+      items: [
+          { title: 'Бронирование и оплата', text: 'Работа начинается после 50% предоплаты (депозит невозвратный). Остаток 50% — перед передачей прав на проект.' },
+          { title: 'Сроки', text: 'Реализация за 3-7 рабочих дней с момента получения 100% заполненного брифа и материалов.' },
+          { title: 'Искусство правок', text: 'Стартовое наполнение контентом включено. В индивидуальных проектах включено 2 круга правок на этапе дизайна. Правки после сдачи проекта — платные.' },
+          { title: 'Владение', text: 'После полной оплаты вы получаете полные права на проект. Никаких ежемесячных платежей.' }
+      ],
+      footer: 'Прозрачность — залог безупречного стиля.\nDesign & Code by Elena Sotnikova.',
+      accept: 'ПРИНИМАЮ'
     }
   },
 
@@ -191,6 +203,18 @@ const CONTENT = {
       installStep2_3: ' from the list.',
       done: 'Done',
       saveContact: 'Saved from digital business card'
+    },
+    conditions: {
+      link: 'Terms',
+      title: 'Terms of creating your digital asset',
+      items: [
+          { title: 'Booking and Payment', text: 'Work begins after a 50% prepayment (non-refundable deposit). The remaining 50% is due before transferring project rights.' },
+          { title: 'Timeline', text: 'Implementation takes 3-7 business days from the receipt of a 100% completed brief and materials.' },
+          { title: 'The Art of Revisions', text: 'Initial content population is included. Custom projects include 2 rounds of revisions during the design phase. Revisions after project delivery are paid.' },
+          { title: 'Ownership', text: 'Upon full payment, you receive full rights to the project. No monthly fees.' }
+      ],
+      footer: 'Transparency is the key to flawless style.\nDesign & Code by Elena Sotnikova.',
+      accept: 'I ACCEPT'
     }
   },
 
@@ -275,6 +299,18 @@ const CONTENT = {
       installStep2_3: ' հայտնված ցանկում:',
       done: 'Պատրաստ է',
       saveContact: 'Պահպանված է թվային այցեքարտից'
+    },
+    conditions: {
+      link: 'Պայմաններ',
+      title: 'Ձեր թվային ակտիվի ստեղծման պայմանները',
+      items: [
+          { title: 'Ամրագրում և Վճարում', text: 'Աշխատանքը սկսվում է 50% կանխավճարից հետո (դեպոզիտը վերադարձման ենթակա չէ): Մնացած 50%-ը՝ նախագծի իրավունքները փոխանցելուց առաջ:' },
+          { title: 'Ժամկետներ', text: 'Իրականացումը 3-7 աշխատանքային օրվա ընթացքում՝ 100% լրացված հարցաշարը և նյութերը ստանալուց հետո:' },
+          { title: 'Ուղղումների արվեստ', text: 'Նախնական բովանդակության լրացումը ներառված է: Անհատական նախագծերում ներառված է 2 փուլ ուղղում դիզայնի փուլում: Նախագծի հանձնումից հետո ուղղումները վճարովի են:' },
+          { title: 'Սեփականություն', text: 'Ամբողջական վճարումից հետո դուք ստանում եք նախագծի ամբողջական իրավունքները: Ոչ մի ամսավճար:' }
+      ],
+      footer: 'Թափանցիկությունը անթերի ոճի գրավականն է:\nDesign & Code by Elena Sotnikova.',
+      accept: 'ԸՆԴՈՒՆՈՒՄ ԵՄ'
     }
   },
 
@@ -535,6 +571,24 @@ const globalStyles = `
     border-radius: 2px;
     animation: equalize 1s infinite ease-in-out;
   }
+
+  /* === ЭФФЕКТ СЛЕДА НА ВОДЕ === */
+  @keyframes water-ripple-anim {
+    0% { transform: translate(-50%, -50%) scale(0); opacity: 0.8; filter: blur(2px); }
+    100% { transform: translate(-50%, -50%) scale(4); opacity: 0; filter: blur(15px); }
+  }
+  .water-ripple-element {
+    position: absolute;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    border: 4px solid rgba(255, 255, 255, 0.6);
+    background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 60%);
+    box-shadow: 0 0 15px rgba(255,255,255,0.4), inset 0 0 15px rgba(255,255,255,0.4);
+    animation: water-ripple-anim 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    pointer-events: none;
+    z-index: 9999;
+  }
 `;
 
 // Инъекция стилей в <head> (вне жизненного цикла React), чтобы избежать перерендеринга CSS при движении мыши
@@ -590,7 +644,7 @@ const BurnRevealImage = ({ src, className, style, imgClassName = "", burnColor =
 // ==========================================
 
 // 0. БОСС / СОЗДАТЕЛЬ (Елена Сотникова)
-const CreatorCard = ({ lang, onOpenIframe, onOpenGallery }) => {
+const CreatorCard = ({ lang, onOpenIframe, onOpenGallery, onOpenConditions }) => {
   const [view, setView] = useState('profile');
   const [isNameRevealed, setIsNameRevealed] = useState(true);
   const hackerName1 = CONTENT[lang].creator.name1;
@@ -829,13 +883,21 @@ const CreatorCard = ({ lang, onOpenIframe, onOpenGallery }) => {
 
           {/* Кнопка записи (Главная кнопка) */}
           <div 
-            className="mt-[clamp(0.5rem,3cqw,0.75rem)] w-full no-tilt cursor-default relative z-20 flex flex-col gap-[clamp(0.375rem,2cqw,0.5rem)] shrink-0"
+            className="mt-[clamp(0.5rem,3cqw,0.75rem)] w-full no-tilt cursor-default relative z-20 flex flex-col items-center gap-[clamp(0.25rem,1.5cqw,0.375rem)] shrink-0"
             onClick={(e) => e.stopPropagation()}
           >
             <a href={CONTENT[lang].creator.actionLink} target="_blank" rel="noopener noreferrer" className="w-full bg-gradient-to-r from-[#380e1b] to-black sm:backdrop-blur-md text-rose-100 font-serif text-[clamp(0.6rem,3cqw,0.6875rem)] uppercase tracking-[0.15em] py-[clamp(0.75rem,4cqw,1rem)] rounded-2xl flex items-center justify-center gap-[clamp(0.375rem,2cqw,0.5rem)] hover:from-[#4a1223] transition-all shadow-[0_0_25px_rgba(159,18,57,0.3)] border border-rose-800/50 group active:scale-95 shrink-0">
               <Crown className="w-[clamp(0.75rem,4cqw,1rem)] h-[clamp(0.75rem,4cqw,1rem)] text-rose-400 group-hover:scale-110 transition-transform shrink-0" />
               {CONTENT[lang].creator.actionText} →
             </a>
+            
+            {/* Тонкая прозрачная ссылка условий */}
+            <div 
+              className="mt-[clamp(0.125rem,1cqw,0.25rem)] text-center text-[clamp(0.5rem,2.5cqw,0.6rem)] text-rose-100/40 uppercase tracking-widest cursor-pointer hover:text-rose-100/80 transition-colors font-light"
+              onClick={(e) => { e.stopPropagation(); onOpenConditions(); }}
+            >
+              {CONTENT[lang].conditions.link}
+            </div>
           </div>
         </div>
       </div>
@@ -849,10 +911,34 @@ const CreatorCard = ({ lang, onOpenIframe, onOpenGallery }) => {
 const DesignGalleryModal = ({ onClose, lang }) => {
   const [previewInfo, setPreviewInfo] = useState(null);
   const [iframeLoaded, setIframeLoaded] = useState(false);
+  const [ripples, setRipples] = useState([]);
   const t = GALLERY_TRANSLATIONS[lang];
 
+  // Обработчик клика для эффекта расходящихся кругов по воде
+  const handlePointerDown = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const id = Date.now() + Math.random();
+    
+    setRipples(prev => [...prev, { x, y, id }]);
+    
+    // Удаляем волну после окончания анимации (1s)
+    setTimeout(() => {
+        setRipples(prev => prev.filter(r => r.id !== id));
+    }, 1000);
+  };
+
   return (
-    <div className="fixed inset-0 z-[150] flex flex-col bg-[#050102]/95 backdrop-blur-3xl animate-in fade-in duration-300 touch-none">
+    <div 
+      className="fixed inset-0 z-[150] flex flex-col bg-[#050102]/95 backdrop-blur-3xl animate-in fade-in duration-300 touch-none overflow-hidden"
+      onPointerDown={handlePointerDown}
+    >
+      {/* Рендеринг эффектов воды (волны) */}
+      {ripples.map(r => (
+        <div key={r.id} className="water-ripple-element" style={{ left: r.x, top: r.y }} />
+      ))}
+
       {/* Neon glows */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-rose-600/5 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-rose-900/10 rounded-full blur-[100px] pointer-events-none" />
@@ -873,7 +959,7 @@ const DesignGalleryModal = ({ onClose, lang }) => {
         {/* Close Button */}
         <div className="w-1/4 flex justify-end">
            <button
-             onClick={onClose}
+             onClick={(e) => { e.stopPropagation(); onClose(); }}
              className="text-white/40 hover:text-white bg-white/5 hover:bg-white/10 rounded-full p-2 max-[380px]:p-1.5 transition-colors border border-white/5 active:scale-95"
            >
              <X className="w-4 h-4 max-[380px]:w-3.5 max-[380px]:h-3.5" />
@@ -887,9 +973,9 @@ const DesignGalleryModal = ({ onClose, lang }) => {
            <div className="grid grid-cols-2 gap-4 max-[380px]:gap-3 w-full">
                {t.templates.map(link => (
                   <div key={link.id} className="relative group w-full aspect-square">
-                     <div className="absolute -inset-0.5 bg-gradient-to-br from-white/10 to-rose-500/20 rounded-[2rem] max-[380px]:rounded-[1.5rem] blur-[10px] opacity-30 group-hover:opacity-100 group-hover:blur-[14px] transition-all duration-500"></div>
+                     <div className="absolute -inset-0.5 bg-gradient-to-br from-white/10 to-rose-500/20 rounded-[2rem] max-[380px]:rounded-[1.5rem] blur-[10px] opacity-30 group-hover:opacity-100 group-hover:blur-[14px] transition-all duration-500 pointer-events-none"></div>
                      <button
-                       onClick={() => { setIframeLoaded(false); setPreviewInfo(link); }}
+                       onClick={(e) => { e.stopPropagation(); setIframeLoaded(false); setPreviewInfo(link); }}
                        className="relative w-full h-full overflow-hidden flex flex-col items-center justify-center p-4 max-[380px]:p-3 rounded-[2rem] max-[380px]:rounded-[1.5rem] bg-[#0a0205]/95 backdrop-blur-md border border-rose-900/50 hover:border-rose-500/50 hover:bg-[#15050a] transition-all duration-300 active:scale-[0.98] shadow-inner"
                      >
                        <div className="absolute inset-0 bg-gradient-to-br from-rose-900/0 via-rose-900/0 to-rose-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -905,7 +991,7 @@ const DesignGalleryModal = ({ onClose, lang }) => {
            </div>
            
            {/* Фраза внизу */}
-           <div className="mt-8 max-[380px]:mt-6 text-center border-t border-rose-900/30 pt-6 max-[380px]:pt-4 mb-4 max-[380px]:mb-2 shrink-0">
+           <div className="mt-8 max-[380px]:mt-6 text-center border-t border-rose-900/30 pt-6 max-[380px]:pt-4 mb-4 max-[380px]:mb-2 shrink-0 pointer-events-none">
              <p className="text-[11px] max-[380px]:text-[10px] text-rose-100/50 font-light tracking-wide">
                {t.notFound1}<br/>
                <span className="text-rose-400/80 font-medium mt-1.5 inline-block">{t.notFound2}</span>
@@ -916,7 +1002,7 @@ const DesignGalleryModal = ({ onClose, lang }) => {
 
       {/* Iframe Modal Inside Gallery */}
       {previewInfo && (
-        <div className="fixed inset-0 z-[200] flex flex-col bg-[#050102] animate-in fade-in zoom-in-[0.98] duration-300">
+        <div className="fixed inset-0 z-[200] flex flex-col bg-[#050102] animate-in fade-in zoom-in-[0.98] duration-300" onPointerDown={e => e.stopPropagation()}>
            <div className="relative flex items-center justify-between px-4 max-[380px]:px-3 border-b border-rose-900/50 bg-[#0a0205] shrink-0 shadow-lg h-[50px] max-[380px]:h-[44px]">
               <button
                 onClick={() => setPreviewInfo(null)}
@@ -971,6 +1057,7 @@ const App = () => {
   const [showPwaPrompt, setShowPwaPrompt] = useState(false);
   const [showIframeModal, setShowIframeModal] = useState(false);
   const [showGallery, setShowGallery] = useState(false);
+  const [showConditionsModal, setShowConditionsModal] = useState(false);
   const [iframeUrl, setIframeUrl] = useState('');
   const [copied, setCopied] = useState(false);
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
@@ -1355,6 +1442,7 @@ const App = () => {
                 lang={lang} 
                 onOpenIframe={(url) => { setIframeUrl(url); setShowIframeModal(true); }} 
                 onOpenGallery={() => setShowGallery(true)} 
+                onOpenConditions={() => setShowConditionsModal(true)}
               />
 
               {/* Блики */}
@@ -1607,6 +1695,58 @@ const App = () => {
             >
               {CONTENT[lang].ui.done}
             </button>
+          </div>
+        </div>
+      )}
+
+      {/* МОДАЛКА УСЛОВИЙ (ИЗ ВИДЕО) */}
+      {showConditionsModal && (
+        <div 
+          className="fixed inset-0 z-[160] flex items-end sm:items-center justify-center p-0 sm:p-4 bg-[#151515]/95 sm:bg-black/60 sm:backdrop-blur-sm transition-opacity animate-in fade-in duration-300 touch-none"
+          onClick={() => setShowConditionsModal(false)}
+        >
+          <div 
+            className="w-full h-[85vh] sm:h-auto sm:max-h-[85vh] max-w-md bg-[#0a0205] sm:rounded-3xl rounded-t-3xl flex flex-col relative animate-in slide-in-from-bottom-full sm:zoom-in-95 duration-300 border-t sm:border border-rose-900/30 shadow-[0_-10px_40px_rgba(159,18,57,0.2)]"
+            onClick={e => e.stopPropagation()}
+          >
+             {/* Header */}
+             <div className="flex-shrink-0 flex items-center justify-between p-5 border-b border-rose-900/30">
+               <h3 className="text-lg font-bold text-white tracking-wide">{CONTENT[lang].conditions.title}</h3>
+               <button 
+                  onClick={() => setShowConditionsModal(false)} 
+                  className="text-white/40 hover:text-white bg-white/5 hover:bg-white/10 rounded-full p-2 transition-colors border border-white/5 ml-4 shrink-0"
+               >
+                  <X className="w-5 h-5" />
+               </button>
+             </div>
+             
+             {/* Content scrollable */}
+             <div className="flex-1 overflow-y-auto p-5 pb-8 hide-scrollbar">
+                <div className="flex flex-col gap-6">
+                  {CONTENT[lang].conditions.items.map((item, idx) => (
+                    <div key={idx} className="flex flex-col gap-1.5">
+                      <h4 className="text-[15px] font-bold text-rose-200">{item.title}</h4>
+                      <p className="text-[13px] text-rose-100/70 leading-relaxed font-light">{item.text}</p>
+                    </div>
+                  ))}
+                </div>
+                
+                <div className="mt-8 pt-6 border-t border-rose-900/30 text-center">
+                  <p className="text-[11px] text-rose-100/40 tracking-wider whitespace-pre-line uppercase font-light leading-relaxed">
+                    {CONTENT[lang].conditions.footer}
+                  </p>
+                </div>
+             </div>
+
+             {/* Footer button */}
+             <div className="flex-shrink-0 p-5 border-t border-rose-900/30 bg-[#0a0205] sm:rounded-b-3xl">
+               <button 
+                 onClick={() => setShowConditionsModal(false)}
+                 className="w-full bg-white text-black font-bold py-4 px-4 rounded-2xl transition-all shadow-[0_0_20px_rgba(255,255,255,0.2)] active:scale-95 hover:bg-rose-100"
+               >
+                 {CONTENT[lang].conditions.accept}
+               </button>
+             </div>
           </div>
         </div>
       )}
