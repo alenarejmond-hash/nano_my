@@ -545,6 +545,13 @@ if (typeof document !== 'undefined' && !document.getElementById('app-global-styl
   document.head.appendChild(styleEl);
 }
 
+// Утилита для вибрации
+const triggerVibration = (pattern = 15) => {
+  if (typeof navigator !== 'undefined' && navigator.vibrate) {
+    navigator.vibrate(pattern);
+  }
+};
+
 // ==========================================
 // 🪄 КОМПОНЕНТ ЭФФЕКТА СГОРАНИЯ (УМНАЯ ЦВЕТОВАЯ ПОДСТРОЙКА)
 // ==========================================
@@ -825,7 +832,7 @@ const CreatorCard = ({ lang, onOpenIframe, onOpenGallery }) => {
             className="mt-[clamp(0.5rem,3cqw,0.75rem)] w-full no-tilt cursor-default relative z-20 flex flex-col gap-[clamp(0.375rem,2cqw,0.5rem)] shrink-0"
             onClick={(e) => e.stopPropagation()}
           >
-            <a href={CONTENT[lang].creator.actionLink} className="w-full bg-gradient-to-r from-[#380e1b] to-black sm:backdrop-blur-md text-rose-100 font-serif text-[clamp(0.6rem,3cqw,0.6875rem)] uppercase tracking-[0.15em] py-[clamp(0.75rem,4cqw,1rem)] rounded-2xl flex items-center justify-center gap-[clamp(0.375rem,2cqw,0.5rem)] hover:from-[#4a1223] transition-all shadow-[0_0_25px_rgba(159,18,57,0.3)] border border-rose-800/50 group active:scale-95 shrink-0">
+            <a href={CONTENT[lang].creator.actionLink} target="_blank" rel="noopener noreferrer" className="w-full bg-gradient-to-r from-[#380e1b] to-black sm:backdrop-blur-md text-rose-100 font-serif text-[clamp(0.6rem,3cqw,0.6875rem)] uppercase tracking-[0.15em] py-[clamp(0.75rem,4cqw,1rem)] rounded-2xl flex items-center justify-center gap-[clamp(0.375rem,2cqw,0.5rem)] hover:from-[#4a1223] transition-all shadow-[0_0_25px_rgba(159,18,57,0.3)] border border-rose-800/50 group active:scale-95 shrink-0">
               <Crown className="w-[clamp(0.75rem,4cqw,1rem)] h-[clamp(0.75rem,4cqw,1rem)] text-rose-400 group-hover:scale-110 transition-transform shrink-0" />
               {CONTENT[lang].creator.actionText} →
             </a>
@@ -1173,9 +1180,7 @@ const App = () => {
       setSparks([]);
     }
 
-    if (typeof navigator !== 'undefined' && navigator.vibrate) {
-      navigator.vibrate([30, 30, 40]); 
-    }
+    triggerVibration([30, 30, 40]);
     setIsFlipped(!isFlipped);
   };
 
@@ -1443,7 +1448,7 @@ const App = () => {
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(15);
+                triggerVibration();
                 setLang(item.code);
               }}
               aria-label={`Язык ${item.label}`}
@@ -1461,7 +1466,7 @@ const App = () => {
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
-            if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(15);
+            triggerVibration();
             setShowShare(true);
           }}
           className="shrink-0 active:scale-90 rounded-full bg-[#151515]/95 sm:bg-white/5 sm:backdrop-blur-md border border-white/10 text-white/40 hover:text-white/90 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-all duration-300 group touch-manipulation flex items-center justify-center w-10 h-10"
@@ -1475,7 +1480,7 @@ const App = () => {
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
-            if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(15);
+            triggerVibration();
             handleDownloadVCard();
           }}
           className="shrink-0 active:scale-90 rounded-full bg-[#151515]/95 sm:bg-white/5 sm:backdrop-blur-md border border-white/10 text-white/40 hover:text-white/90 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-all duration-300 group touch-manipulation flex items-center justify-center w-10 h-10"
