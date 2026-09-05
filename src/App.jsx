@@ -22,13 +22,6 @@ const QRCodeComponent = ({ value, size }) => {
   );
 };
 
-// Утилита для вибрации
-const triggerVibration = (pattern = 15) => {
-  if (typeof navigator !== 'undefined' && navigator.vibrate) {
-    navigator.vibrate(pattern);
-  }
-};
-
 // ==========================================
 // ⚙️ НАСТРОЙКИ КОНТЕНТА (МЕНЯТЬ ТЕКСТ, ФОТО И ССЫЛКИ ТОЛЬКО ЗДЕСЬ!)
 // ==========================================
@@ -552,6 +545,13 @@ if (typeof document !== 'undefined' && !document.getElementById('app-global-styl
   document.head.appendChild(styleEl);
 }
 
+// Утилита для вибрации
+const triggerVibration = (pattern = 15) => {
+  if (typeof navigator !== 'undefined' && navigator.vibrate) {
+    navigator.vibrate(pattern);
+  }
+};
+
 // ==========================================
 // 🪄 КОМПОНЕНТ ЭФФЕКТА СГОРАНИЯ (УМНАЯ ЦВЕТОВАЯ ПОДСТРОЙКА)
 // ==========================================
@@ -851,145 +851,107 @@ const DesignGalleryModal = ({ onClose, lang }) => {
   const [iframeLoaded, setIframeLoaded] = useState(false);
   const t = GALLERY_TRANSLATIONS[lang];
 
-  // Специфичные цвета аур для каждой ниши
-  const auraColors = {
-    esoteric: 'from-fuchsia-500 to-purple-600',
-    psychology: 'from-blue-500 to-cyan-400',
-    travel: 'from-emerald-400 to-teal-500',
-    blogger: 'from-rose-500 to-pink-500',
-    fitness: 'from-orange-500 to-red-600',
-    beauty: 'from-pink-400 to-rose-300',
-    realty: 'from-indigo-500 to-blue-600',
-    dentistry: 'from-cyan-300 to-sky-400',
-    photographer: 'from-amber-400 to-orange-500',
-  };
-
   return (
-    <div className="fixed inset-0 z-[150] flex flex-col sm:items-center sm:justify-center bg-[#050102]/95 sm:bg-black/80 backdrop-blur-3xl sm:backdrop-blur-md animate-in fade-in duration-300 touch-none">
-      
-      {/* Фоновые неоновые пятна (видны на мобильных устройствах или за модалкой на десктопе) */}
+    <div className="fixed inset-0 z-[150] flex flex-col bg-[#050102]/95 backdrop-blur-3xl animate-in fade-in duration-300 touch-none">
+      {/* Neon glows */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-rose-600/5 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-rose-900/10 rounded-full blur-[100px] pointer-events-none" />
 
-      {/* Внутренний контейнер модалки (На всю высоту на мобилках, компактный на десктопе) */}
-      <div className="w-full h-full sm:h-[800px] sm:max-h-[85vh] sm:max-w-[380px] flex flex-col relative sm:rounded-[2.5rem] sm:border sm:border-rose-900/50 sm:shadow-[0_0_50px_rgba(159,18,57,0.4)] sm:bg-[#0a0205] overflow-hidden bg-transparent">
-        
-        {/* Header */}
-        <div className="relative flex items-center justify-between px-4 max-[380px]:px-3 border-b border-rose-900/50 bg-[#0a0205]/80 shrink-0 z-20 shadow-lg h-[50px] max-[380px]:h-[44px]">
-          <div className="flex items-center w-1/4">
-             <div className="w-7 h-7 max-[380px]:w-6 max-[380px]:h-6 rounded-full bg-rose-900/30 border border-rose-500/30 flex items-center justify-center shadow-[0_0_10px_rgba(159,18,57,0.2)] shrink-0">
-                <Crown className="w-3.5 h-3.5 max-[380px]:w-3 max-[380px]:h-3 text-rose-400" />
-             </div>
-          </div>
-          <div className="absolute left-1/2 -translate-x-1/2 flex items-center z-[60]">
-          </div>
-          <div className="w-1/4 flex justify-end">
-             <button
-               onClick={onClose}
-               className="text-white/40 hover:text-white bg-white/5 hover:bg-white/10 rounded-full p-2 max-[380px]:p-1.5 transition-colors border border-white/5 active:scale-95"
-             >
-               <X className="w-4 h-4 max-[380px]:w-3.5 max-[380px]:h-3.5" />
-             </button>
-          </div>
+      {/* Header */}
+      <div className="relative flex items-center justify-between px-4 max-[380px]:px-3 border-b border-rose-900/50 bg-[#0a0205]/80 shrink-0 z-20 shadow-lg h-[50px] max-[380px]:h-[44px]">
+        {/* Crown */}
+        <div className="flex items-center w-1/4">
+           <div className="w-7 h-7 max-[380px]:w-6 max-[380px]:h-6 rounded-full bg-rose-900/30 border border-rose-500/30 flex items-center justify-center shadow-[0_0_10px_rgba(159,18,57,0.2)] shrink-0">
+              <Crown className="w-3.5 h-3.5 max-[380px]:w-3 max-[380px]:h-3 text-rose-400" />
+           </div>
         </div>
 
-        {/* Сетка (Ограничена по ширине для сохранения изящных пропорций квадратов) */}
-        <div className="flex-1 overflow-y-auto hide-scrollbar relative pb-12 pt-6 max-[380px]:pt-4 touch-pan-y overscroll-contain">
-          <div className="w-full max-w-[320px] sm:max-w-[300px] mx-auto px-4 max-[380px]:px-3 relative z-10 flex flex-col">
-             <div className="grid grid-cols-2 gap-3 sm:gap-4 w-full">
-                 {t.templates.map(link => (
-                    <div key={link.id} className="relative group w-full aspect-square">
-                       {/* External Glow (Backdrop glow) */}
-                       <div className={`absolute -inset-0.5 bg-gradient-to-br ${auraColors[link.id]} rounded-[1.5rem] sm:rounded-[1.75rem] blur-[12px] opacity-20 group-hover:opacity-50 transition-all duration-700`}></div>
-                       
-                       <button
-                         onClick={() => { triggerVibration(10); setIframeLoaded(false); setPreviewInfo(link); }}
-                         className="relative w-full h-full flex flex-col items-center justify-center rounded-[1.5rem] sm:rounded-[1.75rem] transition-all duration-500 active:scale-[0.96] shadow-[0_10px_40px_rgba(0,0,0,0.5)]"
-                       >
-                         {/* 1. Aura Blobs (Back layer for internal glow) */}
-                         <div className="absolute inset-0 overflow-hidden rounded-[1.5rem] sm:rounded-[1.75rem]">
-                            <div className="absolute inset-0 bg-[#0a0205]"></div>
-                            
-                            {/* Spinning Aura 1 */}
-                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[160%] aspect-square opacity-60" style={{ animation: 'esoteric-slow-drift-1 12s linear infinite' }}>
-                               <div className={`absolute inset-0 bg-gradient-to-tr ${auraColors[link.id]} rounded-full blur-[15px]`} style={{ transform: 'scale(0.7) translate(15%, 15%)' }}></div>
-                            </div>
-                            
-                            {/* Spinning Aura 2 */}
-                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[160%] aspect-square opacity-60" style={{ animation: 'esoteric-slow-drift-2 18s linear infinite' }}>
-                               <div className={`absolute inset-0 bg-gradient-to-bl ${auraColors[link.id]} rounded-full blur-[20px]`} style={{ transform: 'scale(0.8) translate(-15%, -15%)' }}></div>
-                            </div>
-                         </div>
-                         
-                         {/* 2. Glass Overlay (Middle layer to frost the auras) */}
-                         <div className="absolute inset-0 bg-white/[0.03] backdrop-blur-[12px] border border-white/10 rounded-[1.5rem] sm:rounded-[1.75rem] group-hover:bg-white/[0.08] group-hover:border-white/30 transition-all duration-500">
-                           {/* Inner gradient overlay for depth */}
-                           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60 rounded-[1.5rem] sm:rounded-[1.75rem] pointer-events-none" />
-                         </div>
-                         
-                         {/* 3. Content (Front layer) */}
-                         <div className="relative z-10 flex flex-col items-center justify-center w-full p-3 sm:p-4">
-                           <div className="w-12 h-12 max-[380px]:w-10 max-[380px]:h-10 rounded-full bg-black/40 backdrop-blur-md border border-white/20 flex items-center justify-center shadow-[0_0_20px_rgba(0,0,0,0.6)] mb-2.5 max-[380px]:mb-2 shrink-0 group-hover:scale-110 group-hover:border-white/50 group-hover:shadow-[0_0_25px_rgba(255,255,255,0.2)] transition-all duration-500">
-                              <link.icon className="w-5 h-5 max-[380px]:w-4 max-[380px]:h-4 text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]" />
-                           </div>
-                           <span className="text-[11px] max-[380px]:text-[10px] font-bold text-white tracking-widest uppercase text-center leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
-                             {link.name}
-                           </span>
-                         </div>
-                       </button>
-                    </div>
-                 ))}
-             </div>
-             
-             {/* Фраза внизу */}
-             <div className="mt-6 max-[380px]:mt-5 text-center border-t border-rose-900/30 pt-5 max-[380px]:pt-4 mb-4 max-[380px]:mb-2 shrink-0">
-               <p className="text-[10px] max-[380px]:text-[9px] text-rose-100/50 font-light tracking-wide">
-                 {t.notFound1}<br/>
-                 <span className="text-rose-400/80 font-medium mt-1.5 inline-block">{t.notFound2}</span>
-               </p>
-             </div>
-          </div>
+        {/* Center spacing where language switcher was */}
+        <div className="absolute left-1/2 -translate-x-1/2 flex items-center z-[60]">
         </div>
 
-        {/* Iframe Modal Inside Gallery (Встраивается поверх сетки внутри контейнера) */}
-        {previewInfo && (
-          <div className="absolute inset-0 z-[200] flex flex-col bg-[#050102] animate-in fade-in zoom-in-[0.98] duration-300">
-             <div className="relative flex items-center justify-between px-4 max-[380px]:px-3 border-b border-rose-900/50 bg-[#0a0205] shrink-0 shadow-lg h-[50px] max-[380px]:h-[44px]">
-                <button
-                  onClick={() => setPreviewInfo(null)}
-                  className="flex items-center gap-1.5 px-3 py-1.5 max-[380px]:px-2 max-[380px]:py-1 rounded-full bg-rose-900/30 border border-rose-500/30 text-rose-300 hover:bg-rose-900/50 hover:text-rose-100 transition-all active:scale-95 shadow-[0_0_10px_rgba(159,18,57,0.2)]"
-                >
-                  <ChevronLeft className="w-4 h-4 max-[380px]:w-3.5 max-[380px]:h-3.5" />
-                  <span className="text-[10px] max-[380px]:text-[9px] font-bold tracking-widest uppercase">{t.back}</span>
-                </button>
-                <a
-                  href={`${previewInfo.url}?ref=catalog`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="absolute left-1/2 -translate-x-1/2 flex items-center gap-2 px-4 py-1.5 max-[380px]:px-3 max-[380px]:py-1 rounded-full bg-rose-600 border border-rose-400 text-white hover:bg-rose-500 transition-all active:scale-95 shadow-[0_0_15px_rgba(225,29,72,0.4)]"
-                >
-                  <span className="text-[10px] max-[380px]:text-[9px] font-bold tracking-widest uppercase">{t.openFull}</span>
-                  <ExternalLink className="w-3.5 h-3.5 max-[380px]:w-3 max-[380px]:h-3 text-white" />
-                </a>
-                <div className="w-[74px] max-[380px]:w-[60px]"></div>
-             </div>
-             <div className="flex-1 relative w-full h-full bg-[#050102]">
-                {!iframeLoaded && (
-                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-[#050102] z-10">
-                     <div className="w-8 h-8 max-[380px]:w-6 max-[380px]:h-6 border-2 border-rose-900/50 border-t-rose-500 rounded-full animate-spin"></div>
-                     <span className="text-[10px] max-[380px]:text-[8px] uppercase tracking-widest text-rose-500/50 animate-pulse">Loading...</span>
-                  </div>
-                )}
-                <iframe
-                  src={previewInfo.url}
-                  className={`w-full h-full border-none transition-opacity duration-700 bg-white ${iframeLoaded ? 'opacity-100' : 'opacity-0'}`}
-                  onLoad={() => setIframeLoaded(true)}
-                  title={previewInfo.name}
-                />
-             </div>
-          </div>
-        )}
+        {/* Close Button */}
+        <div className="w-1/4 flex justify-end">
+           <button
+             onClick={onClose}
+             className="text-white/40 hover:text-white bg-white/5 hover:bg-white/10 rounded-full p-2 max-[380px]:p-1.5 transition-colors border border-white/5 active:scale-95"
+           >
+             <X className="w-4 h-4 max-[380px]:w-3.5 max-[380px]:h-3.5" />
+           </button>
+        </div>
       </div>
+
+      {/* Grid */}
+      <div className="flex-1 overflow-y-auto hide-scrollbar relative pb-12 pt-6 max-[380px]:pt-4 touch-pan-y overscroll-contain">
+        <div className="max-w-xl mx-auto w-full px-5 max-[380px]:px-4 relative z-10 flex flex-col">
+           <div className="grid grid-cols-2 gap-4 max-[380px]:gap-3 w-full">
+               {t.templates.map(link => (
+                  <div key={link.id} className="relative group w-full aspect-square">
+                     <div className="absolute -inset-0.5 bg-gradient-to-br from-white/10 to-rose-500/20 rounded-[2rem] max-[380px]:rounded-[1.5rem] blur-[10px] opacity-30 group-hover:opacity-100 group-hover:blur-[14px] transition-all duration-500"></div>
+                     <button
+                       onClick={() => { setIframeLoaded(false); setPreviewInfo(link); }}
+                       className="relative w-full h-full overflow-hidden flex flex-col items-center justify-center p-4 max-[380px]:p-3 rounded-[2rem] max-[380px]:rounded-[1.5rem] bg-[#0a0205]/95 backdrop-blur-md border border-rose-900/50 hover:border-rose-500/50 hover:bg-[#15050a] transition-all duration-300 active:scale-[0.98] shadow-inner"
+                     >
+                       <div className="absolute inset-0 bg-gradient-to-br from-rose-900/0 via-rose-900/0 to-rose-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                       <div className="w-14 h-14 max-[380px]:w-12 max-[380px]:h-12 rounded-full bg-rose-900/20 border border-rose-500/30 flex items-center justify-center shadow-[0_0_15px_rgba(159,18,57,0.2)] mb-3 max-[380px]:mb-2 shrink-0">
+                          <link.icon className="w-6 h-6 max-[380px]:w-5 max-[380px]:h-5 text-rose-400 group-hover:scale-110 transition-transform duration-300" />
+                       </div>
+                       <span className="text-[13px] max-[380px]:text-[11px] font-bold text-rose-100 tracking-wider text-center leading-tight">
+                         {link.name}
+                       </span>
+                     </button>
+                  </div>
+               ))}
+           </div>
+           
+           {/* Фраза внизу */}
+           <div className="mt-8 max-[380px]:mt-6 text-center border-t border-rose-900/30 pt-6 max-[380px]:pt-4 mb-4 max-[380px]:mb-2 shrink-0">
+             <p className="text-[11px] max-[380px]:text-[10px] text-rose-100/50 font-light tracking-wide">
+               {t.notFound1}<br/>
+               <span className="text-rose-400/80 font-medium mt-1.5 inline-block">{t.notFound2}</span>
+             </p>
+           </div>
+        </div>
+      </div>
+
+      {/* Iframe Modal Inside Gallery */}
+      {previewInfo && (
+        <div className="fixed inset-0 z-[200] flex flex-col bg-[#050102] animate-in fade-in zoom-in-[0.98] duration-300">
+           <div className="relative flex items-center justify-between px-4 max-[380px]:px-3 border-b border-rose-900/50 bg-[#0a0205] shrink-0 shadow-lg h-[50px] max-[380px]:h-[44px]">
+              <button
+                onClick={() => setPreviewInfo(null)}
+                className="flex items-center gap-1.5 px-3 py-1.5 max-[380px]:px-2 max-[380px]:py-1 rounded-full bg-rose-900/30 border border-rose-500/30 text-rose-300 hover:bg-rose-900/50 hover:text-rose-100 transition-all active:scale-95 shadow-[0_0_10px_rgba(159,18,57,0.2)]"
+              >
+                <ChevronLeft className="w-4 h-4 max-[380px]:w-3.5 max-[380px]:h-3.5" />
+                <span className="text-[10px] max-[380px]:text-[9px] font-bold tracking-widest uppercase">{t.back}</span>
+              </button>
+              <a
+                href={`${previewInfo.url}?ref=catalog`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="absolute left-1/2 -translate-x-1/2 flex items-center gap-2 px-4 py-1.5 max-[380px]:px-3 max-[380px]:py-1 rounded-full bg-rose-600 border border-rose-400 text-white hover:bg-rose-500 transition-all active:scale-95 shadow-[0_0_15px_rgba(225,29,72,0.4)]"
+              >
+                <span className="text-[10px] max-[380px]:text-[9px] font-bold tracking-widest uppercase">{t.openFull}</span>
+                <ExternalLink className="w-3.5 h-3.5 max-[380px]:w-3 max-[380px]:h-3 text-white" />
+              </a>
+              <div className="w-[74px] max-[380px]:w-[60px]"></div>
+           </div>
+           <div className="flex-1 relative w-full h-full bg-[#050102]">
+              {!iframeLoaded && (
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-[#050102] z-10">
+                   <div className="w-8 h-8 max-[380px]:w-6 max-[380px]:h-6 border-2 border-rose-900/50 border-t-rose-500 rounded-full animate-spin"></div>
+                   <span className="text-[10px] max-[380px]:text-[8px] uppercase tracking-widest text-rose-500/50 animate-pulse">Loading...</span>
+                </div>
+              )}
+              <iframe
+                src={previewInfo.url}
+                className={`w-full h-full border-none transition-opacity duration-700 bg-white ${iframeLoaded ? 'opacity-100' : 'opacity-0'}`}
+                onLoad={() => setIframeLoaded(true)}
+                title={previewInfo.name}
+              />
+           </div>
+        </div>
+      )}
     </div>
   );
 };
