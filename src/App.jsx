@@ -574,18 +574,26 @@ const globalStyles = `
 
   /* === ЭФФЕКТ СЛЕДА НА ВОДЕ === */
   @keyframes water-ripple-anim {
-    0% { transform: translate(-50%, -50%) scale(0); opacity: 0.6; filter: blur(4px); }
-    100% { transform: translate(-50%, -50%) scale(4); opacity: 0; filter: blur(25px); }
+    0% { 
+      transform: translate(-50%, -50%) scale(0.1); 
+      opacity: 1; 
+      border-width: 4px;
+    }
+    100% { 
+      transform: translate(-50%, -50%) scale(1); 
+      opacity: 0; 
+      border-width: 0px;
+    }
   }
   .water-ripple-element {
     position: fixed;
     border-radius: 50%;
-    width: 100px;
-    height: 100px;
-    border: 2px solid rgba(255, 255, 255, 0.4);
-    background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
-    box-shadow: 0 0 20px rgba(255,255,255,0.2), inset 0 0 20px rgba(255,255,255,0.2);
-    animation: water-ripple-anim 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    width: 120px;
+    height: 120px;
+    border: solid rgba(255, 255, 255, 0.9);
+    background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 60%);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.6), inset 0 0 20px rgba(255, 255, 255, 0.4);
+    animation: water-ripple-anim 0.8s cubic-bezier(0.2, 0.8, 0.3, 1) forwards;
     pointer-events: none;
     z-index: 99999;
   }
@@ -1077,7 +1085,7 @@ const App = () => {
       
       setTimeout(() => {
           setRipples(prev => prev.filter(r => r.id !== id));
-      }, 1000);
+      }, 800);
     };
 
     window.addEventListener('pointerdown', handleGlobalPointerDown);
