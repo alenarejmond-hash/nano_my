@@ -1658,6 +1658,49 @@ const App = () => {
         />
       )}
 
+      {/* МОДАЛЬНОЕ ОКНО IFRAME (КАТАЛОГ СТИЛЕЙ) */}
+      {showIframeModal && (
+        <div 
+          className="fixed inset-0 z-[120] flex items-center justify-center p-0 sm:p-4 bg-[#0a0205] sm:bg-black/80 sm:backdrop-blur-md transition-opacity animate-in fade-in duration-300"
+          onClick={() => setShowIframeModal(false)}
+        >
+          <div 
+            className="w-full h-full sm:max-w-[400px] sm:max-h-[800px] bg-[#0a0205] rounded-none sm:rounded-[2.5rem] overflow-hidden relative shadow-none sm:shadow-[0_0_50px_rgba(159,18,57,0.4)] border-0 sm:border border-rose-900/50 flex flex-col animate-in slide-in-from-bottom-full sm:slide-in-from-bottom-0 sm:zoom-in-95 duration-300"
+            onClick={e => e.stopPropagation()}
+          >
+            {/* Header модалки */}
+            <div className="h-[calc(3.5rem+env(safe-area-inset-top))] pt-[env(safe-area-inset-top)] border-b border-rose-900/50 flex items-center justify-between px-4 sm:px-5 bg-[#0a0205] sm:bg-black/40 sm:backdrop-blur-sm shrink-0">
+              <div className="flex items-center gap-3">
+                <Smartphone className="w-5 h-5 text-rose-400" />
+                <span className="text-rose-100 font-serif tracking-wider text-[11px] sm:text-sm uppercase font-bold">{CONTENT[lang].views.catalog.title}</span>
+              </div>
+              <button 
+                onClick={() => setShowIframeModal(false)}
+                className="text-white/40 hover:text-white bg-white/5 hover:bg-white/10 rounded-full p-2 transition-colors border border-white/5 active:scale-95"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+            
+            {/* Iframe Container */}
+            <div className="flex-1 w-full relative bg-neutral-950 pb-[env(safe-area-inset-bottom)]">
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div className="flex flex-col items-center gap-3">
+                  <div className="w-8 h-8 border-2 border-rose-500/30 border-t-rose-500 rounded-full animate-spin"></div>
+                  <div className="text-rose-200/50 text-[10px] font-serif tracking-widest uppercase">Loading...</div>
+                </div>
+              </div>
+              <iframe 
+                src={iframeUrl} 
+                className="w-full h-full border-0 relative z-10 bg-transparent"
+                title="Template Preview"
+                sandbox="allow-scripts allow-same-origin allow-popups"
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 };
