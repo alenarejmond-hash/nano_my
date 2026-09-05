@@ -106,17 +106,18 @@ const CONTENT = {
       installStep2_2: '«На экран "Домой"»',
       installStep2_3: 'в появившемся списке.',
       done: 'Готово',
-      saveContact: 'Сохранено с цифровой визитки'
+      saveContact: 'Сохранено с цифровой визитки',
+      comingSoonVideo: 'Скоро здесь появится видео'
     },
     conditions: {
       link: 'Условия',
       title: 'Условия создания вашего digital-актива',
       items: [
           { title: 'Бронирование и оплата', text: 'Работа ведется строго по предварительной записи. Бронирование даты происходит после 100% оплаты (тариф STANDART) или 50% предоплаты (индивидуальный тариф PREMIUM).' },
-          { title: 'Подготовка и сроки', text: 'Вы получаете готовую визитку точно в забронированный день. Главное условие — предоставление 100% заполненного брифа и всех материалов не позднее, чем за 2 дня до даты старта.' },
-          { title: 'Дизайн и адаптация', text: 'В тариф STANDART включена адаптация шаблона: настройка вашей цветовой гаммы и нужных кнопок связи. Изменение структуры блоков доступно только в тарифе PREMIUM.' },
-          { title: 'Условия возврата', text: 'В случае вашего отказа от услуги после бронирования, оплата по тарифу STANDART не возвращается. В тарифе PREMIUM невозвратной является сумма предоплаты (50%).' },
-          { title: 'Обновление данных', text: 'Визитка работает без абонентской платы. Бесплатные правки (например, опечатки) вносятся в течение 7 дней после сдачи. Если в будущем потребуется обновить контакты, фото или ссылки, услуга оказывается разово: 1 000 ₽.' }
+          { title: 'Разработка цифрового актива', text: 'Вы получаете готовую PWA-визитку точно в забронированный день. Условие — предоставление 100% заполненного брифа и всех материалов не позднее, чем за 2 дня до даты старта. Правки на опечатки вносятся бесплатно в течение 7 дней после сдачи.' },
+          { title: 'Производство NFC-брелоков', text: 'Срок изготовления физического носителя — от 3 до 7 рабочих дней после полного утверждения цифровой визитки. Доставка осуществляется курьерской службой/почтой (оплачивается отдельно в зависимости от региона). Каждый брелок создается вручную индивидуально и обмену/возврату не подлежит.' },
+          { title: 'Дизайн и адаптация', text: 'В тариф STANDART включена настройка вашей цветовой гаммы и нужных кнопок связи. Изменение структуры блоков и кастомные анимации доступны только в тарифе PREMIUM.' },
+          { title: 'Условия возврата и обновления', text: 'В случае отказа от услуги после бронирования, оплата по тарифу STANDART не возвращается. В тарифе PREMIUM невозвратной является предоплата 50%. В будущем разовое обновление ваших контактов, фото или ссылки составляет 500 ₽.' }
       ],
       footer: 'Прозрачность — залог безупречного стиля.\nDesign & Code by Elena Sotnikova.',
       accept: 'ПРИНИМАЮ'
@@ -203,17 +204,18 @@ const CONTENT = {
       installStep2_2: '«Add to Home Screen»',
       installStep2_3: ' from the list.',
       done: 'Done',
-      saveContact: 'Saved from digital business card'
+      saveContact: 'Saved from digital business card',
+      comingSoonVideo: 'Video will appear here soon'
     },
     conditions: {
       link: 'Terms',
       title: 'Terms of creating your digital asset',
       items: [
           { title: 'Booking and Payment', text: 'Work is strictly by appointment. Booking a date requires a 100% payment (STANDART plan) or a 50% prepayment (PREMIUM plan).' },
-          { title: 'Preparation and Deadlines', text: 'You will receive your ready business card exactly on the booked date, provided that a completed brief and all materials are submitted at least 2 days before the start.' },
-          { title: 'Design and Adaptation', text: 'The STANDART plan includes template adaptation: matching your color scheme and setting up necessary contact buttons. Structural changes are available only in the PREMIUM plan.' },
-          { title: 'Refund Policy', text: 'In case of cancellation after booking, the STANDART plan payment is non-refundable. For the PREMIUM plan, the 50% prepayment is non-refundable.' },
-          { title: 'Future Updates', text: 'The card works with no monthly fees. Free corrections (e.g., typos) are accepted within 7 days of delivery. Future updates for contacts, photos, or links are provided as a one-time service: $10.' }
+          { title: 'Digital Asset Development', text: 'You will receive your ready PWA business card exactly on the booked date. Condition — providing a 100% completed brief and all materials no later than 2 days before the start date. Typo corrections are made free of charge within 7 days after delivery.' },
+          { title: 'NFC Keychain Production', text: 'The production time for the physical carrier is from 3 to 7 business days after the full approval of the digital business card. Delivery is carried out by courier service/post (paid separately depending on the region). Each keychain is created individually by hand and cannot be exchanged or returned.' },
+          { title: 'Design and Adaptation', text: 'The STANDART plan includes matching your color scheme and setting up necessary contact buttons. Structural changes and custom animations are available only in the PREMIUM plan.' },
+          { title: 'Refund and Update Policy', text: 'In case of cancellation after booking, the STANDART plan payment is non-refundable. For the PREMIUM plan, the 50% prepayment is non-refundable. In the future, a one-time update of your contacts, photos or links costs $5.' }
       ],
       footer: 'Transparency is the key to flawless style.\nDesign & Code by Elena Sotnikova.',
       accept: 'I ACCEPT'
@@ -300,17 +302,18 @@ const CONTENT = {
       installStep2_2: '«Ավելացնել Գլխավոր էկրանին»',
       installStep2_3: ' հայտնված ցանկում:',
       done: 'Պատրաստ է',
-      saveContact: 'Պահպանված է թվային այցեքարտից'
+      saveContact: 'Պահպանված է թվային այցեքարտից',
+      comingSoonVideo: 'Տեսանյութը շուտով կհայտնվի այստեղ'
     },
     conditions: {
       link: 'Պայմաններ',
       title: 'Ձեր թվային ակտիվի ստեղծման պայմանները',
       items: [
           { title: 'Ամրագրում և Վճարում', text: 'Աշխատանքն իրականացվում է խստորեն նախնական գրանցմամբ: Ամսաթվի ամրագրումը կատարվում է 100% վճարումից (STANDART սակագին) կամ 50% կանխավճարից (PREMIUM սակագին) հետո:' },
-          { title: 'Նախապատրաստում և Ժամկետներ', text: 'Դուք ստանում եք պատրաստի այցեքարտը ճիշտ ամրագրված օրը: Գլխավոր պայմանը՝ լրացված հարցաշարի և բոլոր նյութերի տրամադրումը մեկնարկից առնվազն 2 օր առաջ:' },
-          { title: 'Դիզայն և Ադապտացիա', text: 'STANDART սակագինը ներառում է ձևանմուշի ադապտացիա՝ ձեր գունային գամմայի և կապի անհրաժեշտ կոճակների կարգավորում: Բլոկների կառուցվածքի փոփոխությունը հասանելի է միայն PREMIUM սակագնում:' },
-          { title: 'Գումարի Վերադարձ', text: 'Ամրագրումից հետո հրաժարվելու դեպքում STANDART սակագնի վճարը ենթակա չէ վերադարձման: PREMIUM սակագնում վերադարձման ենթակա չէ կանխավճարը (50%):' },
-          { title: 'Տվյալների Թարմացում', text: 'Այցեքարտը գործում է առանց ամսավճարի: Հանձնումից հետո 7 օրվա ընթացքում անվճար կատարվում են մանր ուղղումներ (վրիպակներ): Եթե ապագայում անհրաժեշտ լինի թարմացնել կոնտակտները, լուսանկարները կամ հղումները, ծառայությունը մատուցվում է միանվագ՝ 4 000 ֏:' }
+          { title: 'Թվային ակտիվի մշակում', text: 'Դուք ստանում եք պատրաստի PWA-այցեքարտ ճիշտ ամրագրված օրը: Պայմանը՝ 100% լրացված հարցաշարի և բոլոր նյութերի տրամադրումը մեկնարկից առնվազն 2 օր առաջ: Վրիպակների ուղղումները կատարվում են անվճար՝ հանձնումից հետո 7 օրվա ընթացքում:' },
+          { title: 'NFC-կախազարդերի արտադրություն', text: 'Ֆիզիկական կրիչի պատրաստման ժամկետը՝ թվային այցեքարտի ամբողջական հաստատումից հետո 3-ից 7 աշխատանքային օր: Առաքումն իրականացվում է սուրհանդակային ծառայության/փոստի միջոցով (վճարվում է առանձին՝ կախված տարածաշրջանից): Յուրաքանչյուր կախազարդ ստեղծվում է ձեռքով անհատապես և ենթակա չէ փոխանակման/վերադարձի:' },
+          { title: 'Դիզայն և Ադապտացիա', text: 'STANDART սակագինը ներառում է ձեր գունային գամմայի և կապի անհրաժեշտ կոճակների կարգավորում: Բլոկների կառուցվածքի փոփոխությունը և կաստոմ անիմացիաները հասանելի են միայն PREMIUM սակագնում:' },
+          { title: 'Վերադարձի և Թարմացման Պայմաններ', text: 'Ամրագրումից հետո հրաժարվելու դեպքում STANDART սակագնի վճարը ենթակա չէ վերադարձման: PREMIUM սակագնում վերադարձման ենթակա չէ 50% կանխավճարը: Ապագայում ձեր կոնտակտների, լուսանկարի կամ հղումների միանվագ թարմացումը կազմում է 2 000 ֏:' }
       ],
       footer: 'Թափանցիկությունը անթերի ոճի գրավականն է:\nDesign & Code by Elena Sotnikova.',
       accept: 'ԸՆԴՈՒՆՈՒՄ ԵՄ'
@@ -577,16 +580,16 @@ const globalStyles = `
 
   /* === ЭФФЕКТ СЛЕДА НА ВОДЕ === */
   @keyframes water-ripple-anim {
-    0% { transform: translate(-50%, -50%) scale(0); opacity: 0.6; border: 2px solid rgba(255, 255, 255, 0.8); }
-    100% { transform: translate(-50%, -50%) scale(3); opacity: 0; border: 1px solid rgba(255, 255, 255, 0); }
+    0% { transform: translate(-50%, -50%) scale(0); opacity: 0.8; border: 3px solid rgba(255, 255, 255, 0.6); box-shadow: 0 0 20px rgba(255, 255, 255, 0.4), inset 0 0 20px rgba(255, 255, 255, 0.4); filter: blur(1px); }
+    100% { transform: translate(-50%, -50%) scale(4); opacity: 0; border: 1px solid rgba(255, 255, 255, 0); box-shadow: 0 0 50px rgba(255, 255, 255, 0), inset 0 0 50px rgba(255, 255, 255, 0); filter: blur(4px); }
   }
   .water-ripple-element {
     position: absolute;
     border-radius: 50%;
     width: 80px;
     height: 80px;
-    background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%);
-    animation: water-ripple-anim 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.05) 40%, rgba(255,255,255,0) 70%);
+    animation: water-ripple-anim 0.9s cubic-bezier(0.1, 0.5, 0.3, 1) forwards;
     pointer-events: none;
     z-index: 9999;
   }
@@ -932,121 +935,113 @@ const DesignGalleryModal = ({ onClose, lang }) => {
 
   return (
     <div 
-      className="fixed inset-0 z-[150] flex items-center justify-center p-0 sm:p-4 bg-[#0a0205] sm:bg-black/80 sm:backdrop-blur-md transition-opacity animate-in fade-in duration-300 touch-none"
-      onClick={onClose}
+      className="fixed inset-0 z-[150] flex flex-col bg-[#050102]/95 backdrop-blur-3xl animate-in fade-in duration-300 touch-none overflow-hidden"
+      onPointerDown={handlePointerDown}
     >
-      <div 
-        className="w-full h-full sm:max-w-[400px] sm:max-h-[800px] bg-[#0a0205] rounded-none sm:rounded-[2.5rem] overflow-hidden relative shadow-none sm:shadow-[0_0_50px_rgba(159,18,57,0.4)] border-0 sm:border border-rose-900/50 flex flex-col animate-in slide-in-from-bottom-full sm:slide-in-from-bottom-0 sm:zoom-in-95 duration-300"
-        onClick={e => e.stopPropagation()}
-        onPointerDown={(e) => { e.stopPropagation(); handlePointerDown(e); }}
-      >
-        {/* Рендеринг эффектов воды (волны) внутри карточки */}
-        {ripples.map(r => (
-          <div key={r.id} className="water-ripple-element" style={{ left: r.x, top: r.y }} />
-        ))}
+      {/* Рендеринг эффектов воды (волны) */}
+      {ripples.map(r => (
+        <div key={r.id} className="water-ripple-element" style={{ left: r.x, top: r.y }} />
+      ))}
 
-        {/* Neon glows */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-rose-600/5 rounded-full blur-[120px] pointer-events-none" />
-        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-rose-900/10 rounded-full blur-[100px] pointer-events-none" />
+      {/* Neon glows */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-rose-600/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-rose-900/10 rounded-full blur-[100px] pointer-events-none" />
 
-        {/* Header (Убрана плашка, теперь в стиле NFC-брелоков) */}
-        <div className="h-[calc(3.5rem+env(safe-area-inset-top))] pt-[env(safe-area-inset-top)] border-b border-rose-900/50 flex items-center justify-between px-4 sm:px-5 bg-[#0a0205] sm:bg-black/40 sm:backdrop-blur-sm shrink-0 z-20 shadow-lg">
-          <div className="flex items-center gap-3">
-            <Crown className="w-5 h-5 text-rose-400" />
-            <span className="text-rose-100 font-serif tracking-wider text-[11px] sm:text-sm uppercase font-bold">
-              {t.catalog}
-            </span>
-          </div>
-          <button
-            onClick={(e) => { e.stopPropagation(); onClose(); }}
-            className="text-white/40 hover:text-white bg-white/5 hover:bg-white/10 rounded-full p-2 transition-colors border border-white/5 active:scale-95"
-          >
-            <X className="w-4 h-4" />
-          </button>
+      {/* Header */}
+      <div className="relative flex items-center justify-between px-4 max-[380px]:px-3 border-b border-rose-900/50 bg-[#0a0205]/80 shrink-0 z-20 shadow-lg h-[50px] max-[380px]:h-[44px]">
+        {/* Crown */}
+        <div className="flex items-center w-1/4">
+           <div className="w-7 h-7 max-[380px]:w-6 max-[380px]:h-6 rounded-full bg-rose-900/30 border border-rose-500/30 flex items-center justify-center shadow-[0_0_10px_rgba(159,18,57,0.2)] shrink-0">
+              <Crown className="w-3.5 h-3.5 max-[380px]:w-3 max-[380px]:h-3 text-rose-400" />
+           </div>
         </div>
 
-        {/* Grid */}
-        <div className="flex-1 overflow-y-auto hide-scrollbar relative pb-[calc(3rem+env(safe-area-inset-bottom))] pt-6 max-[380px]:pt-4 touch-pan-y overscroll-contain z-10">
-          <div className="max-w-xl mx-auto w-full px-5 max-[380px]:px-4 relative flex flex-col">
-             <div className="grid grid-cols-2 gap-4 max-[380px]:gap-3 w-full">
-                 {t.templates.map(link => (
-                    <div key={link.id} className="relative group w-full aspect-square">
-                       <div className="absolute -inset-0.5 bg-gradient-to-br from-white/10 to-rose-500/20 rounded-[2rem] max-[380px]:rounded-[1.5rem] blur-[10px] opacity-30 group-hover:opacity-100 group-hover:blur-[14px] transition-all duration-500 pointer-events-none"></div>
-                       <button
-                         onClick={(e) => { e.stopPropagation(); setIframeLoaded(false); setPreviewInfo(link); }}
-                         className="relative w-full h-full overflow-hidden flex flex-col items-center justify-center p-4 max-[380px]:p-3 rounded-[2rem] max-[380px]:rounded-[1.5rem] bg-[#0a0205]/95 backdrop-blur-md border border-rose-900/50 hover:border-rose-500/50 hover:bg-[#15050a] transition-all duration-300 active:scale-[0.98] shadow-inner"
-                       >
-                         <div className="absolute inset-0 bg-gradient-to-br from-rose-900/0 via-rose-900/0 to-rose-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                         <div className="w-14 h-14 max-[380px]:w-12 max-[380px]:h-12 rounded-full bg-rose-900/20 border border-rose-500/30 flex items-center justify-center shadow-[0_0_15px_rgba(159,18,57,0.2)] mb-3 max-[380px]:mb-2 shrink-0">
-                            <link.icon className="w-6 h-6 max-[380px]:w-5 max-[380px]:h-5 text-rose-400 group-hover:scale-110 transition-transform duration-300" />
-                         </div>
-                         <span className="text-[13px] max-[380px]:text-[11px] font-bold text-rose-100 tracking-wider text-center leading-tight">
-                           {link.name}
-                         </span>
-                       </button>
-                    </div>
-                 ))}
-             </div>
-             
-             {/* Фраза внизу */}
-             <div className="mt-8 max-[380px]:mt-6 text-center border-t border-rose-900/30 pt-6 max-[380px]:pt-4 mb-4 max-[380px]:mb-2 shrink-0 pointer-events-none">
-               <p className="text-[11px] max-[380px]:text-[10px] text-rose-100/50 font-light tracking-wide">
-                 {t.notFound1}<br/>
-                 <span className="text-rose-400/80 font-medium mt-1.5 inline-block">{t.notFound2}</span>
-               </p>
-             </div>
-          </div>
+        {/* Center spacing where language switcher was */}
+        <div className="absolute left-1/2 -translate-x-1/2 flex items-center z-[60]">
         </div>
 
-        {/* Iframe Modal Inside Gallery */}
-        {previewInfo && (
-          <div className="absolute inset-0 z-[200] flex flex-col bg-[#050102] animate-in fade-in zoom-in-[0.98] duration-300" onPointerDown={e => e.stopPropagation()}>
-             
-             {/* Preview Header */}
-             <div className="relative flex items-center justify-between px-4 sm:px-5 border-b border-rose-900/50 bg-[#0a0205] shrink-0 shadow-lg h-[calc(3.5rem+env(safe-area-inset-top))] pt-[env(safe-area-inset-top)] z-20">
-                <div className="flex items-center flex-1">
-                  <button
-                    onClick={() => setPreviewInfo(null)}
-                    className="flex items-center gap-1.5 px-3 py-1.5 max-[380px]:px-2 max-[380px]:py-1 rounded-full bg-rose-900/30 border border-rose-500/30 text-rose-300 hover:bg-rose-900/50 hover:text-rose-100 transition-all active:scale-95 shadow-[0_0_10px_rgba(159,18,57,0.2)]"
-                  >
-                    <ChevronLeft className="w-4 h-4 max-[380px]:w-3.5 max-[380px]:h-3.5" />
-                    <span className="text-[10px] max-[380px]:text-[9px] font-bold tracking-widest uppercase">{t.back}</span>
-                  </button>
-                </div>
-                
-                <div className="flex items-center justify-center shrink-0">
-                  <a
-                    href={`${previewInfo.url}?ref=catalog`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-4 py-1.5 max-[380px]:px-3 max-[380px]:py-1 rounded-full bg-rose-600 border border-rose-400 text-white hover:bg-rose-500 transition-all active:scale-95 shadow-[0_0_15px_rgba(225,29,72,0.4)]"
-                  >
-                    <span className="text-[10px] max-[380px]:text-[9px] font-bold tracking-widest uppercase">{t.openFull}</span>
-                    <ExternalLink className="w-3.5 h-3.5 max-[380px]:w-3 max-[380px]:h-3 text-white" />
-                  </a>
-                </div>
-
-                <div className="flex justify-end flex-1"></div>
-             </div>
-             
-             {/* Iframe Content */}
-             <div className="flex-1 relative w-full h-full bg-[#050102]">
-                {!iframeLoaded && (
-                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-[#050102] z-10">
-                     <div className="w-8 h-8 max-[380px]:w-6 max-[380px]:h-6 border-2 border-rose-900/50 border-t-rose-500 rounded-full animate-spin"></div>
-                     <span className="text-[10px] max-[380px]:text-[8px] uppercase tracking-widest text-rose-500/50 animate-pulse">Loading...</span>
-                  </div>
-                )}
-                <iframe
-                  src={previewInfo.url}
-                  className={`w-full h-full border-none transition-opacity duration-700 bg-white ${iframeLoaded ? 'opacity-100' : 'opacity-0'}`}
-                  onLoad={() => setIframeLoaded(true)}
-                  title={previewInfo.name}
-                />
-             </div>
-          </div>
-        )}
+        {/* Close Button */}
+        <div className="w-1/4 flex justify-end">
+           <button
+             onClick={(e) => { e.stopPropagation(); onClose(); }}
+             className="text-white/40 hover:text-white bg-white/5 hover:bg-white/10 rounded-full p-2 max-[380px]:p-1.5 transition-colors border border-white/5 active:scale-95"
+           >
+             <X className="w-4 h-4 max-[380px]:w-3.5 max-[380px]:h-3.5" />
+           </button>
+        </div>
       </div>
+
+      {/* Grid */}
+      <div className="flex-1 overflow-y-auto hide-scrollbar relative pb-12 pt-6 max-[380px]:pt-4 touch-pan-y overscroll-contain">
+        <div className="max-w-xl mx-auto w-full px-5 max-[380px]:px-4 relative z-10 flex flex-col">
+           <div className="grid grid-cols-2 gap-4 max-[380px]:gap-3 w-full">
+               {t.templates.map(link => (
+                  <div key={link.id} className="relative group w-full aspect-square">
+                     <div className="absolute -inset-0.5 bg-gradient-to-br from-white/10 to-rose-500/20 rounded-[2rem] max-[380px]:rounded-[1.5rem] blur-[10px] opacity-30 group-hover:opacity-100 group-hover:blur-[14px] transition-all duration-500 pointer-events-none"></div>
+                     <button
+                       onClick={(e) => { e.stopPropagation(); setIframeLoaded(false); setPreviewInfo(link); }}
+                       className="relative w-full h-full overflow-hidden flex flex-col items-center justify-center p-4 max-[380px]:p-3 rounded-[2rem] max-[380px]:rounded-[1.5rem] bg-[#0a0205]/95 backdrop-blur-md border border-rose-900/50 hover:border-rose-500/50 hover:bg-[#15050a] transition-all duration-300 active:scale-[0.98] shadow-inner"
+                     >
+                       <div className="absolute inset-0 bg-gradient-to-br from-rose-900/0 via-rose-900/0 to-rose-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                       <div className="w-14 h-14 max-[380px]:w-12 max-[380px]:h-12 rounded-full bg-rose-900/20 border border-rose-500/30 flex items-center justify-center shadow-[0_0_15px_rgba(159,18,57,0.2)] mb-3 max-[380px]:mb-2 shrink-0">
+                          <link.icon className="w-6 h-6 max-[380px]:w-5 max-[380px]:h-5 text-rose-400 group-hover:scale-110 transition-transform duration-300" />
+                       </div>
+                       <span className="text-[13px] max-[380px]:text-[11px] font-bold text-rose-100 tracking-wider text-center leading-tight">
+                         {link.name}
+                       </span>
+                     </button>
+                  </div>
+               ))}
+           </div>
+           
+           {/* Фраза внизу */}
+           <div className="mt-8 max-[380px]:mt-6 text-center border-t border-rose-900/30 pt-6 max-[380px]:pt-4 mb-4 max-[380px]:mb-2 shrink-0 pointer-events-none">
+             <p className="text-[11px] max-[380px]:text-[10px] text-rose-100/50 font-light tracking-wide">
+               {t.notFound1}<br/>
+               <span className="text-rose-400/80 font-medium mt-1.5 inline-block">{t.notFound2}</span>
+             </p>
+           </div>
+        </div>
+      </div>
+
+      {/* Iframe Modal Inside Gallery */}
+      {previewInfo && (
+        <div className="fixed inset-0 z-[200] flex flex-col bg-[#050102] animate-in fade-in zoom-in-[0.98] duration-300" onPointerDown={e => e.stopPropagation()}>
+           <div className="relative flex items-center justify-between px-4 max-[380px]:px-3 border-b border-rose-900/50 bg-[#0a0205] shrink-0 shadow-lg h-[50px] max-[380px]:h-[44px]">
+              <button
+                onClick={() => setPreviewInfo(null)}
+                className="flex items-center gap-1.5 px-3 py-1.5 max-[380px]:px-2 max-[380px]:py-1 rounded-full bg-rose-900/30 border border-rose-500/30 text-rose-300 hover:bg-rose-900/50 hover:text-rose-100 transition-all active:scale-95 shadow-[0_0_10px_rgba(159,18,57,0.2)]"
+              >
+                <ChevronLeft className="w-4 h-4 max-[380px]:w-3.5 max-[380px]:h-3.5" />
+                <span className="text-[10px] max-[380px]:text-[9px] font-bold tracking-widest uppercase">{t.back}</span>
+              </button>
+              <a
+                href={`${previewInfo.url}?ref=catalog`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="absolute left-1/2 -translate-x-1/2 flex items-center gap-2 px-4 py-1.5 max-[380px]:px-3 max-[380px]:py-1 rounded-full bg-rose-600 border border-rose-400 text-white hover:bg-rose-500 transition-all active:scale-95 shadow-[0_0_15px_rgba(225,29,72,0.4)]"
+              >
+                <span className="text-[10px] max-[380px]:text-[9px] font-bold tracking-widest uppercase">{t.openFull}</span>
+                <ExternalLink className="w-3.5 h-3.5 max-[380px]:w-3 max-[380px]:h-3 text-white" />
+              </a>
+              <div className="w-[74px] max-[380px]:w-[60px]"></div>
+           </div>
+           <div className="flex-1 relative w-full h-full bg-[#050102]">
+              {!iframeLoaded && (
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-[#050102] z-10">
+                   <div className="w-8 h-8 max-[380px]:w-6 max-[380px]:h-6 border-2 border-rose-900/50 border-t-rose-500 rounded-full animate-spin"></div>
+                   <span className="text-[10px] max-[380px]:text-[8px] uppercase tracking-widest text-rose-500/50 animate-pulse">Loading...</span>
+                </div>
+              )}
+              <iframe
+                src={previewInfo.url}
+                className={`w-full h-full border-none transition-opacity duration-700 bg-white ${iframeLoaded ? 'opacity-100' : 'opacity-0'}`}
+                onLoad={() => setIframeLoaded(true)}
+                title={previewInfo.name}
+              />
+           </div>
+        </div>
+      )}
     </div>
   );
 };
@@ -1792,7 +1787,7 @@ const App = () => {
         />
       )}
 
-      {/* МОДАЛЬНОЕ ОКНО IFRAME (КАТАЛОГ СТИЛЕЙ) */}
+      {/* МОДАЛЬНОЕ ОКНО IFRAME (КАТАЛОГ СТИЛЕЙ ИЛИ ВИДЕО) */}
       {showIframeModal && (
         <div 
           className="fixed inset-0 z-[120] flex items-center justify-center p-0 sm:p-4 bg-[#0a0205] sm:bg-black/80 sm:backdrop-blur-md transition-opacity animate-in fade-in duration-300"
@@ -1818,20 +1813,50 @@ const App = () => {
               </button>
             </div>
             
-            {/* Iframe Container */}
+            {/* Содержимое: Плеер или Заглушка */}
             <div className="flex-1 w-full relative bg-neutral-950 pb-[env(safe-area-inset-bottom)]">
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <div className="flex flex-col items-center gap-3">
-                  <div className="w-8 h-8 border-2 border-rose-500/30 border-t-rose-500 rounded-full animate-spin"></div>
-                  <div className="text-rose-200/50 text-[10px] font-serif tracking-widest uppercase">Loading...</div>
+              {iframeUrl === '/promo.mp4' ? (
+                /* КРАСИВАЯ ПРЕМИАЛЬНАЯ ЗАГЛУШКА ДЛЯ ВИДЕО */
+                <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#050102] z-20 px-6 text-center overflow-hidden">
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-rose-900/10 rounded-full blur-[80px] pointer-events-none"></div>
+                  
+                  <div className="relative w-20 h-20 mb-8 flex items-center justify-center">
+                    <div className="absolute inset-0 bg-rose-900/20 rounded-full blur-md"></div>
+                    <div className="absolute inset-0 border border-rose-500/20 rounded-full animate-ping opacity-50" style={{ animationDuration: '3s' }}></div>
+                    <div className="absolute inset-2 border border-rose-400/30 rounded-full flex items-center justify-center bg-[#0a0205]/80 backdrop-blur-sm shadow-[0_0_15px_rgba(159,18,57,0.3)]">
+                      <Play className="w-6 h-6 text-rose-300 ml-1 opacity-80" />
+                    </div>
+                  </div>
+                  
+                  <h3 className="text-rose-100 font-serif text-[18px] sm:text-[20px] tracking-[0.15em] uppercase font-light drop-shadow-[0_0_10px_rgba(255,255,255,0.2)] leading-relaxed">
+                    {CONTENT[lang].ui.comingSoonVideo}
+                  </h3>
+                  
+                  <div className="mt-6 flex items-center gap-3">
+                    <div className="w-8 h-[1px] bg-rose-900/50"></div>
+                    <span className="text-rose-100/30 text-[9px] uppercase tracking-widest">
+                      {lang === 'ru' ? 'В разработке' : lang === 'en' ? 'In progress' : 'Մշակման փուլում է'}
+                    </span>
+                    <div className="w-8 h-[1px] bg-rose-900/50"></div>
+                  </div>
                 </div>
-              </div>
-              <iframe 
-                src={iframeUrl} 
-                className="w-full h-full border-0 relative z-10 bg-transparent"
-                title="Template Preview"
-                sandbox="allow-scripts allow-same-origin allow-popups"
-              ></iframe>
+              ) : (
+                /* СТАНДАРТНЫЙ ПРЕВЬЮЕР ШАБЛОНОВ */
+                <>
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <div className="flex flex-col items-center gap-3">
+                      <div className="w-8 h-8 border-2 border-rose-500/30 border-t-rose-500 rounded-full animate-spin"></div>
+                      <div className="text-rose-200/50 text-[10px] font-serif tracking-widest uppercase">Loading...</div>
+                    </div>
+                  </div>
+                  <iframe 
+                    src={iframeUrl} 
+                    className="w-full h-full border-0 relative z-10 bg-transparent"
+                    title="Template Preview"
+                    sandbox="allow-scripts allow-same-origin allow-popups"
+                  ></iframe>
+                </>
+              )}
             </div>
           </div>
         </div>
