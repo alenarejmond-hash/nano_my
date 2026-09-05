@@ -44,13 +44,6 @@ const CONTENT = {
       actionText: 'ЗАКАЗАТЬ ВИЗИТКУ',
       actionLink: 'https://t.me/elenlime?text=Елена, привет! Хочу заказать свою визитку',
     },
-    leadMagnet: {
-      title: 'SECRET OFFER',
-      description: <>Вы нашли секретную вкладку! Нажмите кнопку ниже, чтобы перейти в Telegram и получить сразу два бонуса:<br/><br/>• Скидку 15% на любой тариф (Start, Plus, Premium)<br/>• Бесплатное тиснение ваших инициалов на кожаном брелоке (если входит в тариф) </>,
-      buttonText: 'ЗАБРАТЬ ПРОМОКОД',
-      promoCode: 'ELEN-TECH-15%',
-      link: 'https://t.me/elenlime?text=Елена, привет! У меня есть промокод ELEN-TECH-15%. Хочу обсудить создание цифровой визитки.',
-    },
     contact: {
       phone: '+37494261123',
       whatsapp: '+79995051277',
@@ -135,13 +128,6 @@ const CONTENT = {
       actionText: 'ORDER YOUR CARD',
       actionLink: 'https://t.me/elenlime?text=Hi Elena! I want to order my digital business card.',
     },
-    leadMagnet: {
-      title: 'SECRET OFFER',
-      description: <>You've found the secret tab! Click the button below to go to Telegram and instantly receive two bonuses:<br/><br/>• A 15% discount on any plan (Start, Plus, Premium)<br/>• Free embossing of your initials on the leather keychain (if included in your plan)</>,
-      buttonText: 'GET PROMO CODE',
-      promoCode: 'ELEN-TECH-15%',
-      link: 'https://t.me/elenlime?text=Hi Elena! I have the promo code ELEN-TECH-15%. I want to discuss creating a digital business card.',
-    },
     contact: {
       phone: '+79995051277',
       whatsapp: '+79995051277',
@@ -225,13 +211,6 @@ const CONTENT = {
       websiteLink: 'https://appsea.ru/',
       actionText: 'ՊԱՏՎԻՐԵԼ ԱՅՑԵՔԱՐՏ',
       actionLink: 'https://t.me/elenlime?text=Ողջույն Ելենա: Ցանկանում եմ պատվիրել իմ թվային այցեքարտը:',
-    },
-    leadMagnet: {
-      title: 'SECRET OFFER',
-      description: <>Դուք գտաք գաղտնի ներդիրը: Սեղմեք ստորև նշված կոճակը՝ Telegram անցնելու և միանգամից երկու բոնուս ստանալու համար՝<br/><br/>• 15% զեղչ ցանկացած տարիֆի համար (Start, Plus, Premium)<br/>• Ձեր անվանատառերի անվճար դրոշմում կաշվե կախազարդի վրա (եթե ներառված է տարիֆի մեջ)</>,
-      buttonText: 'ՍՏԱՆԱԼ ՊՐՈՄՈԿՈԴԸ',
-      promoCode: 'ELEN-TECH-15%',
-      link: 'https://t.me/elenlime?text=Ողջույն Ելենա: Ես ունեմ ELEN-TECH-15% պրոմոկոդը: Ցանկանում եմ քննարկել թվային այցեքարտի ստեղծումը:',
     },
     contact: {
       phone: '+79995051277',
@@ -601,12 +580,6 @@ const CreatorCard = ({ lang, onOpenIframe, onOpenGallery }) => {
   const [isNameRevealed, setIsNameRevealed] = useState(true);
   const hackerName1 = CONTENT[lang].creator.name1;
   const hackerName2 = CONTENT[lang].creator.name2;
-
-  const handlePromoClick = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    window.location.href = CONTENT[lang].leadMagnet.link;
-  };
 
   return (
     <>
