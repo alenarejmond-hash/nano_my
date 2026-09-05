@@ -574,20 +574,20 @@ const globalStyles = `
 
   /* === ЭФФЕКТ СЛЕДА НА ВОДЕ === */
   @keyframes water-ripple-anim {
-    0% { transform: translate(-50%, -50%) scale(0); opacity: 0.8; filter: blur(2px); }
-    100% { transform: translate(-50%, -50%) scale(4); opacity: 0; filter: blur(15px); }
+    0% { transform: translate(-50%, -50%) scale(0); opacity: 0.6; filter: blur(4px); }
+    100% { transform: translate(-50%, -50%) scale(4); opacity: 0; filter: blur(25px); }
   }
   .water-ripple-element {
-    position: absolute;
+    position: fixed;
     border-radius: 50%;
-    width: 80px;
-    height: 80px;
-    border: 4px solid rgba(255, 255, 255, 0.6);
-    background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 60%);
-    box-shadow: 0 0 15px rgba(255,255,255,0.4), inset 0 0 15px rgba(255,255,255,0.4);
+    width: 100px;
+    height: 100px;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
+    box-shadow: 0 0 20px rgba(255,255,255,0.2), inset 0 0 20px rgba(255,255,255,0.2);
     animation: water-ripple-anim 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
     pointer-events: none;
-    z-index: 9999;
+    z-index: 99999;
   }
 `;
 
@@ -911,34 +911,12 @@ const CreatorCard = ({ lang, onOpenIframe, onOpenGallery, onOpenConditions }) =>
 const DesignGalleryModal = ({ onClose, lang }) => {
   const [previewInfo, setPreviewInfo] = useState(null);
   const [iframeLoaded, setIframeLoaded] = useState(false);
-  const [ripples, setRipples] = useState([]);
   const t = GALLERY_TRANSLATIONS[lang];
-
-  // Обработчик клика для эффекта расходящихся кругов по воде
-  const handlePointerDown = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const id = Date.now() + Math.random();
-    
-    setRipples(prev => [...prev, { x, y, id }]);
-    
-    // Удаляем волну после окончания анимации (1s)
-    setTimeout(() => {
-        setRipples(prev => prev.filter(r => r.id !== id));
-    }, 1000);
-  };
 
   return (
     <div 
       className="fixed inset-0 z-[150] flex flex-col bg-[#050102]/95 backdrop-blur-3xl animate-in fade-in duration-300 touch-none overflow-hidden"
-      onPointerDown={handlePointerDown}
     >
-      {/* Рендеринг эффектов воды (волны) */}
-      {ripples.map(r => (
-        <div key={r.id} className="water-ripple-element" style={{ left: r.x, top: r.y }} />
-      ))}
-
       {/* Neon glows */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-rose-600/5 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-rose-900/10 rounded-full blur-[100px] pointer-events-none" />
@@ -1061,6 +1039,7 @@ const App = () => {
   const [iframeUrl, setIframeUrl] = useState('');
   const [copied, setCopied] = useState(false);
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
+  const [ripples, setRipples] = useState([]);
   const cardRef = useRef(null);
   const audioCtxRef = useRef(null);
   const audioRef = useRef(null);
@@ -1083,6 +1062,26 @@ const App = () => {
          accurateTrackBounce:true,
          webvisor:true
     });
+  }, []);
+
+  // Глобальный обработчик кликов для эффекта воды
+  useEffect(() => {
+    const handleGlobalPointerDown = (e) => {
+      const clientX = e.clientX;
+      const clientY = e.clientY;
+      
+      if (clientX === undefined || clientY === undefined) return;
+      
+      const id = Date.now() + Math.random();
+      setRipples(prev => [...prev, { x: clientX, y: clientY, id }]);
+      
+      setTimeout(() => {
+          setRipples(prev => prev.filter(r => r.id !== id));
+      }, 1000);
+    };
+
+    window.addEventListener('pointerdown', handleGlobalPointerDown);
+    return () => window.removeEventListener('pointerdown', handleGlobalPointerDown);
   }, []);
 
   const toggleGreetingAudio = (e) => {
@@ -1801,6 +1800,11 @@ const App = () => {
           </div>
         </div>
       )}
+
+      {/* ГЛОБАЛЬНЫЙ СЛОЙ ДЛЯ ВОДЯНЫХ СЛЕДОВ */}
+      {ripples.map(r => (
+        <div key={r.id} className="water-ripple-element" style={{ left: r.x, top: r.y }} />
+      ))}
 
     </div>
   );
