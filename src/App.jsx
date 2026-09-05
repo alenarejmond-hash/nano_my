@@ -22,6 +22,13 @@ const QRCodeComponent = ({ value, size }) => {
   );
 };
 
+// Утилита для вибрации
+const triggerVibration = (pattern = 15) => {
+  if (typeof navigator !== 'undefined' && navigator.vibrate) {
+    navigator.vibrate(pattern);
+  }
+};
+
 // ==========================================
 // ⚙️ НАСТРОЙКИ КОНТЕНТА (МЕНЯТЬ ТЕКСТ, ФОТО И ССЫЛКИ ТОЛЬКО ЗДЕСЬ!)
 // ==========================================
@@ -545,13 +552,6 @@ if (typeof document !== 'undefined' && !document.getElementById('app-global-styl
   document.head.appendChild(styleEl);
 }
 
-// Утилита для вибрации
-const triggerVibration = (pattern = 15) => {
-  if (typeof navigator !== 'undefined' && navigator.vibrate) {
-    navigator.vibrate(pattern);
-  }
-};
-
 // ==========================================
 // 🪄 КОМПОНЕНТ ЭФФЕКТА СГОРАНИЯ (УМНАЯ ЦВЕТОВАЯ ПОДСТРОЙКА)
 // ==========================================
@@ -851,6 +851,19 @@ const DesignGalleryModal = ({ onClose, lang }) => {
   const [iframeLoaded, setIframeLoaded] = useState(false);
   const t = GALLERY_TRANSLATIONS[lang];
 
+  // Специфичные цвета аур для каждой ниши
+  const auraColors = {
+    esoteric: 'from-fuchsia-500 to-purple-600',
+    psychology: 'from-blue-500 to-cyan-400',
+    travel: 'from-emerald-400 to-teal-500',
+    blogger: 'from-rose-500 to-pink-500',
+    fitness: 'from-orange-500 to-red-600',
+    beauty: 'from-pink-400 to-rose-300',
+    realty: 'from-indigo-500 to-blue-600',
+    dentistry: 'from-cyan-300 to-sky-400',
+    photographer: 'from-amber-400 to-orange-500',
+  };
+
   return (
     <div className="fixed inset-0 z-[150] flex flex-col bg-[#050102]/95 backdrop-blur-3xl animate-in fade-in duration-300 touch-none">
       {/* Neon glows */}
@@ -866,7 +879,7 @@ const DesignGalleryModal = ({ onClose, lang }) => {
            </div>
         </div>
 
-        {/* Center spacing where language switcher was */}
+        {/* Center spacing */}
         <div className="absolute left-1/2 -translate-x-1/2 flex items-center z-[60]">
         </div>
 
@@ -887,18 +900,43 @@ const DesignGalleryModal = ({ onClose, lang }) => {
            <div className="grid grid-cols-2 gap-4 max-[380px]:gap-3 w-full">
                {t.templates.map(link => (
                   <div key={link.id} className="relative group w-full aspect-square">
-                     <div className="absolute -inset-0.5 bg-gradient-to-br from-white/10 to-rose-500/20 rounded-[2rem] max-[380px]:rounded-[1.5rem] blur-[10px] opacity-30 group-hover:opacity-100 group-hover:blur-[14px] transition-all duration-500"></div>
+                     {/* External Glow (Backdrop glow) */}
+                     <div className={`absolute -inset-0.5 bg-gradient-to-br ${auraColors[link.id]} rounded-[2rem] max-[380px]:rounded-[1.5rem] blur-[15px] opacity-20 group-hover:opacity-50 transition-all duration-700`}></div>
+                     
                      <button
-                       onClick={() => { setIframeLoaded(false); setPreviewInfo(link); }}
-                       className="relative w-full h-full overflow-hidden flex flex-col items-center justify-center p-4 max-[380px]:p-3 rounded-[2rem] max-[380px]:rounded-[1.5rem] bg-[#0a0205]/95 backdrop-blur-md border border-rose-900/50 hover:border-rose-500/50 hover:bg-[#15050a] transition-all duration-300 active:scale-[0.98] shadow-inner"
+                       onClick={() => { triggerVibration(10); setIframeLoaded(false); setPreviewInfo(link); }}
+                       className="relative w-full h-full flex flex-col items-center justify-center rounded-[2rem] max-[380px]:rounded-[1.5rem] transition-all duration-500 active:scale-[0.96] shadow-[0_10px_40px_rgba(0,0,0,0.5)]"
                      >
-                       <div className="absolute inset-0 bg-gradient-to-br from-rose-900/0 via-rose-900/0 to-rose-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                       <div className="w-14 h-14 max-[380px]:w-12 max-[380px]:h-12 rounded-full bg-rose-900/20 border border-rose-500/30 flex items-center justify-center shadow-[0_0_15px_rgba(159,18,57,0.2)] mb-3 max-[380px]:mb-2 shrink-0">
-                          <link.icon className="w-6 h-6 max-[380px]:w-5 max-[380px]:h-5 text-rose-400 group-hover:scale-110 transition-transform duration-300" />
+                       {/* 1. Aura Blobs (Back layer for internal glow) */}
+                       <div className="absolute inset-0 overflow-hidden rounded-[2rem] max-[380px]:rounded-[1.5rem]">
+                          <div className="absolute inset-0 bg-[#0a0205]"></div>
+                          
+                          {/* Spinning Aura 1 */}
+                          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[160%] aspect-square opacity-60" style={{ animation: 'esoteric-slow-drift-1 12s linear infinite' }}>
+                             <div className={`absolute inset-0 bg-gradient-to-tr ${auraColors[link.id]} rounded-full blur-[20px]`} style={{ transform: 'scale(0.7) translate(15%, 15%)' }}></div>
+                          </div>
+                          
+                          {/* Spinning Aura 2 */}
+                          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[160%] aspect-square opacity-60" style={{ animation: 'esoteric-slow-drift-2 18s linear infinite' }}>
+                             <div className={`absolute inset-0 bg-gradient-to-bl ${auraColors[link.id]} rounded-full blur-[25px]`} style={{ transform: 'scale(0.8) translate(-15%, -15%)' }}></div>
+                          </div>
                        </div>
-                       <span className="text-[13px] max-[380px]:text-[11px] font-bold text-rose-100 tracking-wider text-center leading-tight">
-                         {link.name}
-                       </span>
+                       
+                       {/* 2. Glass Overlay (Middle layer to frost the auras) */}
+                       <div className="absolute inset-0 bg-white/[0.03] backdrop-blur-[16px] border border-white/10 rounded-[2rem] max-[380px]:rounded-[1.5rem] group-hover:bg-white/[0.08] group-hover:border-white/30 transition-all duration-500">
+                         {/* Inner gradient overlay for depth */}
+                         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60 rounded-[2rem] max-[380px]:rounded-[1.5rem] pointer-events-none" />
+                       </div>
+                       
+                       {/* 3. Content (Front layer) */}
+                       <div className="relative z-10 flex flex-col items-center justify-center w-full p-4 max-[380px]:p-3">
+                         <div className="w-14 h-14 max-[380px]:w-12 max-[380px]:h-12 rounded-full bg-black/40 backdrop-blur-md border border-white/20 flex items-center justify-center shadow-[0_0_20px_rgba(0,0,0,0.6)] mb-3 max-[380px]:mb-2 shrink-0 group-hover:scale-110 group-hover:border-white/50 group-hover:shadow-[0_0_25px_rgba(255,255,255,0.2)] transition-all duration-500">
+                            <link.icon className="w-6 h-6 max-[380px]:w-5 max-[380px]:h-5 text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]" />
+                         </div>
+                         <span className="text-[13px] max-[380px]:text-[11px] font-bold text-white tracking-widest uppercase text-center leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+                           {link.name}
+                         </span>
+                       </div>
                      </button>
                   </div>
                ))}
