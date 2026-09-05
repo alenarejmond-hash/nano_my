@@ -556,23 +556,6 @@ const globalStyles = `
     border-radius: 2px;
     animation: equalize 1s infinite ease-in-out;
   }
-
-  /* === ИНТЕРАКТИВНЫЙ ШЛЕЙФ ЗА КУРСОРОМ === */
-  @keyframes trail-fade {
-    0% { opacity: 0.8; transform: scale(1) translate(-50%, -50%); }
-    100% { opacity: 0; transform: scale(0.1) translate(-50%, -50%); }
-  }
-  .trail-particle {
-    position: fixed;
-    pointer-events: none;
-    background: rgba(225, 29, 72, 0.8);
-    box-shadow: 0 0 10px rgba(225, 29, 72, 0.6), 0 0 20px rgba(159, 18, 57, 0.4);
-    border-radius: 50%;
-    width: 8px;
-    height: 8px;
-    animation: trail-fade 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-    z-index: 9999;
-  }
 `;
 
 // ==========================================
@@ -875,7 +858,7 @@ const CreatorCard = ({ lang, onOpenIframe, onOpenGallery }) => {
 // ==========================================
 // 🌌 МОДАЛЬНОЕ ОКНО ГАЛЕРЕИ ДИЗАЙНОВ
 // ==========================================
-const DesignGalleryModal = ({ onClose, lang, setLang }) => {
+const DesignGalleryModal = ({ onClose, lang }) => {
   const [previewInfo, setPreviewInfo] = useState(null);
   const [iframeLoaded, setIframeLoaded] = useState(false);
   const t = GALLERY_TRANSLATIONS[lang];
@@ -999,11 +982,10 @@ const App = () => {
   const [showShare, setShowShare] = useState(false);
   const [showPwaPrompt, setShowPwaPrompt] = useState(false);
   const [showIframeModal, setShowIframeModal] = useState(false);
-  const [showGallery, setShowGallery] = useState(false); // NEW STATE FOR GALLERY
+  const [showGallery, setShowGallery] = useState(false);
   const [iframeUrl, setIframeUrl] = useState('');
   const [copied, setCopied] = useState(false);
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
-  const [trail, setTrail] = useState([]);
   const cardRef = useRef(null);
   const audioCtxRef = useRef(null);
   const audioRef = useRef(null);
@@ -1318,11 +1300,6 @@ const App = () => {
   return (
     <div className="fixed inset-0 w-full h-full bg-neutral-950 flex flex-col font-sans select-none transition-all duration-500 overflow-hidden justify-center items-center px-4 pt-[max(1rem,env(safe-area-inset-top))] pb-[calc(env(safe-area-inset-bottom,1rem)+4rem)]">
       <style>{globalStyles}</style>
-
-      {/* Интерактивный шлейф */}
-      {trail.map(p => (
-        <div key={p.id} className="trail-particle" style={{ left: p.x, top: p.y }} />
-      ))}
 
       {/* Фоновое свечение */}
       <div 
@@ -1654,7 +1631,6 @@ const App = () => {
         <DesignGalleryModal 
           onClose={() => setShowGallery(false)} 
           lang={lang} 
-          setLang={setLang} 
         />
       )}
 
