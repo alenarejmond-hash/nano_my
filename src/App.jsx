@@ -344,7 +344,7 @@ const GALLERY_TRANSLATIONS = {
   }
 };
 
-// --- Глобальные стили для сложных анимаций (вставляем прямо в компонент) ---
+// --- Глобальные стили для сложных анимаций ---
 const globalStyles = `
   html, body {
     background-color: #0a0a0a;
@@ -536,6 +536,14 @@ const globalStyles = `
     animation: equalize 1s infinite ease-in-out;
   }
 `;
+
+// Инъекция стилей в <head> (вне жизненного цикла React), чтобы избежать перерендеринга CSS при движении мыши
+if (typeof document !== 'undefined' && !document.getElementById('app-global-styles')) {
+  const styleEl = document.createElement('style');
+  styleEl.id = 'app-global-styles';
+  styleEl.innerHTML = globalStyles;
+  document.head.appendChild(styleEl);
+}
 
 // ==========================================
 // 🪄 КОМПОНЕНТ ЭФФЕКТА СГОРАНИЯ (УМНАЯ ЦВЕТОВАЯ ПОДСТРОЙКА)
@@ -1272,7 +1280,6 @@ const App = () => {
 
   return (
     <div className="fixed inset-0 w-full h-full bg-neutral-950 flex flex-col font-sans select-none transition-all duration-500 overflow-hidden justify-center items-center px-4 pt-[max(1rem,env(safe-area-inset-top))] pb-[calc(env(safe-area-inset-bottom,1rem)+4rem)]">
-      <style>{globalStyles}</style>
 
       {/* Фоновое свечение */}
       <div 
