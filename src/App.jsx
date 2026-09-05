@@ -946,33 +946,20 @@ const DesignGalleryModal = ({ onClose, lang }) => {
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-rose-600/5 rounded-full blur-[120px] pointer-events-none" />
         <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-rose-900/10 rounded-full blur-[100px] pointer-events-none" />
 
-        {/* Header */}
-        <div className="relative flex items-center justify-between px-4 sm:px-5 border-b border-rose-900/50 bg-[#0a0205] sm:bg-black/40 sm:backdrop-blur-sm shrink-0 z-20 shadow-lg h-[calc(3.5rem+env(safe-area-inset-top))] pt-[env(safe-area-inset-top)]">
-          {/* Crown */}
-          <div className="flex items-center flex-1">
-             <div className="w-7 h-7 max-[380px]:w-6 max-[380px]:h-6 rounded-full bg-rose-900/30 border border-rose-500/30 flex items-center justify-center shadow-[0_0_10px_rgba(159,18,57,0.2)] shrink-0">
-                <Crown className="w-3.5 h-3.5 max-[380px]:w-3 max-[380px]:h-3 text-rose-400" />
-             </div>
+        {/* Header (Убрана плашка, теперь в стиле NFC-брелоков) */}
+        <div className="h-[calc(3.5rem+env(safe-area-inset-top))] pt-[env(safe-area-inset-top)] border-b border-rose-900/50 flex items-center justify-between px-4 sm:px-5 bg-[#0a0205] sm:bg-black/40 sm:backdrop-blur-sm shrink-0 z-20 shadow-lg">
+          <div className="flex items-center gap-3">
+            <Crown className="w-5 h-5 text-rose-400" />
+            <span className="text-rose-100 font-serif tracking-wider text-[11px] sm:text-sm uppercase font-bold">
+              {t.catalog}
+            </span>
           </div>
-
-          {/* Center Name Plate */}
-          <div className="flex items-center justify-center shrink-0 z-[60] pointer-events-none">
-             <div className="bg-gradient-to-r from-rose-900/80 to-rose-950/80 border border-rose-500/40 px-4 py-1.5 rounded-full shadow-[0_0_15px_rgba(225,29,72,0.4)] backdrop-blur-md flex items-center justify-center">
-                 <span className="text-[11px] sm:text-[13px] font-bold text-rose-100 tracking-widest uppercase whitespace-nowrap drop-shadow-md">
-                   {t.catalog}
-                 </span>
-             </div>
-          </div>
-
-          {/* Close Button */}
-          <div className="flex justify-end flex-1">
-             <button
-               onClick={(e) => { e.stopPropagation(); onClose(); }}
-               className="text-white/40 hover:text-white bg-white/5 hover:bg-white/10 rounded-full p-2 max-[380px]:p-1.5 transition-colors border border-white/5 active:scale-95 z-[70]"
-             >
-               <X className="w-4 h-4 max-[380px]:w-3.5 max-[380px]:h-3.5" />
-             </button>
-          </div>
+          <button
+            onClick={(e) => { e.stopPropagation(); onClose(); }}
+            className="text-white/40 hover:text-white bg-white/5 hover:bg-white/10 rounded-full p-2 transition-colors border border-white/5 active:scale-95"
+          >
+            <X className="w-4 h-4" />
+          </button>
         </div>
 
         {/* Grid */}
