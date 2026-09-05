@@ -114,7 +114,7 @@ const CONTENT = {
       items: [
           { title: 'Бронирование и оплата', text: 'Работа начинается после 50% предоплаты (депозит невозвратный). Остаток 50% — перед передачей прав на проект.' },
           { title: 'Сроки', text: 'Реализация за 3-7 рабочих дней с момента получения 100% заполненного брифа и материалов.' },
-          { title: 'Искусство правок', text: 'Стартовое наполнение контентом включено. В индивидуальных проектах включено 2 круга правок на этапе дизайна. Правки после сдачи проекта — платные.' },
+          { title: 'Искусство правок', text: 'Стартовое наполнение контентом включено. В индивидуальных проектов включено 2 круга правок на этапе дизайна. Правки после сдачи проекта — платные.' },
           { title: 'Владение', text: 'После полной оплаты вы получаете полные права на проект. Никаких ежемесячных платежей.' }
       ],
       footer: 'Прозрачность — залог безупречного стиля.\nDesign & Code by Elena Sotnikova.',
@@ -574,28 +574,18 @@ const globalStyles = `
 
   /* === ЭФФЕКТ СЛЕДА НА ВОДЕ === */
   @keyframes water-ripple-anim {
-    0% { 
-      transform: translate(-50%, -50%) scale(0.1); 
-      opacity: 1; 
-      border-width: 4px;
-    }
-    100% { 
-      transform: translate(-50%, -50%) scale(1); 
-      opacity: 0; 
-      border-width: 0px;
-    }
+    0% { transform: translate(-50%, -50%) scale(0); opacity: 0.8; border: 3px solid rgba(255, 255, 255, 0.6); box-shadow: 0 0 20px rgba(255, 255, 255, 0.4), inset 0 0 20px rgba(255, 255, 255, 0.4); filter: blur(1px); }
+    100% { transform: translate(-50%, -50%) scale(4); opacity: 0; border: 1px solid rgba(255, 255, 255, 0); box-shadow: 0 0 50px rgba(255, 255, 255, 0), inset 0 0 50px rgba(255, 255, 255, 0); filter: blur(4px); }
   }
   .water-ripple-element {
-    position: fixed;
+    position: absolute;
     border-radius: 50%;
-    width: 120px;
-    height: 120px;
-    border: solid rgba(255, 255, 255, 0.9);
-    background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 60%);
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.6), inset 0 0 20px rgba(255, 255, 255, 0.4);
-    animation: water-ripple-anim 0.8s cubic-bezier(0.2, 0.8, 0.3, 1) forwards;
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.05) 40%, rgba(255,255,255,0) 70%);
+    animation: water-ripple-anim 0.9s cubic-bezier(0.1, 0.5, 0.3, 1) forwards;
     pointer-events: none;
-    z-index: 99999;
+    z-index: 9999;
   }
 `;
 
@@ -919,111 +909,154 @@ const CreatorCard = ({ lang, onOpenIframe, onOpenGallery, onOpenConditions }) =>
 const DesignGalleryModal = ({ onClose, lang }) => {
   const [previewInfo, setPreviewInfo] = useState(null);
   const [iframeLoaded, setIframeLoaded] = useState(false);
+  const [ripples, setRipples] = useState([]);
   const t = GALLERY_TRANSLATIONS[lang];
+
+  // Обработчик клика для эффекта расходящихся кругов по воде
+  const handlePointerDown = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const id = Date.now() + Math.random();
+    
+    setRipples(prev => [...prev, { x, y, id }]);
+    
+    // Удаляем волну после окончания анимации (0.9s)
+    setTimeout(() => {
+        setRipples(prev => prev.filter(r => r.id !== id));
+    }, 900);
+  };
 
   return (
     <div 
-      className="fixed inset-0 z-[150] flex flex-col bg-[#050102]/95 backdrop-blur-3xl animate-in fade-in duration-300 touch-none overflow-hidden"
+      className="fixed inset-0 z-[150] flex items-center justify-center p-0 sm:p-4 bg-[#0a0205] sm:bg-black/80 sm:backdrop-blur-md transition-opacity animate-in fade-in duration-300 touch-none"
+      onClick={onClose}
     >
-      {/* Neon glows */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-rose-600/5 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-rose-900/10 rounded-full blur-[100px] pointer-events-none" />
+      <div 
+        className="w-full h-full sm:max-w-[400px] sm:max-h-[800px] bg-[#0a0205] rounded-none sm:rounded-[2.5rem] overflow-hidden relative shadow-none sm:shadow-[0_0_50px_rgba(159,18,57,0.4)] border-0 sm:border border-rose-900/50 flex flex-col animate-in slide-in-from-bottom-full sm:slide-in-from-bottom-0 sm:zoom-in-95 duration-300"
+        onClick={e => e.stopPropagation()}
+        onPointerDown={(e) => { e.stopPropagation(); handlePointerDown(e); }}
+      >
+        {/* Рендеринг эффектов воды (волны) внутри карточки */}
+        {ripples.map(r => (
+          <div key={r.id} className="water-ripple-element" style={{ left: r.x, top: r.y }} />
+        ))}
 
-      {/* Header */}
-      <div className="relative flex items-center justify-between px-4 max-[380px]:px-3 border-b border-rose-900/50 bg-[#0a0205]/80 shrink-0 z-20 shadow-lg h-[50px] max-[380px]:h-[44px]">
-        {/* Crown */}
-        <div className="flex items-center w-1/4">
-           <div className="w-7 h-7 max-[380px]:w-6 max-[380px]:h-6 rounded-full bg-rose-900/30 border border-rose-500/30 flex items-center justify-center shadow-[0_0_10px_rgba(159,18,57,0.2)] shrink-0">
-              <Crown className="w-3.5 h-3.5 max-[380px]:w-3 max-[380px]:h-3 text-rose-400" />
-           </div>
+        {/* Neon glows */}
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-rose-600/5 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-rose-900/10 rounded-full blur-[100px] pointer-events-none" />
+
+        {/* Header */}
+        <div className="relative flex items-center justify-between px-4 sm:px-5 border-b border-rose-900/50 bg-[#0a0205] sm:bg-black/40 sm:backdrop-blur-sm shrink-0 z-20 shadow-lg h-[calc(3.5rem+env(safe-area-inset-top))] pt-[env(safe-area-inset-top)]">
+          {/* Crown */}
+          <div className="flex items-center flex-1">
+             <div className="w-7 h-7 max-[380px]:w-6 max-[380px]:h-6 rounded-full bg-rose-900/30 border border-rose-500/30 flex items-center justify-center shadow-[0_0_10px_rgba(159,18,57,0.2)] shrink-0">
+                <Crown className="w-3.5 h-3.5 max-[380px]:w-3 max-[380px]:h-3 text-rose-400" />
+             </div>
+          </div>
+
+          {/* Center Name Plate */}
+          <div className="flex items-center justify-center shrink-0 z-[60] pointer-events-none">
+             <div className="bg-gradient-to-r from-rose-900/80 to-rose-950/80 border border-rose-500/40 px-4 py-1.5 rounded-full shadow-[0_0_15px_rgba(225,29,72,0.4)] backdrop-blur-md flex items-center justify-center">
+                 <span className="text-[11px] sm:text-[13px] font-bold text-rose-100 tracking-widest uppercase whitespace-nowrap drop-shadow-md">
+                   {t.catalog}
+                 </span>
+             </div>
+          </div>
+
+          {/* Close Button */}
+          <div className="flex justify-end flex-1">
+             <button
+               onClick={(e) => { e.stopPropagation(); onClose(); }}
+               className="text-white/40 hover:text-white bg-white/5 hover:bg-white/10 rounded-full p-2 max-[380px]:p-1.5 transition-colors border border-white/5 active:scale-95 z-[70]"
+             >
+               <X className="w-4 h-4 max-[380px]:w-3.5 max-[380px]:h-3.5" />
+             </button>
+          </div>
         </div>
 
-        {/* Center spacing where language switcher was */}
-        <div className="absolute left-1/2 -translate-x-1/2 flex items-center z-[60]">
+        {/* Grid */}
+        <div className="flex-1 overflow-y-auto hide-scrollbar relative pb-[calc(3rem+env(safe-area-inset-bottom))] pt-6 max-[380px]:pt-4 touch-pan-y overscroll-contain z-10">
+          <div className="max-w-xl mx-auto w-full px-5 max-[380px]:px-4 relative flex flex-col">
+             <div className="grid grid-cols-2 gap-4 max-[380px]:gap-3 w-full">
+                 {t.templates.map(link => (
+                    <div key={link.id} className="relative group w-full aspect-square">
+                       <div className="absolute -inset-0.5 bg-gradient-to-br from-white/10 to-rose-500/20 rounded-[2rem] max-[380px]:rounded-[1.5rem] blur-[10px] opacity-30 group-hover:opacity-100 group-hover:blur-[14px] transition-all duration-500 pointer-events-none"></div>
+                       <button
+                         onClick={(e) => { e.stopPropagation(); setIframeLoaded(false); setPreviewInfo(link); }}
+                         className="relative w-full h-full overflow-hidden flex flex-col items-center justify-center p-4 max-[380px]:p-3 rounded-[2rem] max-[380px]:rounded-[1.5rem] bg-[#0a0205]/95 backdrop-blur-md border border-rose-900/50 hover:border-rose-500/50 hover:bg-[#15050a] transition-all duration-300 active:scale-[0.98] shadow-inner"
+                       >
+                         <div className="absolute inset-0 bg-gradient-to-br from-rose-900/0 via-rose-900/0 to-rose-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                         <div className="w-14 h-14 max-[380px]:w-12 max-[380px]:h-12 rounded-full bg-rose-900/20 border border-rose-500/30 flex items-center justify-center shadow-[0_0_15px_rgba(159,18,57,0.2)] mb-3 max-[380px]:mb-2 shrink-0">
+                            <link.icon className="w-6 h-6 max-[380px]:w-5 max-[380px]:h-5 text-rose-400 group-hover:scale-110 transition-transform duration-300" />
+                         </div>
+                         <span className="text-[13px] max-[380px]:text-[11px] font-bold text-rose-100 tracking-wider text-center leading-tight">
+                           {link.name}
+                         </span>
+                       </button>
+                    </div>
+                 ))}
+             </div>
+             
+             {/* Фраза внизу */}
+             <div className="mt-8 max-[380px]:mt-6 text-center border-t border-rose-900/30 pt-6 max-[380px]:pt-4 mb-4 max-[380px]:mb-2 shrink-0 pointer-events-none">
+               <p className="text-[11px] max-[380px]:text-[10px] text-rose-100/50 font-light tracking-wide">
+                 {t.notFound1}<br/>
+                 <span className="text-rose-400/80 font-medium mt-1.5 inline-block">{t.notFound2}</span>
+               </p>
+             </div>
+          </div>
         </div>
 
-        {/* Close Button */}
-        <div className="w-1/4 flex justify-end">
-           <button
-             onClick={(e) => { e.stopPropagation(); onClose(); }}
-             className="text-white/40 hover:text-white bg-white/5 hover:bg-white/10 rounded-full p-2 max-[380px]:p-1.5 transition-colors border border-white/5 active:scale-95"
-           >
-             <X className="w-4 h-4 max-[380px]:w-3.5 max-[380px]:h-3.5" />
-           </button>
-        </div>
-      </div>
-
-      {/* Grid */}
-      <div className="flex-1 overflow-y-auto hide-scrollbar relative pb-12 pt-6 max-[380px]:pt-4 touch-pan-y overscroll-contain">
-        <div className="max-w-xl mx-auto w-full px-5 max-[380px]:px-4 relative z-10 flex flex-col">
-           <div className="grid grid-cols-2 gap-4 max-[380px]:gap-3 w-full">
-               {t.templates.map(link => (
-                  <div key={link.id} className="relative group w-full aspect-square">
-                     <div className="absolute -inset-0.5 bg-gradient-to-br from-white/10 to-rose-500/20 rounded-[2rem] max-[380px]:rounded-[1.5rem] blur-[10px] opacity-30 group-hover:opacity-100 group-hover:blur-[14px] transition-all duration-500 pointer-events-none"></div>
-                     <button
-                       onClick={(e) => { e.stopPropagation(); setIframeLoaded(false); setPreviewInfo(link); }}
-                       className="relative w-full h-full overflow-hidden flex flex-col items-center justify-center p-4 max-[380px]:p-3 rounded-[2rem] max-[380px]:rounded-[1.5rem] bg-[#0a0205]/95 backdrop-blur-md border border-rose-900/50 hover:border-rose-500/50 hover:bg-[#15050a] transition-all duration-300 active:scale-[0.98] shadow-inner"
-                     >
-                       <div className="absolute inset-0 bg-gradient-to-br from-rose-900/0 via-rose-900/0 to-rose-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                       <div className="w-14 h-14 max-[380px]:w-12 max-[380px]:h-12 rounded-full bg-rose-900/20 border border-rose-500/30 flex items-center justify-center shadow-[0_0_15px_rgba(159,18,57,0.2)] mb-3 max-[380px]:mb-2 shrink-0">
-                          <link.icon className="w-6 h-6 max-[380px]:w-5 max-[380px]:h-5 text-rose-400 group-hover:scale-110 transition-transform duration-300" />
-                       </div>
-                       <span className="text-[13px] max-[380px]:text-[11px] font-bold text-rose-100 tracking-wider text-center leading-tight">
-                         {link.name}
-                       </span>
-                     </button>
-                  </div>
-               ))}
-           </div>
-           
-           {/* Фраза внизу */}
-           <div className="mt-8 max-[380px]:mt-6 text-center border-t border-rose-900/30 pt-6 max-[380px]:pt-4 mb-4 max-[380px]:mb-2 shrink-0 pointer-events-none">
-             <p className="text-[11px] max-[380px]:text-[10px] text-rose-100/50 font-light tracking-wide">
-               {t.notFound1}<br/>
-               <span className="text-rose-400/80 font-medium mt-1.5 inline-block">{t.notFound2}</span>
-             </p>
-           </div>
-        </div>
-      </div>
-
-      {/* Iframe Modal Inside Gallery */}
-      {previewInfo && (
-        <div className="fixed inset-0 z-[200] flex flex-col bg-[#050102] animate-in fade-in zoom-in-[0.98] duration-300" onPointerDown={e => e.stopPropagation()}>
-           <div className="relative flex items-center justify-between px-4 max-[380px]:px-3 border-b border-rose-900/50 bg-[#0a0205] shrink-0 shadow-lg h-[50px] max-[380px]:h-[44px]">
-              <button
-                onClick={() => setPreviewInfo(null)}
-                className="flex items-center gap-1.5 px-3 py-1.5 max-[380px]:px-2 max-[380px]:py-1 rounded-full bg-rose-900/30 border border-rose-500/30 text-rose-300 hover:bg-rose-900/50 hover:text-rose-100 transition-all active:scale-95 shadow-[0_0_10px_rgba(159,18,57,0.2)]"
-              >
-                <ChevronLeft className="w-4 h-4 max-[380px]:w-3.5 max-[380px]:h-3.5" />
-                <span className="text-[10px] max-[380px]:text-[9px] font-bold tracking-widest uppercase">{t.back}</span>
-              </button>
-              <a
-                href={`${previewInfo.url}?ref=catalog`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="absolute left-1/2 -translate-x-1/2 flex items-center gap-2 px-4 py-1.5 max-[380px]:px-3 max-[380px]:py-1 rounded-full bg-rose-600 border border-rose-400 text-white hover:bg-rose-500 transition-all active:scale-95 shadow-[0_0_15px_rgba(225,29,72,0.4)]"
-              >
-                <span className="text-[10px] max-[380px]:text-[9px] font-bold tracking-widest uppercase">{t.openFull}</span>
-                <ExternalLink className="w-3.5 h-3.5 max-[380px]:w-3 max-[380px]:h-3 text-white" />
-              </a>
-              <div className="w-[74px] max-[380px]:w-[60px]"></div>
-           </div>
-           <div className="flex-1 relative w-full h-full bg-[#050102]">
-              {!iframeLoaded && (
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-[#050102] z-10">
-                   <div className="w-8 h-8 max-[380px]:w-6 max-[380px]:h-6 border-2 border-rose-900/50 border-t-rose-500 rounded-full animate-spin"></div>
-                   <span className="text-[10px] max-[380px]:text-[8px] uppercase tracking-widest text-rose-500/50 animate-pulse">Loading...</span>
+        {/* Iframe Modal Inside Gallery */}
+        {previewInfo && (
+          <div className="absolute inset-0 z-[200] flex flex-col bg-[#050102] animate-in fade-in zoom-in-[0.98] duration-300" onPointerDown={e => e.stopPropagation()}>
+             
+             {/* Preview Header */}
+             <div className="relative flex items-center justify-between px-4 sm:px-5 border-b border-rose-900/50 bg-[#0a0205] shrink-0 shadow-lg h-[calc(3.5rem+env(safe-area-inset-top))] pt-[env(safe-area-inset-top)] z-20">
+                <div className="flex items-center flex-1">
+                  <button
+                    onClick={() => setPreviewInfo(null)}
+                    className="flex items-center gap-1.5 px-3 py-1.5 max-[380px]:px-2 max-[380px]:py-1 rounded-full bg-rose-900/30 border border-rose-500/30 text-rose-300 hover:bg-rose-900/50 hover:text-rose-100 transition-all active:scale-95 shadow-[0_0_10px_rgba(159,18,57,0.2)]"
+                  >
+                    <ChevronLeft className="w-4 h-4 max-[380px]:w-3.5 max-[380px]:h-3.5" />
+                    <span className="text-[10px] max-[380px]:text-[9px] font-bold tracking-widest uppercase">{t.back}</span>
+                  </button>
                 </div>
-              )}
-              <iframe
-                src={previewInfo.url}
-                className={`w-full h-full border-none transition-opacity duration-700 bg-white ${iframeLoaded ? 'opacity-100' : 'opacity-0'}`}
-                onLoad={() => setIframeLoaded(true)}
-                title={previewInfo.name}
-              />
-           </div>
-        </div>
-      )}
+                
+                <div className="flex items-center justify-center shrink-0">
+                  <a
+                    href={`${previewInfo.url}?ref=catalog`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 px-4 py-1.5 max-[380px]:px-3 max-[380px]:py-1 rounded-full bg-rose-600 border border-rose-400 text-white hover:bg-rose-500 transition-all active:scale-95 shadow-[0_0_15px_rgba(225,29,72,0.4)]"
+                  >
+                    <span className="text-[10px] max-[380px]:text-[9px] font-bold tracking-widest uppercase">{t.openFull}</span>
+                    <ExternalLink className="w-3.5 h-3.5 max-[380px]:w-3 max-[380px]:h-3 text-white" />
+                  </a>
+                </div>
+
+                <div className="flex justify-end flex-1"></div>
+             </div>
+             
+             {/* Iframe Content */}
+             <div className="flex-1 relative w-full h-full bg-[#050102]">
+                {!iframeLoaded && (
+                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-[#050102] z-10">
+                     <div className="w-8 h-8 max-[380px]:w-6 max-[380px]:h-6 border-2 border-rose-900/50 border-t-rose-500 rounded-full animate-spin"></div>
+                     <span className="text-[10px] max-[380px]:text-[8px] uppercase tracking-widest text-rose-500/50 animate-pulse">Loading...</span>
+                  </div>
+                )}
+                <iframe
+                  src={previewInfo.url}
+                  className={`w-full h-full border-none transition-opacity duration-700 bg-white ${iframeLoaded ? 'opacity-100' : 'opacity-0'}`}
+                  onLoad={() => setIframeLoaded(true)}
+                  title={previewInfo.name}
+                />
+             </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
@@ -1047,7 +1080,7 @@ const App = () => {
   const [iframeUrl, setIframeUrl] = useState('');
   const [copied, setCopied] = useState(false);
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
-  const [ripples, setRipples] = useState([]);
+  const [globalRipples, setGlobalRipples] = useState([]);
   const cardRef = useRef(null);
   const audioCtxRef = useRef(null);
   const audioRef = useRef(null);
@@ -1075,22 +1108,25 @@ const App = () => {
   // Глобальный обработчик кликов для эффекта воды
   useEffect(() => {
     const handleGlobalPointerDown = (e) => {
+      // Игнорируем клики, если открыты модальные окна, чтобы не было двойных волн
+      if (showGallery || showIframeModal || showConditionsModal || showShare || showPwaPrompt) return;
+
       const clientX = e.clientX;
       const clientY = e.clientY;
       
       if (clientX === undefined || clientY === undefined) return;
       
       const id = Date.now() + Math.random();
-      setRipples(prev => [...prev, { x: clientX, y: clientY, id }]);
+      setGlobalRipples(prev => [...prev, { x: clientX, y: clientY, id }]);
       
       setTimeout(() => {
-          setRipples(prev => prev.filter(r => r.id !== id));
-      }, 800);
+          setGlobalRipples(prev => prev.filter(r => r.id !== id));
+      }, 900);
     };
 
     window.addEventListener('pointerdown', handleGlobalPointerDown);
     return () => window.removeEventListener('pointerdown', handleGlobalPointerDown);
-  }, []);
+  }, [showGallery, showIframeModal, showConditionsModal, showShare, showPwaPrompt]);
 
   const toggleGreetingAudio = (e) => {
     e.stopPropagation(); 
@@ -1780,7 +1816,9 @@ const App = () => {
             <div className="h-[calc(3.5rem+env(safe-area-inset-top))] pt-[env(safe-area-inset-top)] border-b border-rose-900/50 flex items-center justify-between px-4 sm:px-5 bg-[#0a0205] sm:bg-black/40 sm:backdrop-blur-sm shrink-0">
               <div className="flex items-center gap-3">
                 <Smartphone className="w-5 h-5 text-rose-400" />
-                <span className="text-rose-100 font-serif tracking-wider text-[11px] sm:text-sm uppercase font-bold">{CONTENT[lang].views.catalog.title}</span>
+                <span className="text-rose-100 font-serif tracking-wider text-[11px] sm:text-sm uppercase font-bold">
+                  {lang === 'ru' ? 'NFC-брелоки' : lang === 'en' ? 'NFC Keychains' : 'NFC Կախազարդեր'}
+                </span>
               </div>
               <button 
                 onClick={() => setShowIframeModal(false)}
@@ -1810,9 +1848,11 @@ const App = () => {
       )}
 
       {/* ГЛОБАЛЬНЫЙ СЛОЙ ДЛЯ ВОДЯНЫХ СЛЕДОВ */}
-      {ripples.map(r => (
-        <div key={r.id} className="water-ripple-element" style={{ left: r.x, top: r.y }} />
-      ))}
+      <div className="pointer-events-none fixed inset-0 z-[9999] overflow-hidden">
+        {globalRipples.map(r => (
+          <div key={r.id} className="water-ripple-element" style={{ left: r.x, top: r.y, transformOrigin: 'center' }} />
+        ))}
+      </div>
 
     </div>
   );
