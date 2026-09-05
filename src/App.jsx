@@ -112,10 +112,11 @@ const CONTENT = {
       link: 'Условия',
       title: 'Условия создания вашего digital-актива',
       items: [
-          { title: 'Бронирование и оплата', text: 'Работа начинается после 50% предоплаты (депозит невозвратный). Остаток 50% — перед передачей прав на проект.' },
-          { title: 'Сроки', text: 'Реализация за 3-7 рабочих дней с момента получения 100% заполненного брифа и материалов.' },
-          { title: 'Искусство правок', text: 'Стартовое наполнение контентом включено. В индивидуальных проектов включено 2 круга правок на этапе дизайна. Правки после сдачи проекта — платные.' },
-          { title: 'Владение', text: 'После полной оплаты вы получаете полные права на проект. Никаких ежемесячных платежей.' }
+          { title: 'Бронирование и оплата', text: 'Работа ведется строго по предварительной записи. Бронирование даты происходит после 100% оплаты (тариф STANDART) или 50% предоплаты (индивидуальный тариф PREMIUM).' },
+          { title: 'Подготовка и сроки', text: 'Вы получаете готовую визитку точно в забронированный день. Главное условие — предоставление 100% заполненного брифа и всех материалов не позднее, чем за 2 дня до даты старта.' },
+          { title: 'Дизайн и адаптация', text: 'В тариф STANDART включена адаптация шаблона: настройка вашей цветовой гаммы и нужных кнопок связи. Изменение структуры блоков доступно только в тарифе PREMIUM.' },
+          { title: 'Условия возврата', text: 'В случае вашего отказа от услуги после бронирования, оплата по тарифу STANDART не возвращается. В тарифе PREMIUM невозвратной является сумма предоплаты (50%).' },
+          { title: 'Обновление данных', text: 'Визитка работает без абонентской платы. Бесплатные правки (например, опечатки) вносятся в течение 7 дней после сдачи. Если в будущем потребуется обновить контакты, фото или ссылки, услуга оказывается разово: 1 000 ₽.' }
       ],
       footer: 'Прозрачность — залог безупречного стиля.\nDesign & Code by Elena Sotnikova.',
       accept: 'ПРИНИМАЮ'
@@ -208,10 +209,11 @@ const CONTENT = {
       link: 'Terms',
       title: 'Terms of creating your digital asset',
       items: [
-          { title: 'Booking and Payment', text: 'Work begins after a 50% prepayment (non-refundable deposit). The remaining 50% is due before transferring project rights.' },
-          { title: 'Timeline', text: 'Implementation takes 3-7 business days from the receipt of a 100% completed brief and materials.' },
-          { title: 'The Art of Revisions', text: 'Initial content population is included. Custom projects include 2 rounds of revisions during the design phase. Revisions after project delivery are paid.' },
-          { title: 'Ownership', text: 'Upon full payment, you receive full rights to the project. No monthly fees.' }
+          { title: 'Booking and Payment', text: 'Work is strictly by appointment. Booking a date requires a 100% payment (STANDART plan) or a 50% prepayment (PREMIUM plan).' },
+          { title: 'Preparation and Deadlines', text: 'You will receive your ready business card exactly on the booked date, provided that a completed brief and all materials are submitted at least 2 days before the start.' },
+          { title: 'Design and Adaptation', text: 'The STANDART plan includes template adaptation: matching your color scheme and setting up necessary contact buttons. Structural changes are available only in the PREMIUM plan.' },
+          { title: 'Refund Policy', text: 'In case of cancellation after booking, the STANDART plan payment is non-refundable. For the PREMIUM plan, the 50% prepayment is non-refundable.' },
+          { title: 'Future Updates', text: 'The card works with no monthly fees. Free corrections (e.g., typos) are accepted within 7 days of delivery. Future updates for contacts, photos, or links are provided as a one-time service: $10.' }
       ],
       footer: 'Transparency is the key to flawless style.\nDesign & Code by Elena Sotnikova.',
       accept: 'I ACCEPT'
@@ -304,10 +306,11 @@ const CONTENT = {
       link: 'Պայմաններ',
       title: 'Ձեր թվային ակտիվի ստեղծման պայմանները',
       items: [
-          { title: 'Ամրագրում և Վճարում', text: 'Աշխատանքը սկսվում է 50% կանխավճարից հետո (դեպոզիտը վերադարձման ենթակա չէ): Մնացած 50%-ը՝ նախագծի իրավունքները փոխանցելուց առաջ:' },
-          { title: 'Ժամկետներ', text: 'Իրականացումը 3-7 աշխատանքային օրվա ընթացքում՝ 100% լրացված հարցաշարը և նյութերը ստանալուց հետո:' },
-          { title: 'Ուղղումների արվեստ', text: 'Նախնական բովանդակության լրացումը ներառված է: Անհատական նախագծերում ներառված է 2 փուլ ուղղում դիզայնի փուլում: Նախագծի հանձնումից հետո ուղղումները վճարովի են:' },
-          { title: 'Սեփականություն', text: 'Ամբողջական վճարումից հետո դուք ստանում եք նախագծի ամբողջական իրավունքները: Ոչ մի ամսավճար:' }
+          { title: 'Ամրագրում և Վճարում', text: 'Աշխատանքն իրականացվում է խստորեն նախնական գրանցմամբ: Ամսաթվի ամրագրումը կատարվում է 100% վճարումից (STANDART սակագին) կամ 50% կանխավճարից (PREMIUM սակագին) հետո:' },
+          { title: 'Նախապատրաստում և Ժամկետներ', text: 'Դուք ստանում եք պատրաստի այցեքարտը ճիշտ ամրագրված օրը: Գլխավոր պայմանը՝ լրացված հարցաշարի և բոլոր նյութերի տրամադրումը մեկնարկից առնվազն 2 օր առաջ:' },
+          { title: 'Դիզայն և Ադապտացիա', text: 'STANDART սակագինը ներառում է ձևանմուշի ադապտացիա՝ ձեր գունային գամմայի և կապի անհրաժեշտ կոճակների կարգավորում: Բլոկների կառուցվածքի փոփոխությունը հասանելի է միայն PREMIUM սակագնում:' },
+          { title: 'Գումարի Վերադարձ', text: 'Ամրագրումից հետո հրաժարվելու դեպքում STANDART սակագնի վճարը ենթակա չէ վերադարձման: PREMIUM սակագնում վերադարձման ենթակա չէ կանխավճարը (50%):' },
+          { title: 'Տվյալների Թարմացում', text: 'Այցեքարտը գործում է առանց ամսավճարի: Հանձնումից հետո 7 օրվա ընթացքում անվճար կատարվում են մանր ուղղումներ (վրիպակներ): Եթե ապագայում անհրաժեշտ լինի թարմացնել կոնտակտները, լուսանկարները կամ հղումները, ծառայությունը մատուցվում է միանվագ՝ 4 000 ֏:' }
       ],
       footer: 'Թափանցիկությունը անթերի ոճի գրավականն է:\nDesign & Code by Elena Sotnikova.',
       accept: 'ԸՆԴՈՒՆՈՒՄ ԵՄ'
@@ -574,16 +577,16 @@ const globalStyles = `
 
   /* === ЭФФЕКТ СЛЕДА НА ВОДЕ === */
   @keyframes water-ripple-anim {
-    0% { transform: translate(-50%, -50%) scale(0); opacity: 0.8; border: 3px solid rgba(255, 255, 255, 0.6); box-shadow: 0 0 20px rgba(255, 255, 255, 0.4), inset 0 0 20px rgba(255, 255, 255, 0.4); filter: blur(1px); }
-    100% { transform: translate(-50%, -50%) scale(4); opacity: 0; border: 1px solid rgba(255, 255, 255, 0); box-shadow: 0 0 50px rgba(255, 255, 255, 0), inset 0 0 50px rgba(255, 255, 255, 0); filter: blur(4px); }
+    0% { transform: translate(-50%, -50%) scale(0); opacity: 0.6; border: 2px solid rgba(255, 255, 255, 0.8); }
+    100% { transform: translate(-50%, -50%) scale(3); opacity: 0; border: 1px solid rgba(255, 255, 255, 0); }
   }
   .water-ripple-element {
     position: absolute;
     border-radius: 50%;
     width: 80px;
     height: 80px;
-    background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.05) 40%, rgba(255,255,255,0) 70%);
-    animation: water-ripple-anim 0.9s cubic-bezier(0.1, 0.5, 0.3, 1) forwards;
+    background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%);
+    animation: water-ripple-anim 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
     pointer-events: none;
     z-index: 9999;
   }
