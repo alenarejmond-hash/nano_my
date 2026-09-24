@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { 
   Globe, Star, UserCircle2, Diamond, Crown,
   QrCode, Share2, Copy, X, Check,
-  RefreshCcw, Play, PlusSquare, UserPlus,
+  Play, PlusSquare, UserPlus,
   Smartphone, CreditCard, Key, Sparkles,
   Moon, Brain, PlaneTakeoff, Camera, Activity, 
   Droplets, Building2, Smile, Aperture, ChevronLeft, ChevronRight, ExternalLink,
@@ -112,7 +112,7 @@ const CONTENT = {
         desc: 'Интерактивный шоурум digital-продуктов',
         galleryBtn: 'Галерея дизайнов визиток',
         menuBtn: 'Демо Smart-меню',
-        videoCaption: 'Promo Video'
+        videoCaption: 'NFC-брелок вживую'
       },
       contactsTitle: 'Контакты',
       contacts: { tg: 'Telegram', insta: 'Instagram', phone: 'Позвонить' },
@@ -244,7 +244,7 @@ const CONTENT = {
         desc: 'Interactive showroom of digital products',
         galleryBtn: 'Business Card Gallery',
         menuBtn: 'Smart Menu Demo',
-        videoCaption: 'Promo Video'
+        videoCaption: 'NFC Keychain Live'
       },
       contactsTitle: 'Contacts',
       contacts: { tg: 'Telegram', insta: 'Instagram', phone: 'Call' },
@@ -376,7 +376,7 @@ const CONTENT = {
         desc: 'Ինտերակտիվ թվային պրոդուկտների ցուցասրահ',
         galleryBtn: 'Այցեքարտերի դիզայնների պատկերասրահ',
         menuBtn: 'Smart-մենյու դեմո',
-        videoCaption: 'Promo Video'
+        videoCaption: 'NFC-կախազարդն իրականում'
       },
       contactsTitle: 'Կապ',
       contacts: { tg: 'Telegram', insta: 'Instagram', phone: 'Զանգահարել' },
@@ -635,17 +635,16 @@ const CreatorCard = ({ lang, isFlipped, view, onOpenIframe, onOpenGallery, onOpe
           <div className="flex justify-between items-start shrink-0">
             <div className="bg-[#151515]/60 sm:bg-black/50 backdrop-blur-md px-[clamp(0.5rem,4cqw,1rem)] py-[clamp(0.25rem,2cqw,0.5rem)] rounded-full border border-rose-900/50 flex items-center gap-[clamp(0.375rem,2cqw,0.5rem)]">
               <Crown className="w-[clamp(0.75rem,4cqw,1rem)] h-[clamp(0.75rem,4cqw,1rem)] text-rose-400" />
-              <span className="text-[clamp(0.5rem,3cqw,0.75rem)] font-serif tracking-widest uppercase text-rose-200/90">{CONTENT[lang].creator.badge}</span>
+              <span className="text-[clamp(0.5rem,3cqw,0.65rem)] font-serif tracking-widest uppercase text-rose-200/90">{CONTENT[lang].creator.badge}</span>
             </div>
-            <RefreshCcw className="w-[clamp(1.2rem,8cqw,2rem)] h-[clamp(1.2rem,8cqw,2rem)] text-rose-300/60 drop-shadow-[0_0_10px_rgba(159,18,57,0.5)]" />
           </div>
 
           <div className="text-center pb-[clamp(0.375rem,2cqw,0.5rem)] shrink-0">
-            <h2 className="text-[clamp(1.1rem,9cqw,2.25rem)] leading-tight font-serif mb-[clamp(0.375rem,2cqw,0.5rem)] uppercase tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-rose-100 via-white to-rose-200 drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
+            <h2 className="text-[clamp(1.1rem,7cqw,1.75rem)] leading-tight font-serif mb-[clamp(0.375rem,2cqw,0.5rem)] uppercase tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-rose-100 via-white to-rose-200 drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
               {hackerName1}<br />{hackerName2}
             </h2>
             <div className="flex flex-col items-center gap-[clamp(0.5rem,3cqw,0.75rem)] mt-[clamp(0.5rem,3cqw,0.75rem)]">
-              <p className="font-serif text-[clamp(0.55rem,3.5cqw,0.8rem)] text-rose-100/70 italic tracking-wider max-w-[85%] mx-auto leading-relaxed">
+              <p className="font-serif text-[clamp(0.55rem,3cqw,0.7rem)] text-rose-100/70 italic tracking-wider max-w-[85%] mx-auto leading-relaxed">
                 "{CONTENT[lang].creator.quote1}<br/>{CONTENT[lang].creator.quote2}"
               </p>
               <div className="flex items-center gap-[clamp(0.25rem,1.5cqw,0.375rem)] bg-[#151515]/60 sm:bg-black/50 backdrop-blur-md px-[clamp(0.4rem,3cqw,0.75rem)] py-[clamp(0.2rem,1.5cqw,0.375rem)] rounded-full border border-rose-900/50 mt-[clamp(0.125rem,1cqw,0.25rem)]">
@@ -679,12 +678,12 @@ const CreatorCard = ({ lang, isFlipped, view, onOpenIframe, onOpenGallery, onOpe
               <div className="w-[clamp(2.5rem,8cqw,3rem)] h-[clamp(2.5rem,8cqw,3rem)] rounded-full bg-rose-900/30 border border-rose-500/30 flex items-center justify-center mb-[clamp(0.75rem,3cqw,1rem)] shrink-0 shadow-[0_0_15px_rgba(159,18,57,0.2)]">
                 <UserCircle2 className="w-[clamp(1.25rem,4cqw,1.5rem)] h-[clamp(1.25rem,4cqw,1.5rem)] text-rose-300" />
               </div>
-              <h3 className="text-[clamp(0.85rem,4cqw,1.1rem)] font-bold text-rose-100 mb-[clamp(1.5rem,5cqw,2.5rem)] shrink-0 tracking-wide">{CONTENT[lang].views.profile.title}</h3>
+              <h3 className="text-[clamp(0.85rem,4cqw,1rem)] font-bold text-rose-100 mb-[clamp(1.5rem,5cqw,2.5rem)] shrink-0 tracking-wide">{CONTENT[lang].views.profile.title}</h3>
               
               <div className="flex-1 overflow-y-auto hide-scrollbar mask-image-bottom pb-[clamp(3.5rem,10cqw,4.5rem)] pr-[clamp(0.125rem,1cqw,0.25rem)] no-tilt touch-pan-y overscroll-contain flex flex-col relative">
                 <div className="flex flex-col gap-[clamp(0.6rem,3cqw,0.85rem)] bg-[#151515]/60 sm:bg-black/50 backdrop-blur-md p-[clamp(0.75rem,3cqw,1rem)] rounded-3xl border border-rose-900/50 shadow-inner relative shrink-0">
                   {CONTENT[lang].views.profile.desc.split('\n\n').map((paragraph, i) => (
-                    <p key={i} className="font-serif text-[clamp(0.55rem,3.5cqw,0.8rem)] text-rose-100/90 leading-relaxed block px-[clamp(0.125rem,1cqw,0.25rem)]">
+                    <p key={i} className="font-serif text-[clamp(0.55rem,3cqw,0.7rem)] text-rose-100/90 leading-relaxed block px-[clamp(0.125rem,1cqw,0.25rem)]">
                       {paragraph}
                     </p>
                   ))}
@@ -722,10 +721,10 @@ const CreatorCard = ({ lang, isFlipped, view, onOpenIframe, onOpenGallery, onOpe
               <div className="w-[clamp(2.5rem,8cqw,3rem)] h-[clamp(2.5rem,8cqw,3rem)] rounded-full bg-rose-900/30 border border-rose-500/30 flex items-center justify-center mb-[clamp(0.75rem,3cqw,1rem)] shrink-0 shadow-[0_0_15px_rgba(159,18,57,0.2)]">
                 <Diamond className="w-[clamp(1.25rem,4cqw,1.5rem)] h-[clamp(1.25rem,4cqw,1.5rem)] text-rose-300" />
               </div>
-              <h3 className="text-[clamp(0.85rem,4cqw,1.1rem)] font-bold text-rose-100 mb-3 shrink-0 tracking-wide">
+              <h3 className="text-[clamp(0.85rem,4cqw,1rem)] font-bold text-rose-100 mb-3 shrink-0 tracking-wide">
                 {CONTENT[lang].views.solutions.title}
               </h3>
-              <p className="font-serif text-[clamp(0.55rem,3.5cqw,0.8rem)] text-rose-100/90 leading-relaxed mb-[clamp(1.5rem,6cqw,2.5rem)] shrink-0 px-[clamp(0.125rem,1cqw,0.25rem)]">
+              <p className="font-serif text-[clamp(0.55rem,3cqw,0.7rem)] text-rose-100/90 leading-relaxed mb-[clamp(1.5rem,6cqw,2.5rem)] shrink-0 px-[clamp(0.125rem,1cqw,0.25rem)]">
                 {CONTENT[lang].views.solutions.subtitle}
               </p>
               
@@ -755,7 +754,7 @@ const CreatorCard = ({ lang, isFlipped, view, onOpenIframe, onOpenGallery, onOpe
                            {IconC && <IconC className="w-5 h-5 text-rose-300" />}
                         </div>
                         <h4 className="text-[clamp(0.6rem,3cqw,0.75rem)] font-bold text-rose-200 mb-2">{item.title}</h4>
-                        <p className="font-serif text-[clamp(0.55rem,3.5cqw,0.8rem)] text-rose-100/70 leading-relaxed line-clamp-4">{item.short}</p>
+                        <p className="font-serif text-[clamp(0.55rem,3cqw,0.7rem)] text-rose-100/70 leading-relaxed line-clamp-4">{item.short}</p>
                       </div>
                       <button 
                         onClick={() => onOpenSheet(item)}
@@ -775,10 +774,10 @@ const CreatorCard = ({ lang, isFlipped, view, onOpenIframe, onOpenGallery, onOpe
               <div className="w-[clamp(2.5rem,8cqw,3rem)] h-[clamp(2.5rem,8cqw,3rem)] rounded-full bg-rose-900/30 border border-rose-500/30 flex items-center justify-center mb-[clamp(0.75rem,3cqw,1rem)] shrink-0 shadow-[0_0_15px_rgba(159,18,57,0.2)]">
                 <Smartphone className="w-[clamp(1.25rem,4cqw,1.5rem)] h-[clamp(1.25rem,4cqw,1.5rem)] text-rose-300" />
               </div>
-              <h3 className="text-[clamp(0.85rem,4cqw,1.1rem)] font-bold text-rose-100 mb-[clamp(0.5rem,2cqw,0.75rem)] shrink-0 tracking-wide">{CONTENT[lang].views.portfolio.title}</h3>
-              <p className="font-serif text-[clamp(0.55rem,3.5cqw,0.8rem)] text-rose-100/70 mb-[clamp(2rem,6cqw,3rem)] shrink-0 px-[clamp(0.125rem,1cqw,0.25rem)]">{CONTENT[lang].views.portfolio.desc}</p>
+              <h3 className="text-[clamp(0.85rem,4cqw,1rem)] font-bold text-rose-100 mb-[clamp(0.5rem,2cqw,0.75rem)] shrink-0 tracking-wide">{CONTENT[lang].views.portfolio.title}</h3>
+              <p className="font-serif text-[clamp(0.55rem,3cqw,0.7rem)] text-rose-100/70 mb-[clamp(2rem,6cqw,3rem)] shrink-0 px-[clamp(0.125rem,1cqw,0.25rem)]">{CONTENT[lang].views.portfolio.desc}</p>
               
-              <div className="flex-1 overflow-y-auto hide-scrollbar mask-image-bottom pb-[clamp(1.5rem,8cqw,2.5rem)] pr-[clamp(0.125rem,1cqw,0.25rem)] flex flex-col justify-center gap-[clamp(0.6rem,3cqw,1rem)] no-tilt touch-pan-y overscroll-contain">
+              <div className="flex-1 overflow-y-auto hide-scrollbar mask-image-bottom pb-[clamp(1.5rem,8cqw,2.5rem)] pr-[clamp(0.125rem,1cqw,0.25rem)] flex flex-col gap-[clamp(0.6rem,3cqw,1rem)] no-tilt touch-pan-y overscroll-contain">
                  
                  {/* Card 1: Gallery */}
                  <button onClick={(e) => { e.stopPropagation(); onOpenGallery(); }} className="relative overflow-hidden w-full bg-[#151515]/60 sm:bg-black/50 backdrop-blur-md p-4 rounded-3xl border border-rose-900/50 shadow-inner flex items-center gap-4 hover:bg-rose-900/20 hover:border-rose-500/50 transition-all group shrink-0 active:scale-[0.98]">
@@ -786,7 +785,7 @@ const CreatorCard = ({ lang, isFlipped, view, onOpenIframe, onOpenGallery, onOpe
                         <Sparkles className="w-5 h-5 text-rose-300 group-hover:scale-110 transition-transform" />
                     </div>
                     <div className="flex-1 text-left">
-                        <h4 className="text-rose-200 text-[clamp(0.6rem,3cqw,0.75rem)] font-bold">{CONTENT[lang].views.portfolio.galleryBtn}</h4>
+                        <h4 className="text-rose-200 text-[clamp(0.6rem,3cqw,0.7rem)] font-bold">{CONTENT[lang].views.portfolio.galleryBtn}</h4>
                     </div>
                     <div className="w-8 h-8 rounded-full bg-rose-900/30 flex items-center justify-center shrink-0 group-hover:bg-rose-600 transition-colors">
                         <ChevronRight className="w-4 h-4 text-rose-400 group-hover:text-white transition-colors" />
@@ -799,7 +798,7 @@ const CreatorCard = ({ lang, isFlipped, view, onOpenIframe, onOpenGallery, onOpe
                         <ChefHat className="w-5 h-5 text-rose-300 group-hover:scale-110 transition-transform" />
                     </div>
                     <div className="flex-1 text-left">
-                        <h4 className="text-rose-200 text-[clamp(0.6rem,3cqw,0.75rem)] font-bold">{CONTENT[lang].views.portfolio.menuBtn}</h4>
+                        <h4 className="text-rose-200 text-[clamp(0.6rem,3cqw,0.7rem)] font-bold">{CONTENT[lang].views.portfolio.menuBtn}</h4>
                     </div>
                     <div className="w-8 h-8 rounded-full bg-rose-900/30 flex items-center justify-center shrink-0 group-hover:bg-rose-600 transition-colors">
                         <ChevronRight className="w-4 h-4 text-rose-400 group-hover:text-white transition-colors" />
@@ -808,12 +807,12 @@ const CreatorCard = ({ lang, isFlipped, view, onOpenIframe, onOpenGallery, onOpe
 
                  {/* Card 3: Promo Video */}
                  <button onClick={(e) => { e.stopPropagation(); onOpenIframe('/promo.mp4'); }} className="relative overflow-hidden w-full bg-[#151515]/60 sm:bg-black/50 backdrop-blur-md p-4 rounded-3xl border border-rose-900/50 shadow-inner flex items-center gap-4 hover:bg-rose-900/20 hover:border-rose-500/50 transition-all group shrink-0 active:scale-[0.98]">
-                    <div className="absolute top-0 left-0 bg-rose-600 px-3 py-1 rounded-br-xl rounded-tl-3xl text-[8px] font-bold tracking-widest uppercase text-white shadow-md z-10">PROMO VIDEO</div>
+                    <div className="absolute top-0 left-0 bg-rose-600 px-3 py-1 rounded-br-xl rounded-tl-3xl text-[8px] font-bold tracking-widest uppercase text-white shadow-md z-10">NFC VIDEO</div>
                     <div className="w-12 h-12 rounded-full bg-rose-900/40 flex items-center justify-center border border-rose-500/30 shrink-0 shadow-[0_0_15px_rgba(159,18,57,0.2)]">
                         <Play className="w-5 h-5 text-rose-300 group-hover:scale-110 transition-transform ml-0.5" />
                     </div>
                     <div className="flex-1 text-left">
-                        <h4 className="text-rose-200 text-[clamp(0.6rem,3cqw,0.75rem)] font-bold mt-1.5">{CONTENT[lang].views.portfolio.videoCaption}</h4>
+                        <h4 className="text-rose-200 text-[clamp(0.6rem,3cqw,0.7rem)] font-bold mt-1.5">{CONTENT[lang].views.portfolio.videoCaption}</h4>
                     </div>
                     <div className="w-8 h-8 rounded-full bg-rose-900/30 flex items-center justify-center shrink-0 group-hover:bg-rose-600 transition-colors mt-1.5">
                         <ChevronRight className="w-4 h-4 text-rose-400 group-hover:text-white transition-colors" />
@@ -828,9 +827,9 @@ const CreatorCard = ({ lang, isFlipped, view, onOpenIframe, onOpenGallery, onOpe
               <div className="w-[clamp(2.5rem,8cqw,3rem)] h-[clamp(2.5rem,8cqw,3rem)] rounded-full bg-rose-900/30 border border-rose-500/30 flex items-center justify-center mb-[clamp(0.75rem,3cqw,1rem)] shrink-0 shadow-[0_0_15px_rgba(159,18,57,0.2)]">
                 <Phone className="w-[clamp(1.25rem,4cqw,1.5rem)] h-[clamp(1.25rem,4cqw,1.5rem)] text-rose-300" />
               </div>
-              <h3 className="text-[clamp(0.85rem,4cqw,1.1rem)] font-bold text-rose-100 mb-[clamp(2.5rem,8cqw,3.5rem)] shrink-0 tracking-wide">{CONTENT[lang].views.contactsTitle}</h3>
+              <h3 className="text-[clamp(0.85rem,4cqw,1rem)] font-bold text-rose-100 mb-[clamp(2.5rem,8cqw,3.5rem)] shrink-0 tracking-wide">{CONTENT[lang].views.contactsTitle}</h3>
               
-              <div className="flex-1 overflow-y-auto hide-scrollbar flex flex-col justify-center gap-[clamp(0.6rem,3cqw,1rem)] pb-[clamp(1.5rem,8cqw,2.5rem)] pr-[clamp(0.125rem,1cqw,0.25rem)] no-tilt touch-pan-y overscroll-contain">
+              <div className="flex-1 overflow-y-auto hide-scrollbar flex flex-col gap-[clamp(0.6rem,3cqw,1rem)] pb-[clamp(1.5rem,8cqw,2.5rem)] pr-[clamp(0.125rem,1cqw,0.25rem)] no-tilt touch-pan-y overscroll-contain">
                 
                 <a href="https://t.me/appseapro" target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="bg-[#151515]/60 sm:bg-black/50 backdrop-blur-md p-[clamp(0.75rem,4cqw,1rem)] rounded-3xl border border-rose-900/50 shadow-inner flex items-center gap-4 cursor-pointer hover:bg-rose-900/20 hover:border-rose-500/50 transition-all group shrink-0">
                   <div className="w-[clamp(2rem,6cqw,2.5rem)] h-[clamp(2rem,6cqw,2.5rem)] rounded-full bg-rose-900/40 border border-rose-500/30 flex items-center justify-center group-hover:scale-110 transition-transform shadow-[0_0_10px_rgba(159,18,57,0.2)] shrink-0">
@@ -862,10 +861,10 @@ const CreatorCard = ({ lang, isFlipped, view, onOpenIframe, onOpenGallery, onOpe
                 <div className="w-[clamp(2rem,6cqw,2.5rem)] h-[clamp(2rem,6cqw,2.5rem)] rounded-full bg-rose-900/30 border border-rose-500/30 flex items-center justify-center shadow-[0_0_15px_rgba(159,18,57,0.2)]">
                   <Star className="w-[clamp(1rem,4cqw,1.25rem)] h-[clamp(1rem,4cqw,1.25rem)] text-rose-300" />
                 </div>
-                <h3 className="text-[clamp(0.85rem,4cqw,1.1rem)] font-bold text-rose-100 tracking-wide">{CONTENT[lang].views.reviewsTitle}</h3>
+                <h3 className="text-[clamp(0.85rem,4cqw,1rem)] font-bold text-rose-100 tracking-wide">{CONTENT[lang].views.reviewsTitle}</h3>
               </div>
               
-              <div className="flex-1 overflow-y-auto hide-scrollbar flex flex-col justify-center gap-[clamp(0.6rem,2.5cqw,0.85rem)] pb-[clamp(1.5rem,8cqw,2.5rem)] pr-[clamp(0.125rem,1cqw,0.25rem)] mask-image-bottom no-tilt touch-pan-y overscroll-contain">
+              <div className="flex-1 overflow-y-auto hide-scrollbar flex flex-col gap-[clamp(0.6rem,2.5cqw,0.85rem)] pb-[clamp(1.5rem,8cqw,2.5rem)] pr-[clamp(0.125rem,1cqw,0.25rem)] mask-image-bottom no-tilt touch-pan-y overscroll-contain">
                 {CONTENT[lang].views.reviews.map((rev, idx) => (
                   <div key={idx} className="bg-[#151515]/60 sm:bg-black/50 backdrop-blur-md p-[clamp(0.75rem,3cqw,1rem)] rounded-3xl border border-rose-900/50 shadow-inner relative shrink-0 block">
                     <div className="flex justify-between items-center mb-[clamp(0.4rem,1.5cqw,0.5rem)] px-[clamp(0.125rem,1cqw,0.25rem)]">
@@ -879,7 +878,7 @@ const CreatorCard = ({ lang, isFlipped, view, onOpenIframe, onOpenGallery, onOpe
                         ))}
                       </div>
                     </div>
-                    <p className="font-serif text-[clamp(0.55rem,3cqw,0.75rem)] text-rose-100/80 leading-relaxed italic px-[clamp(0.125rem,1cqw,0.25rem)]">
+                    <p className="font-serif text-[clamp(0.55rem,3cqw,0.65rem)] text-rose-100/80 leading-relaxed italic px-[clamp(0.125rem,1cqw,0.25rem)]">
                       {rev.text}
                     </p>
                   </div>
@@ -1291,7 +1290,7 @@ const App = () => {
         <div 
           ref={cardRef}
           className="relative z-10 w-full aspect-[10/16] sm:aspect-[10/15] cursor-pointer group animate-float touch-none mx-auto @container"
-          style={{ perspective: '1500px', maxWidth: 'min(26rem, 94vw, 52dvh)' }}
+          style={{ perspective: '1500px', maxWidth: 'min(30rem, 96vw, 75dvh)' }}
           onClick={handleFlip} onMouseMove={handlePointerMove} onMouseLeave={handlePointerLeave} onTouchMove={handlePointerMove} onTouchEnd={handlePointerLeave}
         >
           {sparks.map(spark => (
@@ -1317,48 +1316,52 @@ const App = () => {
               <div className="absolute inset-0 w-full h-full rounded-[2.5rem] pointer-events-none transition-opacity duration-300 card-backface-hidden" style={{ transform: 'rotateY(180deg) translateZ(0)', background: `radial-gradient(farthest-corner circle at ${100 - glare.x}% ${glare.y}%, rgba(255, 255, 255, 0.8) 10%, rgba(255, 255, 255, 0) 60%), linear-gradient(${100 - glare.x + glare.y}deg, rgba(255,255,255,0) 30%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 70%)`, boxShadow: `inset ${-rotate.y}px ${-rotate.x}px 20px rgba(255, 255, 255, 0.4), inset ${rotate.y * 1.5}px ${rotate.x * 1.5}px 40px rgba(255, 255, 255, 0.15)`, opacity: glare.opacity ? Math.max(0.4, glare.opacity) : 0, mixBlendMode: 'overlay', zIndex: 50 }} />
             </div>
           </div>
+          
+          <div className={`absolute left-1/2 -translate-x-1/2 -bottom-10 pointer-events-none font-mono uppercase tracking-[0.2em] text-[9px] sm:text-[10px] text-rose-200/50 transition-all duration-500 w-max text-center flex flex-col items-center gap-1 ${!isFlipped ? 'opacity-70 animate-pulse translate-y-0' : 'opacity-0 translate-y-2'}`}>
+            <span>{lang === 'ru' ? 'Коснись визитки ✦ Двигай карту в 3D' : lang === 'en' ? 'Tap the card ✦ Move in 3D' : 'Հպվեք քարտին ✦ Շարժեք 3D-ում'}</span>
+          </div>
         </div>
       </div>
 
       {/* Верхний док управления (System Pill) */}
-      <div className="fixed top-[max(1.5rem,calc(env(safe-area-inset-top)+1rem))] right-[max(1rem,env(safe-area-inset-right))] sm:right-6 z-50 flex items-center gap-1 sm:gap-2 px-1 py-1 max-[380px]:px-0.5 max-[380px]:py-0.5 rounded-full bg-[#151515]/60 sm:bg-black/50 backdrop-blur-md border border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.5)]">
+      <div className="fixed top-[max(1.5rem,calc(env(safe-area-inset-top)+1rem))] right-[max(1rem,env(safe-area-inset-right))] sm:right-6 z-50 flex items-center gap-1 sm:gap-1.5 px-1 py-1 max-[380px]:px-0.5 max-[380px]:py-0.5 rounded-full bg-[#151515]/60 sm:bg-black/50 backdrop-blur-md border border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.5)]">
         <audio ref={audioRef} src={CONTENT[lang].creator.audioGreeting} preload="auto" playsInline onPlay={() => setIsAudioPlaying(true)} onPause={() => setIsAudioPlaying(false)} onEnded={() => setIsAudioPlaying(false)} style={{ display: 'none' }} />
 
-        <button type="button" onClick={toggleGreetingAudio} className={`shrink-0 active:scale-90 rounded-full transition-all duration-300 group touch-manipulation flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 max-[380px]:w-6 max-[380px]:h-6 ${isAudioPlaying ? 'bg-rose-900/40 text-rose-300 shadow-inner' : 'text-white/40 hover:text-white/90 hover:bg-white/10'}`} aria-label="Голосовое приветствие">
+        <button type="button" onClick={toggleGreetingAudio} className={`shrink-0 active:scale-90 rounded-full transition-all duration-300 group touch-manipulation flex items-center justify-center w-7 h-7 max-[380px]:w-6 max-[380px]:h-6 ${isAudioPlaying ? 'bg-rose-900/40 text-rose-300 shadow-inner' : 'text-white/40 hover:text-white/90 hover:bg-white/10'}`} aria-label="Голосовое приветствие">
           {isAudioPlaying ? (
-            <div className="flex items-end justify-center gap-[2px] w-full h-3 sm:h-3.5 max-[380px]:h-2.5">
+            <div className="flex items-end justify-center gap-[2px] w-full h-3 max-[380px]:h-2.5">
               <div className="audio-bar" style={{ animationDelay: '0.0s' }}></div>
               <div className="audio-bar" style={{ animationDelay: '0.3s', height: '10px' }}></div>
               <div className="audio-bar" style={{ animationDelay: '0.6s', height: '14px' }}></div>
               <div className="audio-bar" style={{ animationDelay: '0.2s', height: '8px' }}></div>
             </div>
-          ) : ( <Play className="w-3 h-3 sm:w-3.5 sm:h-3.5 max-[380px]:w-2.5 max-[380px]:h-2.5 group-hover:scale-110 transition-transform ml-0.5" /> )}
+          ) : ( <Play className="w-3 h-3 max-[380px]:w-2.5 max-[380px]:h-2.5 group-hover:scale-110 transition-transform ml-0.5" /> )}
         </button>
 
-        <div className="w-[1px] h-3.5 sm:h-4 max-[380px]:h-3 bg-white/10"></div>
+        <div className="w-[1px] h-3.5 max-[380px]:h-3 bg-white/10"></div>
 
-        <div className="shrink-0 relative flex items-center h-7 sm:h-8 max-[380px]:h-6 rounded-full bg-transparent">
+        <div className="shrink-0 relative flex items-center h-7 max-[380px]:h-6 rounded-full bg-transparent">
           <div className="absolute top-1 bottom-1 w-[calc(33.333%-0px)] rounded-full bg-gradient-to-r from-rose-800 to-rose-600 border border-rose-400/50 shadow-[0_0_15px_rgba(225,29,72,0.5)] transition-all duration-300 ease-out" style={{ left: lang === 'hy' ? '0px' : lang === 'ru' ? '33.333%' : '66.666%' }} />
           {[ { code: 'hy', label: 'AM' }, { code: 'ru', label: 'RU' }, { code: 'en', label: 'EN' } ].map((item) => (
-            <button key={item.code} onClick={(e) => { e.preventDefault(); e.stopPropagation(); triggerVibration(); setLang(item.code); }} className={`relative z-10 px-1.5 sm:px-2 max-[380px]:px-1 h-full flex items-center justify-center text-[9px] sm:text-[10px] max-[380px]:text-[8px] font-bold tracking-wider transition-colors duration-200 touch-manipulation min-w-[24px] sm:min-w-[28px] max-[380px]:min-w-[20px] text-center ${lang === item.code ? 'text-white drop-shadow-[0_0_6px_rgba(255,255,255,0.8)]' : 'text-white/40 hover:text-white/80'}`}>
+            <button key={item.code} onClick={(e) => { e.preventDefault(); e.stopPropagation(); triggerVibration(); setLang(item.code); }} className={`relative z-10 px-1.5 max-[380px]:px-1 h-full flex items-center justify-center text-[9px] max-[380px]:text-[8px] font-bold tracking-wider transition-colors duration-200 touch-manipulation min-w-[24px] max-[380px]:min-w-[20px] text-center ${lang === item.code ? 'text-white drop-shadow-[0_0_6px_rgba(255,255,255,0.8)]' : 'text-white/40 hover:text-white/80'}`}>
               {item.label}
             </button>
           ))}
         </div>
 
-        <div className="w-[1px] h-3.5 sm:h-4 max-[380px]:h-3 bg-white/10"></div>
+        <div className="w-[1px] h-3.5 max-[380px]:h-3 bg-white/10"></div>
 
-        <button onClick={(e) => { e.preventDefault(); e.stopPropagation(); triggerVibration(); setShowShare(true); }} className="shrink-0 active:scale-90 rounded-full text-white/40 hover:text-white/90 hover:bg-white/10 transition-all duration-300 group touch-manipulation flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 max-[380px]:w-6 max-[380px]:h-6" aria-label="Поделиться">
-          <QrCode className="w-3 h-3 sm:w-3.5 sm:h-3.5 max-[380px]:w-2.5 max-[380px]:h-2.5 group-hover:scale-110 transition-transform" />
+        <button onClick={(e) => { e.preventDefault(); e.stopPropagation(); triggerVibration(); setShowShare(true); }} className="shrink-0 active:scale-90 rounded-full text-white/40 hover:text-white/90 hover:bg-white/10 transition-all duration-300 group touch-manipulation flex items-center justify-center w-7 h-7 max-[380px]:w-6 max-[380px]:h-6" aria-label="Поделиться">
+          <QrCode className="w-3 h-3 max-[380px]:w-2.5 max-[380px]:h-2.5 group-hover:scale-110 transition-transform" />
         </button>
 
-        <button onClick={(e) => { e.preventDefault(); e.stopPropagation(); triggerVibration(); handleDownloadVCard(); }} className="shrink-0 active:scale-90 rounded-full text-white/40 hover:text-white/90 hover:bg-white/10 transition-all duration-300 group touch-manipulation flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 max-[380px]:w-6 max-[380px]:h-6 mr-0.5" aria-label="Сохранить контакт" title="Сохранить в контакты">
-          <UserPlus className="w-3 h-3 sm:w-3.5 sm:h-3.5 max-[380px]:w-2.5 max-[380px]:h-2.5 group-hover:scale-110 transition-transform" />
+        <button onClick={(e) => { e.preventDefault(); e.stopPropagation(); triggerVibration(); handleDownloadVCard(); }} className="shrink-0 active:scale-90 rounded-full text-white/40 hover:text-white/90 hover:bg-white/10 transition-all duration-300 group touch-manipulation flex items-center justify-center w-7 h-7 max-[380px]:w-6 max-[380px]:h-6 mr-0.5" aria-label="Сохранить контакт" title="Сохранить в контакты">
+          <UserPlus className="w-3 h-3 max-[380px]:w-2.5 max-[380px]:h-2.5 group-hover:scale-110 transition-transform" />
         </button>
       </div>
 
       {/* Floating Spatial Dock (Нижнее меню) */}
-      <div className={`fixed bottom-[max(2rem,calc(env(safe-area-inset-bottom)+1rem))] left-1/2 -translate-x-1/2 z-50 flex items-center justify-between gap-3 sm:gap-4 max-[380px]:gap-2 px-3 sm:px-4 max-[380px]:px-2 py-1 sm:py-1 max-[380px]:py-1 rounded-full bg-[#151515]/60 sm:bg-black/50 backdrop-blur-md border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.6)] transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] ${isFlipped ? 'translate-y-0 opacity-100 scale-100' : 'translate-y-16 opacity-0 scale-90 pointer-events-none'}`}>
+      <div className={`fixed bottom-[max(2rem,calc(env(safe-area-inset-bottom)+1rem))] left-1/2 -translate-x-1/2 z-50 flex items-center justify-between gap-3 max-[380px]:gap-2 px-3 sm:px-4 max-[380px]:px-2 py-1 max-[380px]:py-1 rounded-full bg-[#151515]/60 sm:bg-black/50 backdrop-blur-md border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.6)] transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] ${isFlipped ? 'translate-y-0 opacity-100 scale-100' : 'translate-y-16 opacity-0 scale-90 pointer-events-none'}`}>
         {mainItems.map((item, idx) => {
           const isSeqActive = highlightIndex === idx;
           const isViewActive = view === item.id;
@@ -1367,10 +1370,10 @@ const App = () => {
             <button 
               key={item.id}
               onClick={(e) => { e.preventDefault(); e.stopPropagation(); triggerVibration(); setView(item.id); }}
-              className={`relative w-8 h-8 sm:w-9 sm:h-9 max-[380px]:w-7 max-[380px]:h-7 rounded-full transition-all duration-300 flex items-center justify-center p-0 
+              className={`relative w-8 h-8 max-[380px]:w-7 max-[380px]:h-7 rounded-full transition-all duration-300 flex items-center justify-center p-0 
                 ${isActive ? 'bg-gradient-to-br from-rose-700 to-rose-400 text-white shadow-[0_0_15px_rgba(225,29,72,0.5)] scale-110 z-10' : 'text-rose-400/60 hover:text-rose-200 hover:bg-rose-900/40'}`}
             >
-              <item.icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 max-[380px]:w-3 max-[380px]:h-3" />
+              <item.icon className="w-3.5 h-3.5 max-[380px]:w-3 max-[380px]:h-3" />
             </button>
           );
         })}
@@ -1530,7 +1533,9 @@ const App = () => {
             <div className="h-[calc(3.5rem+env(safe-area-inset-top))] max-[380px]:h-[calc(3rem+env(safe-area-inset-top))] pt-[env(safe-area-inset-top)] border-b border-rose-900/50 flex items-center justify-between px-4 sm:px-5 bg-[#0a0205] shrink-0 relative z-20">
               <div className="flex items-center gap-3 max-[380px]:gap-2">
                 <Smartphone className="w-5 h-5 max-[380px]:w-4 max-[380px]:h-4 text-rose-400" />
-                <span className="text-rose-100 font-serif tracking-wider text-[11px] sm:text-sm max-[380px]:text-[10px] uppercase font-bold">{lang === 'ru' ? 'Смотреть' : lang === 'en' ? 'Watch' : 'Դիտել'}</span>
+                <span className="text-rose-100 font-serif tracking-wider text-[11px] sm:text-sm max-[380px]:text-[10px] uppercase font-bold">
+                  {iframeUrl === '/promo.mp4' ? (lang === 'ru' ? 'Видео' : lang === 'en' ? 'Video' : 'Տեսանյութ') : (lang === 'ru' ? 'Меню' : lang === 'en' ? 'Menu' : 'Մենյու')}
+                </span>
               </div>
               
               {iframeUrl !== '/promo.mp4' && (
